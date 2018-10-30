@@ -1,0 +1,109 @@
+*{
+    outline: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(255,255,255,0);
+}
+img{
+    outline: none;
+    border: 0;
+}
+#deviceready{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0);
+}
+
+#bgImgDiv,#errorDiv,.errorboxes{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+#bgImg,#skysrt_new{
+	position: absolute;
+    top: 130px;
+    left: 222px;
+    width: 1476px;
+    height: 710px;
+    display: none;
+}
+#bgImga,#bgImgt,#errorInfo{
+	position: absolute;
+    top: 380px;
+    left: 960px;
+    width: 464px;
+    height: 170px;
+    display: none;
+}
+#errorInfo{
+	top: 250px;
+    left: 738px;
+}
+.bgimges{
+	position: absolute;
+	top: 198px;
+	left: 169.5px;
+	height: 616px;
+	width: 1581px;
+}
+#buttonDiv1{
+	position: absolute;
+	top: 880px;
+    left: 710px;
+    height: 141px;
+    width: 528px;
+    background-image: url(../images/but_4599641.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+#qcode{
+	position: absolute;
+    top: 302px;
+    left: 320px;
+    padding: 7px;
+    background-color: white;
+    border-radius: 1px;
+    overflow: hidden;
+    display: none;
+}
+#errorqrcode{
+	position: absolute;
+    top: 173px;
+    left: 97px;
+    height: 400px;
+    width: 400px;
+    padding: 7px;
+    background-color: white;
+    display: none;
+}
+#coocaalogo{
+	position: absolute;
+    top: 432px;
+    left: 454px;
+    width: 152px;
+    height: 153px;
+    background-color: white;
+    border-radius: 15px;
+    z-index: 999;
+    display: none;
+}
+
+#errorskysrt,#errorInfo,#errorqrcode{
+	display: block;
+}
+.btn-focus{
+	/*border: 2px solid white;*/
+}
+

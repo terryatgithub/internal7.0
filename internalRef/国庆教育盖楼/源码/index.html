@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+        <meta http-equiv="expires" content="0">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <link rel="stylesheet" type="text/css" href="css/base_9f1b4a2.css?id=4">
+        <title>Skyworth</title>
+        <script>
+        //声明_czc对象:
+        var _czc = _czc || [];
+        //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+        //          _czc.push(["_setAccount", "1260740539"]);
+        _czc.push(["_setAccount", "1274861799"]);
+        </script>
+        <script>
+            var adjust = function() {
+                if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+                    var version = parseFloat(RegExp.$1);
+                    if(version > 2.3) {
+                        var phoneScale = parseInt(window.screen.width) / 1920;
+                        document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+                    } else {
+                        document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+                    }
+                } else {
+                    document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+                }
+            }
+            adjust();
+        </script>
+    </head>
+
+<body>
+    <div id="deviceready" class="content">
+        <div class="bg-mask coocaabtn" id="bgMask" style="display:none">
+            <span class="loading_img"><img src="images/loading.gif"/></span>
+        </div>
+        <div class="coocaabtn buttons" id="mybutton" style="display:none">
+            <div><img src="images/btn.gif" style="display:inline-block"/></div>
+        </div>
+        <div id="indexhtml" style="display:none" title="活动主页">
+            <div class="bg">
+                <!--已结束-->
+                <div id="drawend" style="display:none">
+                    <img src="images/end_bg.jpg">
+                </div>
+                <!--进行中/未开始-->
+                <div id="startdDraw" style="display:none">
+                    <img src="images/begin_bg.jpg" />
+                </div>
+            </div>
+            <div class="btnWrapper">
+                <div class="movie">
+                    <!--我要盖楼-->
+                    <div id="building_btn" class="building_btn btnFocus coocaabtn" style="display:none">
+                        <img class="myBtn" src="images/building.png" />
+                        <img class="myBtnBorder" src="images/building_focus.png" />
+                    </div>
+                    <!--更多机会-->
+                    <div id="chance_btn" class="chance_btn coocaabtn" style="display:none">
+                        <img class="myBtn" src="images/chance.png" />
+                        <img class="myBtnBorder" src="images/chance_focus.png" />
+                    </div>
+                </div>
+                <!--我的楼层-->
+                <div id="floor_btn" class="floor_btn margin_top85 coocaabtn" style="display:none">
+                    <img class="myBtn" src="images/floor.png" />
+                    <img class="myBtnBorder" src="images/floor_focus.png" />
+                </div>
+                <!--我的奖品-->
+                <div id="prize_btn" class="prize_btn margin_top85 coocaabtn" style="display:none">
+                    <img class="myBtn" src="images/prize.png" />
+                    <img class="myBtnBorder" src="images/prize_focus.png" />
+                </div>
+                <!--活动规则-->
+                <div id="rule_btn" class="rule_btn margin_top85 coocaabtn" style="display:none">
+                    <img class="myBtn" src="images/rule.png" />
+                    <img class="myBtnBorder" src="images/rule_focus.png" />
+                </div>
+            </div>
+            <!--剩余机会-->
+            <div class="foot" style="display:none">
+                余<span></span>次机会　购买季卡／半年卡／年卡可获得更多盖楼机会
+            </div>
+            <!--进行中中奖名单展示-->
+            <div id="demo" class="qimo8" style="display:none">
+              <div class="qimo">
+                <div id="demo1">
+                  <ul id="goods_list"> 
+                    <li id="g_00"></li>
+                  </ul>
+                </div>
+                <div id="demo2"></div>
+              </div>
+            </div>
+            <!--已结束中奖名单展示-->
+            <div id="awardList" style="display:none">
+                <div id="awardListTwo">
+                    <ul id="awardul">
+                        <!-- <li><span class="testspan1">名字</span><span class="testspan3">获得奖品</span></li> -->
+                    </ul>
+                </div>
+            </div>
+            <!--首页楼层-->
+
+            <div class="floor" id="indexfloor_box" style="display:none">
+                <div id="con">
+ <!--                    <div class="floor_box clearfix">
+                        <ul class="clearfix">
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>1.消息文字最长放多少个字啊多少个字啊</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="floor_box clearfix">
+                        <ul>
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>2.消息文字最长</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="floor_box clearfix">
+                        <ul class="clearfix">
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>3.消息文字最长放多少个字啊多少个字啊</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="floor_box clearfix">
+                        <ul>
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>4.消息文字最长放多少个字啊</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="floor_box clearfix">
+                        <ul class="clearfix">
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>5.消息文字最长放多少个字啊多少个字啊</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="floor_box clearfix">
+                        <ul>
+                            <li>
+                                <span class="user_face"><img src="images/face.png"/></span>
+                            </li>
+                            <li class="user_words">
+                                <p>6.消息文字最长放多少个字啊</p>
+                                <span class="floor_num">14#</span>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <!--抽中奖品 -->
+        <div class="jiangPinResult" id="confirmInfo" style="display:none;">
+            <div style="height:539px">
+                <ul id="type4" style="display:none">
+                    <p class="font36" style="margin-top:0px">恭喜您</p>
+                    <p class="font36">获得<span id="sponsor4_1"></span><span class="matter"></span></p>
+                    <div class="qrcode-box">
+                        <div class="qrcode"><img id="qrcode_img" width="180" height="180" src="" /></div>
+                        <p><span id="sponsor4_2">微信</span>扫码立即领取</p>
+                    </div>
+                </ul>
+                <ul id="type8" style="display:none">
+                    <div class="qrcode-box">
+                        <div class="qrcode" style="float: right; margin-right:144px; margin-top: 287px;"><span class="coocaabtn" id="qrcode8" leftTarget="#qrcode8" rightTarget="#qrcode8" upTarget="#qrcode8" downTarget="#qrcode8"></span></div>
+                    </div>
+                </ul>
+                <ul id="type2" style="display:none;">
+                    <p class="font36 prize_title" style="padding-top: 110px;">恭喜您获得<span class="matter"></span></p>
+                    <div class="clearfix" style="text-align:center; width:100%;">
+                        <div style="width:50%; float:left;">
+                            <img id="type2_img" src="" width="140" height="200" />
+                        </div>
+                        <div class="qrcode-box" style="width:50%; float:right;">
+                            <div class="qrcode"><span class="coocaabtn" id="qrcode2" leftTarget="#qrcode2" rightTarget="#qrcode2" upTarget="#qrcode2" downTarget="#qrcode2"></span></div>
+                        </div>
+                    </div>
+
+               </ul>
+                <ul id="type5" style="display:none;">
+                    <p class="font36 prize_title" style="padding-top: 140px;">恭喜您获得<span class="matter"></span></p>
+                    <div class="cards_img">
+                        <img id="type5_img" src="" width="459" height="236" />
+                    </div>
+                </ul>
+            </div>
+            <div class="btn_Get" id="confirmInfo_btn" style="margin-top:30px;">
+                <div class="coocaabtn submit" id="submit" leftTarget="#submit" upTarget="#submit" downTarget="#submit" style="display:none">
+                    <img class="prizeWd" title="我要盖楼" src="images/build_btn.png">
+                    <img class="prizeWd_focus" title="我要盖楼" src="images/build_btnfocus.png">
+                </div>
+                <div class="coocaabtn submit" id="use_submit" leftTarget="#submit" rightTarget="#use_submit" upTarget="#use_submit" downTarget="#use_submit" style="display:none;">
+                    <img class="prizeWd" title="立即使用" src="images/use.png">
+                    <img class="prizeWd_focus" title="立即使用" src="images/use_btnfocus.png">
+                </div>
+                <div class="coocaabtn submit" id="use_login" leftTarget="#submit" rightTarget="#use_login" upTarget="#use_login" downTarget="#use_login" style="display:none;">
+                    <img class="prizeWd" title="登录领取" src="images/login_btn.png">
+                    <img class="prizeWd_focus" title="登录领取" src="images/login_btnfocus.png">
+                </div>
+                <div class="coocaabtn submit" id="defalut_submit" leftTarget="#submit" rightTarget="#defalut_submit" upTarget="#defalut_submit" downTarget="#defalut_submit" style="display:none;">
+                    <img class="prizeWd" title="立即使用" src="images/use.png">
+                    <img class="prizeWd_focus" title="立即使用" src="images/use_btnfocus.png">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="buildPage" class="pagesboxes" style="display:none">
+            <div id="textbox">
+                <div id="mould1" class="moulds coocaabtn" upTarget="#mould1" downTarget="#mould3" leftTarget="#mould1" rightTarget="#mould2">
+                    <img class="myMouldsItem" src="images/profess/professbg2.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg22.png" />
+                    <div class="mouldsText1">我在朋友圈旅行，看遍了全世界</div>
+                </div>
+                <div id="mould2" class="moulds coocaabtn" upTarget="#mould2" downTarget="#mould4" leftTarget="#mould1" rightTarget="#mould2">
+                    <img class="myMouldsItem" src="images/profess/professbg1.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg11.png" />
+                    <div class="mouldsText1">圣托里尼爱琴海了解一下</div>
+                </div>
+                <div id="mould3" class="moulds coocaabtn" upTarget="#mould1" downTarget="#mould5" leftTarget="#mould3" rightTarget="#mould4">
+                    <img class="myMouldsItem" src="images/profess/professbg1.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg11.png" />
+                    <div class="mouldsText1">人在沙发瘫，心在夏威夷</div>
+                </div>
+                <div id="mould4" class="moulds coocaabtn" upTarget="#mould2" downTarget="#mould6" leftTarget="#mould3" rightTarget="#mould4">
+                    <img class="myMouldsItem" src="images/profess/professbg2.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg22.png" />
+                    <div class="mouldsText1">我做了个梦，全世界走了一遭</div>
+                </div>
+                <div id="mould5" class="moulds coocaabtn" downTarget="#fresh" upTarget="#mould3" leftTarget="#mould5" rightTarget="#mould6">
+                    <img class="myMouldsItem" src="images/profess/professbg2.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg22.png" />
+                    <div class="mouldsText1">有梦在手，全世界走一走</div>
+                </div>
+                <div id="mould6" class="moulds coocaabtn" downTarget="#fresh" upTarget="#mould4" leftTarget="#mould5" rightTarget="#mould6">
+                    <img class="myMouldsItem" src="images/profess/professbg1.png" />
+                    <img class="myMouldsBorder" src="images/profess/professbg11.png" />
+                    <div class="mouldsText1">别拦我，我要出去浪</div>
+                </div>
+            </div>
+            <div class="btn_Get" style="text-align:center">
+                <div id="fresh" class="coocaabtn" downTarget="#fresh" leftTarget="#fresh" rightTarget="#fresh">
+                    <img class="myMouldsItem" src="images/profess/fresh1.png" />
+                    <img class="myMouldsBorder" src="images/profess/fresh11.png" />
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div id="no_chance" style="display:none">
+            <div class="btn_Get" style="text-align:center">
+                <div id="add_3" class="coocaabtn" downTarget="#add_3" upTarget="#add_3" leftTarget="#add_3" rightTarget="#add_8">
+                    <img class="myMouldsItem" src="images/profess/chance3.png" />
+                    <img class="myMouldsBorder" src="images/profess/chance3_focus.png" />
+                </div>
+                <div id="add_8" class="coocaabtn" downTarget="#add_8" upTarget="#add_8" leftTarget="#add_3" rightTarget="#add_12">
+                    <img class="myMouldsItem" src="images/profess/chance8.png" />
+                    <img class="myMouldsBorder" src="images/profess/chance8_focus.png" />
+                </div>
+                <div id="add_12" class="coocaabtn" downTarget="#add_12" upTarget="#add_12" leftTarget="#add_8" rightTarget="#add_12">
+                    <img class="myMouldsItem" src="images/profess/chance12.png" />
+                    <img class="myMouldsBorder" src="images/profess/chance12_focus.png" />
+                </div>
+            </div>
+        </div>
+
+        <!--盖楼动画-->
+        <div class="coocaabtn" id="building" leftTarget="#building" rightTarget="#building" upTarget="#building" downTarget="#building" style="display:none">
+            <div class="build_gif"><img src="images/build/building.gif"/></div>
+            <div class="build"><img src="images/build/build.png"/></div>
+            <div class="news" id="news" style="display:none">
+                <ul class="clearfix">
+                    <li>
+                        <span class="user_face" id="builduser_face"><img src="images/face.png"/></span>
+                    </li>
+                    <li class="user_words" id="builduser_words">
+                        <p></p>
+                        <span class="floor_num"></span>
+                    </li>
+                </ul>
+            </div>
+            <span class="cloud1 cloud"><img src="images/build/cloud1.png"/></span>
+            <span class="cloud2 cloud"><img src="images/build/cloud3.png"/></span>
+            <span class="cloud3 cloud"><img src="images/build/cloud2.png"/></span>
+            <p class="build_type">正在盖楼中...</p>
+        </div>
+
+        <!--异常弹窗-->
+        <div class="jiangPinResult" id="popUp" title="" style="display:none">
+            <p id="text1"></p>
+            <p id="text2"></p>
+            <p id="text3"></p>
+            <p id="error_img"><img src="images/error.png"></p>
+            <div class="btn_Get error_btn" style="margin-top:60px;">
+                <div class="coocaabtn submit" id="error_submit" leftTarget="#error_submit" rightTarget="#error_submit_again" upTarget="#error_submit" downTarget="#error_submit">
+                    <img class="popUp_btn" src="images/error_btn.png">
+                    <img class="popUp_btnfocus" src="images/error_btnfocus.png">
+                </div>
+                <div class="coocaabtn submit" id="error_submit_again" leftTarget="#error_submit" rightTarget="#error_submit_again" upTarget="#error_submit_again" downTarget="#error_submit_again">
+                    <img class="popUp_btn" src="images/error_again.png">
+                    <img class="popUp_btnfocus" src="images/error_againfocus.png">
+                </div>
+            </div>
+        </div>
+        <!--活动规则-->
+        <div id="rule" class="coocaabtn" style="display:none">
+            <img src="images/rule_page.png" height="1080" width="1920" />
+        </div>
+        <!--我的奖品页-->
+        <div id="prize" style="display:none">
+            <!-- <p class="title">我的奖品</p> -->
+            <div class="prize_list" id="prize_list" style="display:none">
+                <ul style="height:270px">
+                    <div class="movie">
+                        <!--我要盖楼-->
+                        <div id="prize_building_btn1" class="building_btn coocaabtn" style="display:none">
+                            <img class="myBtn" src="images/building.png" />
+                            <img class="myBtnBorder" src="images/building_focus.png" />
+                        </div>
+                    </div>
+                    <!--随便看看-->
+                     <div class="coocaabtn submit" id="prize_toedu_btn" style="display:none">
+                        <img class="prizeWd" title="随便看看" src="images/toedu_btn.png">
+                        <img class="prizeWd_focus" src="images/toedu_btnfocus.png">
+                    </div>
+                </ul>
+                <ul id="prize_box" style="margin-top: 10px;" class="clearfix overhidden">
+<!--                     <div class="coocaabtn prize_box overdue">
+                        <img src="images/22_8331dfb.png" />
+                        <ul>
+                            <li class="li1">购物50元优惠券</li>
+                            <li class="li3">2018/08/02 12：55</li>
+                            <li class="li2">已过期</li>
+                        </ul>
+                    </div>
+                    <div class="coocaabtn prize_box grant btnFocus">
+                        <img class="prizebg_before" src="images/22_8331dfb.png" />
+                        <img class="prizebg_focus" src="images/prizeorderfocus_c92b093.png" />
+                        <ul>
+                            <li class="li1">购物50元优惠券</li>
+                            <li class="li3">2018/08/02 12：55</li>
+                            <li class="li2">已过期</li>
+                        </ul>
+                    </div> -->
+                </ul>
+            </div>
+            <div id="prize_null" style="display:none">
+                <div class="movie">
+                    <!--我要盖楼-->
+                    <div id="prize_building_btn" class="building_btn btnFocus coocaabtn">
+                        <img class="myBtn" src="images/building.png" />
+                        <img class="myBtnBorder" src="images/building_focus.png" />
+                    </div>
+                    <!--更多机会-->
+                    <div id="prize_chance_btn" class="chance_btn coocaabtn">
+                        <img class="myBtn" src="images/chance.png" />
+                        <img class="myBtnBorder" src="images/chance_focus.png" />
+                    </div>
+                </div>
+            </div>
+            <div id="prize_over" style="display:none">
+                <div class="recive_box">
+                    <div class="coocaabtn submit" id="recive_btn" leftTarget="#recive_btn" upTarget="#recive_btn" style="display:none;">
+                        <img class="prizeWd" title="领取" src="images/receive_btn.png">
+                        <img class="prizeWd_focus" src="images/receive_btnfocus.png">
+                    </div>
+                    <div class="coocaabtn submit" id="login_recive_btn" leftTarget="#login_recive_btn" rightTarget="#login_recive_btn" upTarget="#login_recive_btn" style="display:none;">
+                        <img class="prizeWd" title="登录领取" src="images/login_recive_btn.png">
+                        <img class="prizeWd_focus" src="images/login_recive_btnfocus.png">
+                    </div>
+                    <div class="coocaabtn submit" id="toedu_btn" leftTarget="#toedu_btn" rightTarget="#toedu_btn"downTarget="#toedu_btn" style="margin-top:60px">
+                        <img class="prizeWd" title="随便看看" src="images/toedu_btn.png">
+                        <img class="prizeWd_focus" src="images/toedu_btnfocus.png">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--我的楼层-->
+        <div id="myfloor" style="display:none">
+            <div class="movie">
+                <!--我要盖楼-->
+                <div id="floor_building_btn" class="building_btn coocaabtn">
+                    <img class="myBtn" src="images/building.png" />
+                    <img class="myBtnBorder" src="images/building_focus.png" />
+                </div>
+            </div>
+            <ul id="myfloor_box" style="margin-top:70px" class="clearfix overhidden">
+<!--                 <div class="coocaabtn flr_box btnFocus">
+                    <img class="prizebg_before" src="images/myfloor_bg_0ecabf6.png" />
+                    <img class="prizebg_focus" src="images/myfloor_bgfocus_6f6e1eb.png" />
+                    <ul>
+                        <li class="fl1"><span class="user_face"><img src="images/face.png"/></span></li>
+                        <li class="fl2">最长不会超过十四个字呀哈哈哈最长不会超过十四</li>
+                        <li class="fl3">
+                            <span>1000#</span>
+                            <span>2018-10-06</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="coocaabtn flr_box">
+                    <img class="prizebg_before" src="images/myfloor_bg_0ecabf6.png" />
+                    <img class="prizebg_focus" src="images/myfloor_bgfocus_6f6e1eb.png" />
+                    <ul>
+                        <li class="fl1"><span class="my_prize"><img src="images/my_prize_7ca8e43.png"/></span></li>
+                        <li class="fl2">最长不会超过十四个字呀哈哈哈</li>
+                        <li class="fl3">
+                            <span>1000#</span>
+                            <span>2018-10-06</span>
+                        </li>
+                    </ul>
+                </div> -->
+
+            </ul>
+        </div>
+
+        <div id="myfloor_null" style="display:none">
+            <div class="movie">
+                <!--我要盖楼-->
+                <div id="floornull_building_btn" class="building_btn coocaabtn">
+                    <img class="myBtn" src="images/building.png" />
+                    <img class="myBtnBorder" src="images/building_focus.png" />
+                </div>
+            </div>
+        </div>
+        <div id="prize_window_box" style="display:none">
+            <!-- 实物没填地址-->
+            <div class="jiangPinResult prize_window" id="prize_window_qrcode" style="display:none">
+                <ul class="title">
+                    <li style="font-size:36px" class="prize_title">获奖名称：<span class="prize_name"></span></li>
+                    <li style="font-size:30px">获奖时间：<span class="prize_time"></span></li>
+                </ul>
+                <ul class="qrcode_box  clearfix">
+                    <div class="prize_qrcode"><span class="coocaabtn" id="qrcode22" leftTarget="#qrcode22" rightTarget="#qrcode22" upTarget="#qrcode22" downTarget="#qrcode22"></span></div>
+                 </ul>
+
+            </div>
+            <!-- 实物已领取-->
+            <div class="jiangPinResult prize_window" id="prize_window_address" style="display:none">
+                <ul class="title">
+                    <li style="font-size:36px" class="prize_title">获奖名称：<span class="prize_name"></span></li>
+                    <li style="font-size:30px">获奖时间：<span class="prize_time"></span></li>
+                </ul>
+                <ul class="user_info_box">
+                    <li>收 货 人：<span class="user_name"></span></li>
+                    <li>联系电话：<span class="user_phone"></span></li>
+                    <li style="height:60px">收货地址：<span class="user_address">地址地址</span></li>
+                </ul>
+                <div class="btn_Get" id="confirmInfo_btn" style="margin-top:176px;">
+                    <div class="coocaabtn submit" id="sure_btn" leftTarget="#sure_btn" rightTarget="#sure_btn" upTarget="#sure_btn" downTarget="#sure_btn">
+                        <img src="images/sure_btn.png">
+                    </div>
+                </div>
+            </div>
+            <!-- 霸王单没填地址-->
+            <div class="jiangPinResult prize_window" id="prize_overlord_qrcode" style="display:none">
+                <ul class="title">
+                    <li style="font-size:36px" class="prize_title">获奖名称：<span class="prize_name"></span></li>
+                    <li style="font-size:30px">获奖时间：<span class="prize_time"></span></li>
+                    <li style="font-size:26px">注：仅活动期间的订单可享受霸王单</li>
+                </ul>
+                <ul class="qrcode_box clearfix">
+                    <div class="prize_qrcode"><span class="coocaabtn" id="qrcode88" leftTarget="#qrcode88" rightTarget="#qrcode88" upTarget="#qrcode88" downTarget="#qrcode88"></span></div>
+                 </ul>
+
+            </div>
+            <!-- 霸王单已领取-->
+            <div class="jiangPinResult prize_window" id="prize_window_overlord" style="display:none">
+                <ul class="title">
+                    <li style="font-size:36px" class="prize_title">获奖名称：<span class="prize_name"></span></li>
+                    <li style="font-size:30px">获奖时间：<span class="prize_time"></span></li>
+                    <li style="font-size:26px">注：仅活动期间的订单可享受霸王单</li>
+                </ul>
+                <ul class="user_info_box" style="padding-top:30px">
+                    <li style="text-align:center">联系人电话：<span class="user_phone"></span></li>
+                    <li style="text-align:center; font-size:30px">我们将在活动结束后的五个工作日内与您联系发放礼品</li>
+                </ul>
+                <div class="btn_Get" style="margin-top:176px;">
+                    <div class="coocaabtn submit" id="sure_btn_overlord" leftTarget="#sure_btn_overlord" rightTarget="#sure_btn_overlord" upTarget="#sure_btn_overlord" downTarget="#sure_btn_overlord">
+                        <img src="images/sure_btn.png">
+                    </div>
+                </div>
+            </div>
+            <!-- 优惠券已领取-->
+            <div class="jiangPinResult prize_window" id="prize_window_coupon" style="display:none; padding-top:20px">
+                <ul class="title">
+                    <li style="font-size:36px" class="prize_title">获奖名称：<span class="prize_name"></span></li>
+                    <li style="font-size:30px">获奖时间：<span class="prize_time"></span></li>
+                </ul>
+                <ul class="user_info_box">
+                    <p style="font-size:36px; padding-top:30px; color:#0e3ed0">该优惠券已发放至您的帐户</p>
+                </ul>
+                <div class="btn_Get" id="confirmInfo_btn" style="margin-top:220px;">
+                    <div class="coocaabtn submit" id="prize_user" leftTarget="#prize_user" rightTarget="#prize_user" upTarget="#prize_user" downTarget="#prize_user">
+                        <img src="images/prizeuse_btn.png">
+                    </div>
+                </div>
+                <!--  <p class="point">如有疑问，可关注[酷开会员]公众号咨询，或拨打客服热线：95105555</p> -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/adjust.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/qrcode.js"></script>
+    <script type="text/javascript" src="js/coocaamap.js"></script>
+    <script type="text/javascript" src="js/turntable.js"></script>
+    <script type="text/javascript" src="js/main.js?id=1"></script>
+    <script type="text/javascript" src="js/jquery.pause.min.js"></script>
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan  style='display:none' id='cnzz_stat_icon_1274861799'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1274861799' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript">
+    setTimeout("otherJsInit()", 1000);
+
+    function otherJsInit() {
+        var newScript = document.createElement('script');
+        newScript.type = 'text/javascript';
+        newScript.src = 'https://s19.cnzz.com/z_stat.php?id=1273388601&web_id=1273388601';
+        document.body.appendChild(newScript);
+    }
+    </script>
+</body>
+
+</html>

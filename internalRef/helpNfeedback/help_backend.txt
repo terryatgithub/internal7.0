@@ -1,0 +1,14 @@
+{
+"ret":0,
+"msg":"success",
+"data":[
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170426/20170426200635227529.jpg"],"question":"应用圈无法升级怎么办？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170303/20170303112728289288.jpg"],"question":"提示“服务器又开小差了”是怎么回事？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170908/20170908150857889240.jpg"],"question":"电视用久了卡顿怎么办？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170426/20170426200749857730.jpg"],"question":"应用一直在“等待中”,不下载也无法取消？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170303/20170303113033907980.jpg"],"question":"应用圈闪退、打开后白屏？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170303/20170303113117089466.jpg"],"question":"应用安装失败？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170303/20170303145428897244.jpg"],"question":"第三方应用使用体验问题？"},
+{"answerList":["http://img.sky.fs.skysrt.com/uploads/20170303/20170303113220268547.jpg"],"question":"各知名影视应用及其名字"}
+]
+}

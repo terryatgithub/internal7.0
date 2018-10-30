@@ -1,0 +1,104 @@
+<!DOCTYPE>
+	<head>
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>自定义屏保</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;border: 0;outline: 0;}
+			body{width: 1920px;height: 1080px;background-color: black;overflow: hidden;}
+			img{outline: none;border: 0;}
+			#deviceready{position: absolute;width: 100%;height: 100%;overflow: hidden;}
+			.bigboxs {position: absolute;left: 0;top: 0;width: 100%;height: 100%;-webkit-transition: opacity 3s linear;-moz-transition: opacity 3s linear;-o-transition: opacity 3s linear;transition: opacity 3s linear;opacity:1;}
+			#bigbg4{background-image: url(images/bg4.jpg);}
+			#qrcode {top: 120px;left: 30px;width: 930px;height: 880px;}
+			#qrcodeImg {position: absolute;top: 390px;left: 285px;width: 360px;height: 360px;display: none;}
+			#imgBox {top: 220px;left: 960px;width: 1120px;height: 800px;}
+			.myImgs {top: 80px;left: 60px;width: 1002px;height: 584px;}
+			#qrcode,#imgBox,.myImgs {position: absolute;background-repeat: no-repeat;background-size: 100%;}
+			.myImgs{-webkit-transition: opacity 3s linear;-moz-transition: opacity 3s linear;-o-transition: opacity 3s linear;transition: opacity 3s linear;opacity:1;}
+			.fadein {opacity: 100;filter: alpha(opacity=100);}
+			.fadeout {opacity: 0;filter: alpha(opacity=0);}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script >
+			(function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						console.log("viewport scale = " + phoneScale);
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			})();
+		</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<div id="bgbox">
+				<div class="bigboxs" id="bigbg1"></div>
+				<div class="bigboxs" id="bigbg2"></div>
+				<div class="bigboxs" id="bigbg3"></div>
+				<div class="bigboxs" id="bigbg4"></div>
+			</div>
+			<div id="qrcode">
+				<img id="qrcodeImg" src="">
+			</div>
+			<div id="imgBox">
+				<div class="myImgs" id="myImg1"></div>
+				<div class="myImgs" id="myImg2"></div>
+				<div class="myImgs" id="myImg3"></div>
+				<div class="myImgs" id="myImg4"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var tt = null;
+			setTimeout("otherPageInit()", 100);
+			function otherPageInit(){
+				$("#bigbg1").css("background-image", "url(images/bg1.jpg)");
+				$("#bigbg2").css("background-image", "url(images/bg2.jpg)");
+				$("#bigbg3").css("background-image", "url(images/bg3.jpg)");
+				$("#myImg1").css("background-image", "url(images/img1.jpg)");
+				$("#myImg2").css("background-image", "url(images/img2.jpg)");
+				$("#myImg3").css("background-image", "url(images/img3.jpg)");
+				$("#myImg4").css("background-image", "url(images/img4.jpg)");
+				$("#qrcode").css("background-image", "url(images/qrcodebg.png)");
+				$("#imgBox").css("background-image", "url(images/tv.png)");
+				tt = setInterval(turnImgs, 5000);
+			}
+			//申明图片数组中当前的轮播图片
+			cur_img = document.getElementById("bgbox").children.length - 1;
+			// 替换class达到淡入淡出的效果
+			function fadeIn(e1,e2) {
+			  	e1.className = "bigboxs";
+			  	e2.className = "myImgs";
+			};
+			function fadeOut(e1,e2) {
+				e1.className = "bigboxs fadeout";
+				e2.className = "myImgs fadeout";
+			};
+			function turnImgs(imgs) {
+				var imgs = document.getElementById("bgbox").children;
+				var imgs2 = document.getElementById("imgBox").children;
+				console.log(cur_img);
+				if(cur_img == 0) {
+					fadeOut(imgs[cur_img],imgs2[cur_img]);
+					cur_img = imgs.length - 1;
+					fadeIn(imgs[cur_img],imgs2[cur_img]);
+				} else {
+					fadeOut(imgs[cur_img],imgs2[cur_img]);
+					fadeIn(imgs[cur_img - 1],imgs2[cur_img - 1]);
+					cur_img--;
+				}
+			}
+		</script>
+	</body>
+</html>

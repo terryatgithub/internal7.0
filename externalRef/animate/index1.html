@@ -1,0 +1,187 @@
+<!DOCTYPE>
+	<head>
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>自定义屏保</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;border: 0;outline: 0;}
+			body{width: 1920px;height: 1080px;background-color: black;overflow: hidden;}
+			img{outline: none;border: 0;}
+			#deviceready{position: absolute;width: 100%;height: 100%;overflow: hidden;}
+			.bigboxs {position: absolute;width: 100%;height: 100%;overflow: hidden;display: block;opacity: 1;}
+			#bigbg1,#myImg2 {z-index: -1;}
+			#bigbg2,#myImg3 {z-index: -2;}
+			#bigbg3,#myImg4 {z-index: -3;}
+			#bigbg4 {z-index: -4;}
+			#qrcode {top: 120px;left: 30px;width: 930px;height: 880px;}
+			#qrcodeImg {position: absolute;top: 390px;left: 285px;width: 360px;height: 360px;display: none;}
+			#imgBox {top: 220px;left: 960px;width: 1120px;height: 800px;}
+			.myImgs {top: 80px;left: 60px;width: 1002px;height: 584px;}
+			#qrcode,#imgBox,.myImgs {position: absolute;background-repeat: no-repeat;background-size: 100%;}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+		<script >
+			(function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						console.log("viewport scale = " + phoneScale);
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			})();
+		</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<div id="bgbox">
+				<div class="bigboxs" id="bigbg1"></div>
+				<div class="bigboxs" id="bigbg2"></div>
+				<div class="bigboxs" id="bigbg3"></div>
+				<div class="bigboxs" id="bigbg4"></div>
+			</div>
+			<div id="qrcode">
+				<img id="qrcodeImg" src="">
+			</div>
+			<div id="imgBox">
+				<div class="myImgs" id="myImg1"></div>
+				<div class="myImgs" id="myImg2"></div>
+				<div class="myImgs" id="myImg3"></div>
+				<div class="myImgs" id="myImg4"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			setTimeout("otherPageInit()", 100);
+			function otherPageInit(){
+				$("#bigbg1").css("background-image", "url(images/bg1.jpg)");
+				$("#bigbg2").css("background-image", "url(images/bg2.jpg)");
+				$("#bigbg3").css("background-image", "url(images/bg3.jpg)");
+				$("#bigbg4").css("background-image", "url(images/bg4.jpg)");
+				$("#myImg1").css("background-image", "url(images/img1.jpg)");
+				$("#myImg2").css("background-image", "url(images/img2.jpg)");
+				$("#myImg3").css("background-image", "url(images/img3.jpg)");
+				$("#myImg4").css("background-image", "url(images/img4.jpg)");
+				$("#qrcode").css("background-image", "url(images/qrcodebg.png)");
+				$("#imgBox").css("background-image", "url(images/tv.png)");
+			}
+			
+			var tt = null;
+			var f = 0;
+			var a1 = ["#bigbg1", "#bigbg2", "#bigbg3", "#bigbg4"];
+			var b1 = ["#myImg1", "#myImg2", "#myImg3", "#myImg4"];
+			var t = 2000;
+			
+			var oImg1 = document.getElementById("bigbg1");
+			var oImg2 = document.getElementById("bigbg2");
+			var oImg3 = document.getElementById("bigbg3");
+			var oImg4 = document.getElementById("bigbg4");
+			var alpha1 = Number(getStyle(oImg1,"opacity"));
+			var alpha2 = Number(getStyle(oImg2,"opacity"));
+			var alpha3 = Number(getStyle(oImg3,"opacity"));
+			var alpha4 = Number(getStyle(oImg4,"opacity"));
+			var timer1,timer2,timer3,timer4 = null;
+			tt = setInterval(changeTexrInfo2,t);
+			function changeTexrInfo2() {
+				var speed0 = 0.0333;
+				var t0 = 66.6666;
+				if(f == 0) {
+					clearInterval(timer1);
+					timer1 = setInterval(function(){
+					    var speed = speed0;
+					    console.log(alpha1);
+					    if(alpha1 <= 0){
+					        clearInterval(timer1);
+					        $("#bigbg1").css("z-index","-4");
+							$("#bigbg2").css("z-index","-1");
+							$("#bigbg3").css("z-index","-2");
+							$("#bigbg4").css("z-index","-3");
+							$("#bigbg1").css("opacity","1");
+							alpha1 = 1;
+					    }else{
+					        alpha1 = (alpha1*10 - speed*10)/10;
+					        oImg1.style.opacity = alpha1;
+					        oImg1.style.filter = "alpha(opacity="+ alpha1*100 +")";
+					    }
+					},t0);
+					f++;
+				} else if(f == 1) {
+					clearInterval(timer2);
+					timer2 = setInterval(function(){
+					    var speed = speed0;
+					    console.log(alpha2);
+					    if(alpha2 <= 0){
+					        clearInterval(timer2);
+					        $("#bigbg1").css("z-index","-3");
+							$("#bigbg2").css("z-index","-4");
+							$("#bigbg3").css("z-index","-1");
+							$("#bigbg4").css("z-index","-2");
+							$("#bigbg2").css("opacity","1");
+							alpha2 = 1;
+					    }else{
+					        alpha2 = (alpha2*10 - speed*10)/10;
+					        oImg2.style.opacity = alpha2;
+					        oImg2.style.filter = "alpha(opacity="+ alpha2*100 +")";
+					    }
+					},t0);
+					f++;
+				} else if(f == 2) {
+					clearInterval(timer3);
+					timer3 = setInterval(function(){
+					    var speed = speed0;
+					    console.log(alpha3);
+					    if(alpha3 <= 0){
+					        clearInterval(timer3);
+					        $("#bigbg1").css("z-index","-2");
+							$("#bigbg2").css("z-index","-3");
+							$("#bigbg3").css("z-index","-4");
+							$("#bigbg4").css("z-index","-1");
+							$("#bigbg3").css("opacity","1");
+							alpha3 = 1;
+					    }else{
+					        alpha3 = (alpha3*10 - speed*10)/10;
+					        oImg3.style.opacity = alpha3;
+					        oImg3.style.filter = "alpha(opacity="+ alpha3*100 +")";
+					    }
+					},t0);
+					f++;
+				} else if(f == 3) {
+					clearInterval(timer4);
+					timer4 = setInterval(function(){
+					    var speed = speed0;
+					    console.log(alpha4);
+					    if(alpha4 <= 0){
+					        clearInterval(timer4);
+					        $("#bigbg1").css("z-index","-1");
+							$("#bigbg2").css("z-index","-2");
+							$("#bigbg3").css("z-index","-3");
+							$("#bigbg4").css("z-index","-4");
+							$("#bigbg4").css("opacity","1");
+							alpha4 = 1;
+					    }else{
+					        alpha4 = (alpha4*10 - speed*10)/10;
+					        oImg4.style.opacity = alpha4;
+					        oImg4.style.filter = "alpha(opacity="+ alpha4*100 +")";
+					    }
+					},t0);
+					f = 0;
+				}
+			}
+			function getStyle (obj, attr) {
+			    if(window.getComputedStyle){
+			        return window.getComputedStyle(obj,null)[attr];
+			    }else{
+			        return obj.currentStyle[attr];
+			    }
+			}
+		</script>
+	</body>
+</html>

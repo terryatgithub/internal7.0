@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/reset_8898b55.css" />
+		<link rel="stylesheet" href="css/index_9786a64.css" />
+		<title>Skyworth</title>
+
+		<script>
+			var adjust = function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			}
+			adjust();
+		</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<div id="homePage" class="pagesboxes">
+				<div id="gifBox"></div>
+				<div id="moneyBox" class="firstDiv"></div>
+				<div id="moneyBox2" class="firstDiv"></div>
+				<div id="awardListBox" class="firstDiv">
+					<div id="awardList">
+						<div id="list1" class="listInfo1"></div>
+						<div id="list2" class="listInfo2"></div>
+						<div id="list3" class="listInfo3"></div>
+						<div id="list4" class="listInfo4"></div>
+					</div>
+				</div>
+				<div id="notstart" class="firstDiv"></div>
+				<div id="hasend" class="firstDiv"></div>
+				<div id="salvage" class="coocaa_btn firstDiv" upTarget="#salvage" downTarget="#salvage" leftTarget="#salvage" rightTarget="#dreamFly">
+					<img class="buttonBorder2" src="images/home/border.png">
+					<div id="remainNumber"></div>
+				</div>
+				<div id="lylgif" src="images/home/getaward.gif"></div>
+				<div id="dreamFly" class="coocaa_btn firstDiv" upTarget="#dreamFly" downTarget="#dreamFly">
+					<img class="buttonBorder2" src="images/home/border.png">
+				</div>
+				<div id="gbgif" src="images/home/morechance.gif"></div>
+				<div id="mydream" class="coocaa_btn firstDiv" leftTarget="#dreamFly" rightTarget="#mydream">
+					<img class="itemBorder" src="images/home/profess1.png" />
+					<img class="buttonBorder" src="images/home/profess11.png" />
+				</div>
+				<div id="myaward" class="coocaa_btn firstDiv" leftTarget="#dreamFly" rightTarget="#myaward">
+					<img class="itemBorder" src="images/home/award1.png" />
+					<img class="buttonBorder" src="images/home/award11.png" />
+				</div>
+				<div id="rules" class="coocaa_btn firstDiv" leftTarget="#dreamFly" rightTarget="#rules">
+					<img class="itemBorder" src="images/home/rules1.png" />
+					<img class="buttonBorder" src="images/home/rules11.png" />
+				</div>
+				<div id="confession" class="coocaa_btn firstDiv"></div>
+				<div id="showBox" class="firstDiv">
+					<div id="cardInfoShow" class="homeShow5">
+						<div id="homeText" class="homeText"></div>
+						<div id="homeInfo" class="homeInfo">
+							<span id="hometime"></span>
+							<span id="homeauthor"></span>
+							<span id="homeword">From:</span>
+						</div>
+					</div>
+				</div>
+				<div id="errorToast1"></div>
+				<div id="errorToast2">今日抽奖机会已用完,参加告白活动可以解锁更多机会哦~</div>
+			</div>
+			<div id="flyPage" class="pagesboxes">
+				<div id="curName"><span id="curName2"></span><span id="curName3">说：</span></div>
+				<div id="curtext">我能想到最浪漫的事，就是和你一起变老。</div>
+				<div id="curTime"></div>
+				<div id="flyBox" class="coocaa_btn2">
+					<img class="flyBorder" src="images/profess/fly11.png" />
+				</div>
+				<div id="textbox">
+					<div id="mould1" class="moulds coocaa_btn2" downTarget="#mould3" leftTarget="#mould1" rightTarget="#mould2">
+						<img class="myMouldsItem" src="images/profess/professbg2.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg22.png" />
+						<div class="mouldsText1">我能想到最浪漫的事，就是和你一起变老。</div>
+					</div>
+					<div id="mould2" class="moulds coocaa_btn2" downTarget="#mould4" leftTarget="#mould1" rightTarget="#mould2">
+						<img class="myMouldsItem" src="images/profess/professbg1.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg11.png" />
+						<div class="mouldsText1">七夕佳节，愿阖家安康。</div>
+					</div>
+					<div id="mould3" class="moulds coocaa_btn2" upTarget="#mould1" downTarget="#mould5" leftTarget="#mould3" rightTarget="#mould4">
+						<img class="myMouldsItem" src="images/profess/professbg1.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg11.png" />
+						<div class="mouldsText1">天涯明月新，朝暮最相思。</div>
+					</div>
+					<div id="mould4" class="moulds coocaa_btn2" upTarget="#mould2" downTarget="#mould6" leftTarget="#mould3" rightTarget="#mould4">
+						<img class="myMouldsItem" src="images/profess/professbg2.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg22.png" />
+						<div class="mouldsText1">我不要短暂的温存，只要你一世的陪伴。</div>
+					</div>
+					<div id="mould5" class="moulds coocaa_btn2" upTarget="#mould3" leftTarget="#mould5" rightTarget="#mould6">
+						<img class="myMouldsItem" src="images/profess/professbg2.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg22.png" />
+						<div class="mouldsText1">我喜欢春晨、夏日、秋夜、冬雪和你。</div>
+					</div>
+					<div id="mould6" class="moulds coocaa_btn2" upTarget="#mould4" leftTarget="#mould5" rightTarget="#mould6">
+						<img class="myMouldsItem" src="images/profess/professbg1.png" />
+						<img class="myMouldsBorder" src="images/profess/professbg11.png" />
+						<div class="mouldsText1">纵有万般野心，却只为你一人。</div>
+					</div>
+				</div>
+				<div id="fresh" class="coocaa_btn2">
+					<img class="myMouldsItem" src="images/profess/fresh1.png" />
+					<img class="myMouldsBorder" src="images/profess/fresh11.png" />
+				</div>
+				<div id="errorToast">告白内容不能为空，请重试</div>
+				<div id="flyQrcodeBox">
+					<div id="flyQrc0de"></div>
+				</div>
+			</div>
+			<div id="dreamPage" class="pagesboxes">
+				<div id="myDreamBox"></div>
+				<div id="nullDream" class="coocaa_btn32"></div>
+			</div>
+			<div id="awardPage" class="pagesboxes">
+				<div id="myAwardBox"></div>
+				<div id="nullAward" class="coocaa_btn42"></div>
+				<div id="infoToast">抱歉,此奖品已过期</div>
+			</div>
+			<div id="rulesPage" class="pagesboxes">
+				<div id="rulesBox">
+					<div id="rules1" class="rulesitem coocaa_btn5"></div>
+					<div id="rules2" class="rulesitem coocaa_btn5"></div>
+				</div>
+			</div>
+			<div id="dialogPage" class="pagesboxes">
+				<!--告白卡-->
+				<div id="category1" class="prizetoast coocaa_btn6">
+					<div id="confessionAuthor" class="author4"></div>
+					<div id="confessionText" class="text4"></div>
+					<div id="confessionTime" class="time4"></div>
+				</div>
+				<!--机会卡-->
+				<div id="category2" class="prizetoast">
+					<div id="choiceitem3" class="coocaa_btn6"></div>
+				</div>
+				<!--优惠券-->
+				<div id="category3" class="prizetoast">
+					<!--弹窗-->
+					<div id="dialog31" class="dialogbox">
+						<img id="dialog31_img1" src="" />
+						<div id="dialog31_info1">已放入账户，可马上使用好运</div>
+						<img id="getrightnow" class="category3Button coocaa_btn6" src="images/dialog/coupon/touse.png" />
+						<img id="gotoLogin" class="category3Button coocaa_btn6" src="images/dialog/coupon/login.png" />
+					</div>
+					<!--我的奖品页-->
+					<div id="dialog32" class="dialogbox">
+						<div id="coupon_info21" class="couponInfo"></div>
+						<div id="coupon_info22" class="couponInfo"></div>
+						<img id="getAgain" class="category3Button coocaa_btn6" src="images/dialog/coupon/getagain.png" />
+						<img id="gotoUse" class="category3Button coocaa_btn6" src="images/dialog/coupon/touse.png" />
+						<img id="gotoLogin2" class="category3Button coocaa_btn6" src="images/dialog/coupon/login.png" />
+					</div>
+				</div>
+				<!--现金红包-->
+				<div id="category4" class="prizetoast">
+					<!--弹窗-->
+					<div id="dialog41" class="dialogbox">
+						<div id="redNumber"></div>
+						<div id="redQrcode" class="coocaa_btn6"></div>
+						<div id="redNologin" class="coocaa_btn6"></div>
+					</div>
+					<!--我的奖品页-->
+					<div id="dialog42" class="dialogbox">
+						<div id="redName" class="redInfo"></div>
+						<div id="redTime" class="redInfo"></div>
+						<div id="redNologin2" class="coocaa_btn6"></div>
+						<div id="redHasGot" class="coocaa_btn6"></div>
+						<div id="redInfo">请扫码完成领取</div>
+						<div id="redQrcodebox2">
+							<div id="redQrcode2"></div>
+						</div>
+						<div id="redNotGet" class="coocaa_btn6"></div>
+					</div>
+				</div>
+				<!--实物奖品-->
+				<div id="category5" class="prizetoast">
+					<!--弹窗-->
+					<div id="dialog50" class="dialogbox">
+						<div id="entityName"></div>
+						<img id="curImg" src="" />
+						<div id="entityAward_no" class="entitybtn coocaa_btn6"></div>
+						<div id="entityQrcodeBox">
+							<div id="entityQrcode" class="entitybtn coocaa_btn6"></div>
+						</div>
+					</div>
+
+					<!--我的奖品页-已领取-->
+					<div id="dialog51" class="dialogbox">
+						<div id="entity_info11" class="entityAwardInfo"></div>
+						<div id="entity_info12" class="entityAwardInfo"></div>
+						<div id="entity_info13" class="entityAwardInfo"></div>
+						<div id="entity_info14" class="entityAwardInfo"></div>
+						<div id="entity_info15" class="entityAwardInfo"></div>
+						<div id="myAwardYes" class="entitybtn coocaa_btn6"></div>
+					</div>
+					<!--我的奖品页-未领取-未登录-->
+					<div id="dialog52" class="dialogbox">
+						<div id="entity_info21" class="entityAwardInfo"></div>
+						<div id="entity_info22" class="entityAwardInfo"></div>
+						<div id="myAwardNoLogin" class="entitybtn coocaa_btn6"></div>
+					</div>
+					<!--我的奖品页-未领取-已登录-->
+					<div id="dialog53" class="dialogbox">
+						<div id="entity_info31" class="entityAwardInfo"></div>
+						<div id="entity_info32" class="entityAwardInfo"></div>
+						<div id="entityQrcode2"></div>
+						<div id="myAwardLogined" class="entitybtn coocaa_btn6"></div>
+					</div>
+				</div>
+				<!--产品包直减-->
+				<div id="category6" class="prizetoast">
+					<div id="dialog61" class="dialogbox aqiyi">
+						<div id="package_no" class="packagebtn coocaa_btn6"></div>
+						<div id="package_yes" class="packagebtn coocaa_btn6"></div>
+					</div>
+					<div id="dialog62" class="dialogbox">
+						<div id="package_info31" class="packageInfo"></div>
+						<div id="package_info32" class="packageInfo"></div>
+						<div id="package_buy" class="coocaa_btn6"></div>
+					</div>
+				</div>
+				<!--提交成功-->
+				<div id="category7" class="prizetoast">
+					<div id="success_home" class="professsubmit coocaa_btn6"></div>
+					<div id="success_profess" class="professsubmit coocaa_btn6"></div>
+				</div>
+				<!--提交失败-->
+				<div id="category8" class="prizetoast">
+					<div id="failure_again" class="professsubmit coocaa_btn6"></div>
+					<div id="failure_latter" class="professsubmit coocaa_btn6"></div>
+				</div>
+				<!--第三方-->
+				<div id="category9" class="prizetoast">
+					<div id="dialog91" class="dialogbox">
+						<img id="coupon_qrcode1" class="couponInfo coocaa_btn9" src=""></img>
+					</div>
+					
+					<div id="dialog92" class="dialogbox">
+						<div id="coupon_info91" class="couponInfo"></div>
+						<div id="coupon_info92" class="couponInfo"></div>
+						<img id="coupon_qrcode2" class="couponInfo coocaa_btn9" src=""></img>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.0_781a0d3.js"></script>
+		<script type="text/javascript" src="js/qrcode_663ef62.js"></script>
+		<script type="text/javascript" src="cordova_3484bcd.js"></script>
+		<script type="text/javascript" src="js/framework_ba4686d.js"></script>
+		<script type="text/javascript">
+			setTimeout("otherPageInit()",10000);
+    		function otherPageInit(){
+    			console.log("--------------------------->hello");
+//  			$("#flyPage").css("background-image","url(images/profess/bg2.jpg)");
+//  			$("#dreamPage").css("background-image","url(images/dream/bg3.jpg)");
+//  			$("#awardPage").css("background-image","url(images/award/bg4.jpg)");
+//  			$("#rulesPage").css("background-image","url(images/rules/bg.jpg)");
+//  			$("#rules1").css("background-image","url(images/rules/rules1.png)");
+//  			$("#rules2").css("background-image","url(images/rules/rules2.png)");
+//  			$("#notstart").css("background-image","url(images/home/nostart.png)");
+//  			$("#hasend").css("background-image","url(images/home/end.png)");
+//  			$("#confession").css("background-image","url(images/home/ing.png)");
+//  			$("#errorToast2").css("background-image","url(images/home/toast.png)");
+//  			$("#nullDream").css("background-image","url(images/dream/nodream.png)");
+//  			$("#nullAward").css("background-image","url(images/award/noaward.png)");
+//  			$("#category2").css("background-image","url(images/dialog/choice/choice11.png)");
+//  			$("#dialog31").css("background-image","url(images/dialog/coupon/dialogbg.png)");
+//  			$("#dialog32").css("background-image","url(images/dialog/coupon/myawardbg.png)");
+//  			$("#dialog91").css("background-image","url(images/dialog/coupon/zdfjd.png)");
+//  			$("#dialog92").css("background-image","url(images/dialog/coupon/zdfjd2.png)");
+//  			$("#dialog42").css("background-image","url(images/dialog/hongbao/money3.png)");
+//  			$("#redHasGot").css("background-image","url(images/dialog/hongbao/hasgot.png)");
+//  			$("#redNologin2").css("background-image","url(images/dialog/hongbao/needlogin.png)");
+//  			$("#redNotGet").css("background-image","url(images/dialog/hongbao/hasgot.png)");
+//  			$("#redQrcodebox2").css("background-image","url(images/dialog/hongbao/qcode.png)");
+//  			$("#dialog62").css("background-image","url(images/dialog/package/package4.png)");
+//  			$("#package_no").css("background-image","url(images/dialog/package/package2.png)");
+//  			$("#package_yes").css("background-image","url(images/dialog/package/package3.png)");
+//  			$("#category7").css("background-image","url(images/dialog/profess/success.png)");
+//  			$("#category8").css("background-image","url(images/dialog/profess/failure.png)");
+//  			$("#dialog50").css("background-image","url(images/dialog/entityaward/entityAward1.png)");
+//  			$("#dialog51").css("background-image","url(images/dialog/entityaward/myawardget.png)");
+//  			$("#dialog52").css("background-image","url(images/dialog/entityaward/myawardnologin.png)");
+//  			$("#dialog53").css("background-image","url(images/dialog/entityaward/myawardlogin.png)");
+//  			$("#entityQrcodeBox").css("background-image","url(images/dialog/entityaward/qrcode.png)");
+//  			$("#entityAward_no").css("background-image","url(images/dialog/entityaward/login.png)");
+//  			$("#gifBox").css("background-image","url(images/home/gif1.gif)");
+    		}
+    	</script>
+	</body>
+</html>

@@ -1,0 +1,834 @@
+body{
+    font: 12px/24px Arial, 'Microsoft Yahei',"宋体", sans-serif;
+}
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+}
+img[src='']{
+    visibility: hidden;
+}
+
+#deviceready,#mainPage,#dialogPage,#myAwardPage{
+	position: absolute;
+	height: 1080px;
+	width: 1920px;
+	display: none;
+}
+#deviceready{
+	display: block;
+}
+.boxChoices{
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	height: 65px;
+	width: 230px;
+	line-height: 65px;
+	text-align: center;
+	color: #66340c;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	z-index: 100;
+}
+#myDrawBox{
+	left: 720px;
+	font-size: 24px;
+	background-image: url(../images/draw/tabblur.png);
+}
+#myCardBox{
+	right: 715px;
+	font-size: 24px;
+	background-image: url(../images/draw/tabblur.png);
+}
+#myDrawBox.btn-focus,#myCardBox.btn-focus{
+	background-image: url(../images/draw/tabfocus.png);
+}
+#cardnumber{
+	color: #6900aa;
+}
+.boxInfo{
+	position: absolute;
+	top: 0;
+	left: 0;
+    height: 1080px;
+    width: 1920px;
+    background-repeat: no-repeat;
+	background-size: 100%;
+    display: none;
+}
+#turntable{
+	position: absolute;
+    top: 140px;
+    left: 258px;
+    height: 792px;
+    width: 801px;
+}
+.rotates{
+	position: absolute;
+	top: 38px;
+	left: 48px;
+	height: 703px;
+	width: 703px;
+	display: none;
+}
+#drawbutton{
+	position: absolute;
+	top: 255px;
+	left: 312px;
+	height: 225px;
+	width: 176px;
+}
+.drawbtn{
+	position: absolute;
+    left: 1267px;
+    height: 156px;
+    width: 336px;
+    
+}
+.drawbtnbgblur,.drawbtnbgfocus,.turnElement,.turnborder,.drawbutton,.homebtnblur,.hometnfocus{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+.turnborder,.drawbutton,.drawbtnbgfocus,.homebtnfocus,.btn-focus .drawbtnbgblur,.btn-focus .homebtnblur{
+	display: none;
+}
+#turnborder1,#drawbutton1,.btn-focus .drawbtnbgfocus,.btn-focus .homebtnfocus{
+	display: block;
+}
+#drawBtn1{
+	top: 376px;
+}
+#drawBtn2{
+	top: 536px;
+}
+#drawBtn3{
+	top: 696px;
+}
+#actionstart,#myDrawBox,#myCardBox{
+	display: none;
+}
+#notbegin{
+	position: absolute;
+    top: 400px;
+    left: 1125px;
+    width: 594px;
+    height: 500px;
+    display: none;
+   /*display: block;*/
+}
+#notbeginbg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 594px;
+	height: 298px;
+	background-repeat: no-repeat;
+    background-size: 100%;
+}
+#gotomain{
+	position: absolute;
+    height: 77px;
+    width: 244px;
+    top: 316px;
+    left: 175px;
+    background-image: url(../images/draw/gotohome.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#mainborder{
+	position: absolute;
+    height: 109px;
+    width: 278px;
+    top: 300px;
+    left: 158px;
+    background-image: url(../images/draw/border2.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+.btn-focus #mainborder{
+	display: block;
+}
+#hasend{
+	position: absolute;
+    top: 400px;
+    left: 1125px;
+    height: 298px;
+    width: 594px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+#threeline{
+	position: absolute;
+    top: 446px;
+    left: 999px;
+    height: 329px;
+    width: 288px;
+    background-image: url(../images/draw/line.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#option1{
+	position: absolute;
+    top: 410px;
+    left: 1595px;
+    padding: 8px 20px 0px 25px;
+    height: 87px;
+    width: 185px;
+    text-align: center;
+    font-size: 28px;
+    line-height: 36px;
+    color: #b55ee4;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    opacity: 0.6;
+}
+#option2,#option3{
+	position: absolute;
+	color: #643f07;
+	left: 1040px;
+    width: 305px;
+    height: 36px;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+}
+#option2{
+    top: 928px;
+}
+#option3{
+    top: 966px;
+}
+#gotohome{
+	position: absolute;
+	top: 834px;
+	left: 1690px;
+	height: 117px;
+	width: 229px;
+	display: none;
+}
+#myawardsBox{
+	position: absolute;
+    top: 150px;
+    height: 830px;
+    left: 195px;
+    width: 1530px;
+    overflow: hidden;
+}
+#noCardsBox{
+	display: none;
+}
+#noCardsBg{
+	position: absolute;
+    height: 312px;
+    width: 900px;
+    top: 400px;
+    left: 510px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#noCardsBtn{
+	position: absolute;
+    height: 140px;
+    width: 480px;
+    top: 570px;
+    left: 720px;
+}
+.noCardsImg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+.btn-focus .noCardsImg{
+	display: block;
+}
+.mycards{
+	display: inline-block;
+    height: 285px;
+    width: 245px;
+    margin: 25px 30px;
+    float: left;
+    background-color: rgba(255,255,255,0.3);
+}
+.cardimg{
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+.numbox{
+	position: relative;
+    display: inline-block;
+    margin-left: -44px;
+    top: -242px;
+    left: 0px;
+    width: 0;
+    height: 0;
+    border: 22px solid transparent;
+    border-right: 22px solid #ff1276;
+    border-top: 22px solid #ff1276;
+}
+.numtitle{
+	position: relative;
+    display: inline-block;
+    font-size: 20px;
+    top: -290px;
+    left: 220px;
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    text-align: center;
+}
+.btn-focus.mycards{
+	box-shadow: 0px 5px 40px rgba(0,0,0,0.7);
+}
+#dialogPage{
+	background-color: rgba(0,0,0,0.8);
+	z-index: 100;
+}
+.toast1,.toast2,.toast3{
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	display: none;
+}
+.toast1{
+	top: 279px;
+	left: 543px;
+	width: 836px;
+	height: 523px;
+}
+.toast2{
+	top: 195px;
+	left: 491px;
+	width: 944px;
+	height: 605px;
+}
+#ensureInfo{
+	position: absolute;
+    display: inline-block;
+    top: 210px;
+    left: 510px;
+    height: 62px;
+    width: 75px;
+    line-height: 62px;
+    font-size: 60px;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+.ensureBtn,.nochanceBtn,.awardBtn{
+	position: absolute;
+	display: inline-block;
+	top: 415px;
+    height: 92px;
+    width: 233px;
+}
+.choicebtn{
+	position: absolute;
+	display: block;
+	top: 18.5px;
+	left: 20px;
+	height: 55px;
+	width: 194px;
+}
+.btnborder{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+.btn-focus .btnborder{
+	display: block;
+}
+#iknow,#getCard,#gotoMyAwards{
+	left: 190px;
+}
+#wait,#wait2,#wait3{
+	left: 430px;
+}
+.awardInfos{
+	position: absolute;
+    height: 50px;
+    width: 636px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 32px;
+    left: 66px;
+    top: 65px;
+    color: white;
+    overflow: hidden;
+    font-weight: 600;
+}
+#couponAwardInfo{
+	top: 115px;
+	left: 115px;
+}
+#cardsAwardInfo{
+	top: 125px;
+    font-size: 34px;
+    left: 100px;
+}
+#getBigInfo{
+	top: 141px;
+    left: 115px;
+}
+#cardsAwardInfo2{
+	top: 165px;
+	left: 114px;
+    font-size: 24px;
+}
+#cardsAwardImg{
+	position: absolute;
+    top: 210px;
+    left: 270px;
+    height: 205px;
+    width: 320px;
+    background-color: rgba(255,255,255,0.5);
+}
+#checkCards{
+	left: 190px;
+}
+#wait4{
+	left: 430px;
+}
+#enOrRedAwardInfo2,#couponAwardInfo2{
+	position: absolute;
+    height: 50px;
+    width: 636px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    left: 116px;
+    top: 372px;
+    color: #033e04;
+}
+#enOrRedAwardInfo{
+	top: 115px;
+    left: 115px;
+}
+#enOrRedAwardBox{
+	position: absolute;
+    top: 175px;
+    left: 327px;
+    height: 200px;
+    width: 200px;
+    background-image: url(../images/dialog/awardsbg.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#enOrRedAwardImg{
+	position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 190px;
+    width: 190px;
+}
+#couponAwardInfo2{
+	top: 155px;
+}
+#couponAwardImg{
+	position: absolute;
+    top: 227px;
+    left: 255px;
+    height: 162px;
+    width: 345px;
+}
+#couponLogin,#couponUse{
+	left: 315px;
+	display: none;
+}
+#couponFail{
+	background-image: url(../images/dialog/fail.png);
+}
+#couponFailBtn{
+	left: 315px;
+}
+#thirdAward{
+	top: 100px;
+	left: 598px;
+	height: 864px;
+	width: 724px;
+}
+#thirdAwardInfo{
+    left: 112px;
+    top: 107px;
+    width: 500px;
+    font-size: 30px;
+}
+#thirdAwardInfo2{
+	left: 112px;
+    top: 145px;
+    width: 500px;
+    font-size: 24px;
+    color: #033E04;
+}
+#thirdAwardInfo3{
+	left: 62px;
+    top: 720px;
+    width: 600px;
+    font-size: 24px;
+    color: white;
+}
+#thirdAwardImg{
+	position: absolute;
+    top: 190px;
+    left: 100px;
+    height: 530px;
+    width: 520px;
+    background-color: rgba(255,255,255,0.5);
+}
+#gotoMyAwards2{
+	top: 754px;
+	left: 125px;
+}
+#wait5{
+	top: 754px;
+	left: 363px;
+}
+.rednumber{
+	position: relative;
+    margin-top: -130px;
+    margin-left: 35px;
+    height: 36px;
+    width: 123px;
+    text-align: center;
+    line-height: 34px;
+    font-size: 32px;
+    color: #f8e85c;
+    overflow: hidden;
+}
+#errorText{
+	position: absolute;
+    top: 800px;
+    height: 100px;
+    width: 700px;
+    left: 610px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 15px;
+    line-height: 100px;
+    font-size: 46px;
+    display: none;
+}
+#getBigQrcode{
+	position: absolute;
+	top: 215px;
+    left: 158px;
+    height: 190px;
+    width: 190px;
+}
+#myAwardPage{
+	display: none;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#myAwardBox,#noAwardBox{
+	position: absolute;
+    top: 170px;
+    left: 130px;
+    height: 840px;
+    width: 1670px;
+    overflow: hidden;
+    display: none;
+}
+#noAwardBtn{
+	position: absolute;
+    height: 608px;
+    width: 993px;
+    top: 30px;
+    left: 323px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.myAwards{
+	display: inline-block;
+    height: 268px;
+    width: 192px;
+    margin: 5px 30px 20px 25px;
+    float: left;
+    border-radius: 15px;
+    border: 4px solid transparent;
+}
+.myAwards2{
+	height: 186px;
+    width: 192px;
+}
+.btn-focus.myAwards{
+	border: 4px solid #fcff00;
+	box-shadow: 0px 5px 30px rgba(0,0,0,0.7);
+}
+.awardTabBox{
+	position: relative;
+    width: 100%;
+    display: none;
+}
+.awardTabName{
+	display: inline-block;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 52px;
+    height: 208px;
+   	background-repeat: no-repeat;
+   	background-size: 100%;
+}
+.awardTabs{
+	display: inline-block;
+    width: 1545px;
+    margin-right: 5px;
+    float: right;
+    overflow: hidden;
+}
+.myAwardName{
+	display: inline-block;
+    height: 76px;
+    width: 310px;
+    font-size: 34px;
+    line-height: 76px;
+    text-align: center;
+}
+.myAwardImg{
+	display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+.myAwardImg2{
+	position: relative;
+	display: inline-block;
+    margin-left: -157px;
+    top: -251px;
+    height: 155px;
+    width: 147px;
+    border-radius: 10px;
+    outline: 0;
+}
+.myAwardImg3{
+	position: relative;
+    display: inline-block;
+    margin-left: -170px;
+    top: -170px;
+    height: 79px;
+    width: 172px;
+    border-radius: 10px;
+    outline: 0;
+}
+.myAwardInfo{
+	display: inline-block;
+    height: 105px;
+    width: 290px;
+    padding: 5px 10px 10px 10px;
+    font-size: 30px;
+    line-height: 40px;
+    background-color: gold;
+    display: none;
+}
+.myAwardbtn,.myAwardbtn2{
+    position: relative;
+    display: inline-block;
+    top: -180px;
+    left: 6px;
+    height: 60px;
+    width: 180px;
+}
+.myAwardbtn2{
+	top: -94px;
+}
+.btnbgblur,.btnbgfocus{
+	position: absolute;
+}
+.btnbgfocus,.btn-focus .btnbgblur{
+	display: none;
+}
+.btnbgblur,.btn-focus .btnbgfocus{
+	display: block;
+}
+.wxInfoDivs,.bigInfoDivs,.enInfoDivs{
+	position: absolute;
+    height: 60px;
+    width: 660px;
+    text-align: left;
+    line-height: 60px;
+    font-size: 33px;
+    color: white;
+    font-weight: 600;
+}
+#bigWinner{
+	top: 75px;
+	left: 85px;
+	font-size: 32px;
+}
+#bigPhone{
+	top: 120px;
+	left: 85px;
+	font-size: 32px;
+}
+#bigInfo2{
+	position: absolute;
+    bottom: 0;
+    left: 0px;
+    height: 60px;
+    width: 740px;
+    text-align: center;
+    color: white;
+    line-height: 60px;
+    font-size: 22px;
+}
+.eachStatus{
+    position: absolute;
+    top: 255px;
+    left: 96px;
+    height: 280px;
+    width: 745px;
+    display: none;
+}
+#wxQrcode,#bigQrcode,#enQrcode{
+	position: absolute;
+    left: 272px;
+    top: 15px;
+    height: 180px;
+    width: 180px;
+    padding: 10px;
+    background-color: white;
+    
+}
+#wxInfo,#bigInfo,#enRemake{
+	position: absolute;
+    height: 60px;
+    width: 740px;
+    left: 0px;
+    top: 225px;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    font-size: 26px;
+}
+#wxInfo2{
+	position: absolute;
+    height: 100px;
+    width: 700px;
+    left: 28px;
+    top: 75px;
+    text-align: center;
+    line-height: 47px;
+    font-size: 34px;
+    color: white;
+}
+#wxAgain{
+	position: absolute;
+    height: 117px;
+    width: 261px;
+    left: 240px;
+    top: 170px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#enWinner{
+	top: 62px;
+    left: 80px;
+}
+#enPhone{
+	top: 107px;
+    left: 80px;
+}
+#enAddress{
+	top: 160px;
+    left: 80px;
+    height: 80px;
+    overflow: hidden;
+    line-height: 40px;
+}
+.toast4{
+    display: none;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 837px;
+    height: 523px;
+    position: absolute;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/national/mainMap/toast123.png");
+}
+.awardBtn1,.awardBtn2{
+    position: absolute;
+    display: inline-block;
+    top: 415px;
+    left:185px;
+    height: 92px;
+    width: 233px;
+}
+.choicebtn1,.choicebtn2{
+    position: absolute;
+    display: block;
+    top: 18.5px;
+    left: 20px;
+    height: 55px;
+    width: 194px;
+}
+.awardBtn2{
+    left:430px ;
+}
+.toastbtn1{
+    display: none;
+}
+.btn-focus .toastbtn1{
+    display: block;
+}
+#nowhave{
+    width:50px;
+    height:26px;
+    position: absolute;
+    top:333px;
+    left:595px;
+    line-height: 26px;
+    font-size: 26px;
+    text-align: center;
+    color: #ffff66;
+}
+#myThird{
+	position: absolute;
+	top: 88px;
+	left: 578px;
+	height: 930px;
+	width: 764px;
+}
+#myThirdImg{
+	position: absolute;
+    height: 781px;
+    width: 764px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#partOne,#rotate{
+	display: block;
+}
+::-webkit-scrollbar {
+	width: 8px;/*0px 滚动条不可见,但存在*/
+	height: 8px;
+}
+::-webkit-scrollbar-button {
+	display: none;
+}
+::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-thumb {
+	padding-left: 2px;
+	border-radius: 6px;
+	border: solid 2px #A6A6A6;
+	background-color: rgba(255, 255, 255, 1);
+}

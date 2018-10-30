@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/index.css" />
+		<title>我的抽奖</title>
+		<script>
+			var adjust = function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			}
+			adjust();
+		</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<div id="mainPage">
+				<div class="boxChoices coocaa_btn" id="myDrawBox">赢万元现金</div>
+				<div class="boxChoices coocaa_btn" id="myCardBox" rightTarget="#myCardBox"><span>我的景点卡</span><span id="cardnumber"></span></div>
+				<div class="infoBoxs">
+					<div id="partOne" class="boxInfo">
+						<div id="actionstart">
+							<div id="threeline"></div>
+							<div id="drawBtn1" class="drawbtn coocaa_btn" upTarget="#myDrawBox" leftTarget="#myDrawBox">
+								<img id="drawBtn1bg1" class="drawbtnbgblur" src="" />
+								<img id="drawBtn1bg2" class="drawbtnbgfocus" src="" />
+							</div>
+							<div id="drawBtn2" class="drawbtn coocaa_btn" leftTarget="#myDrawBox">
+								<img id="drawBtn2bg1" class="drawbtnbgblur" src="" />
+								<img id="drawBtn2bg2" class="drawbtnbgfocus" src="" />
+							</div>
+							<div id="drawBtn3" class="drawbtn coocaa_btn" leftTarget="#myDrawBox">
+								<img id="drawBtn3bg1" class="drawbtnbgblur" src="" />
+								<img id="drawBtn3bg2" class="drawbtnbgfocus" src="" />
+							</div>
+							<div id="option1" class="drawOption">冲刺1万元旅游基金</div>
+							<div id="option2"></div>
+							<div id="option3"></div>
+							<div id="gotohome" class="coocaa_btn">
+								<img id="gotohome1" class="homebtnblur" src="" />
+								<img id="gotohome2" class="homebtnfocus" src="" />
+							</div>
+						</div>
+						<div id="turntable">
+							<div id="turnborder" class="turnElement">
+								<img id="turnborder1" class="turnborder" src="" />
+								<img id="turnborder2" class="turnborder" src="" />
+								<img id="turnborder3" class="turnborder" src="" />
+							</div>
+							<div id="turnimg" class="turnElement">
+								<img id="rotate" class="rotates" src="" />
+								<img id="rotate2" class="rotates" src="" />
+								<img id="rotate3" class="rotates" src="" />
+							</div>
+							<div id="drawbutton" class="turnElement">
+								<img id="drawbutton1" class="drawbutton" src="" />
+								<img id="drawbutton2" class="drawbutton" src="" />
+								<img id="drawbutton3" class="drawbutton" src="" />
+							</div>
+						</div>
+						<div id="notbegin" class="coocaa_btn" upTarget="#myDrawBox" leftTarget="#myDrawBox">
+							<div id="notbeginbg"></div>
+							<div id="gotomain"></div>
+							<div id="mainborder"></div>
+						</div>
+						<div id="hasend" class="coocaa_btn"></div>
+					</div>
+					<div id="partTwo" class="boxInfo">
+						<div id="myawardsBox"></div>
+						<div id="noCardsBox">
+							<div id="noCardsBg"></div>
+							<div id="noCardsBtn" class="coocaa_btn" upTarget="#myCardBox">
+								<img class="noCardsImg" src="images/draw/border.png" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="errorText">出现异常，请重试</div>
+			</div>
+			<div id="dialogPage">
+				<div id="ensure" class="toast1">
+					<div id="ensureInfo">3</div>
+					<div id="iknow" class="ensureBtn coocaa_btn2">
+						<img id="ensurebtn" class="choicebtn" src="" />
+						<img id="ensureborder" class="btnborder" src="" />
+					</div>
+					<div id="wait" class="ensureBtn coocaa_btn2">
+						<img id="waitbtn" class="choicebtn" src="" />
+						<img id="waitborder" class="btnborder" src="" />
+					</div>
+				</div>
+				<div id="noChance" class="toast1">
+					<div id="getCard" class="nochanceBtn coocaa_btn2">
+						<img id="getCardbtn" class="choicebtn" src="" />
+						<img id="getCardborder" class="btnborder" src="" />
+					</div>
+					<div id="wait2" class="nochanceBtn coocaa_btn2">
+						<img id="wait2btn" class="choicebtn" src="" />
+						<img id="wait2border" class="btnborder" src="" />
+					</div>
+				</div>
+				<div id="enOrRedAward" class="toast1">
+					<div id="enOrRedAwardInfo" class="awardInfos"></div>
+					<div id="enOrRedAwardBox">
+						<img id="enOrRedAwardImg" class="awardImgs" src="" />
+					</div>
+					<div id="enOrRedAwardInfo2">奖品已发放至活动页面-【我的奖励】</div>
+					<div id="gotoMyAwards" class="awardBtn coocaa_btn2">
+						<img id="enOrRedAwardbtn" class="choicebtn" src="" />
+						<img id="enOrRedAwardborder" class="btnborder" src="" />
+					</div>
+					<div id="wait3" class="awardBtn coocaa_btn2">
+						<img id="wait3btn" class="choicebtn" src="" />
+						<img id="wait3border" class="btnborder" src="" />
+					</div>
+				</div>
+				<div id="getBigRed" class="toast1">
+					<div id="getBigInfo" class="awardInfos"></div>
+					<div id="getBigQrcode" class="coocaa_btn2"></div>
+				</div>
+				<div id="couponAward" class="toast1">
+					<div id="couponAwardInfo" class="awardInfos"></div>
+					<div id="couponAwardInfo2" class="awardInfos">奖品已发放至您的奖品包！</div>
+					<img id="couponAwardImg" src="" />
+					<div id="couponLogin" class="awardBtn coocaa_btn2">
+						<img id="couponLoginbtn" class="choicebtn" src="images/dialog/login.png" />
+						<img id="couponLoginborder" class="btnborder" src="images/dialog/border.png" />
+					</div>
+					<div id="couponUse" class="awardBtn coocaa_btn2">
+						<img id="couponUsebtn" class="choicebtn" src="images/dialog/use.png" />
+						<img id="couponUseborder" class="btnborder" src="images/dialog/border.png" />
+					</div>
+				</div>
+				<div id="couponFail" class="toast1">
+					<div id="couponFailBtn" class="awardBtn coocaa_btn2">
+						<img id="couponFailborder" class="btnborder" src="images/dialog/border.png" />
+					</div>
+				</div>
+				<div id="cardsAward" class="toast1">
+					<div id="cardsAwardInfo" class="awardInfos"></div>
+					<div id="cardsAwardInfo2" class="awardInfos">集齐15张景点卡就有机会抽取万元现金哦~</div>
+					<img id="cardsAwardImg" src="" />
+					<div id="checkCards" class="awardBtn coocaa_btn2">
+						<img id="checkbtn" class="choicebtn" src="images/dialog/checkcards.png" />
+						<img id="checkborder" class="btnborder" src="images/dialog/border.png" />
+					</div>
+					<div id="wait4" class="awardBtn coocaa_btn2">
+						<img id="wait4btn" class="choicebtn" src="images/dialog/waitalittle.png" />
+						<img id="wait4border" class="btnborder" src="images/dialog/border.png" />
+					</div>
+				</div>
+				<div id="thirdAward" class="toast1">
+					<div id="thirdAwardInfo" class="awardInfos"></div>
+					<div id="thirdAwardInfo2" class="awardInfos">奖品已发放至您的奖品包！</div>
+					<img id="thirdAwardImg" src="" />
+					<div id="thirdAwardInfo3" class="awardInfos">提示：请拍照保存，前往指定门店出示即可使用。</div>
+					<div id="gotoMyAwards2" class="awardBtn coocaa_btn2">
+						<img id="thirdbtn" class="choicebtn" src="images/dialog/myaward.png" />
+						<img id="thirdborder" class="btnborder" src="images/dialog/border.png" />
+					</div>
+					<div id="wait5" class="awardBtn coocaa_btn2">
+						<img id="wait4btn" class="choicebtn" src="images/dialog/waitalittle.png" />
+						<img id="wait4border" class="btnborder" src="images/dialog/border.png" />
+					</div>
+				</div>
+				<div id="myBigRed" class="toast2">
+					<div id="myBigRedName" class="bigInfoDivs"></div>
+					<div id="myBigRedTime" class="bigInfoDivs"></div>
+					<div id="bigRednotget" class="eachStatus">
+						<div id="bigQrcode" class="coocaa_btn2"></div>
+						<div id="bigInfo">使用微信扫码提交个人信息，工作人员会尽快联系你哦~</div>
+					</div>
+					<div id="bigRedhasgot" class="eachStatus">
+						<div id="bigWinner" class="bigInfoDivs coocaa_btn2"></div>
+						<div id="bigPhone" class="bigInfoDivs"></div>
+						<div id="bigInfo2">信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+					</div>
+				</div>
+				<div id="myWxRed" class="toast2">
+					<div id="myWxRedName" class="wxInfoDivs"></div>
+					<div id="myWxRedTime" class="wxInfoDivs"></div>
+					<div id="wxRednotget" class="eachStatus">
+						<div id="wxQrcode" class="coocaa_btn2"></div>
+						<div id="wxInfo">使用微信扫码立即领取国庆红包哦~</div>
+					</div>
+					<div id="wxRedhasgot" class="eachStatus">
+						<div id="wxInfo2">再接再厉哦,<br/>获得15张景点卡就有机会获得万元现金红包！</div>
+						<div id="wxAgain" class="coocaa_btn2"></div>
+					</div>
+				</div>
+				<div id="myEntity" class="toast2">
+					<div id="myEnRedName" class="enInfoDivs"></div>
+					<div id="myEnRedTime" class="enInfoDivs"></div>
+					<div id="enNotget" class="eachStatus">
+						<div id="enQrcode" class="coocaa_btn2"></div>
+						<div id="enRemake">请微信扫码完善收货信息，确保奖品能够送达哦~</div>
+					</div>
+					<div id="enHasgot" class="eachStatus">
+						<div id="enWinner" class="enInfoDivs coocaa_btn2"></div>
+						<div id="enPhone" class="enInfoDivs"></div>
+						<div id="enAddress" class="enInfoDivs"></div>
+					</div>
+				</div>
+				<div id="myThird" class="toast2 coocaa_btn2">
+					<img id="myThirdImg" src=""></img>
+				</div>
+				<div id="couponToast" class="toast3">领取成功</div>
+		        <div id="toast4" class="toast4">
+		            <div id="nowhave"></div>
+		            <div id="toastbtn1" class="awardBtn1 coocaa_btn2">
+		            	<img class="toastbtn1" src="http://sky.fs.skysrt.com/statics/webvip/webapp/national/mainMap/border.png">
+		            	<img class="choicebtn1" src="http://sky.fs.skysrt.com/statics/webvip/webapp/national/mainMap/toastbtn1.png">
+		            </div>
+		            <div id="toastbtn2" class="awardBtn2 coocaa_btn2">
+		            	<img class="toastbtn1"  src="http://sky.fs.skysrt.com/statics/webvip/webapp/national/mainMap/border.png">
+		            	<img class="choicebtn2" src="http://sky.fs.skysrt.com/statics/webvip/webapp/national/mainMap/toastbtn2.png">
+		            </div>
+		        </div>
+			</div>
+			<div id="myAwardPage">
+				<div id="myAwardBox">
+					<div id="redBox" class="awardTabBox">
+						<div class="awardTabName" id="redTitle"></div>
+						<div class="awardTabs" id="redTabs"></div>
+					</div>
+					<div id="entityBox" class="awardTabBox">
+						<div class="awardTabName" id="entityTitle"></div>
+						<div class="awardTabs" id="entityTabs"></div>
+					</div>
+					<div id="couponBox" class="awardTabBox">
+						<div class="awardTabName" id="couponTitle"></div>
+						<div class="awardTabs" id="couponTabs"></div>
+					</div>
+				</div>
+				<div id="noAwardBox">
+					<div id="noAwardBtn" class="coocaa_btn4"></div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.1.js"></script>
+		<script type="text/javascript" src="js/awardRotate.js"></script>
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/framework.js"></script>
+		<script type="text/javascript">
+			setTimeout("otherPageInit()", 100);
+			function otherPageInit() {
+				console.log("--------------------------->hello");
+				$("#turnborder1").attr("src", "images/draw/drawborder1.png");
+				$("#turnborder2").attr("src", "images/draw/drawborder2.png");
+				$("#turnborder3").attr("src", "images/draw/drawborder3.png");
+				$("#rotate").attr("src", "images/draw/draw1.png");
+				$("#rotate2").attr("src", "images/draw/draw2.png");
+				$("#rotate3").attr("src", "images/draw/draw3.png");
+				$("#drawbutton1").attr("src", "images/draw/drawbutton1.png");
+				$("#drawbutton2").attr("src", "images/draw/drawbutton2.png");
+				$("#drawbutton3").attr("src", "images/draw/drawbutton3.png");
+				$("#gotohome1").attr("src", "images/draw/buttons/homebtnblur.png");
+				$("#gotohome2").attr("src", "images/draw/buttons/homebtnfocus.png");
+				$("#notbeginbg").css("background-image", "url(images/draw/notbegin.png)");
+				$("#hasend").css("background-image", "url(images/draw/hasend.png)");
+				//弹窗部分
+				$("#ensurebtn").attr("src", "images/dialog/ensure.png");
+				$("#ensureborder").attr("src", "images/dialog/border.png");
+				$("#waitbtn").attr("src", "images/dialog/cancel.png");
+				$("#waitborder").attr("src", "images/dialog/border.png");
+				$("#getCardbtn").attr("src", "images/dialog/iwant.png");
+				$("#getCardborder").attr("src", "images/dialog/border.png");
+				$("#wait2btn").attr("src", "images/dialog/waitalittle.png");
+				$("#wait2border").attr("src", "images/dialog/border.png");
+				$("#enOrRedAwardbtn").attr("src", "images/dialog/check.png");
+				$("#enOrRedAwardborder").attr("src", "images/dialog/border.png");
+				$("#wait3btn").attr("src", "images/dialog/waitalittle.png");
+				$("#wait3border").attr("src", "images/dialog/border.png");
+				$("#enOrRedAward").css("background-image", "url(images/dialog/dialogbg.png)");
+				$("#couponAward").css("background-image", "url(images/dialog/dialogbg.png)");
+				$("#cardsAward").css("background-image", "url(images/dialog/dialogbg.png)");
+				$("#thirdAward").css("background-image", "url(images/dialog/third.png)");
+				$("#myThird").css("background-image", "url(images/dialog/third1.png)");
+				//css部分
+				$("#partOne").css("background-image", "url(images/draw/bg.jpg)");
+				$("#partTwo").css("background-image", "url(images/draw/bg2.jpg)");
+				$("#option1").css("background-image", "url(images/draw/bubble.png)");
+				$("#noCardsBg").css("background-image", "url(images/draw/nocard.png)");
+				$("#ensure").css("background-image", "url(images/dialog/usecard.png)");
+				$("#noChance").css("background-image", "url(images/dialog/nocard.png)");
+				$("#getBigRed").css("background-image", "url(images/dialog/award2.png)");
+				$("#myAwardPage").css("background-image", "url(images/award/bg.jpg)");
+				$("#wxAgain").css("background-image", "url(images/award/again.png)");
+				$("#noAwardBtn").css("background-image", "url(images/award/noaward.png)");
+				$("#redTitle").css("background-image", "url(images/award/redtitle.png)");
+				$("#entityTitle").css("background-image", "url(images/award/entitytitle.png)");
+				$("#couponTitle").css("background-image", "url(images/award/coupontitle.png)");
+			}
+		</script>
+	</body>
+</html>
