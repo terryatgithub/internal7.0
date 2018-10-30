@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" type="text/css" href="css/index2.css" />
+		<title>VIP helps</title>
+		<script>
+			var adjust = function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			}
+			adjust();
+			//var _czc = _czc || [];
+			//_czc.push(["_setAccount", "1274870330"]);
+		</script>
+	</head>
+
+	<body>
+		<div id="deviceready" class="fullScreen">
+			<div id="mainPage" class="fullScreen">
+				<div id="tabsBox">
+					<div class="tabItem coocaa_btn" id="commonQuesTab">常见问题</div>
+					<div class="tabItem coocaa_btn" id="allQuesTab" downTarget="#allQues1">全部问题</div>
+					<div class="tabItem coocaa_btn" id="feedBackTab" downTarget="#feedBack1">意见反馈</div>
+				</div>
+				<div id="contentBox">
+					<!--常见问题列表-->
+					<div id="conItem1" class="conItems">
+						<div class="coocaa_btn comQuesItem ellipsis" upTarget="#commonQuesTab">为什么播放时会卡顿</div>
+						<div class="coocaa_btn comQuesItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn comQuesItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn comQuesItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn comQuesItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn comQuesItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn comQuesItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn comQuesItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn comQuesItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn comQuesItem ellipsis">已是会员无法观看</div>
+					</div>
+					<!--所有问题分类-->
+					<div id="conItem2" class="conItems">
+						<div id="conItem2Box">
+							<div class="coocaa_btn allQues" id="allQues1" upTarget="#allQuesTab">
+								<div class="allImg">
+									<img class="imgBlur" src="images/help/play.png" />
+									<img class="imgFocus" src="images/help/play2.png" />
+								</div>
+								<div class="allText1">影视播放</div>
+							</div>
+							<div class="coocaa_btn allQues" id="allQues2" upTarget="#allQuesTab">
+								<div class="allImg">
+									<img class="imgBlur" src="images/help/vip.png" />
+									<img class="imgFocus" src="images/help/vip2.png" />
+								</div>
+								<div class="allText1">会员与支付</div>
+							</div>
+							<div class="coocaa_btn allQues" id="allQues3" upTarget="#allQuesTab">
+								<div class="allImg">
+									<img class="imgBlur" src="images/help/count.png" />
+									<img class="imgFocus" src="images/help/count.png" />
+								</div>
+								<div class="allText1">酷开账号</div>
+							</div>
+							<div class="coocaa_btn allQues" id="allQues4" upTarget="#allQuesTab">
+								<div class="allImg">
+									<img class="imgBlur" src="images/help/download.png" />
+									<img class="imgFocus" src="images/help/download2.png" />
+								</div>
+								<div class="allText1">应用下载与安装</div>
+							</div>
+							<div class="coocaa_btn allQues" id="allQues5" upTarget="#allQuesTab" rightTarget="#allQues5">
+								<div class="allImg">
+									<img class="imgBlur" src="images/help/setting.png" />
+									<img class="imgFocus" src="images/help/setting2.png" />
+								</div>
+								<div class="allText1">系统设置</div>
+							</div>
+						</div>
+					</div>
+					<!--意见反馈分类-->
+					<div id="conItem3" class="conItems">
+						<div id="feedBack1" class="coocaa_btn feedBacks" upTarget="#feedBackTab">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/play.png" />
+								<img class="imgFocus" src="images/help/play2.png" />
+							</div>
+							<div class="feedText">影视播放</div>
+						</div>
+						<div class="coocaa_btn feedBacks" upTarget="#feedBackTab">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/net.png" />
+								<img class="imgFocus" src="images/help/net2.png" />
+							</div>
+							<div class="feedText">网络问题</div>
+						</div>
+						<div class="coocaa_btn feedBacks" upTarget="#feedBackTab">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/vip.png" />
+								<img class="imgFocus" src="images/help/vip2.png" />
+							</div>
+							<div class="feedText">会员账户</div>
+						</div>
+						<div class="coocaa_btn feedBacks">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/appstore.png" />
+								<img class="imgFocus" src="images/help/appstore2.png" />
+							</div>
+							<div class="feedText">应用中心</div>
+						</div>
+						<div class="coocaa_btn feedBacks">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/setting.png" />
+								<img class="imgFocus" src="images/help/setting2.png" />
+							</div>
+							<div class="feedText">系统设置</div>
+						</div>
+						<div class="coocaa_btn feedBacks">
+							<div class="feedImg">
+								<img class="imgBlur" src="images/help/other.png" />
+								<img class="imgFocus" src="images/help/other2.png" />
+							</div>
+							<div class="feedText">其他问题及意见反馈</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="secondPage" class="fullScreen">
+				<!--具体问题的模板页concrete-->
+				<div id="conAnsPage" class="fullScreen none">
+					<div id="conAnsBox">
+						<div id="conAnsTitle" class="ellipsis">为什么会播放卡顿为什么会播放卡顿为什么会播放卡顿为什么会播放卡顿为什么会播放卡顿</div>
+						<div id="conAnsTitle1" class="quesPoint">切换清晰度</div>
+						<div id="conAnsInfo1" class="pointInfo">全屏播放视频时按遥控器【下】键调出影视详情页界面，选择【清晰度】，调节清晰度即可。</div>
+						<img id="firstAnsImg" class="conAnsImg" src="images/help/appstore.png" />
+						<img class="conAnsImg" src="images/help/appstore.png" />
+						<div id="conAnsTitle2" class="quesPoint">清理电视机内存</div>
+						<div id="conAnsInfo2" class="pointInfo">双击遥控器【主页】键，一键清理后台应用即可。</div>
+						<div id="submitItem1" class="submitItem">问题是否解决?</div>
+						<div id="submitItem2" class="coocaa_btn2 submitItem conAnsItem">已解决</div>
+						<div id="submitItem3" class="coocaa_btn2 submitItem conAnsItem">未解决</div>
+						<div id="submitItem4" class="submitItem">相关问题</div>
+						<div id="submitItem5" class="coocaa_btn2 submitItem conAnsItem" downTarget="#submitItem6">播放时会卡顿,去哪里设置</div>
+						<div id="submitItem6" class="coocaa_btn2 submitItem conAnsItem">已经是会员，为什么无法观看VIP影片</div>
+					</div>
+					<div id="conAnsPoint">【向下】浏览全文</div>
+				</div>
+				<!--所有问题列表页-->
+				<div id="allQuesPage" class="fullScreen none">
+					<div id="quesListTitle" class="ellipsis">影视播放</div>
+					<div id="quesListBox">
+						<div class="coocaa_btn2 allQueItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">已是会员无法观看</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">为什么播放时会卡顿</div>
+						<div class="coocaa_btn2 allQueItem ellipsis">已是会员无法观看</div>
+					</div>
+					<div id="otherQuesFeed" class="coocaa_btn2">其他问题反馈</div>
+				</div>
+				<!--意见反馈详情页-->
+				<div id="feedBackPage" class="fullScreen none">
+					<div id="feedBackTitle" class="ellipsis">影视播放</div>
+					<div id="feedBackBox">
+						<div id="feedBackTitle2">请选择在内容播放途中遇到的问题</div>
+						<div id="errorInfo">请选择您遇到的问题</div>
+						<div id="feedBackListBox">
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">闪退</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">加载不出来</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">重复播放</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">重复播放</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">加载不出来</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+							<div class="coocaa_btn2 fbQueItem">
+								<div class="fbQuetext ellipsis">闪退</div>
+								<div class="labelBox">
+									<div class="labelText"></div>
+								</div>
+							</div>
+						</div>
+						<div id="contactWay">联系方式</div>
+						<input id="phoneOrQQ" class="coocaa_btn2" placeholder="电话、QQ  选填，便于我们与您联系" value="" />
+						<div id="keyBox">
+							<div class="coocaa_btn2 numbtn">1</div>
+							<div class="coocaa_btn2 numbtn">2</div>
+							<div class="coocaa_btn2 numbtn">3</div>
+							<div class="coocaa_btn2 numbtn">4</div>
+							<div class="coocaa_btn2 numbtn">5</div>
+							<div class="coocaa_btn2 numbtn">6</div>
+							<div class="coocaa_btn2 numbtn">7</div>
+							<div class="coocaa_btn2 numbtn">8</div>
+							<div class="coocaa_btn2 numbtn">9</div>
+							<div class="coocaa_btn2 numbtn com event_button" id="sub_mobile" bt-name="next_button">确定</div>
+							<div class="coocaa_btn2 numbtn">0</div>
+							<div class="coocaa_btn2 numbtn del">删除</div>
+						</div>
+						<div id="fbSubmit" class="coocaa_btn2">提交问题反馈</div>
+					</div>
+					<div id="fbQrcodeBox">
+						<div id="qrcodeInfo">扫码填写具体问题</div>
+						<div id="fbQrcode"></div>
+					</div>
+				</div>
+
+				<!--其他异常及意见反馈详情页-->
+				<div id="otherFeedBackPage" class="fullScreen none">
+					<div id="otherFBTitle" class="ellipsis">其他异常及意见反馈</div>
+					<div id="otherQrcodeBox" class="coocaa_btn2">
+						<div id="otherQrcode"></div>
+					</div>
+					<div id="otherFBInfo">请用手机扫码填写其他问题或建议</div>
+				</div>
+			</div>
+			<div id="thirdPage" class="fullScreen">
+				<!--反馈成功，5秒弹窗消失-->
+				<div id="fbResultSuccess" class="coocaa_btn3 fbdialog">
+					<img class="imgbg" src="images/help/success.jpg"/>
+				</div>
+				<!--反馈失败，20秒弹窗消失-->
+				<div id="fbResultFail" class="coocaa_btn3 fbdialog">
+					<img class="imgbg" src="images/help/success.jpg"/>
+				</div>
+			</div>
+			<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="js/coocaamap-1.0.js"></script>
+			<script type="text/javascript" src="js/index2.js"></script>
+			<!--<script type="text/javascript" src="cordova.js"></script>-->
+			<!--<script type="text/javascript" src="js/framework.js"></script>-->
+
+			<script type="text/javascript">
+				setTimeout("otherPageInit()", 100);
+
+				function otherPageInit() {
+
+				}
+				//var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				//document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1274870330'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274870330' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+	</body>
+
+</html>

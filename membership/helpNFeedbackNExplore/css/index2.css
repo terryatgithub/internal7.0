@@ -1,0 +1,561 @@
+li {
+	list-style: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+}
+body {
+	width: 1920px;
+	height: 1080px;
+	background-color: black;
+}
+img[src='']{
+    visibility: hidden;
+}
+.none{
+	display: none;
+}
+.fullScreen{
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	overflow: hidden;
+}
+#tabsBox{
+	position: absolute;
+    top: 44px;
+    left: 400px;
+    height: 80px;
+    width: 1100px;
+}
+#tabsBox .btn-focus{
+	background-color: #007FF0;
+	font-weight: 600;
+}
+.tabItem{
+	position: absolute;
+    display: inline-block;
+    height: 80px;
+    width: 256px;
+    border-radius: 40px;
+    text-align: center;
+    font-size: 44px;
+    line-height: 80px;
+    color: #999999;
+}
+#tabsBox .tabItem:nth-child(1){
+	left: 135px;
+}
+#tabsBox .tabItem:nth-child(2){
+	left: 450px;
+}
+#tabsBox .tabItem:nth-child(3){
+	right: 77px;
+}
+#contentBox{
+	position: absolute;
+    top: 160px;
+    left: 0;
+    height: 840px;
+    width: 1920px;
+}
+.conItems{
+	position: absolute;
+	top: 0px;
+    left: 0px;
+    width: 1920px;
+    height: 840px;
+	overflow: hidden;
+	display: none;
+}
+#conItem1 .btn-focus,#conItem2 .btn-focus,#conItem3 .btn-focus{
+	background-color: #007FF0;
+}
+#conItem1{
+    left: 360px;
+    width: 1200px;
+    background-color: rgba(128,128,128,0.18);
+}
+#conItem2{
+	top: 40px;
+    left: 77px;
+    width: 1843px;
+    height: 690px;
+}
+#conItem2Box{
+	position: relative;
+	top: 0;
+	left: 0;
+    height: 690px;
+    width: 2250px;
+    float: left;
+	white-space: nowrap;
+}
+#conItem3{
+	top: 35px;
+    left: 68px;
+    width: 1800px;
+    height: 810px;
+    overflow: hidden;
+}
+.comQuesItem{
+    height: 140px;
+    width: 1000px;
+    padding-right: 200px;
+    font-size: 35px;
+    line-height: 140px;
+    text-indent: 60px;
+    color: white;
+}
+.allQues{
+	display: inline-block;
+    height: 660px;
+    width: 414px;
+    float: left;
+    margin: 10px 20px 15px 10px;
+	background-color: rgba(0,0,0,0.5);
+}
+.feedBacks{
+	display: inline-block;
+    height: 372px;
+    width: 562px;
+    margin: 15px;
+	background-color: rgba(0,0,0,0.5);
+}
+.allImg{
+	display: block;
+    height: 190px;
+    width: 190px;
+    margin: 150px 80px 35px 110px;
+}
+.imgBlur,.imgFocus{
+	position: relative;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+.imgBlur{
+	display: block;
+}
+.btn-focus .imgBlur{
+	display: none;
+}
+.btn-focus .imgFocus{
+	display: block;
+}
+.allText1{
+	display: block;
+    height: 60px;
+    width: 314px;
+    margin: 57px 50px;
+    line-height: 60px;
+    font-size: 44px;
+    text-align: center;
+    color: #cccccc;
+}
+.feedImg{
+	display: block;
+    height: 190px;
+    width: 190px;
+    margin: 45px 0px 0px 190px;
+}
+.feedText{
+	display: block;
+    height: 60px;
+    width: 500px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 42px;
+    margin: 25px 30px;
+    color: #CCCCCC;
+    overflow: hidden;
+}
+
+/*具体问题详情页*/
+.ellipsis{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#conAnsTitle{
+    width: 1070px;
+    height: 90px;
+    font-size: 45px;
+    line-height: 90px;
+    font-weight: 600;
+    color: white;
+}
+#conAnsBox{
+	position: absolute;
+    top: 75px;
+    width: 1780px;
+    left: 100px;
+    overflow: hidden;
+}
+#conAnsBox .btn-focus{
+	background-color: #007FF0;
+}
+.quesPoint{
+	margin-top: 35px;
+	font-size: 32px;
+	color: #CCCCCC;
+}
+.pointInfo{
+	margin-top: 20px;
+	font-size: 32px;
+	color: #999999;
+}
+.conAnsImg{
+	display: inline-block;
+	margin-top: 28px;
+    margin-bottom: 14px;
+	width: 845px;
+	height: 475.7px;
+}
+#conAnsPoint{
+	position: absolute;
+    bottom: 0px;
+    width: 310px;
+    height: 70px;
+    right: 18px;
+    font-size: 28px;
+    line-height: 70px;
+    font-weight: 600;
+    display: block;
+}
+.submitItem{
+	display: inline-block;
+	width: 1720px;
+	height: 100px;
+	color: #CCCCCC;
+	text-align: center;
+}
+#submitItem1{
+	margin-top: 57px;
+    margin-left: 513px;
+    width: 260px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+}
+#submitItem2{
+	margin-top: 54px;
+    width: 162px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    margin-left: 50px;
+    margin-right: 15px;
+    border-radius: 30px;
+}
+#submitItem3{
+	margin-top: 54px;
+    width: 162px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    margin-left: 14px;
+    margin-right: 15px;
+    border-radius: 30px;
+}
+#submitItem4{
+	margin-top: 32px;
+    margin-bottom: 5px;
+    text-align: left;
+    line-height: 100px;
+    font-size: 48px;
+}
+#submitItem5{
+	height: 137px;
+    text-align: left;
+    text-indent: 60px;
+    font-size: 36px;
+    line-height: 137px;
+}
+#submitItem6{
+	height: 137px;
+    text-align: left;
+    text-indent: 60px;
+    font-size: 36px;
+    line-height: 137px;
+}
+/*全部问题详情页*/
+#quesListTitle{
+	position: absolute;
+    top: 28px;
+    width: 632px;
+    height: 100px;
+    left: 90px;
+    font-size: 47px;
+    line-height: 100px;
+    color: #999999;
+}
+#quesListBox{
+	position: absolute;
+    top: 160px;
+    width: 1200px;
+    height: 716px;
+    left: 360px;
+    overflow: hidden;
+}
+.allQueItem{
+	display: inline-block;
+    height: 140px;
+    width: 1200px;
+    font-size: 35px;
+    line-height: 140px;
+    text-indent: 60px;
+    background-color: #808080;
+}
+#allQuesPage .btn-focus{
+	background-color: #007FF0;
+}
+#comQuesItem .btn-focus{
+	background-color: rgba(0,0,0,0.2);
+}
+#otherQuesFeed{
+	position: absolute;
+    top: 900px;
+    width: 1200px;
+    height: 90px;
+    left: 360px;
+    text-align: center;
+    font-size: 32px;
+    line-height: 88px;
+    color: #FFFFFF;
+}
+/*问题反馈详情页*/
+#feedBackTitle{
+	position: absolute;
+    top: 30px;
+    width: 632px;
+    height: 100px;
+    left: 90px;
+    font-size: 46px;
+    line-height: 100px;
+    color: #999999;
+}
+#feedBackBox{
+	position: absolute;
+    top: 150px;
+    width: 1200px;
+    height: 940px;
+    left: 360px;
+    overflow: hidden;
+}
+#feedBackTitle2,#errorInfo{
+	position: relative;
+    width: 1200px;
+    height: 65px;
+    font-size: 45px;
+    line-height: 65px;
+    margin-bottom: 10px;
+}
+#feedBackTitle2{
+	font-size: 48px;
+	color: #FFFFFF;
+}
+#errorInfo{
+	position: absolute;
+	top: 0;
+	text-align: center;
+	background-color: red;
+	display: none;
+}
+#feedBackListBox{
+	position: relative;
+	margin-top: 23px;
+    width: 1200px;
+    height: 420px;
+    overflow: hidden;
+}
+#feedBackPage .btn-focus{
+	background-color: #007FF0;
+}
+.fbQueItem{
+	display: block;
+    height: 140px;
+    width: 1200px;
+    font-size: 35px;
+    line-height: 140px;
+    text-indent: 60px;
+    overflow: hidden;
+    background-color: #808080;
+}
+.fbQuetext{
+	position: relative;
+	display: inline-block;
+	height: 140px;
+	width: 940px;
+	float: left;
+	color: #CCCCCC;
+}
+.labelBox{
+	position: absolute;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    right: 60px;
+    margin-top: 57px;
+    border: 2px solid #999999;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0);
+}
+.labelText{
+    content: '\00a0';
+    display: inline-block;
+    border: 2px solid #fff;
+    border-top-width: 0;
+    border-right-width: 0;
+    width: 12px;
+    height: 10px;
+    -webkit-transform: rotate(-50deg);
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    display: none;
+}
+#contactWay{
+    position: relative;
+    height: 60px;
+    width: 1200px;
+    font-size: 48px;
+    line-height: 70px;
+    margin-top: 47px;
+    color: #FFFFFF;
+}
+#phoneOrQQ{
+	position: relative;
+	margin-top: 30px;
+    height: 89px;
+    width: 1200px;
+    font-size: 32px;
+    text-align: center;
+    color: #CCCCCC;
+    background-color: rgba(0,0,0,0.1);
+}
+#keyBox{
+	position: relative;
+    width: 1200px;
+    height: 480px;
+    background-color: white;
+    display: none;
+}
+.numbtn {
+    width: 340px;
+    height: 100px;
+    line-height: 100px;
+    display: inline-block;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 10px 8px;
+    font-size: 40px;
+    border-radius: 10px;
+    background-color: white;
+}
+#numberBox{
+	position: relative;
+    height: 120px;
+    width: 1080px;
+    font-size: 32px;
+    text-align: center;
+    line-height: 120px;
+    background-color: rgba(255,0,0,0.4);
+}
+#fbSubmit{
+	position: relative;
+    margin-top: 30px;
+    height: 89px;
+    width: 1200px;
+    font-size: 32px;
+    text-align: center;
+    line-height: 89px;
+    color: #CCCCCC;
+}
+#fbQrcodeBox{
+	position: absolute;
+    top: 634px;
+    left: 1583px;
+    height: 366px;
+    width: 314px;
+    /*background-color: #000000;*/
+}
+#qrcodeInfo{
+	color: #ffffff;
+    font-size: 32px;
+    text-align: center;
+    height: 66px;
+    line-height: 66px;
+}
+#fbQrcode{
+	margin-top: 5px;
+    margin-left: 20px;
+    height: 274px;
+    width: 274px;
+    background-color: red;
+}
+
+#otherFBTitle{
+	position: absolute;
+    top: 50px;
+    width: 632px;
+    height: 100px;
+    left: 80px;
+    font-size: 60px;
+    line-height: 100px;
+}
+#otherQrcodeBox{
+	position: absolute;
+    top: 200px;
+    width: 540px;
+    height: 540px;
+    left: 690px;
+    background-color: white;
+}
+#otherQrcode{
+	position: absolute;
+    width: 500px;
+    height: 500px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: red;
+}
+#otherFBInfo{
+	position: absolute;
+    top: 760px;
+    width: 840px;
+    height: 80px;
+    left: 540px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 50px;
+    color: #FFFFFF;
+}
+#thirdPage{
+	display: none;
+	background-color: rgba(0,0,0,0.5);
+}
+.fbdialog{
+	position: absolute;
+    height: 400px;
+    width: 714px;
+    top: 340px;
+    left: 603px;
+    text-align: center;
+    line-height: 650px;
+    display: none;
+}
+.imgbg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}

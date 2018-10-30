@@ -1,0 +1,318 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+}
+
+body {
+    -webkit-touch-callout: none;   
+    -webkit-text-size-adjust: none;  
+    -webkit-user-select: none;   
+    background-color: black;  
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    width:1920px;
+    height: 1080px;
+    margin:0px;
+    padding:0px;
+    text-transform:uppercase;
+    overflow: hidden;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:10%;
+    top:10%;
+    height:50px;                   /* text area height */
+    /*width:225px;                   /* text area width */
+    width:1125px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+/*标题区域*/
+.header {
+	position: fixed;
+	top: 0px;
+	left: 87px;
+	width: 1746px;
+	height: 160px;
+}
+
+.header div{
+	float: left;
+}
+
+#headerTitle {
+	position: absolute;
+	top: 56px;
+	height: 72px;
+	color: rgba(153,153,153,1);
+	font-family: "NotoSansHans-Light", sans-serif;
+	font-size: 48px;
+	line-height: 72px;
+	letter-spacing: 0;
+}
+/*右上角用户信息区*/
+#userinfo {
+	display: none;
+	position: absolute;
+	right: 0px;
+	height: 100%;
+}
+
+#userinfo div{
+	margin: 0px 5px;
+}
+
+#userIcon {
+	position: relative;
+	top: 62px;
+	width: 36px;
+	height: 36px;
+	background: url(../img/userIcon.png) no-repeat;
+	background-size: cover;
+	border-radius: 50%;
+}
+
+#userLv {
+	position: relative;
+	top: 66px;
+	height: 28px;
+	color: rgba(253,78,0,1);
+	font-family: "NotoSansHans-Medium", sans-serif;
+	font-size: 28px;
+	line-height: 28px;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+#coinIcon {
+	position: relative;
+	top: 64px;
+	width: 32px;
+	height: 32px;
+	background: url(../img/coin.png) no-repeat;
+	background-size: cover;
+	border-radius: 50%;	
+}
+
+#coinNum {
+	position: relative;
+	top: 66px;
+	height: 28px;
+	color: rgba(250,202,104,1);
+	font-family: "NotoSansHans-Medium", sans-serif;
+	font-size: 28px;
+	line-height: 28px;
+	letter-spacing: 0;	
+}
+
+.notLogin {
+	position: absolute;
+	top: 50px;
+	right: 0px;
+	width: 188px;
+	height: 60px;
+	background: rgba(128,128,128,0.18);
+	color: rgba(204,204,204,1);
+	font-weight: bold;
+	font-family: "NotoSansHans-Medium", sans-serif;
+	font-size: 32px;
+	line-height: 60px;
+	text-align: center;
+	letter-spacing: 0;
+	border-radius: 60px;
+	display: none;
+}
+
+/*内容区*/
+.container {
+	position: absolute;
+	top: 160px;
+	width: 100%;
+	height: 2400px;
+	overflow: hidden;
+}
+
+.innerContainer {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.sectionTitle {
+	position: relative;
+	left: 87px;
+	height: 48px;
+	font-family: "NotoSansHans-Medium",sans-serif;
+	color: rgba(255,255,255,1);
+	font-size: 48px;
+	line-height: 48px;
+	letter-spacing: 0;
+}
+
+.vipEntryZone {
+	position: absolute;
+	top: 68px;
+	left: 87px;
+	height: 300px;
+	white-space: nowrap;
+}
+
+/*vip类型区*/
+.vipEntry {
+	display: inline-block;
+	position: relative;
+	width: 414px; /*default,will be re cal*/
+	height: 100%;
+	margin-right: 30px;
+	background: linear-gradient(-179deg, #FFD07E 0%, #D1AA6F 100%);
+}
+.vipEntryIcon {
+	position: absolute;
+	top: 13%;
+	left: 32%;
+	width: 150px;
+	height: 150px;
+	background-image: url(../img/iconMovie.png);
+	background-repeat: no-repeat;
+}
+.vipEntryValidity {
+	position: absolute;
+	height: 30px;
+	background: rgba(167,117,0,0.3);
+	display: inline-block;
+}
+.vipEntrySubscribe {
+	position: relative;
+	height: 30px;
+	left: 14px;
+	font-family: "NotoSansHans-Medium",sans-serif;
+	font-size: 20px;
+	line-height: 30px;
+	color: rgba(255,242,207,1);
+	letter-spacing: 0;
+	display: inline-block;
+}
+.vipEntryTimeTip {
+	position: relative;
+	height: 30px;
+	left: 20px;
+	font-family: "NotoSansHans-Light",sans-serif;
+	font-size: 20px;
+	line-height: 30px;
+	color: rgba(255,244,222,1);
+	display: inline-block;
+}
+.vipEntryTitle {
+	position: absolute;
+	top: 165px;
+	height: 54px;
+	line-height: 54px;
+	width: 100%;
+	text-align: center;
+	font-size: 36px;
+	font-family: "NotoSansHans-Medium",sans-serif;
+	color: rgba(103,66,8,1);
+}
+.vipEntryDescription {
+	position: absolute;
+	top: 230px;
+	width: 100%;
+	text-align: center;
+	height: 42px;
+	line-height: 42px;
+	font-size: 28px;
+	font-family: "NotoSansHans-Light",sans-serif;
+	color: rgba(80,55,13,1);
+}
+/*4K花园*/
+.vipEntryfourKGarden  {
+	position: absolute;
+	top: 398px;
+	left: 87px;
+	width: 1746px; /*default,will be re cal*/
+	height: 160px;
+	background: linear-gradient(-179deg, #FFD07E 0%, #D1AA6F 100%);
+}
+.vipEntryIcon4KGarden {
+	position: absolute;
+	top: 3%;
+	left: 23%;
+	width: 150px;
+	height: 150px;
+	background-image: url(../img/iconMovie.png);
+	background-repeat: no-repeat;
+}
+.vipEntryTitle4KGarden {
+	position: absolute;
+	left: 35%;
+	height: 160px;
+	line-height: 160px;
+	font-size: 36px;
+	font-family: "NotoSansHans-Medium",sans-serif;
+	color: rgba(103,66,8,1);
+	display: inline-block;	
+}
+.vipEntryDescription4KGarden {
+	position: absolute;
+	left: 60%;
+	height: 160px;
+	line-height: 160px;
+	font-size: 28px;
+	font-family: "NotoSansHans-Light",sans-serif;
+	color: rgba(80,55,13,1);
+	display: inline-block;	
+}
+
+/*vip权益页*/
+#vipPrivilegeId {
+	position: absolute;
+	top: 618px;
+	background: #000000;
+}
+
+.vipPrivilegeDetails {
+	position: absolute;
+	top: 686px;
+	left: 40px;
+	width: 1840px;
+	height: 1630px;
+	background-image: url(../img/movieVIPTencent.png);
+	background-repeat:  no-repeat;
+}
+
+[class^="VirtualFocus"] {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	width: 100px;
+	height: 100px;
+}
+
+.VirtualFocus1 {
+	top: 1400px;
+}
+
+.btn-focus{
+	background: rgba(0,127,240,1);
+	color: rgba(255,255,255,1);
+}
+
+.btn-focus div{
+	color: rgba(255,255,255,1);
+}

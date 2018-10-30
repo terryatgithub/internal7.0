@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta name="format-detection" content="telephone=no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/index.css" />
+		<script>
+			var adjust = function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			}
+			adjust();
+			
+			var _czc = _czc || [];
+			_czc.push(["_setAccount", "1275001386"]);
+		</script>
+	
+	<title>新手学习</title>
+	</head>
+	
+	<body>
+		<div id="deviceready">
+			
+			<!-- 	首页-标题div     -->
+			<div id="homeTitleDivId" class="homeTitleDivClass">
+				<div id="homeTitleHeadId" class="homeTitleHeadClass">新手学习</div>
+				<div id="homeTitleParaId" class="homeTitleParaClass">手把手教会新手学用电视</div>
+			</div>
+			
+			<!--  首页-视频内容div          -->
+			<div id="homtContentDivId" class="homeContentDivClass">
+				
+					<div id="videoDivId0" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+				
+					<div id="videoDivId1" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+				
+					<div id="videoDivId2" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+				
+					<div id="videoDivId3" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+				
+					<div id="videoDivId4" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+				
+					<div id="videoDivId5" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+
+					<div id="videoDivId6" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+					
+					<div id="videoDivId7" class="baseDivComponent coocaa_btn" >
+						<div id="videoPreviewId" class="videoPreviewClass"></div>
+						<div id="videoTitleId" class="videoTitleClass">
+							<div id="pTitleId" class="pTitleClass"></div>
+							<div id="pDurationId" class="pDurationClass"></div>
+						</div>
+					</div>
+					
+			</div>
+
+			<!-- 视频播放完毕的显示页面           -->
+			<div id="playbackPage" class="playbackPageClass">
+				<div class="playEndPrompt">播放结束</div>
+				<div id="playbackConfirm" class="playbackConfirmClass"></div>
+				<div class="playbackConfirmToast coocaa_btn2">按【确定】&nbsp;键再看一遍</div>
+				<div id="playbackReplay" class="playbackReturnClass"></div>
+				<div class="playbackReturnToast">按【返回】&nbsp;键看其它课程</div>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.1.js"></script>
+        <script type="text/javascript" src="js/getstart.js"></script>
+        <!--<script>
+        	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+			document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1275001386'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1275001386' type='text/javascript'%3E%3C/script%3E"));
+		</script>-->
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+			document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1275001386'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275001386' type='text/javascript'%3E%3C/script%3E"));
+	    </script>
+        
+    </body>
+    
+</html>

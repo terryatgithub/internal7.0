@@ -1,0 +1,291 @@
+li {
+	list-style: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+}
+body {
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+img[src='']{
+    visibility: hidden;
+}
+.fullScreen{
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	overflow: hidden;
+}
+.fullScreen2{
+	position: absolute;
+	width: 1920px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	transition: all 1s;
+	-moz-transition: all 1s;
+	-webkit-transition: all 1s;
+}
+#mainPage{
+	background-color: black;
+}
+#Title1{
+	position: absolute;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    color: white;
+	top: 38px;
+    width: 233px;
+    left: 63px;
+    font-size: 46px;
+}
+#Title2{
+	position: absolute;
+    top: 56px;
+    width: 440px;
+    left: 288px;
+    font-size: 28px;
+    height: 55px;
+    color: white;
+    line-height: 55px;
+    text-align: center;
+}
+#mainOptionBox{
+	position: absolute;
+	top: 130px;
+	left: 60px;
+    height: 950px;
+    width: 1800px;
+    overflow: hidden;
+}
+.optionUl{
+	position: absolute;
+	margin-top: 14px;
+    width: 100%;
+	display: inline-block;
+	overflow: hidden;
+}
+.optionUl li.paras{
+	display: inline-block;
+    height: 410px;
+    width: 593px;
+    float: left;
+}
+#theFirst{
+	height: 510px;
+    width: 1185px;
+}
+#theSecond{
+	height: 510px;
+}
+.optionenum{
+	margin: 15px;
+    height: 380px;
+    width: 563px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: rgba(255,255,255,0);
+    transition: transform 0.2s;
+}
+#theFirst .optionenum{
+	margin: 17px;
+    height: 480px;
+    width: 1153px;
+}
+#theSecond .optionenum{
+    height: 483px;
+}
+.leftDiv{
+	margin-left: 10px;
+}
+.optionUl .btn-focus{
+	-webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    transition: transform 0.2s linear 0s;
+}
+#secondPage{
+	display: none;
+}
+.partPages{
+	display: none;
+}
+.divPart{
+	position: relative;
+	width: 1920px;
+	height: 1080px;
+}
+.rightListBox{
+	position: fixed;
+    top: 460px;
+    right: 30px;
+    height: 200px;
+    width: 40px;
+}
+.rightListUl{
+	position: absolute;
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.listItem{
+	position: relative;
+    display: block;
+    height: 15px;
+    width: 15px;
+    margin: 7px 10px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 0.4;
+}
+.textInfoBox{
+	position: relative;
+    display: inline-block;
+    margin-top: 390px;
+    margin-left: 60px;
+    height: 300px;
+    width: 740px;
+    float: left;
+}
+.mainTitle{
+	margin-left: 25px;
+    height: 64px;
+    width: 600px;
+    line-height: 64px;
+    font-size: 56px;
+    color: white;
+    letter-spacing: 5px;
+}
+.mainDetail{
+	margin-left: 25px;
+    margin-top: 32px;
+    height: 56px;
+    width: 740px;
+    line-height: 56px;
+    font-size: 36px;
+    color: white;
+}
+.conImg{
+	position: relative;
+    display: inline-block;
+    margin-top: 220px;
+    margin-left: 40px;
+    height: 542px;
+    width: 964px;
+    float: left;
+}
+.conChoice{
+	position: relative;
+	display: inline-block;
+    margin-left: 677px;
+    margin-top: 130px;
+    height: 60px;
+    width: 200px;
+    line-height: 60px;
+    text-align: center;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+    overflow: hidden;
+    float: left;
+}
+.eachYONBtns{
+	position: relative;
+	display: inline-block;
+   	margin-top: 130px;
+    margin-left: 35px;
+    height: 60px;
+    padding: 0 30px;
+    line-height: 60px;
+    text-align: center;
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+   	background-color: #808080;
+    border-radius: 40px;
+    overflow: hidden;
+    float: left;
+}
+.eachNoBtns{
+    padding: 0 45px;
+}
+.partPages .btn-focus{
+	background-color: #007FF0;
+}
+/*.conBtnBox{
+	position: relative;
+    border: 1px solid red;
+    height: 110px;
+    width: 800px;
+    left: 560px;
+    top: 870px;
+}*/
+/*.ansboxs{
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-repeat: no-repeat;
+    background-size: 100%;
+	overflow: hidden;
+	display: none;
+}
+.ansContent{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:1080px;
+    width: 1920px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+	overflow: hidden;
+}
+#transBox0{
+	position: absolute;
+	top: 0;
+	left: 0;
+    width: 1920px;
+}*/
+/*
+.conItem{
+	position: relative;
+	height: 790px;
+    width: 1070px;
+}
+.conImg{
+	height: 600px;
+    width: 1070px;
+}
+.conTextBox{
+	position: relative;
+    top: 20px;
+    height: 150px;
+    width: 1070px;
+}
+.conText{
+	position: relative;
+    margin-top: 5px;
+    width: 1070px;
+    font-size: 36px;
+    background-color: rgba(255,0,0,0.5);
+}
+.conBtnBox{
+	position: relative;
+    margin-top: 5px;
+    width: 1070px;
+    font-size: 32px;
+    background-color: rgba(255,0,0,0.5);
+}
+.conBtns{
+	border: 3px solid black;
+    border-radius: 10px;
+    padding: 5px 20px;
+}*/

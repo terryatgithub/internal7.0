@@ -1,0 +1,283 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: black; /*E4E4E4;*/
+    /*background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );*/
+	/*background: url(../img/playbackPrompt.png);
+	background-size: cover;*/
+	/*background-color: rgba(0,0,0,0.3);*/
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    width:1920px;
+    height: 1080px;
+    margin:0px;
+    padding:0px;
+    text-transform:uppercase;
+    overflow: hidden;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:10%;
+    top:10%;
+    height:50px;                   /* text area height */
+    /*width:225px;                   /* text area width */
+    width:1125px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+/*
+ * 标题div
+ */
+.homeTitleDivClass {
+	position: relative;
+	top: 0;
+	left: 87px;
+	width: 1746px;
+	height: 145px;
+	display: inline-block;
+}
+
+.homeTitleHeadClass {
+	position: absolute;
+	top: 43px;
+	left: 0px;
+	width: 192px;
+	height: 48px;
+	font: 48px/72px NotoSansHans-Light,sans-serif;
+	color: rgba(153,153,153,1);
+	letter-spacing: 0;
+}
+
+.homeTitleParaClass {
+	position: absolute;
+	top: 60px;
+	left: 120px;
+	width: 597px;
+	font: 28px/42px NotoSansHans-Light,sans-serif;
+	color: rgba(102,102,102,1);
+	padding-left: 100px;
+	letter-spacing: 0;
+}
+
+/*.homeTitleDivClassBar {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	width: 1920px;
+	height: 100px;
+	font-size: 24px;
+	font-family: "微软雅黑";
+	font-weight: normal;
+	text-align: center;
+	background: rgba(0,100,0,0.9); 
+	z-index: 1;
+}*/
+/*.homeTitleHeadClassBar {
+	position: absolute;
+	left: 690px;
+	width: 500px;
+	height: 101px;
+	font-size: 80px;
+	line-height: 100px;
+}*/
+
+/*
+ * 内容div
+ */
+.homeContentDivClass {
+	position: relative;		
+	margin-left: 50px;
+	padding-left: 16px;
+	overflow: hidden;
+}
+/*
+ * 单个视频组件div
+ */
+.baseDivComponent{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 858px;
+	height: 236px;
+	margin: 15px;
+	float: left;
+	box-sizing: border-box;
+	border: 5px solid black;
+	background: rgba(255,255,255,0.06);
+}
+
+.videoPreviewClass {
+	position: relative;
+	width: 405px;
+	height: 216px;
+	padding: 5px;
+	float: left;
+}
+
+.imgPreviewClass {
+	width: 100%;
+	height: 100%;
+}
+
+.videoTitleClass {
+	position: relative;
+	float: left;	
+	width: 410px;
+	height: 100%;
+	padding-left: 20px;
+}
+
+.pTitleClass {
+	position: relative;
+	font-family: "NotoSansHans-Light",sans-serif;
+	font-size: 32px;
+	line-height: 41px;
+	color: #CCCCCC;
+	letter-spacing: 0;
+	top:58px;
+	height: 82px;
+	overflow: hidden;
+}
+
+.pDurationClass {
+	position: relative;
+	font-family: "NotoSansHans-Light",sans-serif;
+	color: #999999;
+	font-size: 24px;
+	line-height: 36px;
+	letter-spacing: 0;
+	top: 66px;
+	height: 36px;	
+}
+
+/*
+ * 播放完的显示页面设置
+ */
+.playbackPageClass {
+	display: none;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+	background: rgba(0,0,0,0.7);
+}
+
+.playbackPageClass div {
+	float: left;
+}
+
+.playEndPrompt {
+	position: absolute;
+	top: 350px;
+	left: 815px;
+	height: 73px;
+	width: 292px;
+	font: 73px/110px NotoSansHans-Bold,sans-serif;
+	color: rgba(204,204,204,1);
+	letter-spacing: 0;
+}
+
+.playbackConfirmClass {
+	position: absolute;
+	top: 530px;
+	left: 652px;
+	height: 61px;
+	width: 61px;
+	background: rgba(102,102,102,1);
+	overflow: hidden;
+	background-image: url(../img/confirmicon.png);
+	border-radius: 50%;
+}
+
+.playbackReturnClass {
+	position: absolute;
+	top: 621px;
+	left: 652px;
+	height: 61px;
+	width: 61px;
+	background: rgba(102,102,102,1);
+	overflow: hidden;
+	background-image: url(../img/returnicon.png);
+	border-radius: 50%;
+}
+
+.playbackConfirmToast {
+	position: absolute;
+	top: 521px;
+	left: 738px;
+	width: 506px;
+	height: 48px;
+	color: rgba(204,204,204,1);
+	font: 48px/72px NotoSansHans-Medium,sans-serif;
+	letter-spacing: 0;
+}
+
+.playbackReturnToast {
+	position: absolute;
+	top: 612px;
+	left: 740px;
+	width: 550px;
+	height: 48px;
+	color: rgba(204,204,204,1);
+	font: 48px/72px NotoSansHans-Medium,sans-serif;
+	letter-spacing: 0;	
+}
+
+.btn-focus{
+	-webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    transition: transform 0.1s linear 0.1s;       
+	border: 5px solid white;
+}
+ 
