@@ -91,8 +91,7 @@ var app = {
     bindEvents: function() {
     	//进入时,先画一次默认页面内容:
     	app.pageInit();
-    	showLevelDetails();
-    	//test zone -start
+    	//test zone for PC-start
 //     	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 // 		app.registerKeyHandler();
     	//test zone -end
@@ -116,14 +115,6 @@ var app = {
 		app.receivedEvent('deviceready');
 		app.triggleButton();
 
-		//初始落焦
-        var initPhoneMap = function(obj) {
-			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
-			console.log("----------initPhoneMap End---------");
-		}
-		var firstFocus = document.getElementsByClassName("coocaa_btn")[0];
-		initPhoneMap(firstFocus);
-		_Lindex = 0;	
 		//注册事件监听
 		app.registerEventHandler();
 		//注册按键监听
@@ -148,12 +139,6 @@ var app = {
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-        
-        //注册按键
-		$(".coocaa_btn").bind("itemClick", function() {
-				_Lindex = $(".coocaa_btn").index($(this));
-				console.log("itemClick _Lindex = " + _Lindex);
-		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
@@ -166,13 +151,22 @@ var app = {
     	console.log("in pageInit.");
     	parseLevelFromUrl();
     	drawContainerZone();
-    	console.log("out pageInit.");
+    	showLevelDetails();
+
+		//初始落焦
+        var initPhoneMap = function(obj) {
+			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
+			console.log("----------initPhoneMap End---------");
+		}
+		var firstFocus = document.getElementsByClassName("coocaa_btn")[0];
+		initPhoneMap(firstFocus);
+
+		console.log("out pageInit.");
     },
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
 	}
-    
 };
 
 app.initialize();
@@ -194,13 +188,11 @@ function drawContainerZone() {
 		//灰掉高于目前等级的所有图标：
 		if(_levelInfos[i].level > _userLevel) {
 			pic = app.rel_html_imgpath(_levelInfos[i].picDisabled);
-			// pic = _levelInfos[i].picDisabled;
 			$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
 			continue;
 		}
-		console.log("_levelInfos[i].picNormal:"+_levelInfos[i].picNormal);
+//		console.log("_levelInfos[i].picNormal:"+_levelInfos[i].picNormal);
 		pic = app.rel_html_imgpath(_levelInfos[i].picNormal);
-		// pic = _levelInfos[i].picNormal;
 		$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
 	}
 }
@@ -224,11 +216,10 @@ function showLevelDetails() {
 function parseLevelFromUrl() {
 	console.log("search param: "+location.search);
 	var levelLocation = location.search.substr(1).search(/level=/i);
-	console.log("levelLocation:   "+levelLocation);
 	if(levelLocation != -1) {
 		var lv = location.search.substr(1).substr("level=".length,1);
 		lv = parseInt(lv);
-		console.log("lv:"+lv +" type:"+typeof lv);
+//		console.log("lv:"+lv +" type:"+typeof lv);
 
 		if(isNaN(lv) || lv < 0 || lv > 7) {
 			console.log("use default lv1");

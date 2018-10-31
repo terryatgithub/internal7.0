@@ -75,7 +75,7 @@ body {
 	overflow: hidden;
 	margin: auto;
 	top: -125px;
-	background: url(../img/lv1big.png);
+	/*background: url(../img/lv1big.png);*/
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -169,10 +169,11 @@ body {
 	width: 180px;
 	height: 240px;
 	margin: 25px 60px;
+	border: 5px solid transparent;
 }
 
 .levelIcon {
-	background-image: url(../img/lv1.png);
+	/*background-image: url(../img/lv1.png);*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 180px;
@@ -222,8 +223,10 @@ body {
 	transition: left 1s ease 0s; 
 }*/
 
-
 .btn-focus{
-	background: rgba(0,127,240,1);
-	font-family: "NotoSansHans-Medium", sans-serif;
+	border: 5px solid white;
+	-webkit-transform: scale(1.08);
+	transform: scale(1.08);
+	-webkit-transition: transform .1s;
+	transition: transform .1s;
 }
