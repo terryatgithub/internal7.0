@@ -297,7 +297,7 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
     /*
      *启动影视会员中心
      */
-    CoocaaOSApi.prototype.startMovieMemberCenter = function(businesstype, sourceid, success, error) {
+    CoocaaOSApi.prototype.startMovieMemberCenter = function(sourceid,businesstype, success, error) {
         argscheck.checkArgs('ssff', 'CoocaaOSApi.startMovieMemberCenter', arguments);
         startapp.start([
             ["action", "coocaa.intent.vip.center"],
@@ -1133,17 +1133,20 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
         argscheck.checkArgs('ff','CoocaaOSApi.startHomeTab',arguments);
         startapp.start([["action", "coocaa.intent.action.my_center.activity.task"]], success,error);
     }
-/*
-启动动作：StartActivity
-启动方式：uri
-启动参数：pptv_tvsports://tvsports_vip?from_internal=1
-应用包名：com.pptv.tvsports
-应用版本号：129 
- * */
-    //启动聚体育页面：
-    CoocaaOSApi.prototype.startPPSportsPage = function(success,error){
-        argscheck.checkArgs('ff','CoocaaOSApi.startHomeTab',arguments);
-        startapp.start([["uri", "pptv_tvsports://tvsports_vip?from_internal=1", "com.pptv.tvsports"]], success,error);
+
+  // 拓展参数[{key1:"value1"},{key2:"value2"}]
+    //用activity方式启动：1,2传参为包名、类名；3、4、5为空；
+    //用其他方式启动，1传参"action",2\3\4\5可选---2action名、5uri地址
+    CoocaaOSApi.prototype.startCommonNormalAction = function(param1,param2,param3,param4,param5, str, success, error) {
+        console.log("启动传参action")
+        argscheck.checkArgs('ssssssff', 'CoocaaOSApi.startCommonNormalAction', arguments);
+        str = JSON.parse(str);
+        startapp.start([
+            [param1,param2,param3,param4,param5],
+            // ["com.stvgame.calabash", "","","",""],
+            str
+        ], success, error);
+        // startapp.start([["cn.cheerz.icw", "","","","wit://cn.cheerz.icw/MainActivity"],[{"subpage":"1"},{"type":"3"}]], success,error);
     }
     
     module.exports = new CoocaaOSApi();
