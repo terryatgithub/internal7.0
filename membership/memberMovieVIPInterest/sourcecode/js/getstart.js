@@ -43,7 +43,8 @@ var _support4K = "4k"; //TV是否支持4K
 var _sourceDetailsArray = new Array();
 var _sourceFourKGarden = null;
 //错误标志
-var _failIndex = "";
+var _failIndex = "";//加载失败的标识
+var _bFirstTimeAddVipEntry = true;//第一次进入页面，增加vip入口区时的标志位
 
 //页面部分的逻辑
 var app = {
@@ -318,35 +319,39 @@ function updateMemberVIPStates(data) {
 	console.log("updateMemberVIPStates out...");
 }
 
-//动态绘制页面上的vip入口区
+//动态绘制页面上的vip入口区: 
 function drawVipEntryZone() {
-	console.log("drawVipEntryZone in...");
-	
-	var vipZoneWidth=1746;//vip整个区域的宽度
-	var barMargin = 30;//每个vip图标的margin-right固定为30
-	var maxNumInOnePage = 4;//页面最多显示4个
+	console.log("drawVipEntryZone in..._bFirstTimeAddVipEntry:"+_bFirstTimeAddVipEntry);
 	var barNum = _sourceDetailsArray.length + 1;//vip图标个数,要加上聚体育（聚体育是第三方，不是从后台获取的）
-	var barWidth = Math.round((vipZoneWidth - barMargin*(maxNumInOnePage-1))/maxNumInOnePage);
+	
+	//只有初次进入时才增加页面元素，其它时候不增加，只更新状态
+	if(_bFirstTimeAddVipEntry) {
+		_bFirstTimeAddVipEntry = false;
+		var vipZoneWidth=1746;//vip整个区域的宽度
+		var barMargin = 30;//每个vip图标的margin-right固定为30
+		var maxNumInOnePage = 4;//页面最多显示4个
+		var barWidth = Math.round((vipZoneWidth - barMargin*(maxNumInOnePage-1))/maxNumInOnePage);
+	
+		//计算bar宽度
+		if(barNum == 1) {
+			console.log("total num 1, take all ...");
+			barWidth = vipZoneWidth;
+		}else if(barNum < maxNumInOnePage) {
+			console.log("total num <4, one page is enough...");
+			barWidth = Math.round((vipZoneWidth - barMargin*(barNum-1))/barNum);
+		}
+		
+		//根据bar的个数复制插入更多bar：
+		var i = 0;
+		for(i = 0; i<barNum-1; i++) {
+			$(".vipEntryZone").append($(".vipEntry:last-of-type").clone(true));
+			$(".vipEntry:last-of-type").attr("id", "vipEntry"+(i+2));
+		}
+		$(".vipEntry").css("width", barWidth+"px");
+		//重绘后需要更新焦点：
+		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	}
 
-	//计算bar宽度
-	if(barNum == 1) {
-		console.log("total num 1, take all ...");
-		barWidth = vipZoneWidth;
-	}else if(barNum < maxNumInOnePage) {
-		console.log("total num <4, one page is enough...");
-		barWidth = Math.round((vipZoneWidth - barMargin*(barNum-1))/barNum);
-	}
-	
-	//根据bar的个数复制插入更多bar：
-	var i = 0;
-	for(i = 0; i<barNum-1; i++) {
-		$(".vipEntryZone").append($(".vipEntry:last-of-type").clone(true));
-		$(".vipEntry:last-of-type").attr("id", "vipEntry"+(i+2));
-	}
-	$(".vipEntry").css("width", barWidth+"px");
-	//重绘后需要更新焦点：
-	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-	
 	//给每个bar填充显示内容（默认内容就是聚体育，放在最后一个）:
 	for(i = 0; i<barNum-1; i++) {
 		var cur = $(".vipEntry").eq(i);
@@ -372,7 +377,6 @@ function drawVipEntryZone() {
 	}
 	
 	//给4K花园更新内容：
-	_sourceFourKGarden
 	$(".vipEntryTitle4KGarden").text(_sourceFourKGarden.name);
 	$(".vipEntryDescription4KGarden").text(_sourceFourKGarden.des);
 	if (_sourceFourKGarden.validType == 0 ){
