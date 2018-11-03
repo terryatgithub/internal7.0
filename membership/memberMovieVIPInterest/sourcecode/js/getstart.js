@@ -117,7 +117,7 @@ var app = {
 		app.registerEventHandler();
 		//注册按键监听
 		app.registerKeyHandler();
-		
+		//开始跟底层和后台交互的流程：
 		getLocalDeviceInfo();
     },
     onResume: function() {
@@ -146,14 +146,14 @@ var app = {
 		console.log("---in registerKeyHandler-----");
 
 		$(".coocaa_btn").bind("itemClick", function() {
-				_Lindex = $(".coocaa_btn").index($(this));
-				console.log("itemClick _Lindex = " + _Lindex);
-				processKey();
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("-click---" + _Lindex);
+			processKey();
 		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
-			console.log("----------focus-----"+_Lindex);
+			console.log("-focus-----"+_Lindex);
 			scrollPage();
 		});
 	},
@@ -499,9 +499,9 @@ function failToastProcess(){
 	console.log("failToast in...");
 	showFailToast(false);
 	switch(_failIndex) {
-		case "getUserInfoFail":
-			hasLogin((_TVSource == "tencent") ? true : false);
-			break;	
+//		case "getUserInfoFail":
+//			hasLogin((_TVSource == "tencent") ? true : false);
+//			break;	
 		case "getUserCoinsInfoFail":
 			getUserCoinsInfo();
 			break;
@@ -654,7 +654,7 @@ function getUserCoinsInfo() {
 }
 
 //显示用户登录或没有登录的信息:
-//初始时都不显示,等获取用户登录状态（成功或失败)后,再显示?
+//初始时都不显示,等获取用户登录状态（成功或失败)后,再显示
 function updateUserLoginState(bLogin) {
 	console.log("updateUserLoginState bLogin:"+bLogin);
 	if(bLogin == false) {
@@ -818,6 +818,9 @@ function hasLogin(needQQ) {
             }
             _userFlag = 0;
             access_token = "";
+            //右上角显示"立即登录":
+            console.log("user login false1, show 'login now'..");
+        	updateUserLoginState(false);
             //用户没有登录,也要能获取产品包列表:
             getProductPackLists();
         } else {
@@ -931,14 +934,14 @@ function hasLogin(needQQ) {
                     	updateUserLoginState(true);
 						getUserCoinsInfo();
                     }else {
-                    	console.log("user login false, show 'login now'..");
+                    	console.log("user login false2, show 'login now'..");
                     	updateUserLoginState(false);
                     }
-                    //用户与否,都要获取产品包列表
+                    //用户登录与否,都要获取产品包列表
                     getProductPackLists();
 					
                 }, function(error) { console.log(error); })
-            }, function(error) { console.log(error);  showFailToast(true, "getUserInfoFail");});
+            }, function(error) { console.log(error); });
         }
 			
     }, function(error) { console.log(error); });

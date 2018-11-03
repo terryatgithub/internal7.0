@@ -56,13 +56,17 @@
 						<div class="vipEntry coocaa_btn" id="vipEntry1" upTarget="#notLoginId" downTarget="#vipPrivilegeId">
 							<div class="vipEntryValidity">
 								<div class="vipEntrySubscribe">立即开通</div>
-								<div class="vipEntryTimeTip">2019.09.18到期</div>
+								<div class="vipEntryTimeTip"></div>
 							</div>
 							<div class="vipEntryIcon"></div>
-							<div class="vipEntryTitle">SVIP</div>
-							<div class="vipEntryDescription">全年龄段教育VIP内容</div>
+							<div class="vipEntryTitle">教育超级VIP</div>
+							<div class="vipEntryDescription">快速开通全年龄段教育VIP</div>
 						</div>
-						<!--动态生成-->
+						<div class="vipEntry coocaa_btn" id="vipEntry2" upTarget="#notLoginId" downTarget="#vipPrivilegeId">
+							<div class="vipEntryIcon"></div>
+							<div class="vipEntryTitle">教育分年龄VIP</div>
+							<div class="vipEntryDescription">选择开通任意年龄段教育VIP</div>
+						</div>						
 					</div>
 
 					<!-- VIP权益标题-->
@@ -74,7 +78,8 @@
 
 				</div>
 			</div>
-			
+			<!--加载失败提示页-->
+			<div class="failToast"></div>
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
