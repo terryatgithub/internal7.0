@@ -1,8 +1,21 @@
 var _Index1= "";
 var　firstFocus="";
 var _bPlayDisrupted = false;
-var _cUrl = "http://all.vod.17ugo.com/vod/kukai/U-酷开/20181009/厨具20180928/553273-方太跨界三合一水槽洗碗机尊享组U/u.m3u8";//"http://v-play.coocaatv.com/0915/chenghongniandai2.mp4";
 
+//视频资源地址,例如:http://v-play.coocaatv.com/7-demo/10-help.m4v
+var _baseUrl = "http://v-play.coocaatv.com/7-demo/";
+var _videoInfos = [
+	 { des: "如何使用遥控器", name: "1-remote", duration: "1:01", img: "img/1.jpg"}
+	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "1:02", img: "img/2.jpg"}
+	,{ des: "在播放中会用到", name: "3-play", duration: "1:03", img: "img/3.jpg"}
+	,{ des: "看过的节目去哪里找", name: "4-history", duration: "1:04", img: "img/4.jpg"}
+	,{ des: "如何购买会员和登录", name: "5-vip", duration: "1:05", img: "img/5.jpg"}
+	,{ des: "怎么看电视台", name: "6-cctv", duration: "1:06", img: "img/6.jpg"}
+	,{ des: "试试和电视说话", name: "7-AI", duration: "1:07", img: "img/7.jpg"}
+	,{ des: "如何在电视上看手机上的视频和照片", duration: "1:08", name: "8-cast", img: "img/8.jpg"}
+	,{ des: "还能用电视做什么", name: "9-education", duration: "1:09", img: "img/9.jpg"}
+	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "1:10", img: "img/10.jpg"}
+];
 
 //页面部分的逻辑
 var app = {
@@ -102,7 +115,6 @@ var app = {
 		coocaaosapi.addCommonListener(function(message) {
 			console.log("--------------->commonListen==" + message.web_player_event);
 			if(message.web_player_event == "on_complete") {
-				
 				//正常播放结束,设置flag:
 				_bPlayDisrupted = false;
 				
@@ -111,7 +123,6 @@ var app = {
 				$("#homtContentDivId").css("display", "none");
 				$("#playbackPage").css("display","block");
 				map = new coocaakeymap($(".coocaa_btn2"), $(".coocaa_btn2")[_Index1], null, function() {}, function(val) {}, function(obj) {});
-//				$("#salvage").trigger("focus");
 			}
 		});		
 	},
@@ -119,8 +130,6 @@ var app = {
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-        
-        //注册按键
 		$(".coocaa_btn").bind("itemClick", function() {
 				_Index1 = $(".coocaa_btn").index($(this));
 				console.log("itemClick _Index1 = " + _Index1);
@@ -129,37 +138,18 @@ var app = {
 				$("#homeTitleDivId").css("display", "none");
 				$("#homtContentDivId").css("display", "none");
 				//启动播放
-				playVideo(_Index1);
+				playVideo();
 		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("----------focus-----"+_Lindex);
-//			$(".coocaa_btn")[_Lindex].style.color = "#cccccc";
 			focusShift(_Lindex);
 		});
 		
-//		$(".coocaa_btn").bind("itemBlur", function() {
-//			_Lindex = $(".coocaa_btn").index($(this));
-//			console.log("----------blur----"+_Lindex);
-//			$(".coocaa_btn")[_Lindex].style.color = "#000000";
-//		});
-		
-//		$(".coocaa_btn2").bind("itemFocus", function(){
-//			_Lindex = $(".coocaa_btn2").index($(this));
-//			console.log("----------coocaa_btn2 focus-----"+_Lindex);
-////			$(".coocaa_btn2")[_Lindex].style.color = "#cccccc";			
-//		});
-				
-//		$(".coocaa_btn2").bind("itemBlur", function() {
-//			_Lindex = $(".coocaa_btn2").index($(this));
-//			console.log("----------coocaa_btn2 blur----"+_Lindex);
-//			$(".coocaa_btn2")[_Lindex].style.color = "#000000";
-//		});
-		
 		$(".coocaa_btn2").bind("itemClick", function() {
-			_Index1 = $(".coocaa_btn2").index($(this));
-			console.log("------coocaa_btn2 itemClick _Index1 = " + _Index1);
+			//_Index1 = $(".coocaa_btn2").index($(this));
+			console.log("------coocaa_btn2 itemClick _Index2 = " + $(".coocaa_btn2").index($(this)));
 			
 			//响应用户选择（重播或返回)
 			replayOrReturn(true);
@@ -179,103 +169,39 @@ var app = {
 	
     showStudyVideos: function() {
     	console.log("in showStudyVideos.");
-    	//从服务器获取所有视频信息
-    	var myUrl = "http://tc.skysrt.com/appstore/appstorev3/onlineHelp.html";
-	
-		$.ajax({
-			type: "get",
-			async: true,			
-			url: myUrl,
-			dataType: "jsonp",
-			jsonp: "callback",
-			success: function(data) {
-				var questions = new Array(); 
-				var answers = new Array();
-
-				//调试用:
-				questions = [
-					"从使用遥控器开始"
-					,"挑选想看的内容"
-					,"播放中会用到"
-					,"看过的去哪里找"
-					,"购买会员和登录"
-					,"怎么看电视台"
-					,"试试和电视说话"
-					,"用电视看手机上的视频和照片"
-					,"还能用电视做什么"
-					,"有问题或想了解更多用法怎么办"
-					,"数组可以用一个变量名存储所"
-					,"且可以用变量名访问任"
-					,"数组中的每个元素都有自己"
-					,"以便它可以很容易地被访问"
-					,"创建一个数组，有三种"
-					,"面的代码定义了一个名为 m"
-				];
-
-				var len = data.data.length;
-				console.log("server data len:"+len);
-				
-				var i = 0;
-				var tmpId;
-				var tmpImg;
-				var targetPos;
-				
-				//测试用
-				
-				//有超过一个页面的内容时（8个),需要动态创建新videoDiv
-				for(i=8;i<len;i++) {
-					console.log("beyond 7, now i:"+i+", need append baseDivComponent.");
-					$(".homeContentDivClass").append($(".homeContentDivClass .baseDivComponent:last-child").clone(true));
-					//设置id
-					$(".baseDivComponent:last").attr("id",tmpId);
-					//设置焦点转移属性:
-				}
-				
-				//测试用,多放一倍的数据
-				for(i=len;i<10;i++) {
-					console.log("beyond 7, now i:"+i+", need append baseDivComponent.");
-					tmpId = "videoDivId"+i;
-					$(".homeContentDivClass").append($(".homeContentDivClass .baseDivComponent:last-child").clone(true));
-					//设置id
-					$(".baseDivComponent:last").attr("id",tmpId);
-					//设置焦点转移属性:
-				}
-				
-//				for(i=0; i<len; i++) {
-				//测试用
-				for(i=0; i<10; i++) {					
-//					questions.push(data.data[i].question);
-//					answers.push(data.data[i].answerList);
-					
-					tmpId = "videoDivId"+i;
-					console.log("now i:"+tmpId);
-					
-					//为视频块填充内容
-//					tmpImg = '<img src="'+answers[0]+'" class="imgPreviewClass"></img>';
-					//测试用
-					tmpImg = '<img></img>';
-					$("#"+tmpId+" .videoPreviewClass").append(tmpImg);					
-					$("#"+tmpId+" .pTitleClass").text(questions[i]);
-					$("#"+tmpId+" .pDurationClass").text('3\'20"');					
-				}
-				
-				//测试用
-				loadTestImg();
-				
-				console.log("--------------------loading coocaamap");	
-				map = new coocaakeymap($(".coocaa_btn"), document.getElementsByClassName("coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
-
-				//debug only.
-				console.log("questions array: \n" + questions);
-				console.log("answers array: \n" + answers);
-			},
-			error: function() {
-				console.log("fail showStudyVideos.");
-			}
-		});
-    	
-    	console.log("out showStudyVideos.");
-    },
+		var len = _videoInfos.length;
+		console.log("server data len:"+len);
+		var i = 0;
+		var tmpId;
+		var tmpImg;
+		var targetPos;
+		
+		//有超过一个页面的内容时（8个),需要动态创建新videoDiv
+		for(i=8;i<len;i++) {
+			console.log("beyond 7, now i:"+i+", need append baseDivComponent.");
+			$(".homeContentDivClass").append($(".homeContentDivClass .baseDivComponent:last-child").clone(true));
+			//设置id
+			tmpId = "videoDivId"+i;
+			$(".baseDivComponent:last").attr("id",tmpId);
+		}
+		//插入图像
+		for(i=0; i<len; i++) {
+			tmpId = "videoDivId"+i;
+			console.log("now i:"+tmpId);
+			
+			//为视频块填充内容
+			//tmpImg = '<img src="'+answers[0]+'" class="imgPreviewClass"></img>';
+			//测试用
+			tmpImg = '<img></img>';
+			$("#"+tmpId+" .videoPreviewClass").append(tmpImg);					
+			$("#"+tmpId+" .pTitleClass").text(_videoInfos[i].des);
+			$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
+		}
+		setTimeout("delayLoad()", 100);
+		
+		map = new coocaakeymap($(".coocaa_btn"), document.getElementsByClassName("coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+		console.log("out showStudyVideos.");
+	},
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
@@ -372,18 +298,17 @@ function headDivShowRestore() {
 }
 
 //启动播放,不能控制快进快退 暂停继续;
-function playVideo(index) {
-		console.log("playVideo -start--_startPlaying:true-");
+function playVideo() {
+		console.log("playVideo -start--_startPlaying:true-_Index1:"+_Index1);
 //		_czc.push(["_trackEvent",category,action,label,value,nodeid]);
 		//开始播放时,设置flag; 只有正常播完才会被设为false
 		_bPlayDisrupted = true;
 		
-//		var _cName = $(".videoPreviewClass")[index].attr("videoName");
-//		var _cUrl = $(".videoPreviewClass")[index].attr("videoUrl");
-//		console.log(_cName+"--"+_cUrl);
-		
-		var _cName = "chenghongniandai2";
-		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "视频广告", "赢机会任务弹窗", function(message) {
+		var _cName = _videoInfos[_Index1].des;
+		var _cUrl = _baseUrl + _videoInfos[_Index1].name + ".m4v";
+		console.log("playing:"+_cName+"--"+_cUrl);
+
+		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
 			console.log(message);
 		}, function(error) {
 			console.log("commonTask----error");
@@ -424,10 +349,13 @@ function replayOrReturn(index)	{
 	}
 }
 
-
-function loadTestImg() {
-	var pic2 = app.rel_html_imgpath(__uri("../img/thumbnail.png"));
-	console.log("==="+pic2+' '+typeof pic2);
-	$("img").attr("src", pic2);
+function delayLoad() {
+	var i,pic;
+	var len = _videoInfos.length;
 	$("img").addClass("imgPreviewClass");
+	for(i=0;i<len;i++) {
+		pic = _videoInfos[i].img;
+		console.log("==i:"+i+", pic: "+pic);
+		$("img").eq(i).attr("src", pic);
+	}
 }
