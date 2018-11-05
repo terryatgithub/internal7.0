@@ -668,6 +668,7 @@ function updateUserLoginState(bLogin) {
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	app.registerKeyHandler();
 }
 
 function updateInfoBySource(src) {

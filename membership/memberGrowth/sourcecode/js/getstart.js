@@ -122,9 +122,9 @@ var app = {
 		console.log("---in registerKeyHandler-----");
 
 		$(".coocaa_btn").bind("itemClick", function() {
-				_Lindex = $(".coocaa_btn").index($(this));
+			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("-click---" + _Lindex);
-				processKey();
+			processKey();
 		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
@@ -511,6 +511,7 @@ function updateUserLoginState(bLogin) {
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	app.registerKeyHandler();
 }
 
 function getLocalDeviceInfo() {
