@@ -68,10 +68,10 @@
 							      <stop offset="100%" style="stop-color:rgb(253,78,0);stop-opacity:0.08" />
 							    </linearGradient>
 						  	</defs>
-							<path id="gotCoinsPath"    d="M0,500 L1738,500 L1738,0 a1738,378 0 0,1 -1738,378 Z" fill="url(#grad1)"/>
+							<path id="gotCoinsPath"    d="" fill="url(#grad1)"/>
 							<path id="remainCoinsPath" d="M0,500 L1738,500 L1738,0 a1738,378 0 0,1 -1738,378 Z" fill="url(#grad2)"/>
 							<path id="markLine" d="M1738,0 a1738,378 0 0,1 -1738,378"  />
-							<circle id="markPoint" cx="10" cy="10" r="5" /> 
+							<circle id="markPoint" /> 
 						</svg>
 					</div>
 					
@@ -88,6 +88,16 @@
 									<th>LV5</th>
 									<th>LV6</th>
 									<th>LV7</th>
+								</tr>
+								<tr>
+									<th>会员等级权益</th>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
+									<td>等级礼包</td>
 								</tr>
 								<tr>
 									<th>会员等级权益</th>
@@ -143,31 +153,27 @@
 					</div>
 					
 					<div class="coinsIntro">
-						<div class="sectionTitle">酷币介绍</div>
+						<div class="sectionTitle">金币介绍</div>
 						<div class="sectionDetails">
-							<p>酷币是基于个人在酷开系统活跃产生的奖励，可以用于酷开系统的消费与兑换等；</p>
-							<p>酷币48小时不领取将会暂停生长；</p>
-							<p>酷币总量有限，且每两年产出量减少一半，随着时间的推移获取的难度越来越大，前期参与更有优势。</p>
+							<p>金币是基于个人在酷开系统活跃产生的奖励，可以用于酷开系统的消费与兑换等。</p>
+							<p>可以通过任务、宠物游戏获得金币。</p>
 						</div>
 					</div>
 					
 					<div class="coinsGrow">
-						<div class="sectionTitle">成长值越高，酷币生长越快</div>
+						<div class="sectionTitle">成长值越高、与宠物互动越多，获得金币越多</div>
 						<div class="sectionDetails">
-							<p>成长值是用户获取酷币的影响因素，同一时间段内，成长值越高，获得的酷币越多;</p>
-							<p>成长值长期有效，能持续参与酷币的分配。</p>
-						</div>
-						<div class="coinsGrowExample">
-							<p>举个例子：每日发放酷币总数K;</p>
-							<p>用户每日领取到的酷币=K*该用户当前生效的成长值综合</p>
+							<p>成长值是用户获取金币的影响因素，用户每日获得的成长值越多，得到的金币越多。</p>
+							<p>成长值是酷开宠物成长的影响因素，成长值越高、与宠物互动越多，可获得的金币越多。</p>
+							<p>成长值长期有效，能持续影响金币的获得。</p>
 						</div>
 					</div>
 					
 					<div class="howToGetPoints">
-						<div class="sectionTitle">如何获得成长值，加速酷币</div>
+						<div class="sectionTitle">如何获得成长值，加速金币</div>
 						<div class="sectionDetails">
-							<p>在酷开系统上进行观影、购买VIP、游戏购物等所有活动，可以增加成长值；</p>
-							<p>未来将会有更多获得成长值的方式。</p>
+							<p>在酷开系统上进行观影、购买VIP、学习、游戏等所有活动，可以增加成长值。</p>
+							<p>未来将会有更多获取成长值的方式。</p>
 						</div>
 					</div>
 
@@ -179,6 +185,8 @@
 				</div>
 				
 			</div>
+			<!--加载失败提示页-->
+			<div class="failToast"></div>
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>

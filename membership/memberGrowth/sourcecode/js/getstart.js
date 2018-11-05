@@ -1,12 +1,16 @@
 var _Lindex= "";
 var _userPoints = 0;
 var _userLv = 1;
-var _coinsLv = [1, 300, 1500, 3500, 6000, 10800, 25600];
+var _coinsLv = [0, 120, 800, 2840, 6920, 15080, 30040];
+var _memberLevelPrivilegeLineNums = 6;//页面会员等级权益的行数
+var _memberLevelPrivilegeColNums = 7; //页面会员等级权益的列数
 
+//获取用户会员信息（金币数、成长点数、会员等级）
 var _testurl = "http://172.20.132.206:7070/"; //"https://member.cooca.com/";//正式地址
-var _timeStamp = "";
 var _clientId = "9F072A0ABF6E2B3D";//test ; "c7ea82d00b5a4aa3";//正式的
 //var _clientKey = "85bdfb9ef29b4776";//test
+var _timeStamp = "";
+
 var _userInfoUrl = "http://beta.passport.coocaa.com//api/user/info";
 
 var accountVersion = "";
@@ -23,6 +27,8 @@ var access_token = null;
 var login_type = null;
 var vuserid = null;
 var _TVSource = "";//视频源
+//错误标志
+var _failIndex = "";//加载失败的标识
 
 //页面部分的逻辑
 var app = {
@@ -87,6 +93,7 @@ var app = {
 		app.registerEventHandler();
 		//注册按键监听
 		app.registerKeyHandler();
+		//开始跟底层和后台交互的流程：
 		getLocalDeviceInfo();
     },
     onResume: function() {
@@ -106,36 +113,31 @@ var app = {
 		coocaaosapi.addUserChanggedListener(function(message) {
 			console.log("用户登录状态改变..."+JSON.stringify(message));
 			//当用户登录状态发生变化时,重绘页面,重新落焦,并重新获取用户金币等数据:
-			resetUserStatus();
-			app.pageInit();
-			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			getLocalDeviceInfo();
+			updateOnUserStateChanged();
 		});
 	},
 	
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-        
-        //注册按键
+
 		$(".coocaa_btn").bind("itemClick", function() {
 				_Lindex = $(".coocaa_btn").index($(this));
-				console.log("itemClick _Lindex = " + _Lindex);
+			console.log("-click---" + _Lindex);
 				processKey();
 		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
-			console.log("----------focus-----"+_Lindex);
+			console.log("-focus-----"+_Lindex);
 			scrollPage();
 		});
 	},
 	
     pageInit: function() {
     	console.log("in pageInit.");
-    	
-		//绘制当前页面:
 		svgShowGrowCurve(true);
+		setTimeout("delayLoad()", 100);
     	console.log("out pageInit.");
     },
     
@@ -147,9 +149,68 @@ var app = {
 
 app.initialize();
 
+function updateOnUserStateChanged() {
+	console.log("updateOnUserStateChanged in..._TVSource:"+_TVSource);
+	hasLogin((_TVSource == "tencent") ? true : false);
+	
+	console.log("updateOnUserStateChanged out...");
+}
+
+//延迟加载图片
+function delayLoad() {
+	console.log("delayLoad in...");
+	//用户头像
+	var pic = app.rel_html_imgpath(__uri("../img/userIcon.png"));
+	$("#userIcon").css("background-image", "url("+pic+")");
+	//金币icon
+	pic = app.rel_html_imgpath(__uri("../img/coin.png"));
+	$("#coinIcon").css("background-image", "url("+pic+")");
+	
+	//页面加载失败提示页
+	$(".failToast").css("background-image", "url(img/failToast.webp)");
+}
+
+
+//是否显示错误提示页面
+function showFailToast(bShow, failFlag) {
+	console.log("showFailToast in..bShow:"+bShow+",failFlag:"+failFlag);
+	//错误提示页面显示时,要获取焦点
+	if(bShow == true) {
+		$(".failToast").css("display", "block");
+		_failIndex = failFlag;
+	}else {
+		$(".failToast").css("display", "none");
+		_failIndex = "";
+	}
+}
+
+//页面加载失败处理函数,从失败的地方重新加载
+function failToastProcess(){
+	console.log("failToastProcess in..._failIndex:	" +_failIndex);
+	switch(_failIndex) {
+		case "getUserCoinsInfoFail":
+			getUserCoinsInfo();
+			break;
+		case "getTvSourceFail":
+			getTvSource();
+			break;
+		default:
+			break;
+	}
+	showFailToast(false);
+	console.log("failToastProcess out...");	
+}
 //处理用户按键
 function processKey() {
 	console.log("processKey in");
+	//错误提示页面存在时,用户按下"确认",重新加载本页面:
+	//这样会有一个bug: 用户按方向键时,焦点其实还在后台动;只是页面不响应,后续优化!
+	if($(".failToast").css("display") != "none") {
+		console.log("failToast page showing...");
+		failToastProcess();
+		return;
+	}
+	
 	var el = $(".coocaa_btn").eq(_Lindex);
 	var elId = el.attr("id");
 	console.log("cur focus id: ===="+elId);
@@ -167,17 +228,20 @@ function processKey() {
 			console.log("enter page do task......");
 		break;
 	}
-}
-//用户退出登录时复位用户信息
-function resetUserStatus() {
-	_userPoints = 0;
-	_userLv = 1;	
+	console.log("processKey out..");	
 }
 
-//用户操作上下键时移动页面,包括焦点的切换:(先用虚拟焦点的方式实现再说)
+//用户操作上下键时移动页面,包括焦点的切换:(先用虚拟焦点的方式实现上下翻页效果再说)
 function scrollPage() {
-	var curEl = $(".coocaa_btn").eq(_Lindex);
+	console.log("scrollPage in...");
+	
+	//错误提示页面存在时,不响应页面滚动:
+	if($(".failToast").css("display") != "none") {
+		console.log("failToast page showing...");
+		return;
+	}
 
+	var curEl = $(".coocaa_btn").eq(_Lindex);
 	var mytop = 0;	
 	var containerHeight = $(".innerContainer").height();
 	var $window = $(window);
@@ -210,51 +274,39 @@ function scrollPage() {
 }
 
 //填充等级特权表格的内容
-function fillRankTable(isInit) {
+function fillRankTable() {
 	var i = 0;
 	//去除默认Lv1的高亮:
-	$("th").eq(1).removeClass("selectedTableEffect");
-	for(i=0;i<5;i++) {
-		$("td").eq(i*7).removeClass("selectedTableEffect");
-	}
-
+//	$("th").eq(1).removeClass("selectedTableEffect");
+//	for(i=0;i<_memberLevelPrivilegeLineNums;i++) {
+//		$("td").eq(i*_memberLevelPrivilegeColNums).removeClass("selectedTableEffect");
+//	}
 	//高亮当前等级权益:
 	var index = (_userLv <= 0) ? 1 : ((_userLv>=7) ? 7 : _userLv); 
 	console.log("lv index:"+index);
 	$("th").eq(index).addClass("selectedTableEffect");
-	for(i=0;i<5;i++) {
-		$("td").eq((index-1)+i*7).addClass("selectedTableEffect");
+	for(i=0;i<_memberLevelPrivilegeLineNums;i++) {
+		$("td").eq((index-1)+i*_memberLevelPrivilegeColNums).addClass("selectedTableEffect");
 	}
 }
 
 //根据用户状态变化,更新对应的变化内容: 
 //参数为true时表示首次绘制页面, 为false时表示更新页面变化的信息
 function svgShowGrowCurve(isInit) {
-	userLoginOrNot(isInit);
 	calCurPointsLocation(isInit);
-	fillRankTable(isInit);
+}
+
+function updateUserInfos(bLogin) {
+	updateUserLoginState(bLogin);
+	fillRankTable();
 }
 
 //画出等级曲线,并画当前金币在曲线上所处的位置(top,left)
 function calCurPointsLocation(isInit) {
-	console.log("calCurPointsLocation cur coins:" + _userPoints);
+	console.log("calCurPointsLocation in, isInit:"+isInit+",cur coins:" + _userPoints);
 	var i = 0;
-	
-	if(_userPoints > _coinsLv[_coinsLv.length-1] || _userPoints < 0) {
-		console.log("something error.");
-		_userPoints = 0;
-	}
-	
 	var len = _coinsLv.length;
-	for (i; i<len; i++) {
-		if(_userPoints <= _coinsLv[i]) {
-			console.log("lt " + _coinsLv[i] + "i:"+i);
-			break;
-		}
-	}
-	//确保当拥有金币数为0或1时(初始值),当前点可以正常显示:
-	if(i==0) {i=1};
-	
+
 	//1. 获取SVG区域宽高
 	var svgDiv = document.getElementById("svgZone");
 	var svgWidth = svgDiv.getAttribute("width");
@@ -264,7 +316,65 @@ function calCurPointsLocation(isInit) {
 	
 	//2.计算每个等级占用的空间宽度
 	var lvWidth = svgWidth / (len-1);
+
+	//初始化时只显示页面静态元素
+	if (isInit == true) {
+		//画最上面的markline:
+		var pathMarkCoordinates = {
+			A: {x:svgWidth, y:0},
+			B: {x:svgWidth, y:0},
+			C: {x:svgWidth, y:0},
+			D: {x:0, y:svgEllipseHeight},
+			R: {x:svgWidth, y:svgEllipseHeight}
+		};
+		var markLine = document.getElementById("markLine");
+		drawSVGPath(pathMarkCoordinates, markLine);	
+		
+		//画背景的X轴等级标记和对应的point数,1个div保存1组X轴上的所有标记
+		//创建跟等级数一致的xAxisMark div(已经存在一个了)
+		for(i=0; i<len-1; i++) {
+			$(".xAxisMark:last").after($(".xAxisMark:last").clone(true));
+		}
+		
+		//给所有XAxisMark div定位: 第一列不动,最后一列靠最右边,其它列依次排开:
+		for(i=1;i<len-1;i++){
+			document.getElementsByClassName("xAxisMark") [i].style.left = lvWidth*i+"px";
+		}
+		document.getElementsByClassName("xAxisMark") [len-1].style.left = svgWidth-75+"px";
+		
+		//让所有div内的元素居中,除了第一列居左,最后一列居右
+		$(".xAxisMark:first div").css("transform", "none");
+		$(".xAxisMark:last div").css("right", "0px");
+		$(".xAxisMark:last div").css("transform", "none");
+		
+		//设置x坐标和椭圆曲线上的标记值
+		for(i=0;i<len;i++){
+			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*5 +"px";//有个间隔
+			document.getElementsByClassName("xAxisEllipseMark") [i].innerHTML = _coinsLv[i];
+	//		document.getElementsByClassName("xAxisCoordinate") [i].style.top = svgHeight-35+"px";
+			document.getElementsByClassName("xAxisCoordinate") [i].innerHTML = "Lv"+(i+1);
+		}
+		//最后一项高度需要再往下移:
+		document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 115) +"px";//有个间隔
+		console.log("calCurPointsLocation out. init phase, only draw static elements, not draw dynamic elements.");
+		return;
+	}
 	
+	//非初始化时（或获取到用户信息、或用默认值），绘制动态元素：
+	for (i; i<len; i++) {
+		if(_userPoints <= _coinsLv[i]) {
+			console.log("lt " + _coinsLv[i] + "i:"+i);
+			break;
+		}
+	}
+	//确保当拥有金币数为0或1时(初始值),当前点可以正常显示:
+	if(i==0) {i=1};
+	
+	if(_userPoints > _coinsLv[_coinsLv.length-1] || _userPoints < 0) {
+		console.log("something error.");
+		_userPoints = 0;
+	}
+		
 	//3.计算当前金币数占用的空间宽度和高度,当为0时为计算方便,改为1;
 	var curLeft = (i-1)*lvWidth;
 	var deltaWidth = Math.round(lvWidth * ((_userPoints <= 1 ? 1 : _userPoints) - _coinsLv[i-1]) / (_coinsLv[i] - _coinsLv[i-1]));
@@ -278,6 +388,7 @@ function calCurPointsLocation(isInit) {
 	var markPoint = document.getElementById("markPoint");
 	markPoint.setAttribute("cy", (curTop < 5 ? 5 : (curTop)) +"px");
 	markPoint.setAttribute("cx", (curLeft < (svgWidth - 5) ? (curLeft > 5 ? curLeft : 5) : (svgWidth - 5))+"px");
+	markPoint.setAttribute("r", "5");
 	
 	//画当前点的值,对最大最小值的边界值有做处理:
 	var markPointTip = $("#markPointTip");
@@ -286,12 +397,7 @@ function calCurPointsLocation(isInit) {
 		"left":(curLeft < (svgWidth - 120) ? (curLeft) : (svgWidth - 120))+"px", 
 	});
 	markPointTip.text(_userPoints);
-
-	if(isInit == false) {
-		console.log("not init phase, only update current location....");
-		return;
-	}
-
+	
 	//计算左边区域的A B C D坐标
 	var pathGotCoordinates = {
 		A: {x:0, y:svgHeight},
@@ -315,45 +421,7 @@ function calCurPointsLocation(isInit) {
 	
 	var remainPath = document.getElementById("remainCoinsPath");
 	drawSVGPath(pathRemainCoordinates, remainPath);
-	
-	//画最上面的markline:
-	var pathMarkCoordinates = {
-		A: {x:svgWidth, y:0},
-		B: {x:svgWidth, y:0},
-		C: {x:svgWidth, y:0},
-		D: {x:0, y:svgEllipseHeight},
-		R: {x:svgWidth, y:svgEllipseHeight}
-	};
-	var markLine = document.getElementById("markLine");
-	drawSVGPath(pathMarkCoordinates, markLine);	
-	
-	//画背景的X轴等级标记和对应的point数,1个div保存1组X轴上的所有标记
-	//创建跟等级数一致的xAxisMark div(已经存在一个了)
-	for(i=0; i<len-1; i++) {
-		$(".xAxisMark:last").after($(".xAxisMark:last").clone(true));
-	}
-	
-	//给所有XAxisMark div定位: 第一列不动,最后一列靠最右边,其它列依次排开:
-	for(i=1;i<len-1;i++){
-		document.getElementsByClassName("xAxisMark") [i].style.left = lvWidth*i+"px";
-	}
-	document.getElementsByClassName("xAxisMark") [len-1].style.left = svgWidth-75+"px";
-	
-	//让所有div内的元素居中,除了第一列居左,最后一列居右
-	$(".xAxisMark:first div").css("transform", "none");
-	$(".xAxisMark:last div").css("right", "0px");
-	$(".xAxisMark:last div").css("transform", "none");
-	
-	//设置x坐标和椭圆曲线上的标记值
-	for(i=0;i<len;i++){
-		document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*5 +"px";//有个间隔
-		document.getElementsByClassName("xAxisEllipseMark") [i].innerHTML = _coinsLv[i];
-//		document.getElementsByClassName("xAxisCoordinate") [i].style.top = svgHeight-35+"px";
-		document.getElementsByClassName("xAxisCoordinate") [i].innerHTML = "Lv"+(i+1);
-	}
-	//最后一项高度需要再往下移:
-	document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 115) +"px";//有个间隔
-	
+	console.log("calCurPointsLocation out...");
 }
 
 //画出等级曲线:
@@ -389,7 +457,7 @@ function getUserCoinsInfo() {
 	var ajaxTimeoutTwo = $.ajax({
 		type: "GET",
 		async: true,
-		timeout: 5000,
+		timeout: 10000,
 		dataType: 'jsonp',
 		jsonp: "callback",
 		url: _testurl + "/v4/public/query-pointsCoinsLevelInfo-byToken",
@@ -401,49 +469,153 @@ function getUserCoinsInfo() {
 		},
 		
 		success: function(data) {
-			console.log("获取成功");
-			console.log(JSON.stringify(data));
+			console.log("getUserCoinsInfo success:"+JSON.stringify(data));
 			if(data.success == true) {
-				_userLv = data.data.level.gradeLevel + 1;//后台gradeLevel是从0开始的
+				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
 				$("#userLv").text("Lv."+_userLv);
 				$("#coinNum").text(data.data.coins);
 				//更新用户当前点位:
+            	updateUserInfos(true);
 				svgShowGrowCurve(false);
 			}
 		},
 		error: function(data) {
-			console.log("获取失败");
-			console.log(JSON.stringify(data));
+			console.log("getUserCoinsInfo error: "+JSON.stringify(data));
+			showFailToast(true, "getUserCoinsInfoFail");
 		},
 		complete: function(XMLHttpRequest, status) {　　　　
-			console.log("-------------complete------------------" + status);
+			console.log("getUserCoinsInfo complete--" + status);
 			if(status == 'timeout') {　　　　　
 				ajaxTimeoutTwo.abort();　　　　
 			}
 		}
 	});	
+	console.log("getUserCoinsInfo out...");
 }
 
 //显示用户登录或没有登录的信息:
-function userLoginOrNot(isInit) {
-	console.log("userlogin isInit:"+isInit);
-	if(isInit == true) {
-		//进入页面的初始状态为未登录
+//初始时都不显示,等获取用户登录状态（成功或失败)后,再显示
+function updateUserLoginState(bLogin) {
+	console.log("updateUserLoginState bLogin:"+bLogin);
+	if(bLogin == false) {
+		//状态为未登录
 		$("#userinfo").css("display", "none");
 		$(".notLogin").css("display", "block");
 		$(".notLogin").addClass("coocaa_btn");
 	}else {
 		//已获取用户登录信息
 		$(".notLogin").css("display", "none");
-		$("#userinfo").css("display", "block");
 		$(".notLogin").removeClass("coocaa_btn");
+		$("#userinfo").css("display", "block");
 	}
+	//更新右上角后,刷新下焦点
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+}
+
+function getLocalDeviceInfo() {
+		console.log("getLocalDeviceInfo in...");
+
+		var _brand = "";
+		var _appid="", _source, _model, _chip, _mac, _serviceid, _version, _type, _devicebarcode, _time, _accessToken = "";
+		var _size, _resolution, _appVersion, _fmodel, _pattern, _appID, _appversion = "";
+		_devicebarcode = "";
+
+		//time
+		var timestamp = Date.parse(new Date());
+		var tmpstring = timestamp.toString();
+		var tmpnum = tmpstring.substr(0, 10);
+		_time = tmpnum;
+
+		//type
+		_type = "20";//20 新会员体系--关注绑定酷开账号
+
+		_source = "";
+		
+		_resolution = "";
+		_appVersion = 0;
+		_fmodel = "Default";
+		_pattern = "normal";
+		_appID = 0;
+		
+		console.log("_appversion="+_appversion);
+		
+		coocaaosapi.getDeviceInfo(function(message) {
+			console.log("getDeviceInfo success:	"+ JSON.stringify(message));
+			
+			deviceInfo = message;
+			_model = message.model;
+			_chip = message.chip;
+			_mac = message.mac;
+			_size = message.panel;
+			_serviceid = message.activeid;
+			_version = message.version.replace(/\./g, "");
+			_brand = message.brand;
+			
+			console.log("brand.."+_brand);
+        	console.log("_appid.."+_appid);
+
+			getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
+		
+		}, function(error) {
+			console.log(error);
+		});
+}
+
+function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel, spattern, sappID, sappversion, qappid, qsource, qserviceid, qtype, qdevicebarcode, qtime,qaccessToken) {
+	console.log("getTvSource in. 获取视频源传的参数---" + "MAC="+smac+"&cModel="+smodel+"&cChip="+schip+"&cSize="+ssize+"&cResolution="+sresolution+"&cTcVersion="+sversion+"&cFMode="+sfmodel+"&cPattern="+spattern+"&vAppID="+sappID+"&vAppVersion="+sappversion);
+	var myUrl = "";
+	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
+	var ajaxTimeoutOne = $.ajax({
+		type: "GET", // get post 方法都是一样的
+		async: true,
+		timeout : 10000, 
+		dataType: 'jsonp',
+		jsonp: "callback",
+		url: myUrl,
+		data: {
+			"MAC": smac,
+			"cModel": smodel,
+			"cChip": schip,
+			"cSize": ssize,
+			"cResolution": sresolution,
+			"cTcVersion": sversion,
+			"cFMode": sfmodel,
+			"cPattern": spattern,
+			"vAppID": sappID,
+			"vAppVersion": sappversion
+		},
+		success: function(data) {
+			console.log("getTvSource success..."+JSON.stringify(data));
+			_TVSource = data.source;
+			if(_TVSource == "tencent") {
+				console.log("视频源：" + _TVSource);
+				//检测用户是否登录,腾讯源需要验证qq/wechat
+				hasLogin(true);
+			}else{ //if(_TVSource == "yinhe") 
+				console.log("默认视频源：" + _TVSource);
+				//检测用户是否登录,爱奇艺源不需要验证qq/wechat
+				hasLogin(false);
+			}
+		},
+		error: function(error) {
+			console.log("getTvSource error..."+error);
+			showFailToast(true, "getTvSourceFail");
+		},
+		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　	console.log("getTVSource complete--"+status);
+			if(status=='timeout'){
+	 　　　　　 	ajaxTimeoutOne.abort();
+	　　　　	}
+	　　	}
+	});
+	console.log("getTvSource out...");
 }
 
 function hasLogin(needQQ) {
+	console.log("hasLogin in...");
     coocaaosapi.hasCoocaaUserLogin(function(message) {
-        console.log("haslogin " + message.haslogin);
+        console.log("hasCoocaaUserLogin: " + JSON.stringify(message));
         loginstatus = message.haslogin;
         if (loginstatus == "false") {
             if (cAppVersion >= 3190030) {
@@ -453,9 +625,12 @@ function hasLogin(needQQ) {
             }
             user_flag = 0;
             access_token = "";
+            
+            //用户没有登录,更新页面为没有登录的状态:
+            updateUserInfos(false);
         } else {
             coocaaosapi.getUserInfo(function(message) {
-                console.log("getUserInfo==" + JSON.stringify(message))
+                console.log("getUserInfo==" + JSON.stringify(message) + "typeof message: "+typeof message);
                 userInfo = message;
                 cOpenId = message.open_id;
                 exterInfo = message.external_info;
@@ -472,6 +647,7 @@ function hasLogin(needQQ) {
                 coocaaosapi.getUserAccessToken(function(message) {
                 	console.log("getUserAccessToken==" + JSON.stringify(message))
                     access_token = message.accesstoken;
+                    //然后判断是否真正登录:
                     if (exterInfo == "[]") {
                         exterInfo = '[{}]';
                     } else {}
@@ -556,20 +732,24 @@ function hasLogin(needQQ) {
                     }
                     
                     console.log("~~~~~~loginstatus:"+loginstatus+" tencentWay:"+tencentWay);
-                    
-                    //在这里用户真正登录成功后,重绘一次页面内容:
+                    //在这里用户真正登录成功后,更新页面右上角会员信息:
                     if(loginstatus == "true") {
+                    	console.log("user login true, update user icon.....");
                     	getUserCoinsInfo();
+                    }else {
+                    	console.log("user login false2, show 'login now'..");
+                    	updateUserInfos(false);
                     }
                 }, function(error) { console.log(error); })
             }, function(error) { console.log(error); });
         }
 
     }, function(error) { console.log(error); });
+	console.log("hasLogin out...");
 }
 
 function startLogin(needQQ) {
-    console.log("startLogin+++" + tencentWay);
+    console.log("startLogin in: tencentWay:" + tencentWay);
     if (needQQ) {
         if (accountVersion > 4030000) {
             if (tencentWay == "qq") {
@@ -589,119 +769,7 @@ function startLogin(needQQ) {
             coocaaosapi.startUserSettingAndFinish(function(message) { console.log(message); }, function(error) { console.log(error); });
         }
     }
+    console.log("startLogin out...");
 }
 
-function getLocalDeviceInfo() {
-		var _brand = "";
-		var _appid="", _source, _model, _chip, _mac, _serviceid, _version, _type, _devicebarcode, _time, _accessToken = "";
-		var _size, _resolution, _appVersion, _fmodel, _pattern, _appID, _appversion = "";
 
-		//deviceBarcode
-		_devicebarcode = "";
-
-		//time
-		var timestamp = Date.parse(new Date());
-		var tmpstring = timestamp.toString();
-		var tmpnum = tmpstring.substr(0, 10);
-		_time = tmpnum;
-
-		//type
-		_type = "20";//20 新会员体系--关注绑定酷开账号
-
-		_source = "";
-		
-		_resolution = "";
-		_appVersion = 0;
-		_fmodel = "Default";
-		_pattern = "normal";
-		_appID = 0;
-		
-		console.log("_appversion="+_appversion);
-		
-		coocaaosapi.getDeviceInfo(function(message) {
-			var _message = JSON.stringify(message);
-			console.log(_message);
-			
-			deviceInfo = message;
-			_model = message.model;
-			_chip = message.chip;
-			_mac = message.mac;
-			_size = message.panel;
-			_serviceid = message.activeid;
-			_version = message.version.replace(/\./g, "");
-			_brand = message.brand;
-			
-			console.log("brand.."+_brand);
-        	console.log("_appid.."+_appid);
-
-			coocaaosapi.hasCoocaaUserLogin(function(message) {
-	            if (message.haslogin == "true") {
-	            	coocaaosapi.getUserAccessToken(function(message) {
-		        		console.log("usertoken " + message.accesstoken);
-		        		_accessToken = message.accesstoken;
-		        		getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
-		        	},function(error) { console.log(error); useDefaultQrcode();});
-	            }else{
-	        		console.log("user not login...");
-	            	_accessToken = "";
-					getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
-	            }
-			},function(error) {
-				console.log(error);
-			});
-		}, function(error) {
-			console.log(error);
-		});
-}
-
-function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel, spattern, sappID, sappversion, qappid, qsource, qserviceid, qtype, qdevicebarcode, qtime,qaccessToken) {
-	console.log("获取视频源传的参数---" + "MAC="+smac+"&cModel="+smodel+"&cChip="+schip+"&cSize="+ssize+"&cResolution="+sresolution+"&cTcVersion="+sversion+"&cFMode="+sfmodel+"&cPattern="+spattern+"&vAppID="+sappID+"&vAppVersion="+sappversion);
-	var myUrl = "";
-	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
-	var ajaxTimeoutOne = $.ajax({
-		type: "GET", // get post 方法都是一样的
-		async: true,
-		timeout : 5000, 
-		dataType: 'jsonp',
-		jsonp: "callback",
-		url: myUrl,
-		data: {
-			"MAC": smac,
-			"cModel": smodel,
-			"cChip": schip,
-			"cSize": ssize,
-			"cResolution": sresolution,
-			"cTcVersion": sversion,
-			"cFMode": sfmodel,
-			"cPattern": spattern,
-			"vAppID": sappID,
-			"vAppVersion": sappversion
-		},
-		success: function(data) {
-			console.log(JSON.stringify(data));
-			_TVSource = data.source;
-			if(_TVSource == "yinhe") {
-				console.log("视频源：" + _TVSource);
-				//检测用户是否登录,爱奇艺源不需要验证qq/wechat
-				hasLogin(false);
-			} else if(_TVSource == "tencent") {
-				console.log("视频源：" + _TVSource);
-				//检测用户是否登录,腾讯源需要验证qq/wechat
-				hasLogin(true);
-				
-			} else {//todo: 还需要处理视频源是优朋的情况:
-				console.log("Error: 视频源既不是爱奇艺又不是腾讯--" + _TVSource);
-				hasLogin(false);
-			}
-		},
-		error: function(error) {
-			console.log('Error: 获取视频源失败'+error);
-		},
-		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　	console.log("-------------getTVSource complete------------------"+status);
-			if(status=='timeout'){
-	 　　　　　 	ajaxTimeoutOne.abort();
-	　　　　	}
-	　　	}
-	});
-}

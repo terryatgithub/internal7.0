@@ -76,7 +76,7 @@ var app = {
     bindEvents: function() {
     	//进入时,先画一次默认页面内容:
     	app.pageInit();
-    	setTimeout("delayLoad()", 100);
+    	
 //		//以下是为在PC上调试方便所加，后续要删除 -start-
 //  	getProductPackListsFake();
 //		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -157,6 +157,7 @@ var app = {
 	
     pageInit: function() {
     	console.log("in pageInit.");
+	setTimeout("delayLoad()", 100);
     	console.log("out pageInit.");
     },
     
@@ -170,7 +171,6 @@ app.initialize();
 function updateOnUserStateChanged() {
 	console.log("updateOnUserStateChanged in..._TVSource:"+_TVSource);
 	hasLogin((_TVSource == "tencent") ? true : false);
-	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	
 	console.log("updateOnUserStateChanged out...");
 }
@@ -193,7 +193,6 @@ function delayLoad() {
 	//页面加载失败提示页
 	$(".failToast").css("background-image", "url(img/failToast.webp)");
 	
-//	console.log("delayLoad out..."+$(".vipPrivilegeDetails").css("background-image"));
 }
 
 //打开图标对应的产品包购买页面
@@ -394,8 +393,7 @@ function showFailToast(bShow, failFlag) {
 
 //页面加载失败处理函数,从失败的地方重新加载
 function failToastProcess(){
-	console.log("failToast in...");
-	showFailToast(false);
+	console.log("failToastProcess in..._failIndex:	" +_failIndex);
 	switch(_failIndex) {
 //		case "getUserInfoFail":
 //			hasLogin((_TVSource == "tencent") ? true : false);
@@ -412,7 +410,8 @@ function failToastProcess(){
 		default:
 			break;
 	}
-	console.log("failToast out...");	
+	showFailToast(false);
+	console.log("failToastProcess out...");	
 }
 
 //处理用户按键
@@ -421,7 +420,8 @@ function processKey() {
 	
 	//错误提示页面存在时,用户按下"确认",重新加载本页面:
 	//这样会有一个bug: 用户按方向键时,焦点其实还在后台动;只是页面不响应,后续优化!
-	if($(".failToast").css("display") == "block") {
+	if($(".failToast").css("display") != "none") {
+		console.log("failToast page showing...");
 		failToastProcess();
 		return;
 	}
@@ -445,7 +445,8 @@ function scrollPage() {
 	console.log("scrollPage in");	
 	
 	//错误提示页面存在时,不响应页面滚动:
-	if($(".failToast").css("display") == "block") {
+	if($(".failToast").css("display") != "none") {
+		console.log("failToast page showing...");
 		return;
 	}
 	
@@ -515,7 +516,7 @@ function getUserCoinsInfo() {
 	var ajaxTimeoutTwo = $.ajax({
 		type: "GET",
 		async: true,
-		timeout: 5000,
+		timeout: 10000,
 		dataType: 'jsonp',
 		jsonp: "callback",
 		url: _testurl + "/v4/public/query-pointsCoinsLevelInfo-byToken",
@@ -527,8 +528,7 @@ function getUserCoinsInfo() {
 		},
 		
 		success: function(data) {
-			console.log("getUserCoinsInfo success.");
-			console.log(JSON.stringify(data));
+			console.log("getUserCoinsInfo success:"+JSON.stringify(data));
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
@@ -537,12 +537,11 @@ function getUserCoinsInfo() {
 			}
 		},
 		error: function(data) {
-			console.log("getUserCoinsInfo error.");
-			console.log(JSON.stringify(data));
+			console.log("getUserCoinsInfo error: "+JSON.stringify(data));
 			showFailToast(true, "getUserCoinsInfoFail");
 		},
 		complete: function(XMLHttpRequest, status) {　　　　
-			console.log("getUserCoinsInfo complete----" + status);
+			console.log("getUserCoinsInfo complete--" + status);
 			if(status == 'timeout') {　　　　　
 				ajaxTimeoutTwo.abort();　　　　
 			}
@@ -594,7 +593,7 @@ function getLocalDeviceInfo() {
 		console.log("_appversion="+_appversion);
 		
 		coocaaosapi.getDeviceInfo(function(message) {
-			console.log("getDeviceInfo "+ JSON.stringify(message));
+			console.log("getDeviceInfo success:	"+ JSON.stringify(message));
 			
 			deviceInfo = message;
 			_cUDID = message.activeid;
@@ -666,8 +665,8 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 				console.log("视频源：" + _TVSource);
 				//检测用户是否登录,腾讯源需要验证qq/wechat
 				hasLogin(true);
-			}else { // if(_TVSource == "yinhe")  //默认yinhe
-				console.log("视频源：" + _TVSource);
+			}else{ //if(_TVSource == "yinhe") 
+				console.log("默认视频源：" + _TVSource);
 				//检测用户是否登录,爱奇艺源不需要验证qq/wechat
 				hasLogin(false);
 			} 

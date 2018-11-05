@@ -8,39 +8,12 @@ body {
     -webkit-user-select: none;   
     background-color: black;  
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     width:1920px;
     height: 1080px;
     margin:0px;
     padding:0px;
     text-transform:uppercase;
     overflow: hidden;
-}
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:10%;
-    top:10%;
-    height:50px;                   /* text area height */
-    /*width:225px;                   /* text area width */
-    width:1125px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
-}
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
 }
 
 /*标题区域*/
@@ -59,7 +32,7 @@ body {
 #headerTitle {
 	position: absolute;
 	top: 56px;
-	width: 192px;
+	/*width: 192px;*/
 	height: 48px;
 	color: rgba(153,153,153,1);
 	font-family: "NotoSansHans-Light", sans-serif;
@@ -68,10 +41,12 @@ body {
 	letter-spacing: 0;
 }
 
+/*右上角用户信息区*/
 #userinfo {
 	display: none;
 	position: absolute;
 	right: 0px;
+	height: 100%;
 }
 #userinfo div{
 	margin: 0px 5px;
@@ -81,7 +56,7 @@ body {
 	top: 62px;
 	width: 36px;
 	height: 36px;
-	background: url(../img/userIcon.png) no-repeat;
+	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;
 }
@@ -89,7 +64,6 @@ body {
 #userLv {
 	position: relative;
 	top: 66px;
-	width: 56px;
 	height: 28px;
 	color: rgba(253,78,0,1);
 	font-family: "NotoSansHans-Medium", sans-serif;
@@ -104,7 +78,7 @@ body {
 	top: 64px;
 	width: 32px;
 	height: 32px;
-	background: url(../img/coin.png) no-repeat;
+	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;	
 }
@@ -112,7 +86,6 @@ body {
 #coinNum {
 	position: relative;
 	top: 66px;
-	width: 64px;
 	height: 28px;
 	color: rgba(250,202,104,1);
 	font-family: "NotoSansHans-Medium", sans-serif;
@@ -124,11 +97,11 @@ body {
 .notLogin {
 	position: absolute;
 	top: 50px;
-	left: 1558px;
+	right: 0px;
 	width: 188px;
 	height: 60px;
-	background: rgba(128,128,128,0.18);
-	color: rgba(204,204,204,1);
+	background: rgba(0,127,240,1);
+	color: rgba(255,255,255,1);
 	font-weight: bold;
 	font-family: "NotoSansHans-Medium", sans-serif;
 	font-size: 32px;
@@ -136,7 +109,7 @@ body {
 	text-align: center;
 	letter-spacing: 0;
 	border-radius: 60px;
-	display: block;
+	display: none;
 }
 
 /*内容区*/
@@ -354,24 +327,16 @@ td {
 	letter-spacing: 0;	
 }
 
-.coinsGrowExample *{
-	height: 40px;
-	font-family: "NotoSansHans-Light",sans-serif;
-	color: rgba(253,78,0,1);
-	font-size: 28px;
-	line-height: 40px;
-	letter-spacing: 0;
-	margin: 0;
-}
-
 .btnDoTaskGetCoins {
 	position: relative;
 	top: 320px;
 	left: 564px;
 	width: 580px;
 	height: 90px;
-	background: rgba(128,128,128,0.18);
-	color: rgba(204,204,204,1);
+	background: rgba(0,127,240,1);
+	color: rgba(255,255,255,1);
+	/*background: rgba(128,128,128,0.18);
+	color: rgba(204,204,204,1);*/
 	font-family: "NotoSansHans-Medium",sans-serif;
 	font-size: 32px;
 	line-height: 90px;
@@ -400,6 +365,21 @@ td {
 }
 
 .btn-focus{
-	background: rgba(0,127,240,1);
-	color: rgba(255,255,255,1);
+	border: 5px solid white;
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+	-webkit-transition: all 0.1s;
+	transition: all 0.1s;
+}
+
+.failToast {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 1080px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;
+	z-index: 1;
 }
