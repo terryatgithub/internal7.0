@@ -633,7 +633,7 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
-				$("#userLv").text("Lv."+_userLv);
+				$("#userLv").text("Lv"+_userLv);
 				$("#coinNum").text(data.data.coins);
 			}
 		},

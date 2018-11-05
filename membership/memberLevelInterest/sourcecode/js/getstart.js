@@ -10,7 +10,7 @@ _levelInfos = [
 	 	picNormal: __uri("../img/lv1.png"), 
 	 	picBig: __uri("../img/lv1big.png"),
 	 	picDisabled: __uri("../img/lv1disabled.png"),
-	 	levelCondition:"Lv.1 (含) 以上可解锁", 
+	 	levelCondition:"Lv1 (含) 以上可解锁", 
 	 	levelDes:"不同等级会员尊享不同的福利特权，当您的等级提升时，还会赠送您不同级别的升级礼包，等级越高能尊享的权益越多、价值越高，赶快提升等级享受更多福利吧~"
 	 }
 	,{
@@ -19,7 +19,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv12big.png"),
 	 	picDisabled: __uri("../img/lv12disabled.png"),
 		levelName:"线上活动", 
-		levelCondition:"Lv.1 (含) 以上可解锁", 
+		levelCondition:"Lv1 (含) 以上可解锁", 
 		levelDes:"参与专属等级线上活动，精彩好礼等您来拿，还有好玩有趣的游戏等您参与。"
 	}
 	,{
@@ -28,7 +28,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv3big.png"),
 	 	picDisabled: __uri("../img/lv3disabled.png"),
 		levelName:"线下活动", 
-		levelCondition:"Lv.3 (含)以上可解锁", 
+		levelCondition:"Lv3 (含)以上可解锁", 
 		levelDes:"用户根据等级可参与不同的线下福利活动，如粉丝见面会、大咖线下活动等，让您与明星零距离接触。"
 	}
 	,{
@@ -37,7 +37,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv5big.png"),
 	 	picDisabled: __uri("../img/lv5disabled.png"),
 		levelName:"专属客服", 
-		levelCondition:"Lv.5 (含) 以上可解锁", 
+		levelCondition:"Lv5 (含) 以上可解锁", 
 		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰服务热线：拨打专线400-168-8880."
 	}
 	,{
@@ -46,7 +46,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv6big.png"),
 	 	picDisabled: __uri("../img/lv6disabled.png"),
 		levelName:"专属主题", 
-		levelCondition:"Lv.6 (含) 以上可解锁", 
+		levelCondition:"Lv6 (含) 以上可解锁", 
 		levelDes:"会员出品，必属精品。丰富多样的系统主题，专享主题服务，让您与众不同。"
 	}
 	,{
@@ -55,7 +55,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv7big.png"),
 	 	picDisabled: __uri("../img/lv7disabled.png"),
 		levelName:"定制屏保", 
-		levelCondition:"Lv.7 (含) 以上可解锁", 
+		levelCondition:"Lv7 (含) 以上可解锁", 
 		levelDes:"免费定制您喜爱的屏保，装扮不再单调，让电视屏保也赏心悦目。"
 	}
 ];
