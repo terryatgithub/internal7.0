@@ -358,4 +358,6 @@ function delayLoad() {
 		console.log("==i:"+i+", pic: "+pic);
 		$("img").eq(i).attr("src", pic);
 	}
+	pic = app.rel_html_imgpath(__uri("../img/bg.png"));
+	$("body").css("background-image", "url("+pic+")");
 }

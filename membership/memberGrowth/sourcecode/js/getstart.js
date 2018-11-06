@@ -360,6 +360,14 @@ function calCurPointsLocation(isInit) {
 		return;
 	}
 	
+	if(_userPoints > _coinsLv[_coinsLv.length-1]) {
+		console.log("points too much, _userPoints:	"+_userPoints);
+		_userPoints = _coinsLv[_coinsLv.length-1];
+	}else if(_userPoints < 0) {
+		console.log("points error. set to 0");
+		_userPoints = 0;
+	}
+			
 	//非初始化时（或获取到用户信息、或用默认值），绘制动态元素：
 	for (i; i<len; i++) {
 		if(_userPoints <= _coinsLv[i]) {
@@ -369,12 +377,7 @@ function calCurPointsLocation(isInit) {
 	}
 	//确保当拥有金币数为0或1时(初始值),当前点可以正常显示:
 	if(i==0) {i=1};
-	
-	if(_userPoints > _coinsLv[_coinsLv.length-1] || _userPoints < 0) {
-		console.log("something error.");
-		_userPoints = 0;
-	}
-		
+
 	//3.计算当前金币数占用的空间宽度和高度,当为0时为计算方便,改为1;
 	var curLeft = (i-1)*lvWidth;
 	var deltaWidth = Math.round(lvWidth * ((_userPoints <= 1 ? 1 : _userPoints) - _coinsLv[i-1]) / (_coinsLv[i] - _coinsLv[i-1]));
@@ -474,7 +477,7 @@ function getUserCoinsInfo() {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
 				$("#userLv").text("Lv"+_userLv);
-				$("#coinNum").text(data.data.coins);
+				$("#coinNum").text((data.data.coins).toFixed(1));
 				//更新用户当前点位:
             	updateUserInfos(true);
 				svgShowGrowCurve(false);

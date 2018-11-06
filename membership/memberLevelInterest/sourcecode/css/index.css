@@ -202,6 +202,6 @@ body {
 	border: 5px solid white;
 	-webkit-transform: scale(1.05);
 	transform: scale(1.05);
-	-webkit-transition: transform .3s;
-	transition: transform .3s;
+	-webkit-transition: transform .1s;
+	transition: transform .1s;
 }

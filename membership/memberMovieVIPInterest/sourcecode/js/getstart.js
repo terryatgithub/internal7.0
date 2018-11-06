@@ -417,7 +417,8 @@ function getProductPackLists() {
 	}
 
 	//从后台获取产品源列表的测试接口
-	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
+//	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
+	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";
 	var data = {
 			"user_flag": _userFlag,
 			"user_id": _userId,
@@ -638,7 +639,7 @@ function getUserCoinsInfo() {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
 				$("#userLv").text("Lv"+_userLv);
-				$("#coinNum").text(data.data.coins);
+				$("#coinNum").text((data.data.coins).toFixed(1));
 			}
 		},
 		error: function(data) {
@@ -988,7 +989,8 @@ function getProductPackListsFake() {
 			break;
 	}
 	//测试接口
-	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
+//	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
+	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";
 	var data = {
 			"user_flag": 1,//_userFlag,
 			"user_id": "2.4020ff964d0d4708a5eaa40fe59fd33c",//_userId,
