@@ -1,0 +1,25 @@
+#container {
+	width: 200px;
+	height: 200px;
+	background: red;
+	border: 1px solid gray;
+	overflow: hidden;
+}
+
+
+#content {
+	margin-left: 50px;
+	width: 100px;
+	height: 800px;
+	background: blue;
+	opacity: 0.2;
+	border: 1px solid green;
+}
+
+
+body {
+	background-image: url(../img/内容1.png), url(../img/内容2.png), url(../img/内容3.png), url(../img/内容4.png);
+	background-repeat: no-repeat;
+	height: 4320px;
+	background-position: 0% 0%, 0% 25%,0% 50%,0% 75%;
+}

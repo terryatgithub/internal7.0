@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS in Action</title>
+		<link rel="stylesheet" href="css/cssInAction.css" />
+		<script type="text/javascript" src="js/cssInAction.js"></script>
+	</head>
+	
+	<body >
+		<div class="divLeft">
+			<h1>查看样式：</h1>
+			<!--
+				Q:查看样式这里如何实现？ 显示效果 
+            -->
+            <!--<a href="demo_style_main.php?style=style1" target="main">查看样式</a>
+            -->
+            
+            <a onclick="changeCSS(1);">查看样式1</a> <br />
+            <a onclick="changeCSS(2);">查看样式2</a> <br />
+            <a onclick="changeCSS(3);">查看样式3</a> <br />
+			<br />
+			
+            <a onclick="changeCSS(0);">无样式</a>
+			
+			<h1>查看样式：</h1>
+			<a href="css/cssInAction.css">样式1</a>
+			<a href="css/cssInAction2.css">样式2</a>
+			<a href="css/cssInAction3.css">样式3</a>
+		</div>
+		
+		<div class="divRight">
+			<h1>标题1</h1>
+			<p>这是段落中的一些文本。</p>
+			<p>这是另外一个段落</p>
+			<hr />
+			
+			<h2>标题2</h2>
+			<table>
+				<tbody>
+				<tr>
+					<th>Name</th>
+					<th>E-mail</th>
+					<th>Phone</th>
+				</tr>
+				<tr>
+					<td>Doe, John</td>
+					<td>jdoe@example.com</td>
+					<td>555-789-7222</td>
+				</tr>
+				<tr>
+					<td>Smith, Eva</td>
+					<td>esmith@example.com</td>
+					<td>555-324-3693</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr />
+			
+			<h3>标题3</h3>
+			<p>访问我们的<a href="www.baidu.com">首页</a> or our <a href="www.skyworth.com">CSS 教程</a></p>
+			<p>你应具备的知识：</p>
+			<ol>
+				<li>HTML</li>
+				<li>XHTML</li>
+			</ol>
+			<p>你最喜欢的饮料：</p>
+			<ul>
+				<li>Smoothie</li>
+				<li>Green tea</li>
+				<li>Coffee</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	</body>
+</html>

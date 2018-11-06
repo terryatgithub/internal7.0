@@ -1,0 +1,61 @@
+/*background背景
+ background-color
+ background-image
+ background-repeat
+ background-attachment
+ background-position
+ * */
+/*元素选择器*/
+body {
+	background: lightblue;
+	/*background-image: url(../img/ok.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-color: #B0C4DE;*/
+	background: #11FFFF url(../img/ok.jpg) no-repeat right top; 
+	margin-right: 900px;
+}
+
+h1 {
+	text-align: center;
+	color: orange;
+	background-color: #6495ED;
+}
+
+h3 {
+	color: red;
+	text-align: left;
+	font-size: 8pt;
+}
+
+hr {color: sienna;}
+
+div {
+	background-color: rgb(255,0,0);	
+}
+
+p {
+	font-family: "times new roman";
+	font-size: 24px;
+	color: red;
+	text-align: center;
+	margin-left: 20px;
+	background-color: red;
+}
+
+/*id选择器*/
+#para1 {
+	text-align: center;
+	color: red;
+}
+
+/*class类选择器*/
+.center {
+	text-align: center;
+}
+
+/*元素+类选择器*/
+p.center {
+	text-align: center;
+}
+

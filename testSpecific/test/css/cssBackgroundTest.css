@@ -1,0 +1,41 @@
+body {
+/*	background: #6495ED url(../img/ok.jpg) no-repeat  left top fixed;
+*/	/*background-attachment: fixed;*/
+	background-color: #6495ED;
+	background-image: url(../img/ok.jpg);	
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-attachment: fixed;
+	background-size: 30%;
+	
+	margin-left: 900px;
+}
+
+.container {
+	text-align: center;
+}
+
+.center_div {
+	width: 90%;
+	text-align: left;
+	border: 20px dotted gray;
+	padding: 100px;
+	
+	background: #ADD8E6 ;
+	background-image: url(../img/replay.jpg);
+	background-size: 50px 50px;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-origin: content-box;
+	background-clip: padding-box;
+}
+
+.backgroundBlend {
+	width: 290px;
+	height: 69px;
+	background-size: 290px, 69px;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(to right, green 0%, white 100%), url(../img/icon.png);
+	background-blend-mode: luminosity;
+}
+

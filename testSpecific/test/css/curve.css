@@ -1,0 +1,79 @@
+
+* {
+	margin: 10px;
+	padding: 0;
+}
+
+.borderRadius {
+	border: 1px solid #a1a1a1;
+	padding: 10px 40px;
+	background: #dddddd;
+	width: 300px;
+	border-radius: 25px;
+}
+
+.borderRadius2 {
+	border: 2px solid #0000FF;
+	padding: 10px 40px ;
+	background: #00FF00;
+	width: 300px;
+	border-radius:2em;
+}
+
+.borderRadius3 {
+	border: 2px solid #0000FF;
+	padding: 10px 40px ;
+	background: #00FF00;
+	width: 300px;
+	border-radius: 2em 1em 4em / 0.5em 3em;	
+}
+
+.borderRadius4 {
+	border: 2px solid #0000FF;
+	padding: 10px 40px ;
+	background: #00FF00;
+	width: 300px;
+	border-radius: 2em 1em 4em 1em;	
+}
+.borderRadius5 {
+	border: 2px solid #0000FF;
+	padding: 10px 40px ;
+	background: #00FF00;
+	width: 300px;
+	border-radius: 0.5em 3em;	
+}
+
+
+.borderShadow {
+	width: 300px;
+	height: 100px;	
+	background-color: yellow;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.borderShadow1 {
+	width: 300px;
+	height: 100px;	
+	background-color: yellow;
+	box-shadow: 15px 15px 5px 1px #888888 ;
+}
+
+
+[class^=borderImage] {
+	width: 250px;
+	padding: 10px 20px;
+	border: 15px solid transparent;
+}
+
+.round {
+	border-image: url(../img/border.png) 30 30 round;
+}
+
+.stretch {
+	border-image: url(../img/border.png) 30 30 stretch;
+}
+
+.borderImage2 {
+	background-image: url(../img/border.png);
+	background-repeat: no-repeat;
+}

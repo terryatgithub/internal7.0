@@ -1,0 +1,492 @@
+<!DOCTYPE >
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="js/test.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/svg.css" />
+		<title>CSS曲线练习页</title>
+	</head>
+	
+	<body>
+		<p>使用embed标签</p>
+ 		<embed src="circle1.svg" type="image/svg+xml"></embed>
+		<p>使用object标签</p>
+		<object data="circle1.svg" type="image/svg+xml"></object>
+		<p>使用iframe标签</p>
+		<iframe src="circle1.svg"></iframe>
+		
+		<p>直接在HTML嵌入SVG代码</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<circle cx="100" cy="50" r="40" stroke="blue" stroke-width="5" fill="green" />
+		</svg>
+		
+		<a href="circle1.svg">用a标签链接到SVG文件</a>
+		
+		<p>以下内容来自http://www.runoob.com/svg/svg-polygon.html</p>
+		<svg width="12cm" height="4cm" viewBox="0 0 1200 400" version="1.1"
+		     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		  <desc>Example fillrule-nonzero - demonstrates fill-rule:nonzero</desc>
+		  <rect x="1" y="1" width="1198" height="398"
+		        fill="none" stroke="blue" />
+		  <defs>
+		    <path id="Triangle" d="M 16,0 L -8,9 v-18 z" fill="black" stroke="none" />
+		  </defs>
+		  <g fill-rule="nonzero" fill="red" stroke="black" stroke-width="3" >
+		    <path d="M 250,75 L 323,301 131,161 369,161 177,301 z" />
+		    <use xlink:href="#Triangle" transform="translate(306.21 249) rotate(72)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(175.16,193.2) rotate(216)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(314.26,161) rotate(0)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(221.16,268.8) rotate(144)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(233.21,126.98) rotate(288)" overflow="visible"  />
+		    <path d="M 600,81 A 107,107 0 0,1 600,295 A 107,107 0 0,1 600,81 z
+		             M 600,139 A 49,49 0 0,1 600,237 A 49,49 0 0,1 600,139 z" />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(0) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(120) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(240) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(60) translate(49,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(180) translate(49,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(300) translate(49,0) rotate(90)" overflow="visible"  />
+		    <path d="M 950,81 A 107,107 0 0,1 950,295 A 107,107 0 0,1 950,81 z
+		             M 950,139 A 49,49 0 0,0 950,237 A 49,49 0 0,0 950,139 z" />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(0) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(120) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(240) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(60) translate(49,0) rotate(-90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(180) translate(49,0) rotate(-90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(300) translate(49,0) rotate(-90)" overflow="visible"  />
+		  </g>
+		</svg>
+		
+		<svg width="12cm" height="4cm" viewBox="0 0 1200 400"  version="1.1"
+	     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		  <desc>Example fillrule-evenodd - demonstrates fill-rule:evenodd</desc>
+		
+		  <rect x="1" y="1" width="1198" height="398"
+		        fill="none" stroke="blue" />
+		  <defs>
+		    <path id="Triangle" d="M 16,0 L -8,9 v-18 z" fill="black" stroke="none" />
+		  </defs>
+		  <g fill-rule="evenodd" fill="red" stroke="black" stroke-width="3" >
+		    <path d="M 250,75 L 323,301 131,161 369,161 177,301 z" />
+		    <use xlink:href="#Triangle" transform="translate(306.21 249) rotate(72)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(175.16,193.2) rotate(216)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(314.26,161) rotate(0)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(221.16,268.8) rotate(144)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(233.21,126.98) rotate(288)" overflow="visible"  />
+		    <path d="M 600,81 A 107,107 0 0,1 600,295 A 107,107 0 0,1 600,81 z
+		             M 600,139 A 49,49 0 0,1 600,237 A 49,49 0 0,1 600,139 z" />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(0) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(120) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(240) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(60) translate(49,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(180) translate(49,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(600,188) rotate(300) translate(49,0) rotate(90)" overflow="visible"  />
+		    <path d="M 950,81 A 107,107 0 0,1 950,295 A 107,107 0 0,1 950,81 z
+		             M 950,139 A 49,49 0 0,0 950,237 A 49,49 0 0,0 950,139 z" />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(0) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(120) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(240) translate(107,0) rotate(90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(60) translate(49,0) rotate(-90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(180) translate(49,0) rotate(-90)" overflow="visible"  />
+		    <use xlink:href="#Triangle" transform="translate(950,188) rotate(300) translate(49,0) rotate(-90)" overflow="visible"  />
+		  </g>
+		</svg>
+
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="400" width="450">
+			<path id="lineAB" d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
+			  <path id="lineBC" d="M 250 50 l 150 300" stroke="red" stroke-width="3" fill="none" />
+			  <path d="M 175 200 l 150 0" stroke="green" stroke-width="3" fill="none" />
+			  <path d="M 100 350 q 150 -300 300 0" stroke="blue" stroke-width="5" fill="green" />
+			  <!-- Mark relevant points -->
+			  <g stroke="black" stroke-width="3" fill="black">
+			    <circle id="pointA" cx="100" cy="350" r="3" />
+			    <circle id="pointB" cx="250" cy="50" r="3" />
+			    <circle id="pointC" cx="400" cy="350" r="3" />
+			  </g>
+			  <!-- Label the points -->
+			  <g font-size="30" font="sans-serif" fill="black" stroke="none" text-anchor="middle">
+			    <text x="100" y="350" dx="-30">A</text>
+			    <text x="250" y="50" dy="-10">B</text>
+			    <text x="400" y="350" dx="30">C</text>
+			  </g>
+			</svg>
+
+		
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+		  <defs>
+		    <filter id="f1" x="0" y="0">
+		      <feGaussianBlur in="SourceGraphic" stdDeviation="15" />
+		    </filter>
+		  </defs>
+		  <rect width="90" height="90" stroke="green" stroke-width="3"
+		  fill="yellow" filter="url(#f1)" />
+		</svg>
+		
+		<hr />
+		<p>SVG测试</p>
+		<hr />
+		<p>SVG rect</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke: rgb(0,0,0)" />
+		</svg>
+
+		<svg	xmlns="http://www.w3.org/2000/svg" version="1.1" width="150" height="150">
+			<rect x="50" y="20" width="150" height="150" style="fill:rgb(0,0,255);stroke-width:5;stroke:rgb(255,0,0);fill-opacity: 0.1;stroke-opacity: 0.9;" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<rect x="50" y="50" width="150" height="150" style="fill:blue;stroke:pink;stroke-width: 5;opacity: 0.5;" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<rect x="50" y="50" rx="20" ry="20" width="150" height="150" style="fill:red;stroke: black;stroke-width: 5;opacity: 0.5;" /> 
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<rect x="50" y="50" rx="50" ry="50" width="150" height="150" style="fill:red;stroke: black;stroke-width: 5;opacity: 0.5;" /> 
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300">
+			<rect x="50" y="50" rx="75" ry="75" width="150" height="150" style="fill:red;stroke: black;stroke-width: 5;opacity: 0.5;" /> 
+		</svg>
+		
+		<hr />
+		<p>SVG circle</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="red" />
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<circle cx="100" cy="50" r="40" style="fill:red;stroke:black;stroke-width: 2;" />
+		</svg>
+		
+		<hr />
+		<p>SVG ellipse</p>
+		<svg xmlns="http://wwww.w3.org/2000/svg" version="1.1">
+			<ellipse cx="100" cy="80" rx="100" ry="50" style="fill:yellow;stroke:purple;stroke-width: 2;" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<ellipse cx="240" cy="100" rx="220" ry="30" style="fill:yellow" />
+			<ellipse cx="220" cy="70" rx="190" ry="20" style="fill:green" />
+			<ellipse cx="210" cy="45" rx="170" ry="15" style="fill:purple" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<ellipse cx="100" cy="50" rx="100" ry="30" style="fill:yellow" />
+			<ellipse cx="110" cy="50" rx="80" ry="20" style="fill:white" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<ellipse cx="240" cy="50" rx="220" ry="30" style="fill:yellow" />
+			<ellipse cx="220" cy="50" rx="190" ry="20" style="fill:white" />
+		</svg>
+		
+		<hr />
+		<p>SVG line</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width: 2;" />
+		</svg>
+		
+		<hr />
+		<p>SVG Polygon</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="10,200 100,10 150,130" style="fill:lime;stroke: purple;stroke-width: 2;" />
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="10,80 20,100 80,90 60,10" style="fill:lime;stroke:black;stroke-width: 1;" />
+		</svg>
+		<br />
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="40,40 70,10 100,40 85,70 55,70" style="fill:lime;stroke:black;stroke-width:3;" />
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="40,40 100,40 55,70 70,10 85,70" style="fill:lime;stroke:black;stroke-width:3;" />
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="40,40 100,40 55,70 70,10 85,70" style="fill:lime;stroke:black;stroke-width:3;fill-rule: nonzero;" />
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polygon points="40,40 100,40 55,70 70,10 85,70" style="fill:lime;stroke:black;stroke-width:3;fill-rule: evenodd;" />
+		</svg>
+		
+		<p>[todo] 作为作业来实现： SVG polygon fill-rule: nonzero,evenodd 规则实践</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+					
+		</svg>
+		
+		<hr />
+		<p>SVG polyline</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polyline points="20,20 40,25 60,40 80,120 120,140 200,180" style="fill:red;stroke:black;stroke-width: 2;" />
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polyline points="0,100 25,70 50,40 75,15 100,0 100,100" style="fill:lime;stroke:black;stroke-width:3"/>
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<polyline points="0,40 40,40 40,80 80,80 80,120 120,120 120,160 0,160" style="fill:lime;stroke:black;stroke-width: 2;" />
+		</svg>
+		
+		<hr />
+		<p>SVG path路径 大写标识绝对定位 小写表示相对定位：
+			<pre>
+				M moveto 										L lineto
+				H horizontal lineto 				V vertical lineto
+				C curveto 									S smooth curveto
+				Q quadratic Bezier curve 		T smooth quadratic Bezier curve
+				A elliptical Arc     				Z closepath
+			</pre>
+		</p>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">		
+			<path d="M150 0 L75 200 L225 200 Z" />
+		</svg>
+		
+		<p>二次贝塞尔曲线 需要了解下！</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="450" height="400">
+			<path id="lineAB" d="M100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
+			<path id="lineBC" d="M250 50 l150 300" stroke="red" stroke-width="3" fill="none"/>
+			<path d="M175 200 l 150 0" stroke="green" stroke-width="3" fill="none" />
+			<path d="M100 350 q 150 -300 300 0" stroke="blue" stroke-width="5" fill="lime" />
+			
+			<g stroke="black" stroke-width="3" fill="black">
+				<circle id="pointA" cx="100" cy="350" r="3" />
+				<circle id="pointB" cx="250" cy="50" r="3" />
+				<circle id="pointC" cx="400" cy="350" r="3" />
+			</g>
+			
+			<g font-size="30" font="sans-serif" fill="black" stroke="none" text-anchor="middle">
+				<text x="100" y="350" dx="-30">A</text>
+				<text x="250" y="50" dx="-10">B</text>
+				<text x="400" y="350" dx="30">C</text>
+			</g>
+			
+		</svg>
+		
+		<p>用SVG实现-测试</p>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">		
+			<path d="M20 20 C70 40 120 40 180 20" style="fill:none;stroke:black;stroke-width:3;" />
+		</svg>		
+
+		<svg id="svg" width="200" height="100">
+		    <desc>三次贝塞尔曲线</desc><defs></defs>
+		    <path d="M20 20 C90 40, 130 40, 180 20" stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+		    <text x="90" y="60">三次贝塞尔曲线</text>
+		</svg>
+
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1">		
+			<path d="M0 150 L200 150 L200 0 C120 36 60 20 0 50" style="fill:none;stroke:black;stroke-width:3;" />
+			<text x="90" y="60">三次贝塞尔曲线-实现的秘籍效果</text>
+		</svg>		
+
+		<svg id="svg" width="300" height="100">
+			<desc>三次贝塞尔平滑曲线</desc>
+			<defs></defs>
+			<path d="M20 20 C90 40 130 40 180 20 S250 60 280 20" stroke="black" stroke-width="3" fill="none" />
+			<text x="90" y="60">三次贝塞尔平滑曲线</text>
+		</svg>
+
+	<svg id="svg" width="300" height="100">
+    <desc>二次贝塞尔平滑曲线</desc><defs></defs>
+    <path d="M20 10 Q140 40 180 20 T280 30" stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+    <text x="120" y="60">Q 二次贝塞尔曲线</text>
+    <text x="200" y="40">T 二次贝塞尔平滑曲线</text>
+</svg>
+
+	<svg id="svg" width="300" height="100">
+		<desc>二次贝塞尔平滑曲线</desc>
+		<defs></defs>
+		<path d="M20 20 Q100 40 180 20 T340 20" style="stroke:black;stroke-width: 3;fill:none"/>
+		<text x="90" y="60">Q 二次贝塞尔曲线</text>
+		<text x="200" y="80">T 二次贝塞尔平滑曲线</text>
+	</svg>
+	
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300">		
+		<path d="M10 150 L200 150 L200 0 Q200 100 0 100" style="fill:none;stroke:black;stroke-width:3;" />
+		<text x="90" y="60">二次贝塞尔曲线-实现的秘籍效果</text>
+		</svg>		
+
+	<svg width="500" height="500">
+		 <path d="M300,200 h-150 a150,150 0 1,0 150,-150 z" fill="red" stroke="blue" stroke-width="5" />
+     <path d="M275,175 v-150 a150,150 0 0,0 -150,150 z" fill="red" stroke="blue" stroke-width="5" />
+     <path d="M175,175 h-150 a150,150 0 0,0 150,-150 z" fill="red" stroke="blue" stroke-width="5" />
+	</svg>
+	
+	<p>SVG椭圆弧曲线
+	<pre>
+		https://blog.csdn.net/cuixiping/article/details/79663611
+		用法：(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+			rx ry 是椭圆的两个半轴的长度。
+			x-axis-rotation 是椭圆相对于坐标系的旋转角度，角度数而非弧度数。
+			large-arc-flag 是标记绘制大弧(1)还是小弧(0)部分。
+			sweep-flag 是标记向顺时针(1)还是逆时针(0)方向绘制。
+			x y 是圆弧终点的坐标。
+		从当前点绘制一段椭圆弧到点 (x, y)，椭圆的大小和方向由 (rx, ry) 和 x-axis-rotation 参数决定， 
+		x-axis-rotation 参数表示椭圆整体相对于当前坐标系统的旋转角度。
+		椭圆的中心坐标 (cx, cy) 会自动进行计算从而满足其它参数约束。
+		large-arc-flag 和 sweep-flag 也被用于圆弧的计算与绘制。
+	</pre>
+	</p>
+	
+	<svg width="500" height="500">
+		<path d="M125,75 a100,50 0 0,0 100,50" style="fill:none;stroke:black;stroke-width: 3;" />
+		<text x="125" y="100">0小弧 0逆时针</text>
+		<path d="M125,75 a100,50 0 0,1 100,50" style="fill:none;stroke:black;stroke-width: 3;" />
+		<text x="125" y="50">0小弧 1顺时针</text>
+		<path d="M125,75 a100,50 0 1,0 100,50" style="fill:none;stroke:black;stroke-width: 3;" />
+		<text x="125" y="150">1大弧 0逆时针</text>
+		<path d="M125,75 a100,50 0 1,1 100,50" style="fill:none;stroke:black;stroke-width: 3;" />
+		<text x="200" y="50">1大弧 1顺时针</text>
+	</svg>
+	
+	<svg width="1920" height="1080">
+		<path d="M1738,170 a1738,378 0 0,1 -1738,378" style="fill:none;stroke:black;stroke-width: 3;" />
+		<text x="125" y="100">0小弧 1顺时针</text>
+	</svg>
+
+	<svg width="1920" height="1080">
+		<path d="M0,500 L1738,500 L1738,0 a1738,378 0 0,1 -1738,378 Z" style="fill:lime;stroke:black;stroke-width: 3;" />
+		<text x="0" y="480">Lv1</text>
+		<text x="280" y="480">Lv2</text>
+		<text x="560" y="480">Lv3</text>
+		<text x="840" y="480">Lv4</text>
+		<text x="1120" y="480">Lv5</text>
+		<text x="1400" y="480">Lv6</text>
+		<text x="1700" y="480">Lv7</text>
+		
+		
+		<text x="125" y="100">0小弧 1顺时针[备份]</text>
+		<text x="125" y="150">效果图基本达到</text>
+	</svg>
+
+	<svg width="1920" height="1080">
+		<path d="M0,500 L1738,500 L1738,0 a1738,378 0 0,1 -1738,378 Z" style="fill:lime;stroke:none;" />
+		<path d="M1738,0 a1738,378 0 0,1 -1738,378" style="fill:none;stroke:orange;stroke-width: 5;" />
+		<text x="0" y="480">Lv1</text>
+		<text x="280" y="480">Lv2</text>
+		<text x="560" y="480">Lv3</text>
+		<text x="840" y="480">Lv4</text>
+		<text x="1120" y="480">Lv5</text>
+		<text x="1400" y="480">Lv6</text>
+		<text x="1700" y="480">Lv7</text>
+		
+		
+		<text x="125" y="100">0小弧 1顺时针</text>
+		<text x="125" y="150">效果图基本达到</text>
+	</svg>
+
+
+	<p>以下实例来自： http://dayu.pw/svgcontrol/</p>
+	<svg width="500" height="300">
+	<path d="M200 250 Q350 150 500 250" style="stroke:black; stroke-width:3; fill:none" />
+	<text	x="100" y="250">二次贝塞尔曲线控制M200 250 Q350 150 500 250</text	x="200">
+	</svg>
+
+	<svg width="500" height="300">
+		<path d="M200 250 C300 150 400 150 500 250" style="stroke:black; stroke-width:3; fill:none" />
+			<text x="100" y="250">三次贝塞尔曲线控制M200 250 C300 150 400 150 500 250</text>
+	</svg>
+	
+		
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+			
+		
+		
+		
+		
+		<script type="text/javascript" src="js/echarts.js"></script>
+		<script>
+			// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '成长值'
+            },
+            tooltip: {},
+            xAxis: {
+            		type: 'category',
+            		boundaryGap: false,
+                data : ['Lv1','Lv2','Lv3','Lv4','Lv5','Lv6','Lv7'],
+                axisLine: {
+                	show:false
+                },
+                splitLine: {
+                	show:true
+                }
+            },
+            yAxis: {
+            	show: true,
+            	type:'value',
+//          	min:'dataMin',
+//          	max:'dataMax',
+            	boundaryGap:['10%'],
+            	splitLine: {
+            		show: false
+            	},
+//          	data: [1,300,1200,2000,2500,4800,14800]
+//							scale:true
+            },
+            series: [{
+                name: '销量',
+                type: 'line',
+                areaStyle: {
+                	color: {
+								    type: 'linear',
+								    x: 0,
+								    y: 0,
+								    x2: 1,
+								    y2: 0,
+								    colorStops: [{
+								        offset: 0, color: 'red' // 0% 处的颜色
+								    }, {
+								        offset: 1, color: 'blue' // 100% 处的颜色
+								    }],
+								    globalCoord: false // 缺省为 false
+									},
+									origin:"auto",
+									shadowColor: 'rgba(0, 0, 0, 0.5)',
+    							shadowBlur: 10,
+    							shadowOffsetX: 5,
+    							shadowOffsetY: 5,
+    							opacity: 0.5
+                },
+                label: {
+                	normal: {
+                		show: true,
+                		position: 'bottom'
+                	}
+                },
+                data:[1, 300, 1500, 3500, 6000, 10800, 25600],
+                smooth:0.2,
+                visualMap: 	{
+                		type: 'piecewise',
+						        pieces: [
+										    {gt: 9000, lte: 15000},  // (900, 1500]
+										    {gt: 6000, lte: 9000, label: '10 到 200（自定义label）'},       // (10, 200]
+										    {value: 5888, label: '123（自定义特殊颜色）', color: 'grey'},  // [123, 123]
+						        ],
+						        color: ['#E0022B', '#E09107', '#A3E00B']
+                	},
+                markPoint: {
+	                data: [
+	                    {type: 'max', name: '最大值'},
+	                    {type: 'min', name: '最小值'}
+	                ]
+			          },
+//		            markLine: {
+//	                data: [
+//	                    {type: 'average', name: '平均值'}
+//	                ]
+//		            }
+            }],
+            
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+		</script>
+	</body>
+</html>

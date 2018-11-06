@@ -1,0 +1,73 @@
+.lengthunitem1 {
+	font-size: 16px;
+	line-height: 2em;
+}
+
+.lengthunitemdiv {
+	font-size: 30px;
+	border: 1px solid blue;
+}
+
+.lengthunitemspan {
+	font-size: 0.5em;
+}
+
+.lengthunitexdiv {
+	font-size: 30px;
+	border: 1px solid black;
+}
+
+.lengthunitexspan {
+	font-size: 1ex;
+}
+
+.lengthunitchdiv {
+	font-size: 30px;
+	border: 1px dashed blueviolet;
+}
+
+.lengthunitchspan {
+	font-size: 1ch;
+}
+
+.lengthunitremdiv {
+	font-size: 30px;
+	border: 2px dotted brown; 
+}
+
+* {
+	font-size:36px;
+}
+
+.lengthunitremspan {
+	font-size: 1rem;
+}
+
+.lengthunitvwdiv {
+	font-size: 1vw;
+}
+
+.lengthunitvhdiv {
+	font-size: 1vh;
+}
+
+.lengthunitvmindiv {
+	font-size: 1vmin;
+}
+
+.lengthunitvmaxdiv {
+	font-size: 1vmax;
+}
+
+.cm1 {	font-size: 1cm;}
+.cm05 {	font-size: 0.5cm;}
+.mm10 {font-size: 10mm;}
+.mm5 {font-size: 5mm;}
+.in1 {font-size: 1in;}
+.in5 {font-size: 0.5in;}
+.px10 {font-size: 10px;}
+.px20 {font-size: 20px;}
+.pt10 {font-size: 10pt;}
+.pt20 {font-size: 20pt;}
+.pc1 {font-size: 1pc;}
+.pc2 {font-size: 2pc;}
