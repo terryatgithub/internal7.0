@@ -375,8 +375,12 @@ function drawVipEntryZone() {
 	}
 	
 	//给4K花园更新内容：
-	$(".vipEntryTitle4KGarden").text(_sourceFourKGarden.name);
-	$(".vipEntryDescription4KGarden").text(_sourceFourKGarden.des);
+	if(_sourceFourKGarden.name != undefined && _sourceFourKGarden.name != "") {
+		$(".vipEntryTitle4KGarden").text(_sourceFourKGarden.name);
+	}
+	if(_sourceFourKGarden.des != undefined && _sourceFourKGarden.des != "") {
+		$(".vipEntryDescription4KGarden").text(_sourceFourKGarden.des);
+	}
 	if (_sourceFourKGarden.validType == 0 ){
 		console.log("用户没有开通vip(4KGarden)，显示立即开通");
 		//默认就是立即开通
@@ -481,7 +485,7 @@ function getProductPackLists() {
 
 //是否显示错误提示页面
 function showFailToast(bShow, failFlag) {
-	console.log("showFailToast in...failFlag:"+failFlag);
+	console.log("showFailToast in..bShow:"+bShow+",failFlag:"+failFlag);
 	//错误提示页面显示时,要获取焦点
 	if(bShow == true) {
 		$(".failToast").css("display", "block");
@@ -659,16 +663,16 @@ function updateUserLoginState(bLogin) {
 		//状态为未登录
 		$("#userinfo").css("display", "none");
 		$(".notLogin").css("display", "block");
-		$(".notLogin").addClass("coocaa_btn");
+		//$(".notLogin").addClass("coocaa_btn");
 	}else {
 		//已获取用户登录信息
 		$(".notLogin").css("display", "none");
-		$(".notLogin").removeClass("coocaa_btn");
+		//$(".notLogin").removeClass("coocaa_btn");
 		$("#userinfo").css("display", "block");
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-	app.registerKeyHandler();
+//	app.registerKeyHandler();
 }
 
 function updateInfoBySource(src) {

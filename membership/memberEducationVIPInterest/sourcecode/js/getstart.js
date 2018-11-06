@@ -558,16 +558,16 @@ function updateUserLoginState(bLogin) {
 		//状态为未登录
 		$("#userinfo").css("display", "none");
 		$(".notLogin").css("display", "block");
-		$(".notLogin").addClass("coocaa_btn");
+//		$(".notLogin").addClass("coocaa_btn");
 	}else {
 		//已获取用户登录信息
 		$(".notLogin").css("display", "none");
-		$(".notLogin").removeClass("coocaa_btn");
+//		$(".notLogin").removeClass("coocaa_btn");
 		$("#userinfo").css("display", "block");
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-	app.registerKeyHandler();
+//	app.registerKeyHandler();
 }
 
 

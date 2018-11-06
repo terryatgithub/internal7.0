@@ -5,16 +5,16 @@ var _bPlayDisrupted = false;
 //视频资源地址,例如:http://v-play.coocaatv.com/7-demo/10-help.m4v
 var _baseUrl = "http://v-play.coocaatv.com/7-demo/";
 var _videoInfos = [
-	 { des: "如何使用遥控器", name: "1-remote", duration: "1:01", img: "img/1.jpg"}
-	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "1:02", img: "img/2.jpg"}
-	,{ des: "在播放中会用到", name: "3-play", duration: "1:03", img: "img/3.jpg"}
-	,{ des: "看过的节目去哪里找", name: "4-history", duration: "1:04", img: "img/4.jpg"}
-	,{ des: "如何购买会员和登录", name: "5-vip", duration: "1:05", img: "img/5.jpg"}
-	,{ des: "怎么看电视台", name: "6-cctv", duration: "1:06", img: "img/6.jpg"}
-	,{ des: "试试和电视说话", name: "7-AI", duration: "1:07", img: "img/7.jpg"}
-	,{ des: "如何在电视上看手机上的视频和照片", duration: "1:08", name: "8-cast", img: "img/8.jpg"}
-	,{ des: "还能用电视做什么", name: "9-education", duration: "1:09", img: "img/9.jpg"}
-	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "1:10", img: "img/10.jpg"}
+	 { des: "如何使用遥控器", name: "1-remote", duration: "01:01", img: "img/1.jpg"}
+	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "01:02", img: "img/2.jpg"}
+	,{ des: "在播放中会用到", name: "3-play", duration: "01:03", img: "img/3.jpg"}
+	,{ des: "看过的节目去哪里找", name: "4-history", duration: "01:04", img: "img/4.jpg"}
+	,{ des: "如何购买会员和登录", name: "5-vip", duration: "01:05", img: "img/5.jpg"}
+	,{ des: "怎么看电视台", name: "6-cctv", duration: "01:06", img: "img/6.jpg"}
+	,{ des: "试试和电视说话", name: "7-AI", duration: "01:07", img: "img/7.jpg"}
+	,{ des: "如何在电视上看手机上的视频和照片", duration: "01:08", name: "8-cast", img: "img/8.jpg"}
+	,{ des: "还能用电视做什么", name: "9-education", duration: "01:09", img: "img/9.jpg"}
+	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "01:10", img: "img/10.jpg"}
 ];
 
 //页面部分的逻辑
