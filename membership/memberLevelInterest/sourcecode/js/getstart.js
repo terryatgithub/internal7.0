@@ -1,5 +1,13 @@
 var _Lindex= 0;
 
+//预加载数组用：
+var _picNormal=0;
+var _picDisabled = 1;
+var _picFocus = 2;
+var _picFocusDisabled=3;
+var _picBig=4;
+var _preLoadImageArray;
+
 //保存图标对应的详细信息
 var _levelInfos = new Array();
 var _userLevel = 1;
@@ -8,25 +16,31 @@ _levelInfos = [
 	 	level:1, 
 	 	levelName:"等级礼包", 
 	 	picNormal: __uri("../img/lv1.png"), 
-	 	picBig: __uri("../img/lv1big.png"),
 	 	picDisabled: __uri("../img/lv1disabled.png"),
+	 	picFocus: __uri("../img/lv1focus.png"),
+	 	picFocusDisabled:__uri("../img/lv1focusdisabled.png"),
+	 	picBig: __uri("../img/lv1big.png"),
 	 	levelCondition:"Lv1 (含) 以上可解锁", 
 	 	levelDes:"不同等级会员尊享不同的福利特权，当您的等级提升时，还会赠送您不同级别的升级礼包，等级越高能尊享的权益越多、价值越高，赶快提升等级享受更多福利吧~"
 	 }
 	,{
 		level:1, 
 	 	picNormal: __uri("../img/lv12.png"), 
-	 	picBig: __uri("../img/lv12big.png"),
 	 	picDisabled: __uri("../img/lv12disabled.png"),
-		levelName:"线上活动", 
+	 	picFocus: __uri("../img/lv12focus.png"),
+	 	picFocusDisabled:__uri("../img/lv12focusdisabled.png"),
+	 	picBig: __uri("../img/lv12big.png"),
+		levelName:"专属活动", 
 		levelCondition:"Lv1 (含) 以上可解锁", 
 		levelDes:"参与专属等级线上活动，精彩好礼等您来拿，还有好玩有趣的游戏等您参与。"
 	}
 	,{
 		level:3,
 	 	picNormal: __uri("../img/lv3.png"), 
-	 	picBig: __uri("../img/lv3big.png"),
 	 	picDisabled: __uri("../img/lv3disabled.png"),
+	 	picFocus: __uri("../img/lv3focus.png"),
+	 	picFocusDisabled:__uri("../img/lv3focusdisabled.png"),
+	 	picBig: __uri("../img/lv3big.png"),
 		levelName:"线下活动", 
 		levelCondition:"Lv3 (含)以上可解锁", 
 		levelDes:"用户根据等级可参与不同的线下福利活动，如粉丝见面会、大咖线下活动等，让您与明星零距离接触。"
@@ -34,8 +48,10 @@ _levelInfos = [
 	,{
 		level:5,
 	 	picNormal: __uri("../img/lv5.png"), 
-	 	picBig: __uri("../img/lv5big.png"),
 	 	picDisabled: __uri("../img/lv5disabled.png"),
+	 	picFocus: __uri("../img/lv5focus.png"),
+	 	picFocusDisabled:__uri("../img/lv5focusdisabled.png"),
+	 	picBig: __uri("../img/lv5big.png"),
 		levelName:"专属客服", 
 		levelCondition:"Lv5 (含) 以上可解锁", 
 		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰服务热线：拨打专线400-168-8880."
@@ -43,8 +59,10 @@ _levelInfos = [
 	,{
 		level:6,
 	 	picNormal: __uri("../img/lv6.png"), 
-	 	picBig: __uri("../img/lv6big.png"),
 	 	picDisabled: __uri("../img/lv6disabled.png"),
+	 	picFocus: __uri("../img/lv6focus.png"),
+	 	picFocusDisabled:__uri("../img/lv6focusdisabled.png"),
+	 	picBig: __uri("../img/lv6big.png"),
 		levelName:"专属主题", 
 		levelCondition:"Lv6 (含) 以上可解锁", 
 		levelDes:"会员出品，必属精品。丰富多样的系统主题，专享主题服务，让您与众不同。"
@@ -52,8 +70,10 @@ _levelInfos = [
 	,{
 		level:7, 
 	 	picNormal: __uri("../img/lv7.png"), 
-	 	picBig: __uri("../img/lv7big.png"),
 	 	picDisabled: __uri("../img/lv7disabled.png"),
+	 	picFocus: __uri("../img/lv7focus.png"),
+	 	picFocusDisabled:__uri("../img/lv7focusdisabled.png"),
+	 	picBig: __uri("../img/lv7big.png"),
 		levelName:"定制屏保", 
 		levelCondition:"Lv7 (含) 以上可解锁", 
 		levelDes:"免费定制您喜爱的屏保，装扮不再单调，让电视屏保也赏心悦目。"
@@ -142,14 +162,30 @@ var app = {
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
-			console.log("----------focus-----"+_Lindex);
+			console.log("-focus-----"+_Lindex);
 			showLevelDetails();
 		});
+		$(".coocaa_btn").bind("itemBlur", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("-Blur-----"+_Lindex);
+			var pic;
+			if(_userLevel >= _levelInfos[_Lindex].level) {
+//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picNormal);	
+				pic = _preLoadImageArray[_Lindex][_picNormal].src;
+			}else {
+//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picDisabled);
+				pic = _preLoadImageArray[_Lindex][_picDisabled].src;
+			}
+			$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
+			
+		});		
 	},
 	
     pageInit: function() {
     	console.log("in pageInit.");
-    	parseLevelFromUrl();
+		//setTimeout("preLoadImg()", 100);
+		preLoadImg(_levelInfos);
+		parseLevelFromUrl();
     	drawContainerZone();
     	showLevelDetails();
 
@@ -171,6 +207,25 @@ var app = {
 
 app.initialize();
 
+function preLoadImg(arr) {
+	console.log("preLoadImg in...");
+	_preLoadImageArray = new Array();
+	for(var i=0; i< arr.length ; i++) {
+		_preLoadImageArray[i] = new Array(5);
+		_preLoadImageArray[i][_picNormal] = new Image();
+		_preLoadImageArray[i][_picNormal].src = app.rel_html_imgpath(arr[i].picNormal);
+		_preLoadImageArray[i][_picDisabled] = new Image();
+		_preLoadImageArray[i][_picDisabled].src = app.rel_html_imgpath(arr[i].picDisabled);
+		_preLoadImageArray[i][_picFocus] = new Image();
+		_preLoadImageArray[i][_picFocus].src = app.rel_html_imgpath(arr[i].picFocus);
+		_preLoadImageArray[i][_picFocusDisabled] = new Image();
+		_preLoadImageArray[i][_picFocusDisabled].src = app.rel_html_imgpath(arr[i].picFocusDisabled);
+		_preLoadImageArray[i][_picBig] = new Image();
+		_preLoadImageArray[i][_picBig].src = app.rel_html_imgpath(arr[i].picBig);
+	}
+	console.log("preLoadImg out...");
+}
+
 //绘制右侧内容区图标
 function drawContainerZone() {
 	console.log("drawContainerZone in...");
@@ -181,19 +236,23 @@ function drawContainerZone() {
 	for(i=0;i<len-1; i++) {
 		$(".contentContainer").append($(".levelIntro:last-of-type").clone(true));
 	}
+	
 	//更新对应图标的icon，及标题
 	var pic = "";
 	for(i=0;i<len;i++) {
 		$(".levelTitle").eq(i).text(_levelInfos[i].levelName);
 		//灰掉高于目前等级的所有图标：
 		if(_levelInfos[i].level > _userLevel) {
-			pic = app.rel_html_imgpath(_levelInfos[i].picDisabled);
-			$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
+//			pic = app.rel_html_imgpath(_levelInfos[i].picDisabled);
+//			$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
+			$(".levelIcon").eq(i).css("background-image", "url("+_preLoadImageArray[i][_picDisabled].src+")");
 			continue;
 		}
 //		console.log("_levelInfos[i].picNormal:"+_levelInfos[i].picNormal);
-		pic = app.rel_html_imgpath(_levelInfos[i].picNormal);
-		$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
+//		pic = app.rel_html_imgpath(_levelInfos[i].picNormal);
+//		$(".levelIcon").eq(i).css("background-image", "url("+pic+")");
+		$(".levelIcon").eq(i).css("background-image", "url("+_preLoadImageArray[i][_picNormal].src+")");
+
 	}
 }
 
@@ -203,9 +262,23 @@ function showLevelDetails() {
 	$(".sideLevelGiftTitle").text(_levelInfos[_Lindex].levelName);
 	$(".sideLevelGiftConditionsDetails").text(_levelInfos[_Lindex].levelCondition);
 	$(".sideLevelPrivilegeDetails").text(_levelInfos[_Lindex].levelDes);
-	var pic = app.rel_html_imgpath(_levelInfos[_Lindex].picBig);
-	// var pic = _levelInfos[_Lindex].picBig;
-	$(".sideLevelIconShowClass").css("background-image", "url("+pic+")");
+//	var pic = app.rel_html_imgpath(_levelInfos[_Lindex].picBig);
+//	// var pic = _levelInfos[_Lindex].picBig;
+//	$(".sideLevelIconShowClass").css("background-image", "url("+pic+")");
+	$(".sideLevelIconShowClass").css("background-image", "url("+_preLoadImageArray[_Lindex][_picBig].src+")");
+	
+	var pic;
+	//更新获得焦点的图片：
+	if(_userLevel >= _levelInfos[_Lindex].level) {
+//		pic = app.rel_html_imgpath(_levelInfos[_Lindex].picFocus);
+		pic = _preLoadImageArray[_Lindex][_picFocus].src;
+	}else {
+//		pic = app.rel_html_imgpath(_levelInfos[_Lindex].picFocusDisabled);
+		pic = _preLoadImageArray[_Lindex][_picFocusDisabled].src;
+	}
+	console.log("focus img----: "+pic);
+	$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
+	
 	//闪光特效
 	$(".flash").stop(true,true).animate({left: "100%"}, "slow", function() {
 		$(".flash").css("left", "-200px");
