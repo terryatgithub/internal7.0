@@ -78,6 +78,7 @@ body {
 	line-height: 60px;
 	font-size: 40px;
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	color: #FFFFFF;
 	letter-spacing: 0;
 }
@@ -90,6 +91,7 @@ body {
 	line-height: 48px;
 	font-size: 32px;
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	color: #FFFFFF;
 	letter-spacing: 0;
 }
@@ -113,6 +115,7 @@ body {
 	line-height: 48px;
 	font-size: 32px;
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	color: #FFFFFF;
 	letter-spacing: 0;
 }

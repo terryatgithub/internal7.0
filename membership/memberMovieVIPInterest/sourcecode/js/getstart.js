@@ -80,6 +80,7 @@ var app = {
     	
 		//以下是为在PC上调试方便所加，后续要删除 -start-
 //  	getProductPackListsFake();
+//  	//updateInfoBySource("yinhe");
 //  	updateInfoBySource("tencent");
 //		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 //		app.registerKeyHandler();
@@ -159,7 +160,7 @@ var app = {
 	
     pageInit: function() {
     	console.log("in pageInit.");
-	setTimeout("delayLoad()", 100);
+		setTimeout("delayLoad()", 100);
     	console.log("out pageInit.");
     },
     
@@ -188,11 +189,13 @@ function isFourkSupport() {
 			//支持4k，显示4k花园（默认是显示的）
 //			$(".vipEntryfourKGarden").css("display", "block");
 //			$(".vipEntryfourKGarden").addClass("coocaa_btn");
+			$(".vipEntry").attr("downTarget", "#fourKGarden");
 		}else {
 			_support4K = "";//
 			//不支持4k，不显示4k花园
-			$(".vipEntryfourKGarden").css("display", "none");
-			$(".vipEntryfourKGarden").removeClass("coocaa_btn");
+			$("#fourKGarden").removeClass("coocaa_btn");
+			$("#fourKGarden").css("display", "none");
+			$(".vipEntry").attr("downTarget", "#vipPrivilegeId");
 			//刷新焦点
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
@@ -214,7 +217,7 @@ function delayLoad() {
 	$(".vipEntryIcon").css("background-image", "url("+pic+")");
 	$(".vipEntryIcon4KGarden").css("background-image", "url("+pic+")");
 	//VIP权益说明页
-	$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencent.webp)");
+	//$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencent.webp)");
 	//页面加载失败提示页
 	$(".failToast").css("background-image", "url(img/failToast.webp)");
 	
@@ -326,7 +329,7 @@ function drawVipEntryZone() {
 	if(_bFirstTimeAddVipEntry) {
 		_bFirstTimeAddVipEntry = false;
 		var vipZoneWidth=1746;//vip整个区域的宽度
-		var barMargin = 30;//每个vip图标的margin-right固定为30
+		var barMargin = 22;//需要预留border 4px，所以要30-4*2=22 //30;//每个vip图标的margin-right固定为30
 		var maxNumInOnePage = 4;//页面最多显示4个
 		var barWidth = Math.round((vipZoneWidth - barMargin*(maxNumInOnePage-1))/maxNumInOnePage);
 	
@@ -351,6 +354,9 @@ function drawVipEntryZone() {
 	}
 
 	//给每个bar填充显示内容（默认内容就是聚体育，放在最后一个）:
+	var picSupOpen = app.rel_html_imgpath(__uri("../img/supOpen.png"));
+	var picRenew = app.rel_html_imgpath(__uri("../img/supRenewMovie.png"));
+	
 	for(i = 0; i<barNum-1; i++) {
 		var cur = $(".vipEntry").eq(i);
 		$(".vipEntry:nth-child("+(i+1)+")>.vipEntryTitle").text(_sourceDetailsArray[i].name);
@@ -358,8 +364,12 @@ function drawVipEntryZone() {
 		if (_sourceDetailsArray[i].validType == 0 ){
 			console.log("用户没有开通vip，显示立即开通");
 			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").text("立即开通");
+			$(".vipEntry:nth-child("+(i+1)+") .vipEntryValidity").css("background-image", "url("+picSupOpen+")");
 		} else {
 			console.log("用户已经开通vip，显示立即续费和有效期");
+			$(".vipEntry:nth-child("+(i+1)+") .vipEntryValidity").css("background-image", "url("+picRenew+")");
+			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").css("font-weight", "normal");
+			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").text("立即续费");
 			if(_sourceDetailsArray[i].validDate != 0){
 				var d = new Date(_sourceDetailsArray[i].validDate);
 				var year = d.getFullYear();
@@ -367,12 +377,13 @@ function drawVipEntryZone() {
 				var day = d.getDate();
 				d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
 				console.log("validity....."+d);
-				$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").text("立即续费");
 				$(".vipEntry:nth-child("+(i+1)+") .vipEntryTimeTip").css("display", "inline-block");
 				$(".vipEntry:nth-child("+(i+1)+") .vipEntryTimeTip").text(d);
 			}
 		}
 	}
+	//更新聚体育角标：
+	$(".vipEntry:last-of-type .vipEntryValidity").css("background-image", "url("+picSupOpen+")");
 	
 	//给4K花园更新内容：
 	if(_sourceFourKGarden.name != undefined && _sourceFourKGarden.name != "") {
@@ -384,8 +395,11 @@ function drawVipEntryZone() {
 	if (_sourceFourKGarden.validType == 0 ){
 		console.log("用户没有开通vip(4KGarden)，显示立即开通");
 		//默认就是立即开通
+		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picSupOpen+")");	
 	} else {
 		console.log("用户已经开通vip(4KGarden)，显示立即续费和有效期");
+		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picRenew+")");	
+		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
 		if(_sourceFourKGarden.validDate != 0){
 			var d = new Date(_sourceFourKGarden.validDate);
 			var year = d.getFullYear();
@@ -393,7 +407,6 @@ function drawVipEntryZone() {
 			var day = d.getDate();
 			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
 			console.log("d:..............."+d);
-			$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
 			$(".vipEntryfourKGarden .vipEntryTimeTip").css("display", "inline-block");
 			$(".vipEntryfourKGarden .vipEntryTimeTip").text(d);
 		}
@@ -537,7 +550,7 @@ function processKey() {
 	console.log("cur focus id: ===="+elId);
 	if (elId =="notLoginId") {
 		console.log("user start login, TVSource:"+_TVSource);
-		startLogin(_TVSource);
+		startLogin((_TVSource == "tencent") ? true : false);
 	}else if(elId == "fourKGarden" || el.hasClass("vipEntry")) {
 		console.log("user start purchase");
 		//测试进入购买页面：
@@ -580,7 +593,7 @@ function scrollPage() {
 			mytop = 0;
 			break;
 	}
-	console.log("scrollPage ....mytop:"+mytop);
+	console.log("scrollPage ..cur el:"+curEl.attr("id")+"..mytop:"+mytop);
 	var container = $(".innerContainer");
 	container.css("transform", "translateY(-" + mytop + "px)");
 	container.css({
@@ -680,16 +693,15 @@ function updateInfoBySource(src) {
 	console.log("updateInfoBySource src: "+src);
 	if(src == "tencent"){//页面默认是腾讯
 		if(_support4K == "4k") {
-			//默认情况不用更新
-			//$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencent.webp)");
+			$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencent.webp)");
+			$(".vipPrivilegeDetails").css("height", "1630px");
 		}else {
 			$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencentWithout4k.webp)");
+			$(".vipPrivilegeDetails").css("height", "1340px");
 		}
-//		$("#vf1").css("display", "block");
 	}else { //if(src == "yinhe") //对不是腾讯的,默认用yinhe
 		$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPIqiyi.webp)");
-//		$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPIqiyi.png)");//测试用
-//		$("#vf1").css("display", "none");//银河介绍页面短,不需要获取焦点的虚拟按键
+		$(".vipPrivilegeDetails").css("height", "950px");
 	}
 }
 
@@ -932,18 +944,15 @@ function hasLogin(needQQ) {
                     }
                     
                     console.log("~~~~~~loginstatus:"+loginstatus+" tencentWay:"+tencentWay);
-                    //在这里用户真正登录成功后,更新页面右上角会员信息:
                     if(loginstatus == "true") {
-                    	console.log("user login true, update user icon.....");
-                    	updateUserLoginState(true);
-						getUserCoinsInfo();
+                    	console.log("user (qq/weixin) login true, update user icon.....");
                     }else {
-                    	console.log("user login false2, show 'login now'..");
-                    	updateUserLoginState(false);
+                    	console.log("user login false(qq/weixin need)..");
                     }
-                    //用户登录与否,都要获取产品包列表
+                    //在这里用户只要酷开账号登录成功,就更新页面右上角会员信息,并要获取产品包列表:
+                    updateUserLoginState(true);
+					getUserCoinsInfo();
                     getProductPackLists();
-					
                 }, function(error) { console.log(error); })
             }, function(error) { console.log(error); });
         }
