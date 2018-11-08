@@ -351,6 +351,12 @@ function calCurPointsLocation(isInit) {
 		for(i=0;i<len;i++){
 			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*5 +"px";//有个间隔
 			document.getElementsByClassName("xAxisEllipseMark") [i].innerHTML = _coinsLv[i];
+			//小于用户等级的标注字体变为红色（设计要求）：
+			if(i < _userLv) {
+				document.getElementsByClassName("xAxisEllipseMark") [i].style.color = "rgba(253,78,0,1)";
+			}else {
+				document.getElementsByClassName("xAxisEllipseMark") [i].style.color = "rgba(250,202,104,0.4)";
+			}
 	//		document.getElementsByClassName("xAxisCoordinate") [i].style.top = svgHeight-35+"px";
 			document.getElementsByClassName("xAxisCoordinate") [i].innerHTML = "Lv"+(i+1);
 		}
@@ -476,6 +482,8 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
+				//yuanbotest
+				_userPoints = 7432;
 				$("#userLv").text("Lv"+_userLv);
 				$("#coinNum").text((data.data.coins).toFixed(1));
 				//更新用户当前点位:
