@@ -8,8 +8,6 @@ body {
     -webkit-user-select: none;   
     background-color: black;  
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     width:1920px;
     height: 1080px;
     margin:0px;
@@ -58,7 +56,6 @@ body {
 	top: 62px;
 	width: 36px;
 	height: 36px;
-	/*background-image: url(../img/userIcon.png);*/ 
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;
@@ -82,7 +79,6 @@ body {
 	top: 64px;
 	width: 32px;
 	height: 32px;
-	/*background-image: url(../img/coin.png);*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 50%;	
@@ -115,7 +111,7 @@ body {
 	text-align: center;
 	letter-spacing: 0;
 	border-radius: 60px;
-	display: block;
+	display: none;
 }
 .notLogin[class~=btn-focus] {
 	background: rgba(0,127,240,1);
@@ -180,6 +176,14 @@ body {
 	left:-4px;
 	background-repeat: no-repeat;
 }
+
+.vipEntry[class~=btn-focus] .vipEntryValidity{
+	-webkit-transform: translate(4px,4px);
+	transform: translate(4px,4px);
+	-webkit-transition: transform 0.1s;
+	transition: transform 0.1s;
+}
+
 .vipEntrySubscribe {
 	position: relative;
 	height: 40px;
@@ -241,6 +245,14 @@ body {
 	box-sizing: border-box;
 	background-origin: border-box;
 }
+
+.vipEntryfourKGarden[class~=btn-focus] .vipEntryValidity{
+	-webkit-transform: translate(4px,4px);
+	transform: translate(4px,4px);
+	-webkit-transition: transform 0.1s;
+	transition: transform 0.1s;
+}
+
 .vipEntryIcon4KGarden {
 	position: absolute;
 	top: 3%;

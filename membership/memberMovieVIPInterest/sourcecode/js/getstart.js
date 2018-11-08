@@ -308,11 +308,11 @@ function updateMemberVIPStates(data) {
 	videoArray.forEach(getSourceDetails);
 	
 	//debug：
-	function printInfo(item,index,arr) {
-		console.log("new array:"+index+" "+item.id+" "+item.name+" "+item.des+" "+item.validType + " "+item.validDate);
-	}
-	console.log("new array len:"+_sourceDetailsArray.length);
-	_sourceDetailsArray.forEach(printInfo);
+//	function printInfo(item,index,arr) {
+//		console.log("new array:"+index+" "+item.id+" "+item.name+" "+item.des+" "+item.validType + " "+item.validDate);
+//	}
+//	console.log("new array len:"+_sourceDetailsArray.length);
+//	_sourceDetailsArray.forEach(printInfo);
 	
 	//step2:在页面的VIP类型区创建对应个数的div:
 	drawVipEntryZone();
@@ -364,6 +364,7 @@ function drawVipEntryZone() {
 		if (_sourceDetailsArray[i].validType == 0 ){
 			console.log("用户没有开通vip，显示立即开通");
 			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").text("立即开通");
+			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").css("font-weight", "bold");
 			$(".vipEntry:nth-child("+(i+1)+") .vipEntryValidity").css("background-image", "url("+picSupOpen+")");
 		} else {
 			console.log("用户已经开通vip，显示立即续费和有效期");
@@ -394,12 +395,14 @@ function drawVipEntryZone() {
 	}
 	if (_sourceFourKGarden.validType == 0 ){
 		console.log("用户没有开通vip(4KGarden)，显示立即开通");
-		//默认就是立即开通
+		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即开通");
+		$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "bold");
 		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picSupOpen+")");	
 	} else {
 		console.log("用户已经开通vip(4KGarden)，显示立即续费和有效期");
 		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picRenew+")");	
 		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
+		$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "normal");
 		if(_sourceFourKGarden.validDate != 0){
 			var d = new Date(_sourceFourKGarden.validDate);
 			var year = d.getFullYear();

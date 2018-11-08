@@ -22,7 +22,7 @@ body {
 	top: 0px;
 	left: 87px;
 	width: 1746px;
-	height: 160px;
+	height: 150px;
 }
 
 .header div{
@@ -68,6 +68,7 @@ body {
 	height: 28px;
 	color: rgba(253,78,0,1);
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	font-size: 28px;
 	line-height: 28px;
 	letter-spacing: 0;
@@ -90,6 +91,7 @@ body {
 	height: 28px;
 	color: rgba(250,202,104,1);
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	font-size: 28px;
 	line-height: 28px;
 	letter-spacing: 0;	
@@ -101,10 +103,10 @@ body {
 	right: 0px;
 	width: 188px;
 	height: 60px;
-	background: rgba(0,127,240,1);
-	color: rgba(255,255,255,1);
-	font-weight: bold;
+	background: rgba(128,128,128,0.18);
+	color: rgba(204,204,204,1);
 	font-family: "NotoSansHans-Medium", sans-serif;
+	font-weight: bold;
 	font-size: 32px;
 	line-height: 60px;
 	text-align: center;
@@ -112,13 +114,21 @@ body {
 	border-radius: 60px;
 	display: none;
 }
+.notLogin[class~=btn-focus] {
+	background: rgba(0,127,240,1);
+	color: rgba(255,255,255,1);
+	-webkit-transform: none;
+	transform: none;
+	border: none;
+}
 
 /*内容区*/
 .container {
 	position: absolute;
-	top: 160px;
+	top: 150px;
 	width: 100%;
-	height: 100%; /*影视这里不用设置height，为什么可以显示？*/
+	padding-top: 16px;
+	/*height: 100%;*/
 	overflow: hidden;
 }
 
@@ -128,24 +138,13 @@ body {
 	height: 100%;
 }
 
-.sectionTitle {
-	position: relative;
-	left: 87px;
-	width: 500px;
-	height: 58px;
-	font-family: "NotoSansHans-Medium",sans-serif;
-	color: rgba(255,255,255,1);
-	font-size: 48px;
-	line-height: 58px;
-	letter-spacing: 0;
-}
 
 .vipEntryZone {
-	position: absolute;
-	left: 87px;
-	height: 300px;
-	padding: 10px 0;
+	position: relative;
+	left: 83px;
+	height: 308px;
 	white-space: nowrap;
+	margin-bottom: 22px;
 }
 
 /*vip类型区*/
@@ -154,9 +153,11 @@ body {
 	position: relative;
 	width: 858px; /*default,will be re cal*/
 	height: 100%;
-	margin-right: 30px;
+	margin-right: 22px;
 	background: linear-gradient(-223deg, #1BE368 0%, #15CC95 100%);
+	border: 4px solid transparent;
 	box-sizing: border-box;
+	background-origin: border-box;
 }
 .vipEntryIcon {
 	position: absolute;
@@ -170,28 +171,41 @@ body {
 }
 .vipEntryValidity {
 	position: absolute;
-	height: 30px;
-	background: rgba(167,117,0,0.3);
-	display: inline-block;
+	height: 40px;
+	width: 138px;
+	top:-4px;
+	left:-4px;
+	background-repeat: no-repeat;
+	/*background-size: cover;*/
 }
+
+.vipEntry[class~=btn-focus] .vipEntryValidity{
+	-webkit-transform: translate(4px,4px);
+	transform: translate(4px,4px);
+	-webkit-transition: transform 0.1s;
+	transition: transform 0.1s;
+}
+
 .vipEntrySubscribe {
 	position: relative;
-	height: 30px;
+	height: 40px;
 	left: 14px;
 	font-family: "NotoSansHans-Medium",sans-serif;
-	font-size: 20px;
-	line-height: 30px;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 40px;
 	color: rgba(255,242,207,1);
 	letter-spacing: 0;
 	display: inline-block;
 }
 .vipEntryTimeTip {
 	position: relative;
-	height: 30px;
-	left: 20px;
+	height: 40px;
+	left: 10px;
 	font-family: "NotoSansHans-Light",sans-serif;
-	font-size: 20px;
-	line-height: 30px;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 40px;
 	color: rgba(255,244,222,1);
 	/*display: inline-block;*/
 	display: none;
@@ -205,6 +219,7 @@ body {
 	text-align: center;
 	font-size: 36px;
 	font-family: "NotoSansHans-Medium",sans-serif;
+	font-weight: bold;
 	color: rgba(103,66,8,1);
 	overflow: hidden;
 }
@@ -223,18 +238,32 @@ body {
 
 /*vip权益页*/
 #vipPrivilegeId {
-	position: absolute;
-	top: 370px;
-	border: 5px solid transparent;
-	box-sizing: border-box;	
+	position: relative;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	background: #000000;
+	border: none; /*4px solid;*/
+	-webkit-transform: none;
+	transform: none;
+}
+
+.sectionTitle {
+	position: relative;
+	left: 87px;
+	width: 500px;
+	height: 48px;
+	font-family: "NotoSansHans-Medium",sans-serif;
+	font-weight: bold;
+	color: rgba(255,255,255,1);
+	font-size: 48px;
+	line-height: 48px;
+	letter-spacing: 0;
 }
 
 .vipPrivilegeDetails {
-	position: absolute;
-	top: 438px;
+	position: relative;
 	left: 40px;
-	width: 1840px;
-	height: 1630px;
+	height: 950px;
 	background-repeat:  no-repeat;
 }
 
@@ -248,17 +277,17 @@ body {
 }
 
 .VirtualFocus1 {
-	top: 700px;
 	left: 100px;
 	bottom: 800px;
 }
 
 .btn-focus{
-	border: 5px solid white;
-	-webkit-transform: scale(1.05);
-	transform: scale(1.05);
-	-webkit-transition: all 0.1s;
-	transition: all 0.1s;
+	border: 4px solid white;
+	-webkit-transform: scale(1.08);
+	transform: scale(1.08);
+	-webkit-transition: transform 0.1s;
+	transition: transform 0.1s;
+	z-index: 1;
 }
 
 .failToast {

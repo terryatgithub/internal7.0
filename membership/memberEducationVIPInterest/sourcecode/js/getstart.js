@@ -272,17 +272,27 @@ function updateMemberVIPStates(data) {
 	console.log("updateMemberVIPStates out...");
 }
 
-//教育vip页面目前只有2个入口块，文件都是固定写在页面的，不用动态更新； 只更新有vip状态和有效期；
+//教育vip页面目前只有2个入口块，文件都是固定写在页面的，不用动态更新； 只更新vip状态和有效期；
 function drawVipEntryZone() {//todo...
 	console.log("drawVipEntryZone in...:");
 	if(_sourceSuperVIPInfo == null) {
 		return;
 	}
+	var picOpen = app.rel_html_imgpath(__uri("../img/supOpen.png"));
+	var picRenew = app.rel_html_imgpath(__uri("../img/supRenewEdu.png"));
 	if (_sourceSuperVIPInfo.validType == 0 ){
 		console.log("用户没有开通超级VIP，显示立即开通");
+		$("#vipEntry1 .vipEntrySubscribe").text("立即开通");
+		$("#vipEntry1 .vipEntrySubscribe").css("font-weight", "bold");
+		$("#vipEntry1 .vipEntryValidity").css("background-image", "url("+picOpen+")");
+		$("#vipEntry1 .vipEntryValidity").css("width", "138px");
 		//默认已显示立即开通
 	} else {
 		console.log("用户已经开通超级VIP，显示立即续费和有效期");
+		$("#vipEntry1 .vipEntrySubscribe").text("立即续费");
+		$("#vipEntry1 .vipEntrySubscribe").css("font-weight", "normal");
+		$("#vipEntry1 .vipEntryValidity").css("background-image", "url("+picRenew+")");
+		$("#vipEntry1 .vipEntryValidity").css("width", "314px");
 		if(_sourceSuperVIPInfo.validDate != 0){
 			var d = new Date(_sourceSuperVIPInfo.validDate);
 			var year = d.getFullYear();
@@ -290,11 +300,12 @@ function drawVipEntryZone() {//todo...
 			var day = d.getDate();
 			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
 			console.log("validity....."+d);
-			$(".vipEntry:nth-child(1) .vipEntrySubscribe").text("立即续费");
-			$(".vipEntry:nth-child(1) .vipEntryTimeTip").css("display", "inline-block");
-			$(".vipEntry:nth-child(1) .vipEntryTimeTip").text(d);
+			$("#vipEntry1 .vipEntryTimeTip").css("display", "inline-block");
+			$("#vipEntry1 .vipEntryTimeTip").text(d);
 		}
 	}
+	//更新分年龄段的角标背景：
+	$("#vipEntry2 .vipEntryValidity").css("background-image", "url("+picOpen+")");
 	console.log("drawVipEntryZone out...");
 }
 
@@ -381,7 +392,7 @@ function getProductPackLists() {
 
 //是否显示错误提示页面
 function showFailToast(bShow, failFlag) {
-	console.log("showFailToast in...failFlag:"+failFlag);
+	console.log("showFailToast in..bShow:"+bShow+",failFlag:"+failFlag);
 	//错误提示页面显示时,要获取焦点
 	if(bShow == true) {
 		$(".failToast").css("display", "block");
@@ -432,7 +443,7 @@ function processKey() {
 	console.log("cur focus id: ===="+elId);
 	if (elId =="notLoginId") {
 		console.log("user start login, TVSource:"+_TVSource);
-		startLogin(_TVSource);
+		startLogin(false);//教育不需要qq/weixin //startLogin((_TVSource == "tencent") ? true : false);
 	}else if(el.hasClass("vipEntry")) {
 		console.log("user start purchase");
 		//测试进入购买页面：
@@ -475,7 +486,7 @@ function scrollPage() {
 			mytop = 0;
 			break;
 	}
-	console.log("scrollPage ....mytop:"+mytop);
+	console.log("scrollPage ..cur el:"+curEl.attr("id")+"..mytop:"+mytop);
 	var container = $(".innerContainer");
 	container.css("transform", "translateY(-" + mytop + "px)");
 	container.css({
@@ -810,18 +821,15 @@ function hasLogin(needQQ) {
                     }
                     
                     console.log("~~~~~~loginstatus:"+loginstatus+" tencentWay:"+tencentWay);
-                    //在这里用户真正登录成功后,更新页面右上角会员信息:
                     if(loginstatus == "true") {
-                    	console.log("user login true, update user icon.....");
-                    	updateUserLoginState(true);
-						getUserCoinsInfo();
+                    	console.log("user (qq/weixin) login true, update user icon.....");
                     }else {
-                    	console.log("user login false2, show 'login now'..");
-                    	updateUserLoginState(false);
+                    	console.log("user login false(qq/weixin need)..");
                     }
-                    //用户登录与否,都要获取产品包列表
+                    //在这里用户只要酷开账号登录成功,就更新页面右上角会员信息,并要获取产品包列表:
+                    updateUserLoginState(true);
+					getUserCoinsInfo();
                     getProductPackLists();
-					
                 }, function(error) { console.log(error); })
             }, function(error) { console.log(error); });
         }
