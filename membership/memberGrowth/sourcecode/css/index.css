@@ -126,7 +126,7 @@ body {
 	left: 89px;
 	width: 1742px;
 	height: 1900px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .innerContainer {
@@ -135,7 +135,7 @@ body {
 	left: 0px;
 	width: 100%;
 	height: 1900px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 /*成长曲线div*/
@@ -144,6 +144,10 @@ body {
 	width:1742px;
 	height: 448px;
 } 
+
+.curveDivClass *{
+   overflow: visible;
+}
 
 #gotCoinsPath {
 	stroke:none;
@@ -157,12 +161,6 @@ body {
 	fill:none;
 	stroke: orange;
 	stroke-width: 3;
-}
-
-#markPoint {
-	fill:orange;
-	stroke:#FFFFFF;
-	stroke-width: 3;	
 }
 
 #markPointTip {

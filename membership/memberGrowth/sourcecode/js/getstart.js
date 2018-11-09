@@ -217,7 +217,7 @@ function processKey() {
 	switch(elId) {
 		case "notLoginId":
 			console.log("user start login, TVSource:"+_TVSource);
-			startLogin(_TVSource);
+			startLogin(false);//成长秘籍页不分视频源
 		break;
 		case "btnEnterTask":
 			coocaaosapi.startTaskPage(function(message) {
@@ -395,9 +395,24 @@ function calCurPointsLocation(isInit) {
 
 	//画当前点的位置圆圈,对最大最小值的边界值有做处理(x/y方向都最小保留5px):
 	var markPoint = document.getElementById("markPoint");
-	markPoint.setAttribute("cy", (curTop < 5 ? 5 : (curTop)) +"px");
-	markPoint.setAttribute("cx", (curLeft < (svgWidth - 5) ? (curLeft > 5 ? curLeft : 5) : (svgWidth - 5))+"px");
-	markPoint.setAttribute("r", "5");
+	//ver0:用svg画了一个最简单的圆，与设计不符
+//	markPoint.setAttribute("cy", (curTop < 5 ? 5 : (curTop)) +"px");
+//	markPoint.setAttribute("cx", (curLeft < (svgWidth - 5) ? (curLeft > 5 ? curLeft : 5) : (svgWidth - 5))+"px");
+//	markPoint.setAttribute("r", "5");
+	//yuanbotest
+	//ver1: 用svg circle画渐变圆的版本,效果放大后边缘有毛刺：
+//	markPoint.setAttribute("cy", curTop +"px");
+//	markPoint.setAttribute("cx", curLeft +"px");
+//	markPoint.setAttribute("r", "15");	
+	//ver2: 用svg image直接放图：
+	//<image x="20" y="100" width="32" height="32" xlink:href="https://beta.webapp.skysrt.com/yuanbo/memberGrowth/img/point_ea65028.png"/>
+	markPoint.setAttribute("y", (curTop-16)+"");
+	markPoint.setAttribute("x", (curLeft-16)+"");
+	markPoint.setAttribute("width", "32");
+	markPoint.setAttribute("height", "32");
+	var pic=app.rel_html_imgpath(__uri("../img/point.png"));
+	markPoint.href.baseVal = pic;//ok2
+//	markPoint.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href",pic); //ok
 	
 	//画当前点的值,对最大最小值的边界值有做处理:
 	var markPointTip = $("#markPointTip");
@@ -482,8 +497,6 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
-				//yuanbotest
-				_userPoints = 7432;
 				$("#userLv").text("Lv"+_userLv);
 				$("#coinNum").text((data.data.coins).toFixed(1));
 				//更新用户当前点位:
@@ -744,14 +757,13 @@ function hasLogin(needQQ) {
                     }
                     
                     console.log("~~~~~~loginstatus:"+loginstatus+" tencentWay:"+tencentWay);
-                    //在这里用户真正登录成功后,更新页面右上角会员信息:
                     if(loginstatus == "true") {
-                    	console.log("user login true, update user icon.....");
-                    	getUserCoinsInfo();
+                    	console.log("user (qq/weixin) login true, update user icon.....");
                     }else {
-                    	console.log("user login false2, show 'login now'..");
-                    	updateUserInfos(false);
+                    	console.log("user login false(qq/weixin need)..");
                     }
+                    //在这里用户只要酷开账号登录成功,就更新页面右上角会员信息:
+					getUserCoinsInfo();
                 }, function(error) { console.log(error); })
             }, function(error) { console.log(error); });
         }
