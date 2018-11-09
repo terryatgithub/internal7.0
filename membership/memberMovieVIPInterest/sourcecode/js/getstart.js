@@ -372,7 +372,7 @@ function drawVipEntryZone() {
 			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").css("font-weight", "normal");
 			$(".vipEntry:nth-child("+(i+1)+") .vipEntrySubscribe").text("立即续费");
 			if(_sourceDetailsArray[i].validDate != 0){
-				var d = new Date(_sourceDetailsArray[i].validDate);
+				var d = new Date(_sourceDetailsArray[i].validDate * 1000);
 				var year = d.getFullYear();
 				var month = d.getMonth()+1;
 				var day = d.getDate();

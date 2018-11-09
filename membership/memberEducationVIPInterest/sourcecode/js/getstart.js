@@ -294,7 +294,7 @@ function drawVipEntryZone() {//todo...
 		$("#vipEntry1 .vipEntryValidity").css("background-image", "url("+picRenew+")");
 		$("#vipEntry1 .vipEntryValidity").css("width", "314px");
 		if(_sourceSuperVIPInfo.validDate != 0){
-			var d = new Date(_sourceSuperVIPInfo.validDate);
+			var d = new Date(_sourceSuperVIPInfo.validDate * 1000);
 			var year = d.getFullYear();
 			var month = d.getMonth()+1;
 			var day = d.getDate();
