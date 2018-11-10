@@ -119,6 +119,8 @@ var app = {
     },
     onResume: function() {
         console.log("in onResume");
+        //从产品包购买页面返回后，重新获取产品源列表信息，以刷新有效期时间：
+        getProductPackLists();
     },
     
     onPause: function() {

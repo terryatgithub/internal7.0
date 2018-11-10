@@ -168,22 +168,13 @@ var app = {
 		$(".coocaa_btn").bind("itemBlur", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("-Blur-----"+_Lindex);
-			var pic;
-			if(_userLevel >= _levelInfos[_Lindex].level) {
-//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picNormal);	
-				pic = _preLoadImageArray[_Lindex][_picNormal].src;
-			}else {
-//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picDisabled);
-				pic = _preLoadImageArray[_Lindex][_picDisabled].src;
-			}
-			$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
-			
+			restoreUnfocusState();
 		});		
 	},
 	
     pageInit: function() {
     	console.log("in pageInit.");
-		//setTimeout("preLoadImg()", 100);
+//		setTimeout("preLoadImg(_levelInfos)", 100);
 		preLoadImg(_levelInfos);
 		parseLevelFromUrl();
     	drawContainerZone();
@@ -256,6 +247,21 @@ function drawContainerZone() {
 	}
 }
 
+//焦点移走时，恢复之前显示状态：
+function restoreUnfocusState()
+{
+	var pic;
+	if(_userLevel >= _levelInfos[_Lindex].level) {
+//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picNormal);	
+		pic = _preLoadImageArray[_Lindex][_picNormal].src;
+	}else {
+//				pic = app.rel_html_imgpath(_levelInfos[_Lindex].picDisabled);
+		pic = _preLoadImageArray[_Lindex][_picDisabled].src;
+	}
+	$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
+	$(".levelTitle").eq(_Lindex).css("font-weight", "normal");
+}
+
 //焦点移动时，显示焦点对应的等级信息
 function showLevelDetails() {
 	console.log("showLevelDetails in...");
@@ -278,10 +284,10 @@ function showLevelDetails() {
 	}
 	console.log("focus img----: "+pic);
 	$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
-	
+	$(".levelTitle").eq(_Lindex).css("font-weight", "bold");
 	//闪光特效
-	$(".flash").stop(true,true).animate({left: "100%"}, "slow", function() {
-		$(".flash").css("left", "-200px");
+	$("#flash").stop(true,true).animate({left: "100%"}, "slow", function() {
+		$("#flash").css("left", "-200px");
 	});
 }
 
