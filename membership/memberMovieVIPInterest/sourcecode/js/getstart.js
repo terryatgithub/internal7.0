@@ -376,7 +376,7 @@ function drawVipEntryZone() {
 				var year = d.getFullYear();
 				var month = d.getMonth()+1;
 				var day = d.getDate();
-				d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
+				d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
 				console.log("validity....."+d);
 				$(".vipEntry:nth-child("+(i+1)+") .vipEntryTimeTip").css("display", "inline-block");
 				$(".vipEntry:nth-child("+(i+1)+") .vipEntryTimeTip").text(d);
@@ -404,11 +404,11 @@ function drawVipEntryZone() {
 		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
 		$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "normal");
 		if(_sourceFourKGarden.validDate != 0){
-			var d = new Date(_sourceFourKGarden.validDate);
+			var d = new Date(_sourceFourKGarden.validDate * 1000);
 			var year = d.getFullYear();
 			var month = d.getMonth()+1;
 			var day = d.getDate();
-			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
+			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
 			console.log("d:..............."+d);
 			$(".vipEntryfourKGarden .vipEntryTimeTip").css("display", "inline-block");
 			$(".vipEntryfourKGarden .vipEntryTimeTip").text(d);

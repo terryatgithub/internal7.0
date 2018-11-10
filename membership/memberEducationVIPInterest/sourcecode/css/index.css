@@ -201,8 +201,8 @@ body {
 .vipEntryTimeTip {
 	position: relative;
 	height: 40px;
-	left: 10px;
-	font-family: "NotoSansHans-Light",sans-serif;
+	left: 24px;
+	font-family: "NotoSansHans-Medium",sans-serif;
 	font-weight: bold;
 	font-size: 24px;
 	line-height: 40px;

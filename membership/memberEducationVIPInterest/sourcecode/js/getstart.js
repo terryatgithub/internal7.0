@@ -298,7 +298,7 @@ function drawVipEntryZone() {//todo...
 			var year = d.getFullYear();
 			var month = d.getMonth()+1;
 			var day = d.getDate();
-			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+(day<10?("0"+day):day+"到期");
+			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
 			console.log("validity....."+d);
 			$("#vipEntry1 .vipEntryTimeTip").css("display", "inline-block");
 			$("#vipEntry1 .vipEntryTimeTip").text(d);
