@@ -110,7 +110,7 @@ var app = {
 			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
 			console.log("----------initPhoneMap End---------");
 		}
-		var firstFocus = document.getElementsByClassName("coocaa_btn")[0];
+		var firstFocus = $(".vipEntry").eq(0);//document.getElementsByClassName("coocaa_btn")[0];
 		initPhoneMap(firstFocus);
 
 		//注册事件监听
@@ -199,7 +199,7 @@ function isFourkSupport() {
 			$("#fourKGarden").css("display", "none");
 			$(".vipEntry").attr("downTarget", "#vipPrivilegeId");
 			//刷新焦点
-			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			map = new coocaakeymap($(".coocaa_btn"), $(".vipEntry").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
 	}, function(error){console.log("_support4K error: " + error);});
 	console.log("isFourKSupport out...");
@@ -352,7 +352,7 @@ function drawVipEntryZone() {
 		}
 		$(".vipEntry").css("width", barWidth+"px");
 		//重绘后需要更新焦点：
-		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		map = new coocaakeymap($(".coocaa_btn"), $(".vipEntry").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	}
 
 	//给每个bar填充显示内容（默认内容就是聚体育，放在最后一个）:
@@ -690,7 +690,7 @@ function updateUserLoginState(bLogin) {
 		$("#userinfo").css("display", "block");
 	}
 	//更新右上角后,刷新下焦点
-	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn"), $(".vipEntry").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	//对coocaa_btn增减后,必须谨慎处理:
 	//1.按键也需要重新绑定,否则新增的焦点不会响应按键; 
 	//2.另外已经存在的焦点不能bind 2次,否则会接到底层上抛的2次按键响应:
