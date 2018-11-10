@@ -336,8 +336,8 @@ body {
 	border: 4px solid white;
 	-webkit-transform: scale(1.08);
 	transform: scale(1.08);
-	-webkit-transition: transform 0.1s;
-	transition: transform 0.1s;
+	-webkit-transition: transform 0.1s linear;
+	transition: transform 0.1s linear;
 	z-index: 1;
 }
 
