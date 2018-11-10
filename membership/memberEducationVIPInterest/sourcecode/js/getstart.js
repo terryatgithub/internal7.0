@@ -572,16 +572,20 @@ function updateUserLoginState(bLogin) {
 		//状态为未登录
 		$("#userinfo").css("display", "none");
 		$(".notLogin").css("display", "block");
-//		$(".notLogin").addClass("coocaa_btn");
+		$(".notLogin").addClass("coocaa_btn");
 	}else {
 		//已获取用户登录信息
 		$(".notLogin").css("display", "none");
-//		$(".notLogin").removeClass("coocaa_btn");
+		$(".notLogin").removeClass("coocaa_btn");
 		$("#userinfo").css("display", "block");
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//	app.registerKeyHandler();
+	//对coocaa_btn增减后,必须谨慎处理:
+	//1.按键也需要重新绑定,否则新增的焦点不会响应按键; 
+	//2.另外已经存在的焦点不能bind 2次,否则会接到底层上抛的2次按键响应:
+	$(".coocaa_btn").unbind();
+	app.registerKeyHandler();
 }
 
 
