@@ -90,7 +90,7 @@ var app = {
     onResume: function() {
         console.log("in onResume");
         
-        //有问题:
+        //播放时返回了:
         if(_bPlayDisrupted == true) {
         	console.log("stop playing, and return---");
         	_bPlayDisrupted = false;
@@ -133,12 +133,8 @@ var app = {
 		$(".coocaa_btn").bind("itemClick", function() {
 				_Index1 = $(".coocaa_btn").index($(this));
 				console.log("itemClick _Index1 = " + _Index1);
-				
-				//关闭主页,避免从playback页面返回时闪一下主页
-				$("#homeTitleDivId").css("display", "none");
-				$("#homtContentDivId").css("display", "none");
-				//启动播放
-				playVideo();
+				//播放前先检测网络状态
+				preparePlayVideo();
 		});
 		
 		$(".coocaa_btn").bind("itemFocus", function() {
@@ -153,6 +149,13 @@ var app = {
 			
 			//响应用户选择（重播或返回)
 			replayOrReturn(true);
+		});
+		
+		$(".coocaa_btnF").bind("itemClick", function() {
+			//_Index1 = $(".coocaa_btnF").index($(this));
+			console.log("------coocaa_btnF itemClick _Index2 = " + $(".coocaa_btnF").index($(this)));
+			//去联网
+			startConnectNet();
 		});
 	},
 	
@@ -297,6 +300,42 @@ function headDivShowRestore() {
 	$("#homeTitleParaId").css("display", "block");
 }
 
+//准备启动播放
+function preparePlayVideo() {
+	//播放前先检查网络是否连接
+	coocaaosapi.isNetConnected(function(message){
+			console.log("isNetConnected success:"+JSON.stringify(message));
+			if(message.isnetworking == "true") {
+				//关闭主页,避免从playback页面返回时闪一下主页
+				$("#homeTitleDivId").css("display", "none");
+				$("#homtContentDivId").css("display", "none");
+				//启动播放
+				playVideo();			
+			}else {
+				//网络未连接:
+				showFailToast();		
+			}
+		}, function(error){console.log("isNetConnected error:"+JSON.stringify(error));});
+}
+//显示网络失败提示:
+function showFailToast() {
+	console.log("showFailToast in..");
+	$("#failToast").css("display", "block");
+	//获取按键:
+	map = new coocaakeymap($(".coocaa_btnF"), document.getElementsByClassName("coocaa_btnF")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+}
+
+//进入设置网络页面:
+function startConnectNet() {
+	console.log("startConnectNet in...");
+	//隐藏失败提示页,并恢复主页按键:
+	$("#failToast").css("display", "none");
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[_Index1], "btn-focus", function() {}, function(val) {}, function(obj) {});
+	coocaaosapi.startNetSetting(function(message){
+		console.log("startNetSetting success:"+JSON.stringify(message));
+	}, function(error){console.log("startNetSetting error:"+JSON.stringify(error));});
+}
+
 //启动播放,不能控制快进快退 暂停继续;
 function playVideo() {
 		console.log("playVideo -start--_startPlaying:true-_Index1:"+_Index1);
@@ -364,4 +403,6 @@ function delayLoad() {
 	
 	pic = app.rel_html_imgpath(__uri("../img/bg.png"));
 	$("body").css("background-image", "url("+pic+")");
+	
+	$("#failToast").css("background-image", "url(img/failToast.webp)")
 }
