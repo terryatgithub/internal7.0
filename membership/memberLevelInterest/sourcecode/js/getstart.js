@@ -214,6 +214,12 @@ function preLoadImg(arr) {
 		_preLoadImageArray[i][_picBig] = new Image();
 		_preLoadImageArray[i][_picBig].src = app.rel_html_imgpath(arr[i].picBig);
 	}
+	
+	$("#maskPic").css("background-image", "url(img/mask.webp)");
+
+	var pic = app.rel_html_imgpath(__uri("../img/light.png"));
+	$("#flash").css("background-image", "url("+pic+")");
+	
 	console.log("preLoadImg out...");
 }
 
@@ -286,8 +292,11 @@ function showLevelDetails() {
 	$(".levelIcon").eq(_Lindex).css("background-image", "url("+pic+")");
 	$(".levelTitle").eq(_Lindex).css("font-weight", "bold");
 	//闪光特效
-	$("#flash").stop(true,true).animate({left: "100%"}, "slow", function() {
-		$("#flash").css("left", "-200px");
+//	$("#flash").stop(true,true).animate({left: "100%"}, "slow", function() {
+//		$("#flash").css("left", "-200px");
+//	});
+	$("#flash").stop(true,true).animate({left: "90%"}, 700, "swing", function() {
+		$("#flash").css("left", "-300px");
 	});
 }
 
