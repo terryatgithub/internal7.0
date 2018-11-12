@@ -16,8 +16,10 @@ var _login_type = null;
 var _vuserid = null;
 var _qqtoken = null;
 
+//抽奖接口：
+//var _testurl = "https://restful.skysrt.com";//正式接口
+var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
 
-var _testurl = "https://restful.skysrt.com";
 var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";
 var _actionid = null;
 var _lotteryCode = 0;
@@ -58,6 +60,7 @@ var app = {
 	handleBackButton: function() {
 	},
 	onResume: function() {
+		//
 		interfaceInit(2);
 	},
 	onDeviceReady: function() {
@@ -68,10 +71,12 @@ var app = {
 		console.log(id);
 	},
 	handleBackButtonDown: function() {
+		//
 		backButtonFunc();
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
+		//
 		_source = getQueryString("source");
 		_actionid = getQueryString("action");
 		console.log(_source +"----"+_actionid);
@@ -986,6 +991,7 @@ function doingSomething2() {
 	$("#category3").css("display", "none");
 	$("#fourPage").css("z-index", "300");
 }
+
 function webBtnClickLog(page_name, button_name, activity_id, activity_name) {
 	var _dateObj = {
 		"page_name": page_name,
@@ -995,11 +1001,11 @@ function webBtnClickLog(page_name, button_name, activity_id, activity_name) {
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-	coocaaosapi.notifyJSLogInfo("web_button_clicked", _dataString, function(message) {
-		console.log(message);
-	}, function(error) {
-		console.log(error);
-	});
+//	coocaaosapi.notifyJSLogInfo("web_button_clicked", _dataString, function(message) {
+//		console.log(message);
+//	}, function(error) {
+//		console.log(error);
+//	});
 }
 function webPageShowLog(page_name) {
 	var _dateObj = {
