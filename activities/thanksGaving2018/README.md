@@ -16,18 +16,21 @@ action=157
 
 #测试配置url（主页入口配置需要）：
 #1. 活动弹窗：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html？source=dialog&action=157
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157
 对应测试板上输入命令：
-am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html？source=dialog&action=157";
+am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157";
 
 #2. 活动主页面：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html？source=&action=157
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157
 对应测试板上输入命令：
-am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html？source=&action=157";
+am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157";
 
 
 ###开发中需要的信息：
 ##后台接口
+#0.抽奖系统——接口文档
+http://wiki.skyoss.com/pages/viewpage.action?pageId=12712183&tdsourcetag=s_pcqq_aiomsg
+
 #1. 抽奖接口
 http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189
 	一：接口基本信息说明
