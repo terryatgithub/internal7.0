@@ -83,6 +83,28 @@ body {
 	z-index: -1;
 }
 
+/*.show {
+	-webkit-transform: translateX(640px);	
+	transform: translateX(640px);	
+	-webkit-transition: transform 500ms linear ;
+	transition: transform 500ms linear ;
+}*/
+
+.showAnimateTwo {
+	animation: lightTestTwo 400ms linear forwards;
+	-webkit-animation: lightTestTwo 400ms linear forwards;
+}
+
+@keyframes lightTestTwo{
+	from{transform: none;}
+	to{transform: translateX(800px);}
+}
+
+@-webkit-keyframes  lightTestTwo{
+	from{transform: none;}
+	to{transform: translateX(800px);}
+}
+
 .sideLevelGiftTitle {
 	position: absolute;
 	top: 355px;

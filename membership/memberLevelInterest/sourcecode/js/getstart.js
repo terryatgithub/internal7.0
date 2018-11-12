@@ -294,9 +294,17 @@ function showLevelDetails() {
 	//闪光特效
 //	$("#flash").stop(true,true).animate({left: "100%"}, "slow", function() {
 //		$("#flash").css("left", "-200px");
+////	});
+//	$("#flash").stop(true,true).animate({left: "90%"}, 700, "swing", function() {
+//		$("#flash").css("left", "-300px");
 //	});
-	$("#flash").stop(true,true).animate({left: "90%"}, 700, "swing", function() {
-		$("#flash").css("left", "-300px");
+	$("#flash").addClass("showAnimateTwo").on("animationend", function(){
+		console.log("addClass() + ani end.");
+		$("#flash").removeClass("showAnimateTwo");
+	});
+	$("#flash").addClass("showAnimateTwo").on("webkitAnimationEnd", function(){
+		console.log("flash ani end.");
+		$("#flash").removeClass("showAnimateTwo");
 	});
 }
 
