@@ -401,8 +401,7 @@ function delayLoad() {
 //	pic = app.rel_html_imgpath(__uri("../img/testThumb.png"));
 //	$("img").attr("src", pic);
 	
-	pic = app.rel_html_imgpath(__uri("../img/bg.png"));
-	$("body").css("background-image", "url("+pic+")");
+	$("body").css("background-image", "url(img/bg.webp)");
 	
 	$("#failToast").css("background-image", "url(img/failToast.webp)")
 }
