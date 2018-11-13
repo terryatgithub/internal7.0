@@ -30,9 +30,13 @@ var cPkg = "com.tianci.movieplatform";
 var _TVSource = "";//视频源
 
 //后台接口： 获取用户会员信息（金币数、点数、等级信息），需要的参数：
-var _testurl = "http://172.20.132.206:7070/"; //"https://member.cooca.com/";//正式地址
-var _clientId = "9F072A0ABF6E2B3D";//test ; "c7ea82d00b5a4aa3";//正式的
+var _testurl = "http://172.20.132.206:7070/"; //test
+var _clientId = "9F072A0ABF6E2B3D";//test ;
 //var _clientKey = "85bdfb9ef29b4776";//test
+
+//var _testurl = "https://member.cooca.com/";//正式地址
+//var _clientId = "c7ea82d00b5a4aa3";//正式的
+//var _clientKey = "fa1c9df1106c46fb";//正式的
 
 //从后台获取产品源，需要的参数：
 var _userFlag = 0; //0/1/2 未登录 /usertoken/openid(coocaa)
@@ -168,6 +172,7 @@ var app = {
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
+        webPageShowLog("影视VIP权益");
         isFourkSupport();
 	}
 };
@@ -235,19 +240,23 @@ function enterPurchasePage(){
 		var _sourceId = _sourceFourKGarden.id;//1; //产品源ID
 		var _businessType = 0; //业务线，非必填项，-1获取全部,0获取影视，1获取教育,2iptv，默认0
 		console.log("start purchase 4kGarden..._sourceId:"+_sourceId + "_businessType:"+_businessType);
+		webBtnClickLog("影视VIP权益", _sourceFourKGarden.name);
 		coocaaosapi.startMovieMemberCenter(_sourceId.toString(), _businessType.toString(),
 				function(message){
 					console.log(JSON.stringify(message));
 				}, function(error){console.log(error);});
+				
 	}else if(index != -1) {
 		if(index < ($(".vipEntry").length -1)) { //后台产品源列表信息
 			var _sourceId = _sourceDetailsArray[index].id;//1; //产品源ID
 			var _businessType = 0; //业务线，非必填项，-1获取全部,0获取影视，1获取教育,2iptv，默认0
 			console.log("start purchase movie..._sourceId:"+_sourceId + "_businessType:"+_businessType);
+			webBtnClickLog("影视VIP权益", _sourceDetailsArray[index].name);	
 			coocaaosapi.startMovieMemberCenter(_sourceId.toString(), _businessType.toString(),
 					function(message){
 						console.log(JSON.stringify(message));
 					}, function(error){console.log(error);});
+				
 		}else if(index == ($(".vipEntry").length -1)) {//最后1个是聚体育
 			console.log("start purchase jutiyu...");
 			/** 聚体育产品包启动方式：
@@ -257,10 +266,12 @@ function enterPurchasePage(){
 			应用包名：com.pptv.tvsports
 			应用版本号：129 
 			 * */
-			coocaaosapi.startCommonNormalAction("com.pptv.tvsports", "", "", "", "pptv_tvsports://tvsports_vip?from_internal=1", "[]", 
+			webBtnClickLog("影视VIP权益", "聚体育VIP");	
+			coocaaosapi.startCommonNormalAction("com.pptv.tvsports", "", "", "", "pptv_tvsports://tvsports_vip?from_internal=1", "[]",
 					function(message){
 						console.log("Jutiyu success: " + JSON.stringify(message));
 					}, function(error){console.log("Jutiyu error: " + error);});
+						
 		}
 	}
 	console.log("enterPurchasePage out...");
@@ -555,6 +566,7 @@ function processKey() {
 	console.log("cur focus id: ===="+elId);
 	if (elId =="notLoginId") {
 		console.log("user start login, TVSource:"+_TVSource);
+		webBtnClickLog("影视VIP权益", "立即登录顶部");
 		startLogin((_TVSource == "tencent") ? true : false);
 	}else if(elId == "fourKGarden" || el.hasClass("vipEntry")) {
 		console.log("user start purchase");
@@ -1074,3 +1086,32 @@ function getProductPackListsFake() {
 	});	
 	console.log("getProductPackLists out...");
 }
+
+function webBtnClickLog(page_name, button_name) {
+	var _dateObj = {
+		"page_name": page_name,
+		"module_name": button_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("movie_interest_module_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+function webPageShowLog(page_name) {
+	var _dateObj = {
+		"page_name": page_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("movie_interest_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+

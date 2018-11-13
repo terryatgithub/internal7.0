@@ -6,9 +6,15 @@ var _memberLevelPrivilegeLineNums = 6;//页面会员等级权益的行数
 var _memberLevelPrivilegeColNums = 7; //页面会员等级权益的列数
 
 //获取用户会员信息（金币数、成长点数、会员等级）
-var _testurl = "http://172.20.132.206:7070/"; //"https://member.cooca.com/";//正式地址
-var _clientId = "9F072A0ABF6E2B3D";//test ; "c7ea82d00b5a4aa3";//正式的
+var _testurl = "http://172.20.132.206:7070/"; //测试地址
+var _clientId = "9F072A0ABF6E2B3D";//test ; 
 //var _clientKey = "85bdfb9ef29b4776";//test
+
+//var _testurl = "https://member.cooca.com/";//正式地址
+//var _clientId = "c7ea82d00b5a4aa3";//正式的
+//var _clientKey = "fa1c9df1106c46fb";//正式的
+
+
 var _timeStamp = "";
 
 var _userInfoUrl = "http://beta.passport.coocaa.com//api/user/info";
@@ -143,6 +149,7 @@ var app = {
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
+        webPageShowLog("成长秘籍");
 	}
     
 };
@@ -217,9 +224,11 @@ function processKey() {
 	switch(elId) {
 		case "notLoginId":
 			console.log("user start login, TVSource:"+_TVSource);
+			webBtnClickLog("成长秘籍","立即登录顶部");
 			startLogin(false);//成长秘籍页不分视频源
 		break;
 		case "btnEnterTask":
+			webBtnClickLog("成长秘籍","做任务赚金币底部");
 			coocaaosapi.startTaskPage(function(message) {
 				console.log(JSON.stringify(message));
 			}, function(error) {
@@ -797,3 +806,29 @@ function startLogin(needQQ) {
 }
 
 
+function webBtnClickLog(page_name, button_name) {
+	var _dateObj = {
+		"page_name": page_name,
+		"button_name": button_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("button_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+function webPageShowLog(page_name) {
+	var _dateObj = {
+		"page_name": page_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("growth_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}

@@ -29,9 +29,14 @@ var cPkg = "com.tianci.movieplatform";
 var _TVSource = "";//视频源
 
 //后台接口： 获取用户会员信息（金币数、点数、等级信息），需要的参数：
-var _testurl = "http://172.20.132.206:7070/"; //"https://member.cooca.com/";//正式地址
-var _clientId = "9F072A0ABF6E2B3D";//test ; "c7ea82d00b5a4aa3";//正式的
+var _testurl = "http://172.20.132.206:7070/";//测试地址 
+var _clientId = "9F072A0ABF6E2B3D";//test ; 
 //var _clientKey = "85bdfb9ef29b4776";//test
+
+//var _testurl = "https://member.cooca.com/";//正式地址
+//var _clientId = "c7ea82d00b5a4aa3";//正式的
+//var _clientKey = "fa1c9df1106c46fb";//正式的
+
 
 //从后台获取产品源，需要的参数：
 var _userFlag = 0; //0/1/2 未登录 /usertoken/openid(coocaa)
@@ -159,12 +164,13 @@ var app = {
 	
     pageInit: function() {
     	console.log("in pageInit.");
-	setTimeout("delayLoad()", 100);
+		setTimeout("delayLoad()", 100);
     	console.log("out pageInit.");
     },
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
+        webPageShowLog("教育VIP权益");
 	}
 };
 
@@ -212,6 +218,9 @@ function enterPurchasePage(){ //todo...
 	var _businessType = 1; //业务线，非必填项，-1获取全部,0获取影视，1获取教育,2iptv，默认0	
 	if(index == 0 && (_sourceSuperVIPInfo!= null)) {
 		_sourceId = _sourceSuperVIPInfo.id;
+		webBtnClickLog("教育VIP权益", "教育超级VIP");
+	}else {
+		webBtnClickLog("教育VIP权益", "教育分年龄VIP");
 	}
 	console.log("enterPurchasePage _sourceId:"+_sourceId);
 	coocaaosapi.startMovieMemberCenter(_sourceId.toString(), _businessType.toString(),
@@ -327,7 +336,8 @@ function getProductPackLists() {
 
 	//从后台获取产品源列表的测试接口
 //	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
-	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";
+	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";//测试接口
+	var myUrl = "http://business.video.tc.skysrt.com/v3/source/getSourceList.html";//正式接口
 	var data = {
 			"user_flag": _userFlag,
 			"user_id": _userId,
@@ -445,6 +455,7 @@ function processKey() {
 	console.log("cur focus id: ===="+elId);
 	if (elId =="notLoginId") {
 		console.log("user start login, TVSource:"+_TVSource);
+		webBtnClickLog("教育VIP权益", "立即登录顶部");
 		startLogin(false);//教育不需要qq/weixin //startLogin((_TVSource == "tencent") ? true : false);
 	}else if(el.hasClass("vipEntry")) {
 		console.log("user start purchase");
@@ -888,7 +899,8 @@ function getProductPackListsFake() {
 	}
 	//测试接口
 //	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
-	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";
+	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";//测试接口
+//	var myUrl = "http://business.video.tc.skysrt.com/v3/source/getSourceList.html";//正式接口
 	var data = {
 			"user_flag": 1,//_userFlag,
 			"user_id": "2.4020ff964d0d4708a5eaa40fe59fd33c",//_userId,
@@ -953,4 +965,31 @@ function getProductPackListsFake() {
 	　　	}
 	});	
 	console.log("getProductPackLists out...");
+}
+
+function webBtnClickLog(page_name, button_name) {
+	var _dateObj = {
+		"page_name": page_name,
+		"module_name": button_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("education_interest_module_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+function webPageShowLog(page_name) {
+	var _dateObj = {
+		"page_name": page_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("education_interest_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
 }

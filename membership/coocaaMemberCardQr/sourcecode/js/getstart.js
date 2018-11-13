@@ -1,10 +1,10 @@
-//测试临时配置,正式发布时需要改为正式配置:
-var _testServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _testAppId = "wxee96df3337b09cb5";
 //正式配置:
 var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
 var _relAppId = "wx5a6d3bdcd05fb501";
 
+//测试临时配置,正式发布时需要改为正式配置:
+//var _testServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
+//var _testAppId = "wxee96df3337b09cb5";
 
 //页面部分的逻辑
 var app = {
@@ -110,7 +110,7 @@ function getDeviceInfo() {
 		var _size, _resolution, _appVersion, _fmodel, _pattern, _appID, _appversion = "";
 
 		//appId
-		_appid = _testAppId;//_relAppId;//_testAppId;//"wx5a6d3bdcd05fb501";//正式环境下
+		_appid = _relAppId;//_testAppId;//"wx5a6d3bdcd05fb501";//正式环境下
 		//deviceBarcode
 		_devicebarcode = "";
 
@@ -244,8 +244,7 @@ function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, deviceba
 	var needDataString = JSON.stringify(needDataObj);
 	console.log(needDataString);
 	
-	var myUrl2 = _testServerUrl; //_relServerUrl;//"";
-//	myUrl2 = "http://wx.coocaa.com/cors/qrcode/getTmpQrcode";
+	var myUrl2 = _relServerUrl; //"";_testServerUrl; //
 	var ajaxTimeoutTwo = $.ajax({
 		type: "GET", // get post 方法都是一样的
 		async: true,

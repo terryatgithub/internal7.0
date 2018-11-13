@@ -15,3 +15,10 @@ https://beta.webapp.skysrt.com/yuanbo/memberLevelInterest/index.html?level=7
 
 测试板上输入命令：
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/memberLevelInterest/index.html?level=5";
+
+
+
+
+###
+1.成长值等级划分
+http://wiki.skyoss.com/pages/viewpage.action?pageId=20236737
