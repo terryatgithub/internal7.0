@@ -428,7 +428,7 @@ function failToastProcess(){
 			getProductPackLists();
 			break;
 		case "getTvSourceFail":
-			getTvSource();
+    		getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
 			break;
 		default:
 			break;
