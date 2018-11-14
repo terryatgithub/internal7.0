@@ -128,8 +128,17 @@ body {
 }
 .products {
 	position: absolute;
-	top: 539px;
-    left: 394px;
+	top: 572px;
+    left: 135px;
+    width: 263px;
+    height: 110px;
+	text-align: center;
+}
+
+.products2 {
+	position: absolute;
+	top: 572px;
+    left: 660px;
     width: 263px;
     height: 110px;
 	text-align: center;
@@ -168,21 +177,22 @@ body {
 	display: block;
 }
 
+.btn-focus .bordersBlur {
+	display: none;
+}
+
 .luckyuser {
 	position: absolute;
-	top: 750px;
-	left: 210px;
-	height: 255px;
-	width: 650px;
+	top: 795px;
+	left: 290px;
+	height: 240px;
+	width: 485px;
 	border-radius: 20px;
 }
 
 .luckylist {
 	position: relative;
-	height: 240px;
-	line-height: 50px;
-	font-size: 34px;
-	word-spacing: 30px;
+	height: 100%;
 	overflow: hidden;
 }
 
@@ -190,8 +200,7 @@ body {
 	position: absolute;
 	top: 0px;
 	width: 100%;
-	height: 240px;
-	color: white;
+	height: 100%;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
 	overflow: hidden;
@@ -210,26 +219,29 @@ body {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: 36px;
+	font-size: 28px;
+	font-weight: bold;
+	color: #663700;
 	text-align: center;
 }
 
 #lotterynumber {
 	position: absolute;
-	top: 145px;
-	left: 1045px;
+	top: 40px;
+	left: 1727px;
 	width: 100px;
 	height: 55px;
-	font-size: 46px;
+	font-size: 48px;
+	font-weight: bold;
 	line-height: 55px;
-	color: white;
-	text-align: right;
+	color: #FFFF00;
+	text-align: center;
 }
 
 .turntable {
 	position: absolute;
-	top: 117px;
-	left: 1118px;
+	top: 148px;
+	left: 1111px;
 	width: 700px;
 	height: 700px;
 }
@@ -251,15 +263,15 @@ body {
 .activityrules,
 .myprize {
 	position: absolute;
-	top: 952px;
-	left: 1051px;
+	top: 983px;
+	left: 1091px;
 	width: 250px;
 	height: 100px;
 	line-height: 60px;
 }
 
 .myprize {
-	left: 1620px;
+	left: 1528px;
 }
 
 .prizetoast {
@@ -436,24 +448,18 @@ body {
 	width: 100%;
 	display: none;
 }
-.category3_1 {
+
+.category3_2,
+.category3_3{
 	position: absolute;
-	width: 748px;
-	top: 88px;
-	height: 60px;
-	line-height: 60px;
-	font-size: 38px;
-	letter-spacing: 2px;
-	font-weight: 500;
-	color: #FFFF0B;
-	text-align: center;
+	height: 177px;
+    width: 276px;
+    top: 165px;
+    left: 93px;
 }
-.category3_2{
-	position: absolute;
-	height: 230px;
-    width: 386px;
-    top: 174px;
-    left: 180px;
+
+.category3_3{
+    left: 386px;
 }
 
 .category5_1, .category6_1{

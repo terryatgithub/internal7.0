@@ -40,8 +40,13 @@
 				<!--活动主页面-->
 				<div id="firstPage" class="firstlevel">
 					<!--0.立即抢购产品包按钮-->
-					<div id="productsButton1" class="products coocaa_btn" rightTarget="#drawButton">
-						<img class="borders" src="images/border1.webp"/>
+					<div id="productsButton1" class="products coocaa_btn" rightTarget="#productsButton2">
+						<img class="bordersBlur" src="images/buy.webp"/>
+						<img class="borders" src="images/buttonbuy.gif"/>
+					</div>
+					<div id="productsButton2" class="products2 coocaa_btn" rightTarget="#drawButton">
+						<img class="bordersBlur" src="images/buy.webp"/>
+						<img class="borders" src="images/buttonbuy.gif"/>
 					</div>
 					<!--1.中奖会员列表-->
 					<div class="luckyuser">
@@ -51,25 +56,30 @@
 							</div>
 						</div>
 					</div>
+					<!--不同视频源的价格参数不同-->
+					<div id="priceLabel"></div>
+					
 					<!--2.中奖次数-->
 					<div id="lotterynumber">0</div>
 					<!--3.抽奖转盘-->
 					<div class="turntable">
 						<!--转盘背景图-->
-						<img id="rotate" src="images/draw.webp"/>
+						<img id="rotate"/>
 						<!--转盘指针-->
-						<div id="drawButton" class="pointer coocaa_btn" leftTarget="#productsButton1">
+						<div id="drawButton" class="pointer coocaa_btn" leftTarget="#productsButton2">
 							<img class="drawImg1" src="images/startblur.webp"/>
-							<img class="drawImg2" src="images/startfocus.webp"/>
+							<img class="drawImg2" src="images/buttonroll.gif"/>
 						</div>
 					</div>
 					<!--4.活动规则按钮-->
 					<div id="activeruleButton" class="activityrules coocaa_btn" upTarget="#drawButton">
-						<img class="borders" src="images/border2.webp"/>
+						<img class="bordersBlur" src="images/rule.webp"/>
+						<img class="borders" src="images/buttonrule.gif"/>
 					</div>
 					<!--5.我的奖品按钮-->
 					<div id="myprizeButton" class="myprize coocaa_btn">
-						<img class="borders" src="images/border2.webp"/>
+						<img class="bordersBlur" src="images/my.webp"/>
+						<img class="borders" src="images/buttonmy.gif"/>
 					</div>
 				</div>
 				
@@ -115,7 +125,10 @@
 					<!--没有机会-->
 					<div id="category3" class="prizetoast">
 						<div id="productsButton21" class="category3_2 coocaa_btn4">
-							<img class="borders" src="images/border3.webp"/>
+							<img class="borders" src="images/dialogFocus.webp"/>
+						</div>
+						<div id="productsButton22" class="category3_3 coocaa_btn4">
+							<img class="borders" src="images/dialogFocus.webp"/>
 						</div>
 					</div>
 					<!--活动未开始-->
@@ -162,12 +175,11 @@
     			$("#iknowButton").css("background-image","url(images/iknow.webp)");
     			$("#iknowButton2").css("background-image","url(images/iknow.webp)");
     			$("#iknowButton3").css("background-image","url(images/iknow.webp)");
-    			$("#category1").css("background-image","url(images/dialogbg1.webp)");
-    			$("#category2").css("background-image","url(images/dialogbg1.webp)");
-    			$("#category3").css("background-image","url(images/dialogbg.webp)");
-    			$("#category4").css("background-image","url(images/dialogbg1.webp)");
-    			$("#category5").css("background-image","url(images/dialogbg1.webp)");
-    			$("#category6").css("background-image","url(images/dialogbg1.webp)");
+    			$("#category1").css("background-image","url(images/dialogbg.webp)");
+    			$("#category2").css("background-image","url(images/dialogbg.webp)");
+    			$("#category4").css("background-image","url(images/dialogbg.webp)");
+    			$("#category5").css("background-image","url(images/dialogbg.webp)");
+    			$("#category6").css("background-image","url(images/dialogbg.webp)");
     		}
     	</script>
 	</body>

@@ -31,6 +31,10 @@ var ttt = null;
 var tt = null;
 var t15 = 0;
 
+//设备视频源
+var _TVSource = "";
+
+
 var app = {
 	canonical_uri: function(src, base_path) {
 		var root_page = /^[^?#]*\//.exec(location.href)[0],
@@ -49,6 +53,26 @@ var app = {
 	},
 
 	initialize: function() {
+		//yuanbotest -start
+//		_source = getQueryString("source");
+//		_actionid = getQueryString("action");
+//		console.log(_source +"----"+_actionid);
+//		if (_source == "dialog") {
+//			$("#dialogPage").css("display","block");
+//			map = new coocaakeymap($(".coocaa_btn"), document.getElementById("dialogbutton"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+//			webPageShowLog("720全局弹窗（教育）");
+//			tt = setTimeout(donothing,18000);
+//		} else{
+//			$("#mainPage").css("display","block");
+//			webPageShowLog("720转盘抽奖页面（教育）");
+//		}
+//		getDeviceInfo();
+//		buttonInitBefore();
+//		startmarquee(400, 30, 0, 1);
+//		listenUserChange();
+//		setTimeout(doingSomething,10);
+		//yuanbotest-end
+		
 		this.bindEvents();
 	},
 	bindEvents: function() {
@@ -118,8 +142,21 @@ function getDeviceInfo() {
 		} else{
 			_emmcCID = message.emmcid;
 		}
-		console.log(_TVmodel+"--"+_TVchip+"--"+_macAddress+"--"+_activityId+"--"+_emmcCID);
+		
+		var _size = message.panel;
+		var _resolution = "";
+		var _localversion = message.version.replace(/\./g, "");
+		var _fmodel = "Default";
+		var _pattern = "normal";
+		var _appID = 0;
+		var _appversion = cAppVersion;
+		var _appid, _source, _serviceid, _type, _devicebarcode, _time, _accessToken;
+		console.log(_TVmodel+"--"+_TVchip+"--"+_macAddress+"--"+_activityId+"--"+_emmcCID+"--_appversion:"+_appversion);
+		
+		getTvSource(_macAddress, _TVmodel, _TVchip, _size, _resolution, _localversion, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
+		
 		hasLogin(false,0);
+		
 	}, function(error) {
 		console.log("获取设备信息出现异常。");
 	});
@@ -216,6 +253,7 @@ function resumeButtonStatus(){
 		}
 	}
 }
+
 //中奖名单 
 function getWinNews() {
 	console.log("in  getWinNews");
@@ -435,6 +473,8 @@ function buyProducts() {
 		activeBeginstatus(2);
 	}
 }
+
+//用户点击按钮后,响应的活动 status: 1:焦点在抽奖上,进行抽奖的逻辑处理 2:焦点在购买产品包上,开始产品包逻辑处理
 function activeBeginstatus(status) {
 	//status  1-点击开始抽奖   2-点击购买产品包
 	var ajaxTimeoutOne = $.ajax({
@@ -499,8 +539,16 @@ function activeBeginstatus(status) {
 				} else {
 					console.log("活动已开始");
 					if(status == 1){
+						_remainingTimes = 0;//yuanbotest
 						if(_remainingTimes == 0) {
+							//没有抽奖机会,弹窗显示产品包购买页面(二维码)
 							console.log("没有抽奖机会");
+							if(_TVSource == "tencent") {
+								$("#category3").css("background-image","url(images/diaglogTencent.webp)");
+							}else {
+								$("#category3").css("background-image","url(images/diaglogIqiyi.webp)");
+							}
+							
 							$(".prizetoast:eq(3)").css("display", "block");
 							$("#fourPage").css("display", "block");
 							map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -510,7 +558,10 @@ function activeBeginstatus(status) {
 						}
 					}else if(status == 2){
 						console.log("活动已开始时点击了购买产品包");
-						coocaaosapi.startMovieMemberCenter3("1", "", function(message) {
+						//todo:
+						//case1 年卡
+						//case2 季卡
+						coocaaosapi.startMovieMemberCenter3("0", "", function(message) {
 							console.log(message);
 						}, function(error) {
 							console.log(error);
@@ -972,6 +1023,61 @@ function startmarquee(lh, speed, delay, index) {
 	}
 	setTimeout(start, delay);
 }
+//获取视频源
+function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel, spattern, sappID, sappversion, qappid, qsource, qserviceid, qtype, qdevicebarcode, qtime,qaccessToken) {
+	console.log("getTvSource in 获取视频源传的参数---" + "MAC="+smac+"&cModel="+smodel+"&cChip="+schip+"&cSize="+ssize+"&cResolution="+sresolution+"&cTcVersion="+sversion+"&cFMode="+sfmodel+"&cPattern="+spattern+"&vAppID="+sappID+"&vAppVersion="+sappversion);
+	var myUrl = "";
+	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
+	var ajaxTimeoutOne = $.ajax({
+		type: "GET", // get post 方法都是一样的
+		async: true,
+		timeout : 10000, 
+		dataType: 'jsonp',
+		jsonp: "callback",
+		url: myUrl,
+		data: {
+			"MAC": smac,
+			"cModel": smodel,
+			"cChip": schip,
+			"cSize": ssize,
+			"cResolution": sresolution,
+			"cTcVersion": sversion,
+			"cFMode": sfmodel,
+			"cPattern": spattern,
+			"vAppID": sappID,
+			"vAppVersion": sappversion
+		},
+		success: function(data) {
+			console.log("getTvSource success..."+JSON.stringify(data));
+			_TVSource = data.source;
+			if(_TVSource == "tencent") {
+				console.log("视频源：" + _TVSource);
+				//更新价格标签,以及转盘(奖品不同)
+				var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
+				$("#priceLabel").css("background-image", "url("+pic+")");
+				pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
+				$("#rotate").attr("src", pic);
+			}else{ //if(_TVSource == "yinhe") 
+				console.log("默认视频源：" + _TVSource);
+				//更新价格标签,以及转盘(奖品不同)
+				var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
+				$("#priceLabel").css("background-image", "url("+pic+")");
+				pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
+				$("#rotate").attr("src", pic);
+			}
+		},
+		error: function(error) {
+			console.log("getTvSource error..."+error);
+		},
+		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　	console.log("getTVSource complete--"+status);
+			if(status=='timeout'){
+	 　　　　　 		ajaxTimeoutOne.abort();
+	　　　　	}
+	　　	}
+	});
+}
+
 function errorToast() {
 	document.getElementById("errorToast").style.display = "block";
 	setTimeout("document.getElementById('errorToast').style.display = 'none'", 3000);
@@ -1019,3 +1125,4 @@ function webPageShowLog(page_name) {
 //		console.log(error);
 //	});
 }
+
