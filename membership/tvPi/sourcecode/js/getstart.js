@@ -168,4 +168,6 @@ function otherPageInit() {
 	$("#section1").css("background-image", "url("+pic2+")");
 	$("#section2").css("background-image", "url(img/content3.jpg)");
 	$("#section3").css("background-image", "url(img/content4.jpg)");
+	
+	$("body").css("background-image", "url(img/bg.webp)");
 }

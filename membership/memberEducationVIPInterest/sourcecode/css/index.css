@@ -14,6 +14,8 @@ body {
     padding:0px;
     text-transform:uppercase;
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 /*标题区域*/
@@ -154,7 +156,9 @@ body {
 	width: 858px; /*default,will be re cal*/
 	height: 100%;
 	margin-right: 22px;
-	background: linear-gradient(-223deg, #1BE368 0%, #15CC95 100%);
+	background-image: url(../img/entrybg.webp);
+	background-repeat: no-repeat;
+	background-size: 100%;
 	border: 4px solid transparent;
 	box-sizing: border-box;
 	background-origin: border-box;
@@ -241,7 +245,6 @@ body {
 	position: relative;
 	margin-top: 30px;
 	margin-bottom: 20px;
-	background: #000000;
 	border: none; /*4px solid;*/
 	-webkit-transform: none;
 	transform: none;

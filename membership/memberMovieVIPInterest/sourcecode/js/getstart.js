@@ -227,7 +227,7 @@ function delayLoad() {
 	//$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencent.webp)");
 	//页面加载失败提示页
 	$(".failToast").css("background-image", "url(img/failToast.webp)");
-	
+	$("body").css("background-image", "url(img/bg.webp)");
 }
 
 //打开图标对应的产品包购买页面
@@ -353,6 +353,13 @@ function drawVipEntryZone() {
 		}else if(barNum < maxNumInOnePage) {
 			console.log("total num <4, one page is enough...");
 			barWidth = Math.round((vipZoneWidth - barMargin*(barNum-1))/barNum);
+		}
+		
+		//更新vip入口背景图：
+		if(_TVSource == "tencent") {
+			$(".vipEntry").css("background-image", "url(img/entrybgTencent.webp)");
+		}else {
+			$(".vipEntry").css("background-image", "url(img/entrybgIqiyi.webp)");
 		}
 		
 		//根据bar的个数复制插入更多bar：

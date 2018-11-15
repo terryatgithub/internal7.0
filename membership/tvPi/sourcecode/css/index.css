@@ -6,8 +6,9 @@ body {
     -webkit-touch-callout: none;                
     -webkit-text-size-adjust: none;             
     -webkit-user-select: none;                  
-    background-color: black; 
     background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height: 1080px;/*100%;*/
@@ -130,24 +131,10 @@ li.btn-focus {
 }
 
 .section {
-	background-color: #000;
 	background-size: cover;
 	background-position: 50% 50%;
 	height: 1080px;
 	width: 100%;
-}
-
-#section0 {
-	background-color: #83af9b;
-}
-#section1 {
-	background-color: #764d39;
-}
-#section2 {
-	background-color: #ff9000;
-}
-#section3 {
-	background-color: #380d31;
 }
 
 .btn-focus{

@@ -215,10 +215,12 @@ function preLoadImg(arr) {
 		_preLoadImageArray[i][_picBig].src = app.rel_html_imgpath(arr[i].picBig);
 	}
 	
+	$("body").css("background-image", "url(img/bg.webp)");
 	$("#maskPic").css("background-image", "url(img/mask.webp)");
 
 	var pic = app.rel_html_imgpath(__uri("../img/light.png"));
 	$("#flash").css("background-image", "url("+pic+")");
+	
 	
 	console.log("preLoadImg out...");
 }

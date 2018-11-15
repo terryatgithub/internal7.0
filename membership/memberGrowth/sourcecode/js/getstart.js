@@ -175,6 +175,8 @@ function delayLoad() {
 	
 	//页面加载失败提示页
 	$(".failToast").css("background-image", "url(img/failToast.webp)");
+	
+	$("body").css("background-image", "url(img/bg.webp)");
 }
 
 
