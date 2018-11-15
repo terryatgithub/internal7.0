@@ -1,5 +1,17 @@
 #感恩节活动2018.11.22
 
+#测试配置url（主页入口配置需要）：
+#1. 活动弹窗：
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157
+对应测试板上输入命令：
+am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157";
+
+#2. 活动主页面：
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157
+对应测试板上输入命令：
+am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157";
+
+
 ##活动产品文档：
 20181122 感恩节活动
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20237674
@@ -18,18 +30,6 @@ source=dialog
 #放在url里传入的好处是，不用等后台最终配置好再改代码（比较耗时），直接由运营在url里配置：
 #157是本次活动id：
 action=157
-
-#测试配置url（主页入口配置需要）：
-#1. 活动弹窗：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157
-对应测试板上输入命令：
-am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157";
-
-#2. 活动主页面：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157
-对应测试板上输入命令：
-am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157";
-
 
 ###开发中需要的信息：
 ##后台接口

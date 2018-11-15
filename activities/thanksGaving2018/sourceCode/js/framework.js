@@ -1289,7 +1289,7 @@ function updateProductInfosBySource() {
 	console.log("视频源：" + _TVSource);
 	if(_TVSource == "tencent") {
 		//更新价格标签,以及转盘(奖品不同)
-		var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
+		var pic = app.rel_html_imgpath(__uri("../images/priceTencent.png"));
 		$("#priceLabel").css("background-image", "url("+pic+")");
 		pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
 		$("#rotate").attr("src", pic);
