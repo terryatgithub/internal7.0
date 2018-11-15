@@ -19,8 +19,9 @@ var _qqtoken = null;
 //抽奖接口：
 //var _testurl = "https://restful.skysrt.com";//正式接口
 var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
+//实物二维码领取接口
+var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";//正式接口
 
-var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";
 var _actionid = null;
 var _lotteryCode = 0;
 var _remainingTimes = 0;
@@ -70,7 +71,7 @@ var _awardInfos = {
 	,tencent: [
 		 {id:1, title:"影视终身VIP", des:"恭喜您获得影视终身VIP"}
 		,{id:2, title:"扫地机器人",  des:"愿您每天回家享扑面而来的干净，请扫码填写收货信息"}
-		,{id:3, title:"精品茶叶", des:"愿茶香伴您宁静致远，请扫码填写收货信息"}
+		,{id:3, title:"精品茶叶罐", des:"愿茶香伴您宁静致远，请扫码填写收货信息"}
 		,{id:4, title:"企鹅抱枕", des:"愿您拥有幸福的依靠，请扫码填写收货信息"}
 		,{id:5, title:"现金红包", des:"小小红包略表心意，请扫码领取"}
 		,{id:6, title:"50万保额意外险", des:"给您呵护，愿您平安，请扫码领取您的保障"}
@@ -439,16 +440,20 @@ function myAwardList() {
 				var _exchange = 0;
 				if(_length > 0) {
 					for(var i = 0; i < _length; i++) {
-						if(data.data[i].awardExchangeFlag == 0) {
+						var _seq = JSON.parse(data.data[i].awardInfo).seq;
+						console.log("_seq:"+_seq);
+						//虚拟奖不做已领取
+						if(data.data[i].awardTypeId == 4 || data.data[i].awardExchangeFlag == 0) {
 							_exchange ++;
-							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + data.data[i].seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/awarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
+							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/awarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
 						} else {
-							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + data.data[i].seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/awardinged.webp"/></div>';
+							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/awardinged.webp"/></div>';
 						}
 						var _bgimg0 = '<img class="myprizbgimg0" src="' + data.data[i].awardUrl + '"/>';
 						_prizeitem += '<div class="myprizeitem"><div class="myprizimg">' + _bgimg0 + '</div><div class="myprizeinfo"><span>' + data.data[i].awardName + '</span></div>' + _bgimg + '</div><div class="line"></div>';
 					}
 					$("#myprizebox").append(_prizeitem);
+					$("#myprizebox").prepend('<div class="line"></div>'	);//前面插一个行
 					$("#thirdPage").css("display", "block");
 					if (_exchange > 0) {
 						map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -502,7 +507,10 @@ function creatButtonInit() {
 		var _seq = $(".myprizebtn:eq(" + _index + ")").attr("seq");
 		var _name = $(".myprizebtn:eq(" + _index + ")").attr("lname");
 		var _imgurl = $(".myprizebtn:eq(" + _index + ")").attr("awardUrl");
-		if(_awardTypeId != 2) {
+		
+		console.log(_activeId + "--" + _awardRememberId + "--" + _userKeyId+"--yuanbotest seq:"+_seq);
+		
+		if(_awardTypeId == 1 || _awardTypeId == 5) {//影视会员直通车&优惠券,后台直接激活
 			getMyPrize(1, _name, _activeId, _awardId, _awardRememberId, _awardTypeId, _userKeyId, _imgurl, _seq);
 		} else {
 			showResult(_awardTypeId, _name, _imgurl, _activeId, _awardRememberId, _userKeyId, _seq);
@@ -511,20 +519,20 @@ function creatButtonInit() {
 }
 //开始抽奖
 function drawButtonClick() {
-	_curFocusButton = "drawButton";
-	if(_loginstatus == "false") {
-		startLogin(false);
-	} else {
+//	_curFocusButton = "drawButton";
+//	if(_loginstatus == "false") {
+//		startLogin(false);
+//	} else {
 		activeBeginstatus(1);
-	}
+//	}
 }
 //购买产品包
 function buyProducts() {
-	if(_loginstatus == "false") {
-		startLogin(false);
-	} else {
+//	if(_loginstatus == "false") {
+//		startLogin(false);
+//	} else {
 		activeBeginstatus(2);
-	}
+//	}
 }
 
 //用户点击按钮后,响应的活动 status: 1:焦点在抽奖上,进行抽奖的逻辑处理 2:焦点在购买产品包上,开始产品包逻辑处理
@@ -717,7 +725,7 @@ function startLottery() {
 			callback: function() {
 				showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq);
 				bRotate = !bRotate;
-				if(type != 2) {
+				if(type == 1 || type == 5) {
 					getMyPrize(0 ,name, activeId, awardId, rememberId, type, userKeyId, imgurl, seq);
 				}
 			}
@@ -750,7 +758,7 @@ function startLottery() {
 				var _cName = data.data.awardName; //奖品名称
 				var _seq = data.data.seq; //奖品排序
 				var _cImgurl = data.data.awardUrl;
-				var _angles = 45 * parseInt(_seq) + 10;
+				var _angles = 45 * parseInt(_seq - 1); //45 * parseInt(_seq) + 10;
 
 				var _activeId = data.data.activeId;
 				var _rememberId = data.data.lotteryAwardRememberId;
@@ -1102,14 +1110,17 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 			height: 190
 		});
 		qrcode.makeCode(str);
+		//需要复位图片和二维码的位置(因为虚拟奖和红包奖复用了这里):
 		$(".category2_2").css("left", "140px");
 		$(".category2_3").css("left", "395px");
 		$(".category2_2").css("display", "block");
 		$(".category2_3").css("display", "block");
+		$("#prizeImg").css("display", "block");
 		$("#fourPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 	} else if(type == 4) { //虚拟奖,只显示图片
 		$(".category2_3").css("display", "none");
+		$(".category2_2").css("display", "block");
 		$(".category2_2").css("left", "270px");
 		
 		$("#yellowtext2").html(name);
@@ -1123,6 +1134,7 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 	} else if(type == 7) { //微信红包,只显示二维码
 		$(".category2_2").css("display", "none");
+		$(".category2_3").css("display", "block");
 		$(".category2_3").css("left", "270px");
 		
 		$("#yellowtext2").html(name);
@@ -1130,12 +1142,8 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		
 		$(".prizetoast:eq(2)").css("display", "block");
 		document.getElementById("qrcode").innerHTML = "";
-		var str = _qrurl + "activeId=" + activeId + "&rememberId=" + rememberId + "&userKeyId=" + userKeyId;
-		var qrcode = new QRCode(document.getElementById("qrcode"), {
-			width: 190,
-			height: 190
-		});
-		qrcode.makeCode(str);
+		getWechatLucyMoney(activeId, rememberId, userKeyId);
+		
 		$("#fourPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});		
 	} else if(type == 5) {//优惠券
@@ -1147,6 +1155,59 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		errorToast();
 	}
 }
+
+function getWechatLucyMoney(activeId, rememberId, userKeyId) {
+	var ajaxTimeoutOne = $.ajax({
+		type: "GET",
+		async: true,
+		timeout: 5000,
+		dataType: 'jsonp',
+		jsonp: "callback",
+		url: _testurl + "/v3/lottery/verify/wechat/qrCode",
+		data: {
+			"MAC": _macAddress,
+			"cChip": _TVchip,
+			"cModel": _TVmodel,
+			"cEmmcCID": _emmcCID,
+			"cUDID": _activityId,
+			"accessToken": _access_token,
+			"cOpenId": _openId,
+			"cNickName": _nickName,
+			
+			"activeId": activeId,
+			"rememberId": rememberId,
+			"userKeyId": userKeyId,
+			
+			"luckyDrawCode": "roulette",
+			"type": 22,
+		},
+		success: function(data) {
+			console.log("getWechatLucyMoney success:" + JSON.stringify(data));
+			if(data.code == "200") {
+				var url = data.data;
+				var qrcode = new QRCode(document.getElementById("qrcode"), {
+					width: 190,
+					height: 190
+				});
+				qrcode.makeCode(url);
+			} else {
+				console.log('getWechatLucyMoney fail..');
+				errorToast();	
+			}
+		},
+		error: function() {
+			console.log('获取我的奖品失败');
+			errorToast();
+		},
+		complete: function(XMLHttpRequest, status) {　　　　
+			console.log("-------------complete------------------" + status);
+			if(status == 'timeout') {　　　　　
+				ajaxTimeoutOne.abort();　　　　
+			}　　
+		}
+	});	
+}
+
 function getQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 	var r = window.location.search.substr(1).match(reg);
