@@ -33,7 +33,16 @@ var t15 = 0;
 
 //设备视频源
 var _TVSource = "";
-
+var _VIPInfos = {
+	iqiyi: {
+		 year:  {mainProductId: 1323, toastProductId: 1334, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinheyear.png"}
+		,season:{mainProductId: 1324, toastProductId: 1335, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinhes.png"}
+	}
+	,tencent: {
+		 year:  {mainProductId: 1325, toastProductId: 1336, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txyear.png"}
+		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txs.png"}
+	}
+};
 
 var app = {
 	canonical_uri: function(src, base_path) {
@@ -294,12 +303,14 @@ function getWinNews() {
 }
 //点击事件
 function buttonInitBefore() {
+	//活动规则
 	$("#activeruleButton").bind("itemClick", function() {
 		_curFocusButton = "activeruleButton";
 		$("#secondPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn5"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 		webBtnClickLog("720转盘抽奖页面（教育）", "活动规则", _actionid, "720暑假（教育）");
 	});
+	//我的奖品
 	$("#myprizeButton").bind("itemClick", function() {
 		_curFocusButton = "myprizeButton";
 		if(_loginstatus == "false") {
@@ -310,6 +321,7 @@ function buttonInitBefore() {
 		}
 		webBtnClickLog("720转盘抽奖页面（教育）", "我的奖品", _actionid, "720暑假（教育）");
 	});
+	//提示窗口页面
 	$(".coocaa_btn3").bind("itemClick", function() {
 		var _index = $(".coocaa_btn3").index($(this));
 		$("#fourPage").css("display", "none");
@@ -326,14 +338,17 @@ function buttonInitBefore() {
 			}
 		}
 	});
-	$("#productsButton1").bind("itemClick", function() {
+	//主页产品包购买页面
+	$(".products,.products2").bind("itemClick", function() {
 		buyProducts();
 		webBtnClickLog("720转盘抽奖页面（教育）", "720暑假活动（教育）", _actionid, "720暑假（教育）");
 	});
-	$("#productsButton21").bind("itemClick", function() {
+	//抽奖没有机会-弹窗-购买页面
+	$(".coocaa_btn4").bind("itemClick", function() {
 		buyProducts();
 		webBtnClickLog("720转盘抽奖页面（教育）", "教育弹窗跳转", _actionid, "720暑假（教育）");
 	});
+	//活动主弹窗页面
 	$("#dialogbutton").bind("itemClick", function() {
 		console.log("dialogPage itemClick");
 		$("#dialogPage").css("display","none");
@@ -343,7 +358,7 @@ function buttonInitBefore() {
 		webBtnClickLog("720全局弹窗（教育）", "720立即参与（教育）", _actionid, "720暑假（教育）");
 		clearTimeout(tt);
 	});
-	
+	//抽奖按钮
 	bindAgain();
 }
 //重新绑定
@@ -559,13 +574,7 @@ function activeBeginstatus(status) {
 					}else if(status == 2){
 						console.log("活动已开始时点击了购买产品包");
 						//todo:
-						//case1 年卡
-						//case2 季卡
-						coocaaosapi.startMovieMemberCenter3("0", "", function(message) {
-							console.log(message);
-						}, function(error) {
-							console.log(error);
-						});
+						startPayPage();
 					}
 				}
 			}
@@ -582,6 +591,61 @@ function activeBeginstatus(status) {
 		}
 	});
 }
+
+function startPayPage() {
+	var productId,bgurl,videoSrc, curId;
+
+	if(_TVSource == "tencent") {
+		videoSrc = _VIPInfos.tencent;
+	}else {
+		videoSrc = _VIPInfos.iqiyi;
+	}
+	
+	var len = $(".btn-focus").length;
+	console.log("btn-focus len:"+len);
+	for(var i = 0; i < len; i++) {
+		console.log("i:"+i+", curId:"+$(".btn-focus").eq(i).attr("id"));
+	}
+	
+	curId = $(".btn-focus").attr("id");
+	console.log("curId:"+curId);
+	
+	switch(curId) {
+		case "productsButton1"://年卡
+			productId = videoSrc.year.mainProductId;
+			bgurl = videoSrc.year.bgurl;
+			break;
+		case "productsButton2"://季卡
+			productId = videoSrc.season.mainProductId;
+			bgurl = videoSrc.season.bgurl;
+			break;
+		case "productsButton21"://弹窗年卡
+			productId = videoSrc.year.toastProductId;
+			bgurl = videoSrc.year.bgurl;
+			break;
+		case "productsButton22"://弹窗季卡
+			productId = videoSrc.season.toastProductId;
+			bgurl = videoSrc.season.bgurl;
+			break;				
+	}
+	 
+	var url = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data=";
+	var data = {
+		"product_id":1000391, //productId
+		"activity_id":"1", //_actionid
+		"activity_name":"wasu",
+		"bg_url": "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113tx.png"
+	}
+	url += JSON.stringify(data);
+	console.log("total url:"+url);
+	
+	coocaaosapi.startNewBrowser(url, function(message) {
+		console.log("startNewBrowser success" + message);
+	}, function(error) {
+		console.log("startNewBrowser error:" + error);
+	});	
+}
+
 //点击开始抽奖的接口请求
 function startLottery() {
 	var rotateTimeOut = function() {
@@ -1050,21 +1114,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 		success: function(data) {
 			console.log("getTvSource success..."+JSON.stringify(data));
 			_TVSource = data.source;
-			if(_TVSource == "tencent") {
-				console.log("视频源：" + _TVSource);
-				//更新价格标签,以及转盘(奖品不同)
-				var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
-				$("#priceLabel").css("background-image", "url("+pic+")");
-				pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
-				$("#rotate").attr("src", pic);
-			}else{ //if(_TVSource == "yinhe") 
-				console.log("默认视频源：" + _TVSource);
-				//更新价格标签,以及转盘(奖品不同)
-				var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
-				$("#priceLabel").css("background-image", "url("+pic+")");
-				pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
-				$("#rotate").attr("src", pic);
-			}
+			updateProductInfosBySource();
 		},
 		error: function(error) {
 			console.log("getTvSource error..."+error);
@@ -1076,6 +1126,24 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 	　　　　	}
 	　　	}
 	});
+}
+//根据视频源配置页面元素属性:
+function updateProductInfosBySource() {
+	console.log("视频源：" + _TVSource);
+	if(_TVSource == "tencent") {
+		//更新价格标签,以及转盘(奖品不同)
+		var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
+		$("#priceLabel").css("background-image", "url("+pic+")");
+		pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
+		$("#rotate").attr("src", pic);
+	}else{ //if(_TVSource == "yinhe") 
+		console.log("默认视频源：yinhe");
+		//更新价格标签,以及转盘(奖品不同)
+		var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
+		$("#priceLabel").css("background-image", "url("+pic+")");
+		pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
+		$("#rotate").attr("src", pic);
+	}	
 }
 
 function errorToast() {
