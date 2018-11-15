@@ -5,11 +5,20 @@
 无
 
 #测试相关信息：
-测试配置url（主页入口配置需要）：
+1.测试环境配置url（主页入口配置需要）：
 https://beta.webapp.skysrt.com/yuanbo/memberGrowth/index.html
-
 测试板上输入命令：
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/memberGrowth/index.html";
+
+2.预发布url：
+https://beta.webapp.skysrt.com/yuanbo/preReleaseDir/memberGrowth/index.html
+测试板上输入命令：
+am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/preReleaseDir/memberGrowth/index.html";
+
+3.正式环境url:
+https://webapp.skysrt.com/cc7.0/memberGrowth/index.html
+测试板上输入命令：
+am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/cc7.0/memberGrowth/index.html";
 
 
 

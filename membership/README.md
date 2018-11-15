@@ -23,4 +23,20 @@ No.	Web页面						跳转配置参数
 							https://webapp.skysrt.com/cc7.0/memberLevelInterest/index.html?level=7
 
 ##测试板上输入信息：
-logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://webapp.skysrt.com/cc7.0/tvPi/index.html" ; logcat  -v threadtime| grep chrom 
+logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://webapp.skysrt.com/cc7.0/tvPi/index.html" ; logcat  -v threadtime| grep chrom
+
+
+
+##给后台的配置参数如下格式：
+{"dowhat":"startActivity","bywhat":"action","byvalue":"coocaa.intent.action.browser","packagename":"com.coocaa.app_browser","appversion":"","params":{"url":"https://webapp.skysrt.com/guide2/index.html"}}   
+格式化后为：
+{
+	"dowhat": "startActivity",
+	"bywhat": "action",
+	"byvalue": "coocaa.intent.action.browser",
+	"packagename": "com.coocaa.app_browser",
+	"appversion": "",
+	"params": {
+		"url": "https://webapp.skysrt.com/guide2/index.html"
+	}
+}

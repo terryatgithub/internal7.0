@@ -3,8 +3,8 @@ var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
 var _relAppId = "wx5a6d3bdcd05fb501";
 
 //测试临时配置,正式发布时需要改为正式配置:
-//var _testServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _testAppId = "wxee96df3337b09cb5";
+//var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
+//var _relAppId = "wxee96df3337b09cb5";
 
 //页面部分的逻辑
 var app = {
@@ -54,14 +54,6 @@ var app = {
 		app.receivedEvent('deviceready');
 		app.triggleButton();
 
-//		//初始落焦
-//      var initPhoneMap = function(obj) {
-//			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
-//			console.log("----------initPhoneMap End---------");
-//		}
-//		firstFocus = document.getElementsByClassName("coocaa_btn")[0];
-//		initPhoneMap(firstFocus);
-
 		//注册事件监听
 		app.registerEventHandler();
 		//注册按键监听
@@ -90,19 +82,17 @@ var app = {
 	
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
-        
-		getDeviceInfo();
-//		coocaaosapi.getDeviceInfo(function(message) {
-//			console.log(JSON.stringify(message));
-//			console.log("version="+ message.version + "; model=" + message.model + "; activeid=" + message.activeid);//版本号
-//		}, function(error) {
-//			console.log(error);
-//		});
+        setTimeout("delayLoad()", 5);
 	}
     
 };
 
 app.initialize();
+
+function delayLoad(){
+	$("body").css("background-image", "url(img/bg.webp)");
+    getDeviceInfo();
+}
 
 function getDeviceInfo() {
 		var _brand = "";
