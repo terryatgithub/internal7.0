@@ -53,6 +53,15 @@ body {
 	display: block;
 }
 
+#priceLabel {
+	position: absolute;
+	width: 763px;
+	height: 140px;
+	top: 360px;
+	left: 117px;
+	background-repeat: no-repeat;
+}
+
 #fourPage {
 	background-color: rgba(0, 0, 0, 0.6);
 }
@@ -285,6 +294,10 @@ body {
 	display: none;
 }
 
+.prizetoast .commontext {
+	
+}
+
 .myprizebox {
 	position: absolute;
 	display: inline-block;
@@ -399,19 +412,19 @@ body {
 
 .category2_1 {
 	position: absolute;
-	top: 64px;
+	top: 52px;
 	text-align: center;
 	height: 80px;
 	width: 748px;
 	line-height: 80px;
-	font-size: 38px;
-	font-weight: 500;
-	color: white;
+	font-size: 36px;
+	font-weight: bold;
+	color: #673800;
 }
 .category2_2,
 .category2_3 {
 	position: absolute;
-	top: 156px;
+	top: 130px;
 	left: 140px;
 	text-align: center;
 	height: 200px;
@@ -431,14 +444,14 @@ body {
 }
 .category2_4 {
 	position: absolute;
-	top: 370px;
+	top: 337px;
 	line-height: 50px;
-	width: 740px;
 	text-align: center;
 	height: 50px;
 	width: 748px;
-	font-size: 27px;
-	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	color: #673800;
 }
 #prizeImg {
 	position: absolute;
