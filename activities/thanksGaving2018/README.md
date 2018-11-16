@@ -2,12 +2,12 @@
 
 #测试配置url（主页入口配置需要）：
 #1. 活动弹窗：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog
 对应测试板上输入命令：
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=dialog&action=157";
 
 #2. 活动主页面：
-https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157
+https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html
 对应测试板上输入命令：
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157";
 
@@ -25,11 +25,15 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=20237674
 ##输入参数说明：
 #1. source： 由运营配置，当前显示为“活动弹窗”时，配置source=dialog; 否则配置为其它值（不配置或为空"")
 source=dialog 
+更新：
+2018.11.16： source参数不再需要，本次活动不需要弹窗调到活动主页面；
 
 #2. action：由后台配置的活动id； 
 #放在url里传入的好处是，不用等后台最终配置好再改代码（比较耗时），直接由运营在url里配置：
 #157是本次活动id：
 action=157
+更新：
+2018.11.16： action参数不再需要，在页面中自动判断后设置；
 
 ###开发中需要的信息：
 ##后台接口

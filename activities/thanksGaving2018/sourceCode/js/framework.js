@@ -20,7 +20,17 @@ var _qqtoken = null;
 //var _testurl = "https://restful.skysrt.com";//正式接口
 var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
 //实物二维码领取接口
-var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";//正式接口
+//var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";//正式接口
+var _qrurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接口
+//产品包支付页面接口：
+var _payUrl = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data="; //内部测试环境
+//var _payUrl = "http://172.20.139.113:8090/v3/web/actCenter/index.html?data=";//金融本地环境:
+//活动ID（运营确定）：
+var _activeIdObj = {
+	activeIdTencent: 160,
+	activeIdIqiyi:   158
+};
+
 
 var _actionid = null;
 var _lotteryCode = 0;
@@ -147,7 +157,7 @@ var app = {
 		cordova.require("com.coocaaosapi");
 		//
 		_source = getQueryString("source");
-		_actionid = getQueryString("action");
+		//_actionid = getQueryString("action");
 		console.log(_source +"----"+_actionid);
 		if (_source == "dialog") {
 			$("#dialogPage").css("display","block");
@@ -352,12 +362,12 @@ function buttonInitBefore() {
 	//我的奖品
 	$("#myprizeButton").bind("itemClick", function() {
 		_curFocusButton = "myprizeButton";
-		if(_loginstatus == "false") {
-			startLogin(false);
-		} else {
+//		if(_loginstatus == "false") {
+//			startLogin(false);
+//		} else {
 			$("#noprize").css("display", "none");
 			myAwardList();
-		}
+//		}
 		webBtnClickLog("720转盘抽奖页面（教育）", "我的奖品", _actionid, "720暑假（教育）");
 	});
 	//提示窗口页面
@@ -681,10 +691,6 @@ function startPayPage() {
 			break;				
 	}
 	 
-	//内部测试环境 
-//	var url = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data=";
-	//金融本地环境:
-	var url = "http://172.20.139.113:8090/v3/web/actCenter/index.html?data=";
 	var data = {
 		"coocaa_open_id": _openId,
 		"product_id": productId,
@@ -692,10 +698,10 @@ function startPayPage() {
 		"activity_name": "感恩节活动2018",
 		"bg_url": bgurl
 	};
-	url += JSON.stringify(data);
-	console.log("total url:"+url+", bgurl:"+bgurl);
+	_payUrl += JSON.stringify(data);
+	console.log("total _payUrl:"+_payUrl+", bgurl:"+bgurl);
 	
-	coocaaosapi.startNewBrowser(url, function(message) {
+	coocaaosapi.startNewBrowser(_payUrl, function(message) {
 		console.log("startNewBrowser success" + message);
 	}, function(error) {
 		console.log("startNewBrowser error:" + error);
@@ -1288,6 +1294,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 function updateProductInfosBySource() {
 	console.log("视频源：" + _TVSource);
 	if(_TVSource == "tencent") {
+		_actionid = _activeIdObj.activeIdTencent;
 		//更新价格标签,以及转盘(奖品不同)
 		var pic = app.rel_html_imgpath(__uri("../images/priceTencent.png"));
 		$("#priceLabel").css("background-image", "url("+pic+")");
@@ -1295,6 +1302,7 @@ function updateProductInfosBySource() {
 		$("#rotate").attr("src", pic);
 	}else{ //if(_TVSource == "yinhe") 
 		console.log("默认视频源：yinhe");
+		_actionid = _activeIdObj.activeIdIqiyi;
 		//更新价格标签,以及转盘(奖品不同)
 		var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
 		$("#priceLabel").css("background-image", "url("+pic+")");
