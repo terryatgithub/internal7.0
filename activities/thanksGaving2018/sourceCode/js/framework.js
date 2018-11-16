@@ -16,6 +16,7 @@ var _login_type = null;
 var _vuserid = null;
 var _qqtoken = null;
 
+//-----------------------------正式上线需配置参数 start---------------------------------//
 //抽奖接口：
 //var _testurl = "https://restful.skysrt.com";//正式接口
 var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
@@ -25,12 +26,12 @@ var _qrurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接�
 //产品包支付页面接口：
 var _payUrl = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data="; //内部测试环境
 //var _payUrl = "http://172.20.139.113:8090/v3/web/actCenter/index.html?data=";//金融本地环境:
-//活动ID（运营确定）：
+//活动ID（由运营确定）：
 var _activeIdObj = {
 	activeIdTencent: 160,
 	activeIdIqiyi:   158
 };
-
+//-----------------------------正式上线需配置参数 end---------------------------------//
 
 var _actionid = null;
 var _lotteryCode = 0;
@@ -156,7 +157,7 @@ var app = {
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
 		//
-		_source = getQueryString("source");
+		//_source = getQueryString("source");
 		//_actionid = getQueryString("action");
 		console.log(_source +"----"+_actionid);
 		if (_source == "dialog") {
@@ -222,7 +223,7 @@ function getDeviceInfo() {
 //num: 2:返回按键状态
 function interfaceInit(num) {
 	console.log("-------------------->"+ num);
-	_actionid = getQueryString("action");
+	//_actionid = getQueryString("action");
 	console.log(_actionid+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
 	var ajaxTimeoutOne = $.ajax({
 		type: "GET",
@@ -698,10 +699,10 @@ function startPayPage() {
 		"activity_name": "感恩节活动2018",
 		"bg_url": bgurl
 	};
-	_payUrl += JSON.stringify(data);
-	console.log("total _payUrl:"+_payUrl+", bgurl:"+bgurl);
+	var url = _payUrl + JSON.stringify(data);
+	console.log("total url:"+url+", bgurl:"+bgurl);
 	
-	coocaaosapi.startNewBrowser(_payUrl, function(message) {
+	coocaaosapi.startNewBrowser(url, function(message) {
 		console.log("startNewBrowser success" + message);
 	}, function(error) {
 		console.log("startNewBrowser error:" + error);
@@ -1292,7 +1293,6 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 }
 //根据视频源配置页面元素属性:
 function updateProductInfosBySource() {
-	console.log("视频源：" + _TVSource);
 	if(_TVSource == "tencent") {
 		_actionid = _activeIdObj.activeIdTencent;
 		//更新价格标签,以及转盘(奖品不同)
@@ -1300,7 +1300,7 @@ function updateProductInfosBySource() {
 		$("#priceLabel").css("background-image", "url("+pic+")");
 		pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
 		$("#rotate").attr("src", pic);
-	}else{ //if(_TVSource == "yinhe") 
+	}else{  
 		console.log("默认视频源：yinhe");
 		_actionid = _activeIdObj.activeIdIqiyi;
 		//更新价格标签,以及转盘(奖品不同)
@@ -1309,6 +1309,8 @@ function updateProductInfosBySource() {
 		pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
 		$("#rotate").attr("src", pic);
 	}	
+	console.log("视频源：" + _TVSource +"_actionid:"+_actionid);
+
 }
 
 function errorToast() {
