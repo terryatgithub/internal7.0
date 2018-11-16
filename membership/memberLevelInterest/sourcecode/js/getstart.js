@@ -216,7 +216,6 @@ function preLoadImg(arr) {
 	}
 	
 	$("body").css("background-image", "url(img/bg.webp)");
-	$("#maskPic").css("background-image", "url(img/mask.webp)");
 
 	var pic = app.rel_html_imgpath(__uri("../img/light.png"));
 	$("#flash").css("background-image", "url("+pic+")");
