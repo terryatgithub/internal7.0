@@ -79,10 +79,10 @@ body {
 }
 
 #errorToast {
-	background-image: url(../images/toast1.webp);
+	background-image: url(../images/toast1.png);
 }
 #errorToast3 {
-	background-image: url(../images/toast3.webp);
+	background-image: url(../images/toast3.png);
 }
 
 #errorToast2 {
@@ -355,7 +355,7 @@ body {
 
 #noprize {
 	position: absolute;
-	height: 165px;
+	height: 365px;
 	width: 740px;
 	top: 424px;
 	left: 590px;

@@ -8,7 +8,7 @@ var _emmcCID = null;
 var _nickName = null;
 var _mobile = null;
 
-var _openId = null;
+var _openId = "";//null;
 var _loginstatus = null;
 var _tencentWay = null;
 var _user_flag = null;
@@ -52,8 +52,8 @@ var _VIPInfos = {
 		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinhes.png"}
 	}
 	,tencent: {
-		 year:  {mainProductId: 1000406, toastProductId: 1000404, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txyear.png"}
-		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txs.png"}
+		 year:  {mainProductId: 1000400, toastProductId: 1000402, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txyear.png"}
+		,season:{mainProductId: 1000401, toastProductId: 1000403, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txs.png"}
 	}
 };
 //产品包信息(正式)
@@ -390,12 +390,12 @@ function buttonInitBefore() {
 	});
 	//主页产品包购买页面
 	$(".products,.products2").bind("itemClick", function() {
-		buyProducts();
+		buyProducts($(this));
 		webBtnClickLog("720转盘抽奖页面（教育）", "720暑假活动（教育）", _actionid, "720暑假（教育）");
 	});
 	//抽奖没有机会-弹窗-购买页面
 	$(".coocaa_btn4").bind("itemClick", function() {
-		buyProducts();
+		buyProducts($(this));
 		webBtnClickLog("720转盘抽奖页面（教育）", "教育弹窗跳转", _actionid, "720暑假（教育）");
 	});
 	//活动主弹窗页面
@@ -449,7 +449,9 @@ function myAwardList() {
 				console.log(_length);
 				var _prizeitem = "";
 				var _exchange = 0;
-				if(_length > 0) {
+//				if(_length > 0) {
+				//yuanbotest
+				if(false) {
 					for(var i = 0; i < _length; i++) {
 						var _seq = JSON.parse(data.data[i].awardInfo).seq;
 						console.log("_seq:"+_seq);
@@ -475,6 +477,12 @@ function myAwardList() {
 				} else {
 					$("#noprize").css("display", "block");
 					$("#thirdPage").css("display", "block");
+					map = new coocaakeymap($(".coocaa_btn6"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+					$(".coocaa_btn6").unbind("itemClick").bind("itemClick", function() {
+						$("#noprize").css("display", "none");
+						$("#thirdPage").css("display", "none");
+						map = new coocaakeymap($(".coocaa_btn"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+					});
 				}
 			} else {
 				errorToast();
@@ -538,16 +546,18 @@ function drawButtonClick() {
 //	}
 }
 //购买产品包
-function buyProducts() {
+function buyProducts(el) {
 //	if(_loginstatus == "false") {
 //		startLogin(false);
 //	} else {
-		activeBeginstatus(2);
+		activeBeginstatus(2, el);
 //	}
 }
 
-//用户点击按钮后,响应的活动 status: 1:焦点在抽奖上,进行抽奖的逻辑处理 2:焦点在购买产品包上,开始产品包逻辑处理
-function activeBeginstatus(status) {
+//用户点击按钮后,响应的活动 status: 
+//1:焦点在抽奖按钮上,进行抽奖的逻辑处理 
+//2:焦点在购买产品包上,开始产品包逻辑处理
+function activeBeginstatus(status, el) {
 	//status  1-点击开始抽奖   2-点击购买产品包
 	var ajaxTimeoutOne = $.ajax({
 		type: "GET",
@@ -614,23 +624,14 @@ function activeBeginstatus(status) {
 						if(_remainingTimes == 0) {
 							//没有抽奖机会,弹窗显示产品包购买页面(二维码)
 							console.log("没有抽奖机会");
-							if(_TVSource == "tencent") {
-								$("#category3").css("background-image","url(images/diaglogTencent.webp)");
-							}else {
-								$("#category3").css("background-image","url(images/diaglogIqiyi.webp)");
-							}
-							
-							$(".prizetoast:eq(3)").css("display", "block");
-							$("#fourPage").css("display", "block");
-							map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-							webPageShowLog("720产品包弹窗页面（教育）");
+							startProductPackPage();
 						} else {
 							startLottery();
 						}
 					}else if(status == 2){
 						console.log("活动已开始时点击了购买产品包");
 						//todo:
-						startPayPage();
+						startPayPage(el);
 					}
 				}
 			}
@@ -648,7 +649,21 @@ function activeBeginstatus(status) {
 	});
 }
 
-function startPayPage() {
+function startProductPackPage() {
+	if(_TVSource == "tencent") {
+		$("#category3").css("background-image","url(images/diaglogTencent.webp)");
+	}else {
+		$("#category3").css("background-image","url(images/diaglogIqiyi.webp)");
+	}
+	
+	$(".prizetoast:eq(3)").css("display", "block");
+	$("#fourPage").css("display", "block");
+	map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	
+	webPageShowLog("720产品包弹窗页面（教育）");
+}
+
+function startPayPage(el) {
 	var productId,bgurl,videoSrc, curId;
 
 	if(_TVSource == "tencent") {
@@ -656,21 +671,8 @@ function startPayPage() {
 	}else {
 		videoSrc = _VIPInfos.iqiyi;
 	}
-	//yuanbotest
-	var len = $(".btn-focus").length;
-	console.log("btn-focus len:"+len);
-	for(var i = 0; i < len; i++) {
-		console.log("i:"+i+", curId:"+$(".btn-focus").eq(i).attr("id"));
-	}
-	
-	//tofix...
-	//coocaamap的焦点处理逻辑,不同页面不同coocaa_button都会获得btn-focus:
-	if($("#fourPage").css("display") == "block") {//弹窗产品包页面购买
-		curId = $(".btn-focus").last().attr("id");
-	}else {//主页产品包购买
-		curId = $(".btn-focus").attr("id");
-	}
-	
+
+	curId = el.attr("id");
 	console.log("curId:"+curId);
 	
 	switch(curId) {
