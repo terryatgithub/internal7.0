@@ -163,11 +163,10 @@ var app = {
 		if (_source == "dialog") {
 			$("#dialogPage").css("display","block");
 			map = new coocaakeymap($(".coocaa_btn"), document.getElementById("dialogbutton"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			webPageShowLog("720全局弹窗（教育）");
+//			webPageShowLog("感恩节活动2018全局弹窗");
 			tt = setTimeout(donothing,18000);
 		} else{
 			$("#mainPage").css("display","block");
-			webPageShowLog("720转盘抽奖页面（教育）");
 		}
 		getDeviceInfo();
 		buttonInitBefore();
@@ -182,7 +181,7 @@ app.initialize();
 //15秒没做操作
 function donothing(){
 	console.log(t15);
-	webBtnClickLog("720转盘抽奖页面（教育）", "弹窗15秒自动退出", _actionid, "720暑假（教育）");
+//	webBtnClickLog("感恩节活动2018全局弹窗", "弹窗15秒自动退出", _actionid, "720暑假（教育）");
 	navigator.app.exitApp();
 }
 //获取设备信息并初始化
@@ -210,8 +209,6 @@ function getDeviceInfo() {
 		console.log(_TVmodel+"--"+_TVchip+"--"+_macAddress+"--"+_activityId+"--"+_emmcCID+"--_appversion:"+_appversion);
 		
 		getTvSource(_macAddress, _TVmodel, _TVchip, _size, _resolution, _localversion, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
-		
-		hasLogin(false,0);
 		
 	}, function(error) {
 		console.log("获取设备信息出现异常。");
@@ -268,6 +265,7 @@ function interfaceInit(num) {
 					map = new coocaakeymap($(".coocaa_btn"), document.getElementById("dialogbutton"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 				}else{
 					console.log(_curFocusButton);
+					webPageShowLog();
 					map = new coocaakeymap($(".coocaa_btn"), document.getElementById(_curFocusButton), "btn-focus", function() {}, function(val) {}, function(obj) {});
 				}
 			}
@@ -358,7 +356,8 @@ function buttonInitBefore() {
 		_curFocusButton = "activeruleButton";
 		$("#secondPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn5"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-		webBtnClickLog("720转盘抽奖页面（教育）", "活动规则", _actionid, "720暑假（教育）");
+		webBtnClickLog("", "","活动规则");
+//		webBtnClickLog("720转盘抽奖页面（教育）", "活动规则", _actionid, "720暑假（教育）");
 	});
 	//我的奖品
 	$("#myprizeButton").bind("itemClick", function() {
@@ -369,7 +368,8 @@ function buttonInitBefore() {
 			$("#noprize").css("display", "none");
 			myAwardList();
 //		}
-		webBtnClickLog("720转盘抽奖页面（教育）", "我的奖品", _actionid, "720暑假（教育）");
+		webBtnClickLog("", "","我的奖品");
+//		webBtnClickLog("720转盘抽奖页面（教育）", "我的奖品", _actionid, "720暑假（教育）");
 	});
 	//提示窗口页面
 	$(".coocaa_btn3").bind("itemClick", function() {
@@ -390,14 +390,53 @@ function buttonInitBefore() {
 	});
 	//主页产品包购买页面
 	$(".products,.products2").bind("itemClick", function() {
+		var curId = $(this).attr("id");
+		var productId = 0, videoSrc;
+		if(_TVSource == "tencent") {
+			videoSrc = _VIPInfos.tencent;
+		}else {
+			videoSrc = _VIPInfos.iqiyi;
+		}		
+		console.log("mainpage product Id:"+curId);
+		switch(curId) {
+			case "productsButton1"://年卡
+				productId = videoSrc.year.mainProductId;
+				webBtnClickLog(productId, "包年","包年");
+				break;
+			case "productsButton2"://季卡
+				productId = videoSrc.season.mainProductId;
+				webBtnClickLog(productId, "包季","包季");
+				break;
+		}
+
 		buyProducts($(this));
-		webBtnClickLog("720转盘抽奖页面（教育）", "720暑假活动（教育）", _actionid, "720暑假（教育）");
 	});
 	//抽奖没有机会-弹窗-购买页面
 	$(".coocaa_btn4").bind("itemClick", function() {
+		var curId = $(this).attr("id");
+		var productId = 0, videoSrc;
+		if(_TVSource == "tencent") {
+			videoSrc = _VIPInfos.tencent;
+		}else {
+			videoSrc = _VIPInfos.iqiyi;
+		}	
+		console.log("toast product Id:"+curId);
+		switch(curId) {
+			case "productsButton21"://弹窗年卡
+				productId = videoSrc.year.toastProductId;
+				bgurl = videoSrc.year.bgurl;
+				webToastBtnClickLog(productId, "包年");
+				break;
+			case "productsButton22"://弹窗季卡
+				productId = videoSrc.season.toastProductId;
+				bgurl = videoSrc.season.bgurl;
+				webToastBtnClickLog(productId, "包季");
+				break;	
+		}	
+
 		buyProducts($(this));
-		webBtnClickLog("720转盘抽奖页面（教育）", "教育弹窗跳转", _actionid, "720暑假（教育）");
 	});
+	
 	//活动主弹窗页面
 	$("#dialogbutton").bind("itemClick", function() {
 		console.log("dialogPage itemClick");
@@ -405,7 +444,7 @@ function buttonInitBefore() {
 		$("#mainPage").css("display","block");
 		console.log(_curFocusButton);
 		map = new coocaakeymap($(".coocaa_btn"), document.getElementById(_curFocusButton), "btn-focus", function() {}, function(val) {}, function(obj) {});
-		webBtnClickLog("720全局弹窗（教育）", "720立即参与（教育）", _actionid, "720暑假（教育）");
+		//webBtnClickLog("720全局弹窗（教育）", "720立即参与（教育）", _actionid, "720暑假（教育）");
 		clearTimeout(tt);
 	});
 	//抽奖按钮
@@ -417,7 +456,8 @@ function bindAgain() {
 		drawButtonClick();
 		$("#drawButton").unbind("itemClick");
 		setTimeout("bindAgain()", 3000);
-		webBtnClickLog("720转盘抽奖页面（教育）", "开始抽奖", _actionid, "720暑假（教育）");
+		webBtnClickLog("", "","开始抽奖");
+//		webBtnClickLog("720转盘抽奖页面（教育）", "开始抽奖", _actionid, "720暑假（教育）");
 	});
 }
 //展示我的奖品
@@ -660,7 +700,8 @@ function startProductPackPage() {
 	$("#fourPage").css("display", "block");
 	map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	
-	webPageShowLog("720产品包弹窗页面（教育）");
+	webToastShowLog();
+	//webPageShowLog("720产品包弹窗页面（教育）");
 }
 
 function startPayPage(el) {
@@ -774,6 +815,10 @@ function startLottery() {
 				var _userKeyId = data.data.userKeyId;
 				var _awardId = data.data.awardId;
 				var _imgurl = data.data.awardUrl;
+
+				//抽獎成功,需要採集奖品名称和剩余次数：
+				webDrawLotterySuccessLog(_cName);
+
 				if(bRotate) return;
 				rotateFn(_angles, _cType, _cName, _cImgurl, _activeId, _awardId, _rememberId, _userKeyId, _seq);
 				interfaceInit(1);
@@ -1090,6 +1135,8 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		$(".prizetoast")[i].style.display = "none";
 	}
 	
+	webPrizeDialogShowLog(name);
+	
 	//获取奖品描述:
 	var des;
 	if(_TVSource == "tencent") {
@@ -1281,6 +1328,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 			console.log("getTvSource success..."+JSON.stringify(data));
 			_TVSource = data.source;
 			updateProductInfosBySource();
+			hasLogin(false,0);
 		},
 		error: function(error) {
 			console.log("getTvSource error..."+error);
@@ -1335,31 +1383,106 @@ function doingSomething2() {
 	$("#fourPage").css("z-index", "300");
 }
 
-function webBtnClickLog(page_name, button_name, activity_id, activity_name) {
+//------------------------數據採集 start------------------------
+
+//领奖弹窗曝光	
+function webPrizeDialogShowLog(prize) {
 	var _dateObj = {
-		"page_name": page_name,
-		"button_name": button_name,
-		"activity_id": activity_id,
-		"activity_name": activity_name
-	}
+		"open_id":_openId,
+		"prize": prize
+	};
+	
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-//	coocaaosapi.notifyJSLogInfo("web_button_clicked", _dataString, function(message) {
-//		console.log(message);
-//	}, function(error) {
-//		console.log(error);
-//	});
+	coocaaosapi.notifyJSLogInfo("thanks_giving_get_prize_dialog_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
 }
-function webPageShowLog(page_name) {
+//抽奖成功
+function webDrawLotterySuccessLog(prize) {
 	var _dateObj = {
-		"page_name": page_name
+		"open_id":_openId,
+		"prize": prize,
+		"remain_chance_count": ((_remainingTimes > 0) ? (_remainingTimes -1) : 0)
+	};
+	
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("thanks_giving_draw_lottery_success", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//开通VIP得抽奖机会弹窗点击
+function webToastBtnClickLog(product_id, button_name) {
+	var _dateObj = {
+		"open_id":_openId,
+		"product_id": product_id,
+		"product_name ": ((_TVSource == "tencent") ? "影视VIP" : "奇异果VIP"),
+		"button_name": button_name
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-//	coocaaosapi.notifyJSLogInfo("web_page_show_new", _dataString, function(message) {
-//		console.log(message);
-//	}, function(error) {
-//		console.log(error);
-//	});
+	coocaaosapi.notifyJSLogInfo("thanks_giving_open_vip_dialog_button_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//开通VIP得抽奖机会弹窗曝光
+function webToastShowLog() {
+	var _dateObj = {
+		"open_id":_openId,
+		"product_id": "",
+		"product_name ": ((_TVSource == "tencent") ? "影视VIP" : "奇异果VIP")
+	};
+	
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("thanks_giving_open_vip_dialog_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+//活动主页面 - 各按钮点击
+function webBtnClickLog(product_id, suit_name,button_name) {
+	var _dateObj = {
+		"open_id":_openId,
+		"product_id": product_id,
+		"product_name ": ((_TVSource == "tencent") ? "影视VIP" : "奇异果VIP"),
+		"suit_name": suit_name,
+		"draw_lottery_chance_count":_remainingTimes,
+		"button_name": button_name
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("thanks_giving_webpage_button_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+
+//活动主页面 - 曝光
+function webPageShowLog() {
+	var _dateObj = {
+		"open_id":_openId,
+		"product_id": "",
+		"product_name ": ((_TVSource == "tencent") ? "影视VIP" : "奇异果VIP"),
+		"draw_lottery_chance_count":_remainingTimes
+	};
+	
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("thanks_giving_webpage_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
 }
 
