@@ -71,13 +71,10 @@ li {
 	color: #FFFFFF;
 	font-family: "PingFangSC-Medium",sans-serif;
 	letter-spacing: 0;
-	background-color: brown;
-	opacity: 0.6;	
 }
 
 li.btn-focus {
-	background-color: orange;
-	opacity: 1.0;
+	background-color: yellow;
 	color: #000000;
 }
 
@@ -119,7 +116,6 @@ li.btn-focus {
 	font-size: 30px;
 	font-family: "PingFangSC-Medium",sans-serif;
 	line-height: 42px;
-	background-color: brown;	
 }
 
 .content {

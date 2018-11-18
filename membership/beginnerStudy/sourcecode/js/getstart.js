@@ -1,6 +1,7 @@
 var _Index1= "";
 var　firstFocus="";
 var _bPlayDisrupted = false;
+var _bBgColorTransparent = false;
 
 //视频资源地址,例如:http://v-play.coocaatv.com/7-demo/10-help.m4v
 var _baseUrl = "http://v-play.coocaatv.com/7-demo/";
@@ -46,6 +47,7 @@ var app = {
         this.bindEvents();
     },
     bindEvents: function() {
+    	setBgColorTransparent();
     	app.showStudyVideos();
     	
         document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -401,7 +403,25 @@ function delayLoad() {
 //	pic = app.rel_html_imgpath(__uri("../img/testThumb.png"));
 //	$("img").attr("src", pic);
 	
-	$("body").css("background-image", "url(img/bg.webp)");
+	if(_bBgColorTransparent != "true") {//没有设置背景为透明,才设置背景图片
+		$("body").css("background-image", "url(img/bg.webp)");
+	}
 	
 	$("#failToast").css("background-image", "url(img/failToast.webp)")
+}
+
+function setBgColorTransparent() {
+    _bBgColorTransparent = getQueryString("bgtrans");
+	console.log("bgcolor set:"+ _bBgColorTransparent + "typeof bgcolor:"+ typeof _bBgColorTransparent);
+	if(_bBgColorTransparent == "true") {//背景透明
+		$("body").css("background-color", "rgba(0,0,0,0)");
+	}
+}
+
+//获取url中的参数
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return unescape(r[2]);
+	return null;
 }

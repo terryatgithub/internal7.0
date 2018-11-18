@@ -1,6 +1,10 @@
 #学习与反馈 之 新手学习页面
 
 输入参数说明：
+bgtrans：true/false
+为true时设置背景为透明； 为false时或者不设置时正常设置背景
+http://beta.webapp.skysrt.com/yuanbo/CordovaJSdist/index.html?bgtrans=true (透明背景)
+http://beta.webapp.skysrt.com/yuanbo/CordovaJSdist/index.html (正常背景）
 
 #测试相关信息：
 1.测试环境配置url（主页入口配置需要）：
