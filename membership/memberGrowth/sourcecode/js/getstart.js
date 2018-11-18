@@ -319,9 +319,13 @@ function calCurPointsLocation(isInit) {
 	var len = _coinsLv.length;
 
 	//1. 获取SVG区域宽高
-	var svgDiv = document.getElementById("svgZone");
-	var svgWidth = svgDiv.getAttribute("width");
-	var svgHeight = svgDiv.getAttribute("height");
+//	var svgDiv = document.getElementById("svgZone");
+//	var svgWidth = svgDiv.getAttribute("width");
+//	var svgHeight = svgDiv.getAttribute("height");
+	
+	var svgWidth = 1742;//$(".curveDivClass").height();
+	var svgHeight = 448;//$(".curveDivClass").offsetHeight;
+	
 	svgEllipseHeight = Math.round(svgHeight*5/6);
 	console.log("------svgWidth:"+svgWidth+"-svgEllipseHeight:"+svgEllipseHeight);	
 	
@@ -331,15 +335,15 @@ function calCurPointsLocation(isInit) {
 	//初始化时只显示页面静态元素
 	if (isInit == true) {
 		//画最上面的markline:
-		var pathMarkCoordinates = {
-			A: {x:svgWidth, y:0},
-			B: {x:svgWidth, y:0},
-			C: {x:svgWidth, y:0},
-			D: {x:0, y:svgEllipseHeight},
-			R: {x:svgWidth, y:svgEllipseHeight}
-		};
-		var markLine = document.getElementById("markLine");
-		drawSVGPath(pathMarkCoordinates, markLine);	
+//		var pathMarkCoordinates = {
+//			A: {x:svgWidth, y:0},
+//			B: {x:svgWidth, y:0},
+//			C: {x:svgWidth, y:0},
+//			D: {x:0, y:svgEllipseHeight},
+//			R: {x:svgWidth, y:svgEllipseHeight}
+//		};
+//		var markLine = document.getElementById("markLine");
+//		drawSVGPath(pathMarkCoordinates, markLine);	
 		
 		//画背景的X轴等级标记和对应的point数,1个div保存1组X轴上的所有标记
 		//创建跟等级数一致的xAxisMark div(已经存在一个了)
@@ -360,7 +364,7 @@ function calCurPointsLocation(isInit) {
 		
 		//设置x坐标和椭圆曲线上的标记值
 		for(i=0;i<len;i++){
-			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*5 +"px";//有个间隔
+			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + 20 +"px";//有个间隔
 			document.getElementsByClassName("xAxisEllipseMark") [i].innerHTML = _coinsLv[i];
 			//小于用户等级的标注字体变为红色（设计要求）：
 			if(i < _userLv) {
@@ -372,9 +376,9 @@ function calCurPointsLocation(isInit) {
 			document.getElementsByClassName("xAxisCoordinate") [i].innerHTML = "Lv"+(i+1);
 		}
 		//最后一项高度需要再往下移:
-		document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 115) +"px";//有个间隔
+		document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 85) +"px";//有个间隔
 		console.log("calCurPointsLocation out. init phase, only draw static elements, not draw dynamic elements.");
-		return;
+		//return;
 	}
 	
 	if(_userPoints > _coinsLv[_coinsLv.length-1]) {
@@ -395,7 +399,7 @@ function calCurPointsLocation(isInit) {
 	//确保当拥有金币数为0或1时(初始值),当前点可以正常显示:
 	if(i==0) {i=1};
 
-	//3.计算当前金币数占用的空间宽度和高度,当为0时为计算方便,改为1;
+	//3.计算当前点数占用的空间宽度和高度,当为0时为计算方便,改为1;
 	var curLeft = (i-1)*lvWidth;
 	var deltaWidth = Math.round(lvWidth * ((_userPoints <= 1 ? 1 : _userPoints) - _coinsLv[i-1]) / (_coinsLv[i] - _coinsLv[i-1]));
 	curLeft += deltaWidth;
@@ -405,7 +409,7 @@ function calCurPointsLocation(isInit) {
 	console.log("------curTop:"+curTop);
 
 	//画当前点的位置圆圈,对最大最小值的边界值有做处理(x/y方向都最小保留5px):
-	var markPoint = document.getElementById("markPoint");
+//	var markPoint = document.getElementById("markPoint");
 	//ver0:用svg画了一个最简单的圆，与设计不符
 //	markPoint.setAttribute("cy", (curTop < 5 ? 5 : (curTop)) +"px");
 //	markPoint.setAttribute("cx", (curLeft < (svgWidth - 5) ? (curLeft > 5 ? curLeft : 5) : (svgWidth - 5))+"px");
@@ -417,13 +421,18 @@ function calCurPointsLocation(isInit) {
 //	markPoint.setAttribute("r", "15");	
 	//ver2: 用svg image直接放图：
 	//<image x="20" y="100" width="32" height="32" xlink:href="https://beta.webapp.skysrt.com/yuanbo/memberGrowth/img/point_ea65028.png"/>
-	markPoint.setAttribute("y", (curTop-16)+"");
-	markPoint.setAttribute("x", (curLeft-16)+"");
-	markPoint.setAttribute("width", "32");
-	markPoint.setAttribute("height", "32");
-	var pic=app.rel_html_imgpath(__uri("../img/point.png"));
-	markPoint.href.baseVal = pic;//ok2
+//	markPoint.setAttribute("y", (curTop-16)+"");
+//	markPoint.setAttribute("x", (curLeft-16)+"");
+//	markPoint.setAttribute("width", "32");
+//	markPoint.setAttribute("height", "32");
+//	var pic=app.rel_html_imgpath(__uri("../img/point.png"));
+//	markPoint.href.baseVal = pic;//ok2
 //	markPoint.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href",pic); //ok
+	var markPoint = $("#markPoint");
+	markPoint.css("top", (curTop-16)+"px");
+	markPoint.css("left", (curLeft-16)+"px");
+	markPoint.css("width", "32px");
+	markPoint.css("height", "32px");
 	
 	//画当前点的值,对最大最小值的边界值有做处理:
 	var markPointTip = $("#markPointTip");
@@ -433,29 +442,32 @@ function calCurPointsLocation(isInit) {
 	});
 	markPointTip.text(_userPoints);
 	
-	//计算左边区域的A B C D坐标
-	var pathGotCoordinates = {
-		A: {x:0, y:svgHeight},
-		B: {x:curLeft, y:svgHeight},
-		C: {x:curLeft, y:curTop},
-		D: {x:0, y:svgEllipseHeight},
-		R: {x:svgWidth, y:svgEllipseHeight}
-	};
+	$(".curveProgress").css("width", curLeft+"px");
 	
-	var gotPath = document.getElementById("gotCoinsPath");
-	drawSVGPath(pathGotCoordinates, gotPath);
+//SVG画曲线及曲线投影面积的方法，因为更换浏览器内核（切换为千家跃浏览器，裁剪了svg功能，所有不能用以下方法）：	
+	//计算左边区域的A B C D坐标
+//	var pathGotCoordinates = {
+//		A: {x:0, y:svgHeight},
+//		B: {x:curLeft, y:svgHeight},
+//		C: {x:curLeft, y:curTop},
+//		D: {x:0, y:svgEllipseHeight},
+//		R: {x:svgWidth, y:svgEllipseHeight}
+//	};
+//	
+//	var gotPath = document.getElementById("gotCoinsPath");
+//	drawSVGPath(pathGotCoordinates, gotPath);
 	
 	//计算右边区域的A B C D坐标
-	var pathRemainCoordinates = {
-		A: {x:curLeft, y:svgHeight},
-		B: {x:svgWidth, y:svgHeight},
-		C: {x:svgWidth, y:0},
-		D: {x:curLeft, y:curTop},
-		R: {x:svgWidth, y:svgEllipseHeight}
-	};
-	
-	var remainPath = document.getElementById("remainCoinsPath");
-	drawSVGPath(pathRemainCoordinates, remainPath);
+//	var pathRemainCoordinates = {
+//		A: {x:curLeft, y:svgHeight},
+//		B: {x:svgWidth, y:svgHeight},
+//		C: {x:svgWidth, y:0},
+//		D: {x:curLeft, y:curTop},
+//		R: {x:svgWidth, y:svgEllipseHeight}
+//	};
+//	
+//	var remainPath = document.getElementById("remainCoinsPath");
+//	drawSVGPath(pathRemainCoordinates, remainPath);
 	console.log("calCurPointsLocation out...");
 }
 
@@ -474,6 +486,8 @@ function drawSVGPath(el, pathId) {
 
 //知道椭圆某点坐标x,计算坐标y
 function calEllipseCoordinateY(x, rx, ry){
+	//rx = 2032;//=1742*7/6; //为了椭圆曲线更平滑一些，把x轴长拉长；
+	rx = 1887;//=1742*13/12; //为了椭圆曲线更平滑一些，把x轴长拉长；
 	var ySquare = (1-(x*x/(rx*rx))) * ry * ry;
 	var y = Math.round(Math.sqrt(ySquare));
 	return y;
