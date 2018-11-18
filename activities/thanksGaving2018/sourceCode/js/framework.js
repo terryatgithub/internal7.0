@@ -489,9 +489,9 @@ function myAwardList() {
 				console.log(_length);
 				var _prizeitem = "";
 				var _exchange = 0;
-//				if(_length > 0) {
-				//yuanbotest
-				if(false) {
+				if(_length > 0) {
+//				//yuanbotest
+//				if(false) {
 					for(var i = 0; i < _length; i++) {
 						var _seq = JSON.parse(data.data[i].awardInfo).seq;
 						console.log("_seq:"+_seq);
@@ -567,7 +567,7 @@ function creatButtonInit() {
 		var _name = $(".myprizebtn:eq(" + _index + ")").attr("lname");
 		var _imgurl = $(".myprizebtn:eq(" + _index + ")").attr("awardUrl");
 		
-		console.log(_activeId + "--" + _awardRememberId + "--" + _userKeyId+"--yuanbotest seq:"+_seq);
+		console.log(_activeId + "--" + _awardRememberId + "--" + _userKeyId+"--seq:"+_seq);
 		
 		if(_awardTypeId == 1 || _awardTypeId == 5) {//影视会员直通车&优惠券,后台直接激活
 			getMyPrize(1, _name, _activeId, _awardId, _awardRememberId, _awardTypeId, _userKeyId, _imgurl, _seq);
