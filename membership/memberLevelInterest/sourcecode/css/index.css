@@ -13,15 +13,13 @@ body {
 }
 
 .headerContainer {
-	width: 100%;
+	width: 386px;
 	height: 216px;
-	line-height: 216px;
-	font-size: 66px;
-	font-family: "PingFangSC-Semibold", sans-serif;
-	text-align: center;
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;	
+	position: relative;
+	left: 727px;
+	top: 77px;
+	background-image: url(../img/title.png);
+	background-repeat: no-repeat;
 }
 
 .sidebarContainer {

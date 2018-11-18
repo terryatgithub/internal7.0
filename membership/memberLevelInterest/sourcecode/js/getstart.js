@@ -13,68 +13,79 @@ var _levelInfos = new Array();
 var _userLevel = 1;
 _levelInfos = [
 	 {
-	 	level:1, 
-	 	levelName:"等级礼包", 
-	 	picNormal: __uri("../img/lv1.png"), 
-	 	picDisabled: __uri("../img/lv1disabled.png"),
-	 	picFocus: __uri("../img/lv1focus.png"),
-	 	picFocusDisabled:__uri("../img/lv1focusdisabled.png"),
-	 	picBig: __uri("../img/lv1big.png"),
-	 	levelCondition:"Lv1 (含) 以上可解锁", 
-	 	levelDes:"不同等级会员尊享不同的福利特权，当您的等级提升时，还会赠送您不同级别的升级礼包，等级越高能尊享的权益越多、价值越高，赶快提升等级享受更多福利吧~"
+	 	level:2, 
+	 	levelName:"升级礼包", 
+	 	picNormal: __uri("../img/lv21.png"), 
+	 	picDisabled: __uri("../img/lv21.png"),
+	 	picFocus: __uri("../img/lv21focus.png"),
+	 	picFocusDisabled:__uri("../img/lv21focus.png"),
+	 	picBig: __uri("../img/lv21big.png"),
+	 	levelCondition:"Lv2（含）以上可解锁", 
+	 	levelDes:"升级礼包含有不同面值的优惠券、金币等，当您的等级提升时，会根据您的级别赠送不同价值的升级礼包，等级越高获得的礼包价值越高，赶快提升等级享受更多福利吧~"
 	 }
 	,{
-		level:1, 
-	 	picNormal: __uri("../img/lv12.png"), 
-	 	picDisabled: __uri("../img/lv12disabled.png"),
-	 	picFocus: __uri("../img/lv12focus.png"),
-	 	picFocusDisabled:__uri("../img/lv12focusdisabled.png"),
-	 	picBig: __uri("../img/lv12big.png"),
-		levelName:"专属活动", 
-		levelCondition:"Lv1 (含) 以上可解锁", 
+		level:2, 
+	 	picNormal: __uri("../img/lv22.png"), 
+	 	picDisabled: __uri("../img/lv22.png"),
+	 	picFocus: __uri("../img/lv22focus.png"),
+	 	picFocusDisabled:__uri("../img/lv22focus.png"),
+	 	picBig: __uri("../img/lv22big.png"),
+		levelName:"等级专属线上活动", 
+		levelCondition:"Lv2（含）以上可解锁", 
 		levelDes:"参与专属等级线上活动，精彩好礼等您来拿，还有好玩有趣的游戏等您参与。"
 	}
 	,{
 		level:3,
 	 	picNormal: __uri("../img/lv3.png"), 
-	 	picDisabled: __uri("../img/lv3disabled.png"),
+	 	picDisabled: __uri("../img/lv3.png"),
 	 	picFocus: __uri("../img/lv3focus.png"),
-	 	picFocusDisabled:__uri("../img/lv3focusdisabled.png"),
+	 	picFocusDisabled:__uri("../img/lv3focus.png"),
 	 	picBig: __uri("../img/lv3big.png"),
-		levelName:"线下活动", 
+		levelName:"等级专享", 
 		levelCondition:"Lv3 (含)以上可解锁", 
-		levelDes:"用户根据等级可参与不同的线下福利活动，如粉丝见面会、大咖线下活动等，让您与明星零距离接触。"
+		levelDes:"根据您的等级不同，会不定期的赠送专属等级优惠券、金币、成长值等。"
+	}
+	,{
+		level:4,
+	 	picNormal: __uri("../img/lv4.png"), 
+	 	picDisabled: __uri("../img/lv4.png"),
+	 	picFocus: __uri("../img/lv4focus.png"),
+	 	picFocusDisabled:__uri("../img/lv4focus.png"),
+	 	picBig: __uri("../img/lv4big.png"),
+		levelName:"线下活动福利", 
+		levelCondition:"Lv4（含）以上可解锁", 
+		levelDes:"不同等级的用户可参与不同的线下福利活动，如粉丝见面会、大咖线下活动等，让您与明星零距离接触。"
 	}
 	,{
 		level:5,
 	 	picNormal: __uri("../img/lv5.png"), 
-	 	picDisabled: __uri("../img/lv5disabled.png"),
+	 	picDisabled: __uri("../img/lv5.png"),
 	 	picFocus: __uri("../img/lv5focus.png"),
-	 	picFocusDisabled:__uri("../img/lv5focusdisabled.png"),
+	 	picFocusDisabled:__uri("../img/lv5focus.png"),
 	 	picBig: __uri("../img/lv5big.png"),
 		levelName:"专属客服", 
-		levelCondition:"Lv5 (含) 以上可解锁", 
-		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰服务热线：拨打专线400-168-8880."
+		levelCondition:"Lv5（含）以上可解", 
+		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰。 <br/>服务热线：<br/>拨打专线400-168-8880"
 	}
 	,{
-		level:6,
+		level:6, 
 	 	picNormal: __uri("../img/lv6.png"), 
-	 	picDisabled: __uri("../img/lv6disabled.png"),
+	 	picDisabled: __uri("../img/lv6.png"),
 	 	picFocus: __uri("../img/lv6focus.png"),
-	 	picFocusDisabled:__uri("../img/lv6focusdisabled.png"),
+	 	picFocusDisabled:__uri("../img/lv6focus.png"),
 	 	picBig: __uri("../img/lv6big.png"),
-		levelName:"专属主题", 
-		levelCondition:"Lv6 (含) 以上可解锁", 
-		levelDes:"会员出品，必属精品。丰富多样的系统主题，专享主题服务，让您与众不同。"
+		levelName:"等级专属主题", 
+		levelCondition:"Lv6（含）以上可解锁", 
+		levelDes:"丰富多样的系统主题，专享主题服务，让您的电视与众不同。"
 	}
 	,{
 		level:7, 
 	 	picNormal: __uri("../img/lv7.png"), 
-	 	picDisabled: __uri("../img/lv7disabled.png"),
+	 	picDisabled: __uri("../img/lv7.png"),
 	 	picFocus: __uri("../img/lv7focus.png"),
-	 	picFocusDisabled:__uri("../img/lv7focusdisabled.png"),
+	 	picFocusDisabled:__uri("../img/lv7focus.png"),
 	 	picBig: __uri("../img/lv7big.png"),
-		levelName:"定制屏保", 
+		levelName:"等级免费定制屏保", 
 		levelCondition:"Lv7 (含) 以上可解锁", 
 		levelDes:"免费定制您喜爱的屏保，装扮不再单调，让电视屏保也赏心悦目。"
 	}
@@ -274,7 +285,7 @@ function showLevelDetails() {
 	console.log("showLevelDetails in...");
 	$(".sideLevelGiftTitle").text(_levelInfos[_Lindex].levelName);
 	$(".sideLevelGiftConditionsDetails").text(_levelInfos[_Lindex].levelCondition);
-	$(".sideLevelPrivilegeDetails").text(_levelInfos[_Lindex].levelDes);
+	$(".sideLevelPrivilegeDetails").html(_levelInfos[_Lindex].levelDes);
 //	var pic = app.rel_html_imgpath(_levelInfos[_Lindex].picBig);
 //	// var pic = _levelInfos[_Lindex].picBig;
 //	$(".sideLevelIconShowClass").css("background-image", "url("+pic+")");
