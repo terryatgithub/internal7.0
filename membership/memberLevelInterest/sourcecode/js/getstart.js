@@ -242,9 +242,9 @@ function drawContainerZone() {
 	//绘制对应个数的图标
 	var len = _levelInfos.length;
 	var i = 0;
-	for(i=0;i<len-1; i++) {
-		$(".contentContainer").append($(".levelIntro:last-of-type").clone(true));
-	}
+//	for(i=0;i<len-1; i++) {
+//		$(".contentContainer").append($(".levelIntro:last-of-type").clone(true));
+//	}
 	
 	//更新对应图标的icon，及标题
 	var pic = "";
