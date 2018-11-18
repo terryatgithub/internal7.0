@@ -2,7 +2,7 @@ var _Lindex= "";
 var _userPoints = 0;
 var _userLv = 1;
 var _coinsLv = [0, 120, 800, 2840, 6920, 15080, 30040];
-var _memberLevelPrivilegeLineNums = 6;//页面会员等级权益的行数
+var _memberLevelPrivilegeLineNums = 7;//页面会员等级权益的行数
 var _memberLevelPrivilegeColNums = 7; //页面会员等级权益的列数
 
 //获取用户会员信息（金币数、成长点数、会员等级）
