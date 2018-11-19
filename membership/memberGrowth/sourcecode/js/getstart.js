@@ -324,7 +324,7 @@ function calCurPointsLocation(isInit) {
 //	var svgHeight = svgDiv.getAttribute("height");
 	
 	var svgWidth = 1742;//$(".curveDivClass").height();
-	var svgHeight = 448;//$(".curveDivClass").offsetHeight;
+	var svgHeight = 453;//$(".curveDivClass").offsetHeight;
 	
 	svgEllipseHeight = Math.round(svgHeight*5/6);
 	console.log("------svgWidth:"+svgWidth+"-svgEllipseHeight:"+svgEllipseHeight);	
@@ -364,7 +364,7 @@ function calCurPointsLocation(isInit) {
 		
 		//设置x坐标和椭圆曲线上的标记值
 		for(i=0;i<len;i++){
-			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*10 +"px";//有个间隔
+			document.getElementsByClassName("xAxisEllipseMark") [i].style.top = calEllipseCoordinateY(lvWidth*i, svgWidth, svgEllipseHeight) + (i+1)*5 +"px";//有个间隔
 			document.getElementsByClassName("xAxisEllipseMark") [i].innerHTML = _coinsLv[i];
 			//小于用户等级的标注字体变为红色（设计要求）：
 			if(i < _userLv) {
@@ -376,7 +376,7 @@ function calCurPointsLocation(isInit) {
 			document.getElementsByClassName("xAxisCoordinate") [i].innerHTML = "Lv"+(i+1);
 		}
 		//最后一项高度需要再往下移:
-		document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 105) +"px";//有个间隔
+		document.getElementsByClassName("xAxisEllipseMark") [len-1].style.top = (calEllipseCoordinateY(lvWidth*(len-1), svgWidth, svgEllipseHeight) + 65) +"px";//有个间隔
 		console.log("calCurPointsLocation out. init phase, only draw static elements, not draw dynamic elements.");
 		//return;
 	}
@@ -390,7 +390,7 @@ function calCurPointsLocation(isInit) {
 	}
 			
 	//非初始化时（或获取到用户信息、或用默认值），绘制动态元素：
-	for (i; i<len; i++) {
+	for (i=0; i<len; i++) {
 		if(_userPoints <= _coinsLv[i]) {
 			console.log("lt " + _coinsLv[i] + "i:"+i);
 			break;
@@ -403,7 +403,7 @@ function calCurPointsLocation(isInit) {
 	var curLeft = Math.floor((i-1)*lvWidth);
 	var deltaWidth = Math.floor(lvWidth * ((_userPoints <= 1 ? 1 : _userPoints) - _coinsLv[i-1]) / (_coinsLv[i] - _coinsLv[i-1]));
 	curLeft += deltaWidth;
-	console.log("------deltaWidth:"+deltaWidth+"-curLeft:"+curLeft);
+	console.log("---lvWidth:"+lvWidth+"---deltaWidth:"+deltaWidth+"-curLeft:"+curLeft);
 	
 	var curTop = calEllipseCoordinateY(curLeft, svgWidth, svgEllipseHeight);
 	console.log("------curTop:"+curTop);
@@ -437,9 +437,10 @@ function calCurPointsLocation(isInit) {
 	//画当前点的值,对最大最小值的边界值有做处理:
 	var markPointTip = $("#markPointTip");
 	markPointTip.css({
-//		"top": (curTop>80 ? (curTop-74) : curTop) +"px",
-		"top": (curTop<0 ? 0 : curTop) +"px",
-		"left":(curLeft < (svgWidth - 130) ? (curLeft) : (svgWidth - 120))+"px", 
+		"top": (curTop>60 ? (curTop-60) : curTop) +"px",
+		"left":(curLeft < (svgWidth - 120) ? (curLeft) : (svgWidth - 120))+"px", 
+		"transform": "translateX(-50%)",
+		"-webkit-transform":"translateX(-50%)" 
 	});
 	markPointTip.text(_userPoints);
 	
@@ -530,7 +531,7 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
-				_userPoints = 111110; //yuanbotest
+				_userPoints = 30020; //yuanbotest
 				$("#userLv").text("Lv"+_userLv);
 				$("#coinNum").text((data.data.coins).toFixed(1));
 				//更新用户当前点位:
