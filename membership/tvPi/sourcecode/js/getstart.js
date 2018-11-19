@@ -163,11 +163,13 @@ function switchContent() {
 function otherPageInit() {
 	var pic1 = app.rel_html_imgpath(__uri("../img/content1.png"));
 	var pic2 = app.rel_html_imgpath(__uri("../img/content2.png"));
-	console.log("==="+pic1+' '+pic2);
+	var pic3 = app.rel_html_imgpath(__uri("../img/content3.png"));
+	var pic4 = app.rel_html_imgpath(__uri("../img/content4.png"));
+//	console.log("==="+pic1+' '+pic2);
 	$("#section0").css("background-image", "url("+pic1+")");
 	$("#section1").css("background-image", "url("+pic2+")");
-	$("#section2").css("background-image", "url(img/content3.jpg)");
-	$("#section3").css("background-image", "url(img/content4.jpg)");
+	$("#section2").css("background-image", "url("+pic3+")");
+	$("#section3").css("background-image", "url("+pic4+")");
 	
 	$("body").css("background-image", "url(img/bg.webp)");
 }
