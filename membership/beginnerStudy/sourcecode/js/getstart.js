@@ -194,16 +194,11 @@ var app = {
 			tmpId = "videoDivId"+i;
 			console.log("now i:"+tmpId);
 			
-			//为视频块填充内容
-			//tmpImg = '<img src="'+answers[0]+'" class="imgPreviewClass"></img>';
-			//测试用
-			tmpImg = '<img></img>';
-			$("#"+tmpId+" .videoPreviewClass").append(tmpImg);					
+			$("#"+tmpId+" .videoPreviewClass").css("background-image", "url(img/"+(i+1)+".webp)");
 			$("#"+tmpId+" .pTitleClass").text(_videoInfos[i].des);
 			$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
 		}
-		setTimeout("delayLoad()", 100);
-		
+		delayLoad();
 		map = new coocaakeymap($(".coocaa_btn"), document.getElementsByClassName("coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
 		console.log("out showStudyVideos.");
 	},
@@ -391,18 +386,6 @@ function replayOrReturn(index)	{
 }
 
 function delayLoad() {
-	var i,pic;
-	var len = _videoInfos.length;
-	$("img").addClass("imgPreviewClass");
-	for(i=0;i<len;i++) {
-		pic = _videoInfos[i].img;
-		console.log("==i:"+i+", pic: "+pic);
-		$("img").eq(i).attr("src", pic);
-	}
-	//用标注里的thumbnail截图测试页面效果
-//	pic = app.rel_html_imgpath(__uri("../img/testThumb.png"));
-//	$("img").attr("src", pic);
-	
 	if(_bBgColorTransparent != "true") {//没有设置背景为透明,才设置背景图片
 		$("body").css("background-image", "url(img/bg.webp)");
 	}

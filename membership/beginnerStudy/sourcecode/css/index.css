@@ -104,6 +104,8 @@ body {
 	width: 405px;
 	height: 228px;
 	float: left;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .imgPreviewClass {
