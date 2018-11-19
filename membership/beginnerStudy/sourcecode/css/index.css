@@ -1,22 +1,13 @@
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-}
-
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-	/*background: url(../img/bg.webp);*/
+    -webkit-touch-callout: none;                
+    -webkit-text-size-adjust: none;          
+    -webkit-user-select: none;            
 	background-size: cover;
-	/*background-color: rgba(0,0,0,0);*/
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     width:1920px;
     height: 1080px;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
     overflow: hidden;
 }
 
@@ -53,29 +44,6 @@ body {
 	padding-left: 100px;
 	letter-spacing: 0;
 }
-
-/*.homeTitleDivClassBar {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	width: 1920px;
-	height: 100px;
-	font-size: 24px;
-	font-family: "微软雅黑";
-	font-weight: normal;
-	text-align: center;
-	background: rgba(0,100,0,0.9); 
-	z-index: 1;
-}*/
-/*.homeTitleHeadClassBar {
-	position: absolute;
-	left: 690px;
-	width: 500px;
-	height: 101px;
-	font-size: 80px;
-	line-height: 100px;
-}*/
-
 /*
  * 内容div
  */
@@ -238,7 +206,7 @@ body {
 .btn-focus{
 	-webkit-transform: scale(1.08);
             transform: scale(1.08);
-    transition: transform 0.1s linear;       
+    transition: transform 0.2s linear;       
 	border: 4px solid white;
 }
 

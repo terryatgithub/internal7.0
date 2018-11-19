@@ -161,40 +161,17 @@ var app = {
 		});
 	},
 	
-//	calFocusTarget: function(pos, max)	{
-//		var up,down,left,right;
-//		up = pos - 2;    if(up < 0) up = 0;
-//		down = pos + 2;  if(down > max) down = max;
-//		left = pos -1;   if(left < 0) left = 0;
-//		right = pos + 1; if(right > max) right = max;
-//		
-//		console.log("pos:"+pos+",max:"+max+"; up:"+up+",down:"+down+",left:"+left+",right:"+right);
-//		return ["videoDivId"+up, "videoDivId"+down, "videoDivId"+left, "videoDivId"+right];
-//	},
-	
     showStudyVideos: function() {
     	console.log("in showStudyVideos.");
 		var len = _videoInfos.length;
 		console.log("server data len:"+len);
 		var i = 0;
 		var tmpId;
-		var tmpImg;
-		var targetPos;
 		
-		//有超过一个页面的内容时（8个),需要动态创建新videoDiv
-		for(i=8;i<len;i++) {
-			console.log("beyond 7, now i:"+i+", need append baseDivComponent.");
-			$(".homeContentDivClass").append($(".homeContentDivClass .baseDivComponent:last-child").clone(true));
-			//设置id
-			tmpId = "videoDivId"+i;
-			$(".baseDivComponent:last").attr("id",tmpId);
-		}
 		//插入图像
 		for(i=0; i<len; i++) {
 			tmpId = "videoDivId"+i;
 			console.log("now i:"+tmpId);
-			
-			$("#"+tmpId+" .videoPreviewClass").css("background-image", "url(img/"+(i+1)+".webp)");
 			$("#"+tmpId+" .pTitleClass").text(_videoInfos[i].des);
 			$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
 		}
@@ -205,13 +182,6 @@ var app = {
     
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
-
-//		coocaaosapi.getDeviceInfo(function(message) {
-//			console.log(JSON.stringify(message));
-//			console.log("version="+ message.version + "; model=" + message.model + "; activeid=" + message.activeid);//版本号
-//		}, function(error) {
-//			console.log(error);
-//		});
 	}
     
 };
@@ -240,62 +210,30 @@ function focusShift(pos) {
 //			scrollTop: myScrollTop
 //		}, {
 //			duration: 0,
-//			easing: "swing",
+//			easing: "linear",
 //			complete: function() {}
 //		});
 		$(".baseDivComponent").stop(true,true).animate({
 			top: -myScrollTop
 		}, {
 			duration: 0,
-			easing: "swing",
+			easing: "linear",
 			complete: function() {}
 		});
 
 	}else if (pos == 5 || pos == 4) {
 		//回到首页
 		console.log("---return home page");
-//		$("html,body").stop(true,true).animate({
-//			scrollTop: 0
-//		}, {
-//			duration: 0,
-//			easing: "swing",
-//			complete: function() {}
-//		});	
 		$(".baseDivComponent").stop(true,true).animate({
 			top: 0
 		}, {
 			duration: 0,
-			easing: "swing",
+			easing: "linear",
 			complete: function() {}
 		});
 	}
 }
 
-//页面翻页时,“新手学习”的headDiv显示成在最顶端的一个Bar条
-function headDivShowAsBar() {
-	console.log("headDivShift---");
-	
-	$("#homeTitleDivId").removeClass("homeTitleDivClass");
-	$("#homeTitleDivId").addClass("homeTitleDivClassBar");
-	
-	$("#homeTitleHeadId").removeClass("homeTitleHeadClass");
-	$("#homeTitleHeadId").addClass("homeTitleHeadClassBar");
-	
-	$("#homeTitleParaId").css("display", "none");
-}
-
-//“新手学习”的headDiv恢复初始显示
-function headDivShowRestore() {
-	console.log("headDivShowRestore---");
-	
-	$("#homeTitleDivId").removeClass("homeTitleDivClassBar");
-	$("#homeTitleDivId").addClass("homeTitleDivClass");
-	
-	$("#homeTitleHeadId").removeClass("homeTitleHeadClassBar");
-	$("#homeTitleHeadId").addClass("homeTitleHeadClass");
-	
-	$("#homeTitleParaId").css("display", "block");
-}
 
 //准备启动播放
 function preparePlayVideo() {
@@ -351,22 +289,6 @@ function playVideo() {
 		});
 
 		console.log("playVideo -end---");
-}
-
-//在线播放,可以控制快进快退 暂停继续
-//跟樊彦博讨论,不用这种方式;
-function startOnlinePlay(url,name){
-//	var url = 'http://live.alicdn.com/tmall/f2b362cc-22ce-4916-be77-51d37e7ef555.m3u8';
-//	var url = 'http://v-play.coocaatv.com/8c056be2eac926a05c472f45c3893905.mp4';
-//  var name = 'test';
-    coocaaosapi.playOnlineMovie(url,name,"false",function(message) {
-    	console.log(message); 
-    	console.log("startOnlinePlay---success..");
-//  	navigator.app.exitApp();
-    },function(error) {
-//  	console.log(error);
-    	console.log("startOnlinePlay---fail..");
-    });
 }
 
 //重播或返回
