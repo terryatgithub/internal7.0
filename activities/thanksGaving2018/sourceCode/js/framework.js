@@ -48,23 +48,23 @@ var _TVSource = "";
 //产品包信息(测试)
 var _VIPInfos = {
 	iqiyi: {
-		 year:  {mainProductId: 1000406, toastProductId: 1000404, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinheyear.png"}
-		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinhes.png"}
+		 year:  {mainProductId: 1000406, toastProductId: 1000404, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
+		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
 	}
 	,tencent: {
-		 year:  {mainProductId: 1000400, toastProductId: 1000402, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txyear.png"}
-		,season:{mainProductId: 1000401, toastProductId: 1000403, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txs.png"}
+		 year:  {mainProductId: 1000400, toastProductId: 1000402, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
+		,season:{mainProductId: 1000401, toastProductId: 1000403, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
 	}
 };
 //产品包信息(正式)
 var _VIPInfosRel = {
 	iqiyi: {
-		 year:  {mainProductId: 1323, toastProductId: 1334, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinheyear.png"}
-		,season:{mainProductId: 1324, toastProductId: 1335, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113yinhes.png"}
+		 year:  {mainProductId: 1323, toastProductId: 1334, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
+		,season:{mainProductId: 1324, toastProductId: 1335, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
 	}
 	,tencent: {
-		 year:  {mainProductId: 1325, toastProductId: 1336, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txyear.png"}
-		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/d20181113txs.png"}
+		 year:  {mainProductId: 1325, toastProductId: 1336, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
+		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
 	}
 };
 //奖品提示信息,id号或数组排序要跟转盘排序匹配（跟后台确认）
