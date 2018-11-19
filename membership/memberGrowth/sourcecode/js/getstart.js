@@ -531,7 +531,6 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
-				_userPoints = 30020; //yuanbotest
 				$("#userLv").text("Lv"+_userLv);
 				$("#coinNum").text((data.data.coins).toFixed(1));
 				//更新用户当前点位:
