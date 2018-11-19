@@ -40,7 +40,6 @@ body {
 	top: -125px;
 	background-repeat: no-repeat;
 	background-size: cover;
-	-webkit-mask-image: url("../img/mask.webp");
 }
 
 #flash

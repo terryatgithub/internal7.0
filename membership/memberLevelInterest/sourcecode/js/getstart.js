@@ -174,7 +174,7 @@ var app = {
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("-focus-----"+_Lindex);
-			showLevelDetails();
+			showLevelDetails($(this));
 		});
 		$(".coocaa_btn").bind("itemBlur", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
@@ -189,7 +189,7 @@ var app = {
 		preLoadImg(_levelInfos);
 		parseLevelFromUrl();
     	drawContainerZone();
-    	showLevelDetails();
+    	showLevelDetails(null);
 
 		//初始落焦
         var initPhoneMap = function(obj) {
@@ -281,14 +281,34 @@ function restoreUnfocusState()
 }
 
 //焦点移动时，显示焦点对应的等级信息
-function showLevelDetails() {
-	console.log("showLevelDetails in...");
+function showLevelDetails(el) {
+	console.log("showLevelDetails in.");
+
 	$(".sideLevelGiftTitle").text(_levelInfos[_Lindex].levelName);
 	$(".sideLevelGiftConditionsDetails").text(_levelInfos[_Lindex].levelCondition);
 	$(".sideLevelPrivilegeDetails").html(_levelInfos[_Lindex].levelDes);
 //	var pic = app.rel_html_imgpath(_levelInfos[_Lindex].picBig);
 //	// var pic = _levelInfos[_Lindex].picBig;
 //	$(".sideLevelIconShowClass").css("background-image", "url("+pic+")");
+	
+	if(el != null && el != "") {
+		console.log("showLevelDetails in...el.id:"+el.attr("id"));
+		switch(el.attr("id")) {
+			case "Icon4":
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskOne.webp')");
+				break;
+			case "Icon5":
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskTwo.webp')");
+				break;
+			case "Icon6":
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskThree.webp')");
+				break;
+			default:
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/mask0.webp')");
+				break;
+		}
+	}
+	
 	$(".sideLevelIconShowClass").css("background-image", "url("+_preLoadImageArray[_Lindex][_picBig].src+")");
 	
 	var pic;
