@@ -90,6 +90,8 @@ var t15 = 0;
 
 //设备视频源
 var _TVSource = "";
+//设置虚拟奖的图标
+var _iconVirtualPrize = "images/iconVirtualPrize.webp";
 
 //函数正式开始：
 var app = {
@@ -334,7 +336,11 @@ function getWinNews() {
 				if(data.data.length != 0) {
 					document.getElementById("awardul").innerHTML = "";
 					for(var i = 0; i < data.data.length; i++) {
-						var _div = '<li><span class="testspan1">' + data.data[i].userNickName + '</span><span class="testspan2">' + data.data[i].awardName + '</span><span class="testspan3">' + data.data[i].awardTime.split(' ')[0] + '</span></li>';
+						var userName = data.data[i].userNickName;
+						userName = userName.substr(0,3) + "**";
+						var awardName = data.data[i].awardName;
+						awardName = "刚刚获得" + awardName.substr(0,6)+"***";
+						var _div = '<li><span class="testspan1">' + userName + '</span><span class="testspan2">' + awardName + '</span></li>';
 						$("#awardul").append(_div);
 					}
 				}
@@ -498,16 +504,18 @@ function myAwardList() {
 						var _seq = JSON.parse(data.data[i].awardInfo).seq;
 						console.log("_seq:"+_seq);
 						
+						var _bgimg0 = '<img class="myprizbgimg0" src="' + data.data[i].awardUrl + '"/>';
 						if(data.data[i].awardTypeId == 4) { //虚拟奖只有立即查看状态
-							_exchange ++;							
+							_exchange ++;				
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/btnchecknow.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
+							_bgimg0 = '<img class="myprizbgimg0" src="' + _iconVirtualPrize + '"/>';				
 						}else if(data.data[i].awardExchangeFlag == 0) {//未领取
 							_exchange ++;
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/awarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
 						} else { //已领取
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/awardinged.webp"/></div>';
 						}
-						var _bgimg0 = '<img class="myprizbgimg0" src="' + data.data[i].awardUrl + '"/>';
+						
 						_prizeitem += '<div class="myprizeitem"><div class="myprizimg">' + _bgimg0 + '</div><div class="myprizeinfo"><span>' + data.data[i].awardName + '</span></div>' + _bgimg + '</div><div class="line"></div>';
 					}
 					$("#myprizebox").append(_prizeitem);
