@@ -30,6 +30,13 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
             console.log("新版浏览器不存在：" + JSON.stringify(message));
             hasNewBrowers = false;
         });
+       startapp.check("com.pptv.tvsports", function(message) { /* success */
+            console.log("聚体育存在：" + JSON.stringify(message));
+            hasPPTVSports = true;
+        }, function(message) {
+            console.log("聚体育不存在：" + JSON.stringify(message));
+            hasPPTVSports = false;
+        });
 		startapp.check("com.tianci.user", function(message) { /* success */
 		    console.log("账户应用版本：" + JSON.stringify(message));
 		    accountVersion = message.versionCode;

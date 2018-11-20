@@ -3,7 +3,7 @@ var _Lindex= "";
 var _userPoints = 0;
 var _userLvIcons = [];
 var _userLv = 1;
-
+var hasPPTVSports = false;
 //从底层获取设备信息，需要的参数
 var accountVersion = "";
 var cAppVersion = "";
@@ -268,19 +268,19 @@ function enterPurchasePage(){
 				
 		}else if(index == ($(".vipEntry").length -1)) {//最后1个是聚体育
 			console.log("start purchase jutiyu...");
-			/** 聚体育产品包启动方式：
-			启动动作：StartActivity
-			启动方式：uri
-			启动参数：pptv_tvsports://tvsports_vip?from_internal=1
-			应用包名：com.pptv.tvsports
-			应用版本号：129 
-			 * */
 			webBtnClickLog("影视VIP权益", "聚体育VIP");	
-			coocaaosapi.startCommonNormalAction("com.pptv.tvsports", "", "", "", "pptv_tvsports://tvsports_vip?from_internal=1", "[]",
+			console.log("hasPPTVSports ... "+ hasPPTVSports);
+			if(hasPPTVSports) {
+				coocaaosapi.startCommonNormalAction("action", "android.intent.action.VIEW","com.pptv.tvsports","","pptv_tvsports://tvsports_vip?from_internal=1", "[]",
 					function(message){
 						console.log("Jutiyu success: " + JSON.stringify(message));
 					}, function(error){console.log("Jutiyu error: " + error);});
-						
+			}else {
+				coocaaosapi.startAppStoreDetail("com.pptv.tvsports", 
+					function(message){
+						console.log("Jutiyu success: " + JSON.stringify(message));
+					}, function(error){console.log("Jutiyu error: " + error);});				
+			}
 		}
 	}
 	console.log("enterPurchasePage out...");
