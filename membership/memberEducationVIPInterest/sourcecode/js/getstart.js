@@ -1,6 +1,7 @@
 //通用全局变量：
 var _Lindex= "";
 var _userPoints = 0;
+var _userLvIcons = [];
 var _userLv = 1;
 
 //从底层获取设备信息，需要的参数
@@ -194,6 +195,15 @@ function delayLoad() {
 	//教育icon
 	pic = app.rel_html_imgpath(__uri("../img/iconEdu.png"));
 	$(".vipEntryIcon").css("background-image", "url("+pic+")");
+	
+	//用户等级图标数组
+	_userLvIcons[0] = app.rel_html_imgpath(__uri("../img/Lv1.png"));
+	_userLvIcons[1] = app.rel_html_imgpath(__uri("../img/Lv2.png"));
+	_userLvIcons[2] = app.rel_html_imgpath(__uri("../img/Lv3.png"));
+	_userLvIcons[3] = app.rel_html_imgpath(__uri("../img/Lv4.png"));
+	_userLvIcons[4] = app.rel_html_imgpath(__uri("../img/Lv5.png"));
+	_userLvIcons[5] = app.rel_html_imgpath(__uri("../img/Lv6.png"));
+	_userLvIcons[6] = app.rel_html_imgpath(__uri("../img/Lv7.png"));
 	
 	//VIP权益说明页
 	$(".vipPrivilegeDetails").css("background-image", "url(img/EduVIPIqiyi.webp)");
@@ -557,7 +567,10 @@ function getUserCoinsInfo() {
 			if(data.success == true) {
 				_userLv = data.data.level.gradeLevel;
 				_userPoints = data.data.points;
-				$("#userLv").text("Lv"+_userLv);
+//				$("#userLv").text("Lv"+_userLv);
+				_userLv = (_userLv < 1) ? 1 : _userLv;
+				_userLv = (_userLv > 7) ? 7 : _userLv;
+				$("#userLv").css("background-image", "url("+_userLvIcons[_userLv-1]+")");				
 				$("#coinNum").text((data.data.coins).toFixed(1));
 			}
 		},

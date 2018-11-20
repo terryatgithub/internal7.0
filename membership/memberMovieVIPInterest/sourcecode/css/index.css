@@ -50,7 +50,7 @@ body {
 }
 
 #userinfo div{
-	margin: 0px 5px;
+	margin: 0px 3px;
 }
 
 #userIcon {
@@ -65,14 +65,11 @@ body {
 
 #userLv {
 	position: relative;
-	top: 66px;
-	height: 28px;
-	color: rgba(253,78,0,1);
-	font-family: "NotoSansHans-Medium", sans-serif;
-	font-size: 28px;
-	line-height: 28px;
-	letter-spacing: 0;
-	text-transform: none;
+	top: 68px;
+	width: 50px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #coinIcon {
