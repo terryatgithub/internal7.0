@@ -1254,6 +1254,7 @@ function getWechatLucyMoney(activeId, rememberId, userKeyId) {
 		success: function(data) {
 			console.log("getWechatLucyMoney success:" + JSON.stringify(data));
 			if(data.code == "200") {
+				document.getElementById("qrcode").innerHTML = "";
 				var url = data.data;
 				var qrcode = new QRCode(document.getElementById("qrcode"), {
 					width: 190,
