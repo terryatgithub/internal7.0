@@ -59,16 +59,16 @@ var _awardInfos = {
 	iqiyi: [
 		 {id:1, title:"影视终身VIP", des:"恭喜您获得影视终身VIP"}
 		,{id:2, title:"豪华按摩椅", des:"恭喜您获得智能按摩椅1台"}
-		,{id:3, title:"飞利浦剃须刀", des:"愿剃净与舒适伴您每一天，请扫码填写收货信息"}
+		,{id:3, title:"飞利浦剃须刀", des:"愿剃净与舒适伴您每一天，请扫码填收货信息"}
 		,{id:4, title:"伊贝诗护肤套装", des:"愿您容颜不老青春永驻，请扫码填写收货信息"}
 		,{id:5, title:"现金红包", des:"小小红包略表心意，请扫码领取"}
 		,{id:6, title:"50万保额意外险", des:"给您呵护，愿您平安，请扫码领取您的保障"}
-		,{id:7, title:"智能蓝牙音箱",  des:"愿每时每刻都有音乐伴您，请扫码填写收货信息"}
+		,{id:7, title:"智能蓝牙音箱",  des:"愿每时每刻都有音乐伴您，请扫码填收货信息"}
 		,{id:8, title:"2688元父母体检套餐", des:"恭喜您获得2688元父母体检套餐"}
 	]
 	,tencent: [
 		 {id:1, title:"影视终身VIP", des:"恭喜您获得影视终身VIP"}
-		,{id:2, title:"扫地机器人",  des:"愿每天享扑面而来的干净，请扫码填写收货信息"}
+		,{id:2, title:"扫地机器人",  des:"愿每天享扑面而来的干净，请扫码填收货信息"}
 		,{id:3, title:"精品茶叶罐", des:"愿茶香伴您宁静致远，请扫码填写收货信息"}
 		,{id:4, title:"企鹅抱枕", des:"愿您拥有幸福的依靠，请扫码填写收货信息"}
 		,{id:5, title:"现金红包", des:"小小红包略表心意，请扫码领取"}
@@ -1212,7 +1212,7 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		
 		$(".prizetoast:eq(2)").css("display", "block");
 		document.getElementById("qrcode").innerHTML = "";
-		getWechatLucyMoney(activeId, rememberId, userKeyId);
+		getWechatLuckyMoney(activeId, rememberId, userKeyId);
 		
 		$("#fourPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});		
@@ -1226,7 +1226,7 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 	}
 }
 
-function getWechatLucyMoney(activeId, rememberId, userKeyId) {
+function getWechatLuckyMoney(activeId, rememberId, userKeyId) {
 	var ajaxTimeoutOne = $.ajax({
 		type: "GET",
 		async: true,
@@ -1252,7 +1252,7 @@ function getWechatLucyMoney(activeId, rememberId, userKeyId) {
 			"type": 22,
 		},
 		success: function(data) {
-			console.log("getWechatLucyMoney success:" + JSON.stringify(data));
+			console.log("getWechatLuckyMoney success:" + JSON.stringify(data));
 			if(data.code == "200") {
 				document.getElementById("qrcode").innerHTML = "";
 				var url = data.data;
@@ -1262,7 +1262,7 @@ function getWechatLucyMoney(activeId, rememberId, userKeyId) {
 				});
 				qrcode.makeCode(url);
 			} else {
-				console.log('getWechatLucyMoney fail..');
+				console.log('getWechatLuckyMoney fail..');
 				errorToast();	
 			}
 		},
