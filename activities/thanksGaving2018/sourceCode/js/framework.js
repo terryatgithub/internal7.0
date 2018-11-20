@@ -171,6 +171,7 @@ var app = {
 		} else{
 			$("#mainPage").css("display","block");
 		}
+		setTimeout(delayLoad, 100);
 		getDeviceInfo();
 		buttonInitBefore();
 		startmarquee(400, 30, 0, 1);
@@ -180,6 +181,16 @@ var app = {
 };
 
 app.initialize();
+
+function delayLoad() {
+	$("#firstPage").css("background-image", "url(images/bg.webp)");	
+	
+	var pic = app.rel_html_imgpath(__uri("../images/toast1.png"));
+	$("#errorToast").css("background-image", "url("+pic+")");
+	
+	pic = app.rel_html_imgpath(__uri("../images/toast3.png"));
+	$("#errorToast3").css("background-image", "url("+pic+")");
+}
 
 //15秒没做操作
 function donothing(){

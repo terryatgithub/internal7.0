@@ -46,10 +46,10 @@ body {
 
 #dialogPage{
 	background-color: rgba(0,0,0,0.6);
-	background-image: url(../images/dialog0.webp);
+	/*background-image: url(../images/dialog0.webp);*/
 }
 #firstPage {
-	background-image: url(../images/bg.webp);
+	/*background-image: url(../images/bg.webp);*/
 	display: block;
 }
 
@@ -77,13 +77,13 @@ body {
 	z-index: 600;
 	display: none;
 }
-
+/*
 #errorToast {
 	background-image: url(../images/toast1.png);
 }
 #errorToast3 {
 	background-image: url(../images/toast3.png);
-}
+}*/
 
 #errorToast2 {
 	top: 730px;
@@ -106,7 +106,7 @@ body {
     width: 195px;
     background-repeat: no-repeat;
     background-size: 100%;
-    background-image: url(../images/border1.webp);
+    /*background-image: url(../images/border1.webp);*/
 }
 
 #mainPage {
