@@ -8,7 +8,7 @@ var _emmcCID = null;
 var _nickName = null;
 var _mobile = null;
 
-var _openId = "";//null;
+var _openId = "未登录";//null;
 var _loginstatus = null;
 var _tencentWay = null;
 var _user_flag = null;
@@ -31,20 +31,6 @@ var _activeIdObj = {
 	activeIdTencent: 160,
 	activeIdIqiyi:   158
 };
-//-----------------------------正式上线需配置参数 end---------------------------------//
-
-var _actionid = null;
-var _lotteryCode = 0;
-var _remainingTimes = 0;
-var _operateTime = 0;
-var _source = "";
-var _curFocusButton = "productsButton1";
-var ttt = null;
-var tt = null;
-var t15 = 0;
-
-//设备视频源
-var _TVSource = "";
 //产品包信息(测试)
 var _VIPInfos = {
 	iqiyi: {
@@ -67,6 +53,7 @@ var _VIPInfosRel = {
 		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
 	}
 };
+//-----------------------------正式上线需配置参数 end---------------------------------//
 //奖品提示信息,id号或数组排序要跟转盘排序匹配（跟后台确认）
 var _awardInfos = {
 	iqiyi: [
@@ -91,6 +78,20 @@ var _awardInfos = {
 	]
 };
 
+var _actionid = null;
+var _lotteryCode = 0;
+var _remainingTimes = 0;
+var _operateTime = 0;
+var _source = "";
+var _curFocusButton = "productsButton1";
+var ttt = null;
+var tt = null;
+var t15 = 0;
+
+//设备视频源
+var _TVSource = "";
+
+//函数正式开始：
 var app = {
 	canonical_uri: function(src, base_path) {
 		var root_page = /^[^?#]*\//.exec(location.href)[0],
@@ -216,8 +217,9 @@ function getDeviceInfo() {
 }
 //初始化接口
 //num： 0：初次进入活动页面，source为dialog时进入活动主弹窗页面； 否则进入活动主页面；并开启定时（1h）获取中奖信息的任务；
-//num: 1:只获取并更新页面抽奖次数等信息
-//num: 2:返回按键状态
+//		 默认焦点：如果有抽奖机会，默认焦点在抽奖按钮上；如果没有抽奖机会，默认焦点在购买产品包上；
+//num: 1: 1就是只更新抽奖次数，其它什么都不做。
+//num: 2:从其它页面返回当前页面后，进入resume时执行的流程
 function interfaceInit(num) {
 	console.log("-------------------->"+ num);
 	//_actionid = getQueryString("action");
@@ -489,17 +491,20 @@ function myAwardList() {
 				console.log(_length);
 				var _prizeitem = "";
 				var _exchange = 0;
-				if(_length > 0) {
 //				//yuanbotest
 //				if(false) {
+				if(_length > 0) {
 					for(var i = 0; i < _length; i++) {
 						var _seq = JSON.parse(data.data[i].awardInfo).seq;
 						console.log("_seq:"+_seq);
-						//虚拟奖不做已领取
-						if(data.data[i].awardTypeId == 4 || data.data[i].awardExchangeFlag == 0) {
+						
+						if(data.data[i].awardTypeId == 4) { //虚拟奖只有立即查看状态
+							_exchange ++;							
+							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/btnchecknow.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
+						}else if(data.data[i].awardExchangeFlag == 0) {//未领取
 							_exchange ++;
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/awarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
-						} else {
+						} else { //已领取
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/awardinged.webp"/></div>';
 						}
 						var _bgimg0 = '<img class="myprizbgimg0" src="' + data.data[i].awardUrl + '"/>';
@@ -540,6 +545,7 @@ function myAwardList() {
 		}
 	});
 }
+	
 //动态创建我的奖品后的button的初始化
 function creatButtonInit() {
 	$(".coocaa_btn2").unbind("focus").bind("focus", function() {
@@ -1174,7 +1180,7 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		$("#prizeImg").css("display", "block");
 		$("#fourPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-	} else if(type == 4) { //虚拟奖,只显示图片
+	} else if(type == 4) { //虚拟奖,只显示图片,图片居中
 		$(".category2_3").css("display", "none");
 		$(".category2_2").css("display", "block");
 		$(".category2_2").css("left", "270px");
@@ -1188,7 +1194,7 @@ function showResult(type, name, imgurl, activeId, rememberId, userKeyId, seq) {
 		$("#prizeImg").css("display", "block");
 		$("#fourPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-	} else if(type == 7) { //微信红包,只显示二维码
+	} else if(type == 7) { //微信红包,只显示二维码,二维码居中
 		$(".category2_2").css("display", "none");
 		$(".category2_3").css("display", "block");
 		$(".category2_3").css("left", "270px");
@@ -1332,6 +1338,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 		},
 		error: function(error) {
 			console.log("getTvSource error..."+error);
+			errorToast();
 		},
 		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
 	　　　　	console.log("getTVSource complete--"+status);
@@ -1346,17 +1353,15 @@ function updateProductInfosBySource() {
 	if(_TVSource == "tencent") {
 		_actionid = _activeIdObj.activeIdTencent;
 		//更新价格标签,以及转盘(奖品不同)
-		var pic = app.rel_html_imgpath(__uri("../images/priceTencent.png"));
-		$("#priceLabel").css("background-image", "url("+pic+")");
-		pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
+		$("#priceLabel").css("background-image", "url(images/priceTencent.webp)");
+		var pic = app.rel_html_imgpath(__uri("../images/rollTencent.png"));
 		$("#rotate").attr("src", pic);
-	}else{  
+	}else{  	
 		console.log("默认视频源：yinhe");
 		_actionid = _activeIdObj.activeIdIqiyi;
 		//更新价格标签,以及转盘(奖品不同)
-		var pic = app.rel_html_imgpath(__uri("../images/priceIqiyi.png"));
-		$("#priceLabel").css("background-image", "url("+pic+")");
-		pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
+		$("#priceLabel").css("background-image", "url(images/priceIqiyi.webp)");
+		var pic = app.rel_html_imgpath(__uri("../images/rollIqiyi.png"));
 		$("#rotate").attr("src", pic);
 	}	
 	console.log("视频源：" + _TVSource +"_actionid:"+_actionid);

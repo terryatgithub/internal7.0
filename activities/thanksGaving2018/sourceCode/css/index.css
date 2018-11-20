@@ -186,6 +186,14 @@ body {
 	display: block;
 }
 
+#category3 .borders {
+	position: relative; 
+	top: 141px; 
+	left: 57px; 
+	width: 160px; 
+	height: 55px;
+}
+
 .btn-focus .bordersBlur {
 	display: none;
 }
