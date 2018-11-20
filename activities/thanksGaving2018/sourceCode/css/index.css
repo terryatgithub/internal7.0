@@ -325,7 +325,6 @@ body {
 	left: 100px;
 	height: 840px;
 	width: 1720px;
-	color: white;
 	overflow: auto;
 }
 
@@ -528,10 +527,8 @@ body {
 	background-size: 100%;
 }
 .line {
-	margin-left: -100px;
+	/*margin-left: -100px;*/
 	height: 1px;
-	width: 1920px;
+	width: 100%;
 	background: #673800;
-	/*background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2), #fcfbfb, rgba(255, 255, 255, 0.2));
-	background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fcfbfb, rgba(255, 255, 255, 0.2));*/
 }
