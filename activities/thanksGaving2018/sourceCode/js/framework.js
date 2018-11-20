@@ -246,7 +246,7 @@ function interfaceInit(num) {
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
-			_curFocusButton = "productsButton1";
+			//_curFocusButton = "productsButton1";
 			_lotteryCode = 0;
 			_remainingTimes = 0;
 			_operateTime = 0;
@@ -304,7 +304,8 @@ function resumeButtonStatus(){
 			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("realaward"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
 		if (document.getElementById("category3").style.display == "block") {
-			map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			console.log("resumeButtonStatus restore id:"+_curFocusButton);
+			map = new coocaakeymap($(".coocaa_btn4"), document.getElementById(_curFocusButton), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
 		if (document.getElementById("category5").style.display == "block") {
 			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("iknowButton2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -312,6 +313,9 @@ function resumeButtonStatus(){
 		if (document.getElementById("category6").style.display == "block") {
 			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("iknowButton3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
+	}else {
+		console.log("resumeButtonStatus restore id:"+_curFocusButton);
+		$("#"+_curFocusButton).addClass("btn-focus");
 	}
 }
 
@@ -406,6 +410,8 @@ function buttonInitBefore() {
 			videoSrc = _VIPInfos.iqiyi;
 		}		
 		console.log("mainpage product Id:"+curId);
+		_curFocusButton = curId;
+		$("#"+_curFocusButton).removeClass("btn-focus");		
 		switch(curId) {
 			case "productsButton1"://年卡
 				productId = videoSrc.year.mainProductId;
@@ -429,6 +435,7 @@ function buttonInitBefore() {
 			videoSrc = _VIPInfos.iqiyi;
 		}	
 		console.log("toast product Id:"+curId);
+		_curFocusButton = curId;
 		switch(curId) {
 			case "productsButton21"://弹窗年卡
 				productId = videoSrc.year.toastProductId;
@@ -595,7 +602,7 @@ function creatButtonInit() {
 }
 //开始抽奖
 function drawButtonClick() {
-//	_curFocusButton = "drawButton";
+	_curFocusButton = "drawButton";
 //	if(_loginstatus == "false") {
 //		startLogin(false);
 //	} else {
@@ -712,7 +719,8 @@ function startProductPackPage() {
 	}else {
 		$("#category3").css("background-image","url(images/diaglogIqiyi.webp)");
 	}
-	
+	console.log("draw button remove class....");
+	$("#drawButton").removeClass("btn-focus");
 	$(".prizetoast:eq(3)").css("display", "block");
 	$("#fourPage").css("display", "block");
 	map = new coocaakeymap($(".coocaa_btn4"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -873,6 +881,8 @@ function backButtonFunc() {
 			myAwardList();
 			//map = new coocaakeymap($(".coocaa_btn2"), document.getElementsByClassName("coocaa_btn2")[_curFocusButton], "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else {
+			console.log("backButtonFunc restore focus: "+_curFocusButton);
+			$("#"+_curFocusButton).addClass("btn-focus");
 			map = new coocaakeymap($(".coocaa_btn"), document.getElementById(_curFocusButton), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
 	} else {
