@@ -515,14 +515,15 @@ function myAwardList() {
 						} else { //已领取
 							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/btnawardinged.webp"/></div>';
 						}
-						
+							
 						_prizeitem += '<div class="myprizeitem"><div class="myprizimg">' + _bgimg0 + '</div><div class="myprizeinfo"><span>' + data.data[i].awardName + '</span></div>' + _bgimg + '</div><div class="line"></div>';
 					}
 					$("#myprizebox").append(_prizeitem);
 					$("#myprizebox").prepend('<div class="line"></div>'	);//前面插一个行
 					$("#thirdPage").css("display", "block");
 					if (_exchange > 0) {
-						map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+						//如果有未领取或立即查看奖品,落焦到第一个上
+						map = new coocaakeymap($(".coocaa_btn2"), $(".coocaa_btn2").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 					}else{
 						map = new coocaakeymap($(".coocaa_btn6"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 					}
@@ -868,7 +869,9 @@ function backButtonFunc() {
 			$(".prizetoast")[i].style.display = "none";
 		}
 		if(page3 == "block") {
-			map = new coocaakeymap($(".coocaa_btn2"), document.getElementsByClassName("coocaa_btn2")[_curFocusButton], "btn-focus", function() {}, function(val) {}, function(obj) {});
+			//在我的奖品页面,从弹窗返回后,重新获取一次奖品状态,以刷新页面:
+			myAwardList();
+			//map = new coocaakeymap($(".coocaa_btn2"), document.getElementsByClassName("coocaa_btn2")[_curFocusButton], "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else {
 			map = new coocaakeymap($(".coocaa_btn"), document.getElementById(_curFocusButton), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		}
