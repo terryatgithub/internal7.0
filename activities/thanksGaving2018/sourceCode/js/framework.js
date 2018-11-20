@@ -511,9 +511,9 @@ function myAwardList() {
 							_bgimg0 = '<img class="myprizbgimg0" src="' + _iconVirtualPrize + '"/>';				
 						}else if(data.data[i].awardExchangeFlag == 0) {//未领取
 							_exchange ++;
-							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/awarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
+							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn2" status="1"><img class="myprizbgimg" src="images/btnawarding.webp"/><img class="myprizea" src="images/border2.webp"/></div>';
 						} else { //已领取
-							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/awardinged.webp"/></div>';
+							var _bgimg = '<div awardUrl="' + data.data[i].awardUrl + '" lname="' + data.data[i].awardName + '" activeId="' + data.data[i].activeId + '" awardId="' + data.data[i].awardId + '" awardRememberId="' + data.data[i].lotteryAwardRememberId + '" awardTypeId="' + data.data[i].awardTypeId + '" userKeyId="' + data.data[i].userKeyId + '" seq="' + _seq + '" class="myprizebtn coocaa_btn22" status="0"><img class="myprizbgimg" src="images/btnawardinged.webp"/></div>';
 						}
 						
 						_prizeitem += '<div class="myprizeitem"><div class="myprizimg">' + _bgimg0 + '</div><div class="myprizeinfo"><span>' + data.data[i].awardName + '</span></div>' + _bgimg + '</div><div class="line"></div>';
@@ -558,6 +558,7 @@ function myAwardList() {
 function creatButtonInit() {
 	$(".coocaa_btn2").unbind("focus").bind("focus", function() {
 		var _index = $(".coocaa_btn2").index($(this));
+		
 		var _eachheight = $(".myprizeitem")[0].offsetHeight + $(".line")[0].offsetHeight;
 		var myScrollTopValue = 0;
 		myScrollTopValue = _index * _eachheight;
@@ -569,17 +570,18 @@ function creatButtonInit() {
 			complete: function() {}
 		});
 	});
-	$(".myprizebtn").unbind("itemClick").bind("itemClick", function() {
-		var _index = $(".myprizebtn").index($(this));
+	$(".coocaa_btn2").unbind("itemClick").bind("itemClick", function() {
+		var _index = $(".coocaa_btn2").index($(this));
 		_curFocusButton = _index;
-		var _activeId = $(".myprizebtn:eq(" + _index + ")").attr("activeId");
-		var _awardId = $(".myprizebtn:eq(" + _index + ")").attr("awardId");
-		var _awardRememberId = $(".myprizebtn:eq(" + _index + ")").attr("awardRememberId");
-		var _awardTypeId = $(".myprizebtn:eq(" + _index + ")").attr("awardTypeId");
-		var _userKeyId = $(".myprizebtn:eq(" + _index + ")").attr("userKeyId");
-		var _seq = $(".myprizebtn:eq(" + _index + ")").attr("seq");
-		var _name = $(".myprizebtn:eq(" + _index + ")").attr("lname");
-		var _imgurl = $(".myprizebtn:eq(" + _index + ")").attr("awardUrl");
+		
+		var _activeId = $(".coocaa_btn2:eq(" + _index + ")").attr("activeId");
+		var _awardId = $(".coocaa_btn2:eq(" + _index + ")").attr("awardId");
+		var _awardRememberId = $(".coocaa_btn2:eq(" + _index + ")").attr("awardRememberId");
+		var _awardTypeId = $(".coocaa_btn2:eq(" + _index + ")").attr("awardTypeId");
+		var _userKeyId = $(".coocaa_btn2:eq(" + _index + ")").attr("userKeyId");
+		var _seq = $(".coocaa_btn2:eq(" + _index + ")").attr("seq");
+		var _name = $(".coocaa_btn2:eq(" + _index + ")").attr("lname");
+		var _imgurl = $(".coocaa_btn2:eq(" + _index + ")").attr("awardUrl");
 		
 		console.log(_activeId + "--" + _awardRememberId + "--" + _userKeyId+"--seq:"+_seq);
 		
