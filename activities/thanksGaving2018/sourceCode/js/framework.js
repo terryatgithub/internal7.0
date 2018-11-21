@@ -124,26 +124,6 @@ var app = {
 	},
 
 	initialize: function() {
-		//yuanbotest -start
-//		_source = getQueryString("source");
-//		_actionid = getQueryString("action");
-//		console.log(_source +"----"+_actionid);
-//		if (_source == "dialog") {
-//			$("#dialogPage").css("display","block");
-//			map = new coocaakeymap($(".coocaa_btn"), document.getElementById("dialogbutton"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//			webPageShowLog("720全局弹窗（教育）");
-//			tt = setTimeout(donothing,18000);
-//		} else{
-//			$("#mainPage").css("display","block");
-//			webPageShowLog("720转盘抽奖页面（教育）");
-//		}
-//		getDeviceInfo();
-//		buttonInitBefore();
-//		startmarquee(400, 30, 0, 1);
-//		listenUserChange();
-//		setTimeout(doingSomething,10);
-		//yuanbotest-end
-		
 		this.bindEvents();
 	},
 	bindEvents: function() {
@@ -399,19 +379,13 @@ function buttonInitBefore() {
 		$("#secondPage").css("display", "block");
 		map = new coocaakeymap($(".coocaa_btn5"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 		webBtnClickLog("", "","活动规则");
-//		webBtnClickLog("720转盘抽奖页面（教育）", "活动规则", _actionid, "720暑假（教育）");
 	});
 	//我的奖品
 	$("#myprizeButton").bind("itemClick", function() {
 		_curFocusButton = "myprizeButton";
-//		if(_loginstatus == "false") {
-//			startLogin(false);
-//		} else {
-			$("#noprize").css("display", "none");
-			myAwardList();
-//		}
+		$("#noprize").css("display", "none");
+		myAwardList();
 		webBtnClickLog("", "","我的奖品");
-//		webBtnClickLog("720转盘抽奖页面（教育）", "我的奖品", _actionid, "720暑假（教育）");
 	});
 	//提示窗口页面
 	$(".coocaa_btn3").bind("itemClick", function() {
@@ -494,6 +468,13 @@ function buttonInitBefore() {
 	});
 	//抽奖按钮
 	bindAgain();
+
+	$("#noprize").unbind("itemClick").bind("itemClick", function() {
+		$("#noprize").css("display", "none");
+		$("#thirdPage").css("display", "none");
+		console.log("myawardpage ********#noprize thirdPage display none ");
+		map = new coocaakeymap($(".coocaa_btn"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	});
 }
 //重新绑定
 function bindAgain() {
@@ -534,8 +515,6 @@ function myAwardList() {
 				console.log(_length);
 				var _prizeitem = "";
 				var _exchange = 0;
-//				//yuanbotest
-//				if(false) {
 				if(_length > 0) {
 					for(var i = 0; i < _length; i++) {
 						var _seq = JSON.parse(data.data[i].awardInfo).seq;
@@ -562,22 +541,18 @@ function myAwardList() {
 					$("#myprizebox").append(_prizeitem);
 					$("#myprizebox").prepend('<div class="line"></div>'	);//前面插一个行
 					$("#thirdPage").css("display", "block");
+					creatButtonInit();
 					if (_exchange > 0) {
 						//如果有未领取或立即查看奖品,落焦到第一个上
 						map = new coocaakeymap($(".coocaa_btn2"), $(".coocaa_btn2").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+						$(".coocaa_btn2:eq(0)").trigger("focus");
 					}else{
-						map = new coocaakeymap($(".coocaa_btn6"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+						map = new coocaakeymap($(".coocaa_btn22"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 					}
-					creatButtonInit();
 				} else {
 					$("#noprize").css("display", "block");
 					$("#thirdPage").css("display", "block");
 					map = new coocaakeymap($(".coocaa_btn6"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-					$(".coocaa_btn6").unbind("itemClick").bind("itemClick", function() {
-						$("#noprize").css("display", "none");
-						$("#thirdPage").css("display", "none");
-						map = new coocaakeymap($(".coocaa_btn"), document.getElementById("productsButton21"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-					});
 				}
 			} else {
 				errorToast();
