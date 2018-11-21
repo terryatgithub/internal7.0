@@ -3,19 +3,17 @@ var　firstFocus="";
 var _bPlayDisrupted = false;
 var _bBgColorTransparent = false;
 
-//视频资源地址,例如:http://v-play.coocaatv.com/7-demo/10-help.mp4
-var _baseUrl = "http://v-play.coocaatv.com/7-demo/";
 var _videoInfos = [
-	 { des: "如何使用遥控器", name: "1-remote", duration: "02:57", img: "img/1.webp"}
-	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "03:49", img: "img/2.webp"}
-	,{ des: "在播放中会用到", name: "3-play", duration: "02:34", img: "img/3.webp"}
-	,{ des: "看过的节目去哪里找", name: "4-history", duration: "01:57", img: "img/4.webp"}
-	,{ des: "如何购买会员和登录", name: "5-vip", duration: "03:16", img: "img/5.webp"}
-	,{ des: "怎么看电视台", name: "6-cctv", duration: "01:25", img: "img/6.webp"}
-	,{ des: "试试和电视说话", name: "7-AI", duration: "03:08", img: "img/7.webp"}
-	,{ des: "如何在电视上看手机上的视频和照片", duration: "02:51", name: "8-cast", img: "img/8.webp"}
-	,{ des: "还能用电视做什么", name: "9-education", duration: "03:19", img: "img/9.webp"}
-	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "02:08", img: "img/10.webp"}
+	 { des: "如何使用遥控器", name: "1-remote", duration: "02:57", img: "img/1.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/7789c9d45285890783126962554/v.f240.m3u8?t=6198a5c6&exper=0&sign=033b301fd791463b85cbecfcc3a7acbb"}
+	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "03:49", img: "img/2.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778a4d515285890783126963325/v.f240.m3u8?t=6198a5c6&exper=0&sign=5af7a79476f1227f258cce8d4e9243d1"}
+	,{ des: "在播放中会用到", name: "3-play", duration: "02:34", img: "img/3.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/771f67d15285890783126906517/v.f240.m3u8?t=6198a5c6&exper=0&sign=46f4eb610324d989ad0854cfeaa9a242"}
+	,{ des: "看过的节目去哪里找", name: "4-history", duration: "01:57", img: "img/4.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/771febd05285890783126907326/v.f240.m3u8?t=6198a5c6&exper=0&sign=08725d427cccb9d2d3214b085fa025e5"}
+	,{ des: "如何购买会员和登录", name: "5-vip", duration: "03:16", img: "img/5.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778b66785285890783126965357/v.f240.m3u8?t=6198a5c6&exper=0&sign=8a3d63fc2c50f79fc77ec331f904357e"}
+	,{ des: "怎么看电视台", name: "6-cctv", duration: "01:25", img: "img/6.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778b7b7a5285890783126965836/v.f240.m3u8?t=6198a5c6&exper=0&sign=778fb6067aadde097efd7cbf1287af0e"}
+	,{ des: "试试和电视说话", name: "7-AI", duration: "03:08", img: "img/7.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/77208d955285890783126908834/v.f240.m3u8?t=6198a5c6&exper=0&sign=159768f0094b7d39fcfebd17a85624e6"}
+	,{ des: "如何在电视上看手机上的视频和照片", duration: "02:51", name: "8-cast", img: "img/8.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/7558d2bb5285890783126882596/v.f240.m3u8?t=6198a5c6&exper=0&sign=02348bfab3db952c2d25bf14a5657ef7"}
+	,{ des: "还能用电视做什么", name: "9-education", duration: "03:19", img: "img/9.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/7559514c5285890783126883211/v.f240.m3u8?t=6198a5c6&exper=0&sign=5f1ddf2231c82b99dec97393b1ee3a70"}
+	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "02:08", img: "img/10.webp", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778cfe345285890783126968008/v.f240.m3u8?t=6198a5c6&exper=0&sign=94b2fed3632f498132242b1e320cae9c"}
 ];
 
 //页面部分的逻辑
@@ -279,7 +277,7 @@ function playVideo() {
 		_bPlayDisrupted = true;
 		
 		var _cName = _videoInfos[_Index1].des;
-		var _cUrl = _baseUrl + _videoInfos[_Index1].name + ".mp4";
+		var _cUrl = _videoInfos[_Index1].url;
 		console.log("playing:"+_cName+"--"+_cUrl);
 
 		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
