@@ -1,3 +1,53 @@
+//-----------------------------正式上线需配置参数 start---------------------------------//
+//-------------------------------------测试区域----------------------------
+//抽奖接口：
+var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
+//实物二维码领取接口
+var _qrurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接口
+//产品包支付页面接口：
+var _payUrl = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data="; //内部测试环境
+
+//活动ID（由运营确定）：
+var _activeIdObj = {//测试
+	activeIdTencent: 160,
+	activeIdIqiyi:   158
+};
+//产品包信息(测试)
+var _VIPInfos = {
+	iqiyi: {
+		 year:  {mainProductId: 1000406, toastProductId: 1000404, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
+		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
+	}
+	,tencent: {
+		 year:  {mainProductId: 1000400, toastProductId: 1000402, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
+		,season:{mainProductId: 1000401, toastProductId: 1000403, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
+	}
+};
+//-------------------------------------正式区域----------------------------
+////抽奖接口：
+//var _testurl = "https://restful.skysrt.com";//正式接口
+////实物二维码领取接口
+//var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";//正式接口
+////产品包支付页面接口：
+//var _payUrl = "https://api-business.skysrt.com/v3/web/actCenter/index.html?data="; //正式接口
+//
+//var _activeIdObj = { //正式
+//	activeIdTencent: 83,
+//	activeIdIqiyi:   84 
+//};
+////产品包信息(正式)
+//var _VIPInfos = {
+//	iqiyi: {
+//		 year:  {mainProductId: 1323, toastProductId: 1334, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
+//		,season:{mainProductId: 1324, toastProductId: 1335, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
+//	}
+//	,tencent: {
+//		 year:  {mainProductId: 1325, toastProductId: 1336, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
+//		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
+//	}
+//};
+//-----------------------------正式上线需配置参数 end---------------------------------//
+
 var _macAddress = null;
 var _TVmodel = null;
 var _TVchip = null;
@@ -16,49 +66,6 @@ var _login_type = null;
 var _vuserid = null;
 var _qqtoken = null;
 
-//-----------------------------正式上线需配置参数 start---------------------------------//
-//抽奖接口：
-var _testurl = "http://beta.restful.lottery.coocaatv.com";//测试接口
-//var _testurl = "https://restful.skysrt.com";//正式接口
-//实物二维码领取接口
-var _qrurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接口
-//var _qrurl = "https://webapp.skysrt.com/address/address/index.html?";//正式接口
-//产品包支付页面接口：
-var _payUrl = "http://172.20.132.182:8090/v3/web/actCenter/index.html?data="; //内部测试环境
-//var _payUrl = "https://api-business.skysrt.com/v3/web/actCenter/index.html?data="; //正式接口
-
-//活动ID（由运营确定）：
-var _activeIdObj = {//测试
-	activeIdTencent: 160,
-	activeIdIqiyi:   158
-};
-//var _activeIdObj = { //正式
-//	activeIdTencent: 83,
-//	activeIdIqiyi:   84 
-//};
-//产品包信息(测试)
-var _VIPInfos = {
-	iqiyi: {
-		 year:  {mainProductId: 1000406, toastProductId: 1000404, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
-		,season:{mainProductId: 1000407, toastProductId: 1000405, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
-	}
-	,tencent: {
-		 year:  {mainProductId: 1000400, toastProductId: 1000402, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
-		,season:{mainProductId: 1000401, toastProductId: 1000403, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
-	}
-};
-//产品包信息(正式)
-//var _VIPInfos = {
-//	iqiyi: {
-//		 year:  {mainProductId: 1323, toastProductId: 1334, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinheyear.png"}
-//		,season:{mainProductId: 1324, toastProductId: 1335, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113yinhes.png"}
-//	}
-//	,tencent: {
-//		 year:  {mainProductId: 1325, toastProductId: 1336, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txyear.png"}
-//		,season:{mainProductId: 1326, toastProductId: 1337, bgurl: "http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/newd20181113txs.png"}
-//	}
-//};
-//-----------------------------正式上线需配置参数 end---------------------------------//
 //奖品提示信息,id号或数组排序要跟转盘排序匹配（跟后台确认）
 var _awardInfos = {
 	iqiyi: [
