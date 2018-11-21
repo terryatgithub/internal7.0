@@ -12,6 +12,10 @@ https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/thanksGaving2018/index.html?source=&action=157";
 
 
+#正式环境url:
+https://webapp.skysrt.com/movie/thanksgiving/index.html 
+am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/movie/thanksgiving/index.html ";
+
 ##活动产品文档：
 20181122 感恩节活动
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20237674
