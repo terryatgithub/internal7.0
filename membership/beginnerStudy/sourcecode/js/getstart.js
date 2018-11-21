@@ -89,17 +89,6 @@ var app = {
     },
     onResume: function() {
         console.log("in onResume");
-        
-        //播放时返回了:
-        if(_bPlayDisrupted == true) {
-        	console.log("stop playing, and return---");
-        	_bPlayDisrupted = false;
-        	
-        	//恢复主页显示
-			$("#homeTitleDivId").css("display", "block");
-			$("#homtContentDivId").css("display", "block");
-			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[_Index1], "btn-focus", function() {}, function(val) {}, function(obj) {});
-        }
     },
     
     onPause: function() {
@@ -114,15 +103,16 @@ var app = {
 		console.log("registerEventHandler---");
 		coocaaosapi.addCommonListener(function(message) {
 			console.log("--------------->commonListen==" + message.web_player_event);
-			if(message.web_player_event == "on_complete") {
-				//正常播放结束,设置flag:
-				_bPlayDisrupted = false;
-				
-				//关闭主页,并显示播放完毕的提示页面
+			if(message.web_player_event == "on_start") {
 				$("#homeTitleDivId").css("display", "none");
 				$("#homtContentDivId").css("display", "none");
+			}else if(message.web_player_event == "on_complete") {
 				$("#playbackPage").css("display","block");
 				map = new coocaakeymap($(".coocaa_btn2"), $(".coocaa_btn2")[_Index1], null, function() {}, function(val) {}, function(obj) {});
+			}else if(message.web_player_event == "on_interrupt") {
+				$("#homeTitleDivId").css("display", "block");
+				$("#homtContentDivId").css("display", "block");
+				map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[_Index1], "btn-focus", function() {}, function(val) {}, function(obj) {});
 			}
 		});		
 	},
@@ -174,7 +164,6 @@ var app = {
 			$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
 		}
 		delayLoad();
-		map = new coocaakeymap($(".coocaa_btn"), document.getElementsByClassName("coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
 		console.log("out showStudyVideos.");
 	},
     
@@ -239,9 +228,6 @@ function preparePlayVideo() {
 	coocaaosapi.isNetConnected(function(message){
 			console.log("isNetConnected success:"+JSON.stringify(message));
 			if(message.isnetworking == "true") {
-				//关闭主页,避免从playback页面返回时闪一下主页
-				$("#homeTitleDivId").css("display", "none");
-				$("#homtContentDivId").css("display", "none");
 				//启动播放
 				playVideo();			
 			}else {
@@ -255,7 +241,7 @@ function showFailToast() {
 	console.log("showFailToast in..");
 	$("#failToast").css("display", "block");
 	//获取按键:
-	map = new coocaakeymap($(".coocaa_btnF"), document.getElementsByClassName("coocaa_btnF")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btnF"), document.getElementsByClassName("coocaa_btnF")[0], null, function() {}, function(val) {}, function(obj) {});
 }
 
 //进入设置网络页面:
@@ -274,7 +260,7 @@ function playVideo() {
 		console.log("playVideo -start--_startPlaying:true-_Index1:"+_Index1);
 //		_czc.push(["_trackEvent",category,action,label,value,nodeid]);
 		//开始播放时,设置flag; 只有正常播完才会被设为false
-		_bPlayDisrupted = true;
+//		_bPlayDisrupted = true;
 		
 		var _cName = _videoInfos[_Index1].des;
 		var _cUrl = _videoInfos[_Index1].url;
@@ -294,6 +280,7 @@ function replayOrReturn(index)	{
 	console.log("replayOrReturn---index-"+index);
 	if(index == true) {
 		console.log("replay---");
+		$("#playbackPage").css("display","none");
 		playVideo();
 	}else if(index == false){
 		console.log("return---");
