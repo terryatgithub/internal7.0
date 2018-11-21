@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>双11天降福利红包雨，抢红包赢免单！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/sm.min.css">
+    <link rel="stylesheet" href="css/sm-extend.css">
+    <link rel="stylesheet" href="css/adress.css">
+    <script>
+        //声明_czc对象:
+        var _czc = _czc || [];
+        //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+       _czc.push(["_setAccount", "1274516766"]);
+    </script>
+
+  </head>
+  <body style="background: #7f00d9">
+    <div class="phone-value tips-value" id="help_page" style="display: block;">
+        <div><img src="img/help.png" style="width: 100%;" /></div>
+        <button class="display-b phone-submit col-fff" style="width:60%; background:#ff6802" id="help_btn" >点击助力</button>
+        <p id="click_num" style="text-align:center; color:#fff"></p>
+        <div class="help_foot"><img src="img/help_foot.png" style="width: 100%;" /></div>
+    </div>
+
+
+    <div class="tips-help" style="display:none">
+        <span class="help_success" style="display:none"><img src="img/help_success.png"/></span>
+        <span class="help_alerdy" style="display:none"><img src="img/help_alerdy.png"/></span>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+         var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+         document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1274516766'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1274516766' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        activeId = getUrlParam('activeId');
+        macAddress = getUrlParam('macAddress');
+        emmcId = getUrlParam('emmcId');
+        cOpenId = getUrlParam('cOpenId');
+        cUDID = getUrlParam('cUDID');
+        help = "error";
+        var domain = 'http://beta.restful.lottery.coocaatv.com';
+        //var domain = 'https://restful.skysrt.com';
+        function getUrlParam(name) {
+          var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+          var r = window.location.search.substr(1).match(reg); //匹配目标参数
+          if (r != null) return decodeURI(r[2], 'utf-8');
+          return null; //返回参数值
+        }
+        var url = domain+'/light/eleven/add-click?activeId='+activeId+'&source=0&cEmmcCID='+emmcId+'&cUDID='+cUDID+'&cOpenId='+cOpenId+'&MAC='+macAddress;
+       // console.log("增加次数"+url);
+        function getHelp(){
+            $.ajax({
+                url: domain+'/light/eleven/add-click',
+                asyns: true,
+                type: 'get',
+                data: {
+                    activeId:activeId,
+                    source:0,
+                    cEmmcCID:emmcId,
+                    cUDID:cUDID,
+                    cOpenId:cOpenId,
+                    MAC:macAddress
+                },
+                dataType:'json',
+                success: function(data){
+                    console.log("显示次数:"+JSON.stringify(data));
+                    $("#click_num").html("已有"+data.data+"人助力")
+                },
+                error: function(err){
+                    help = "error";
+                    console.log(err);
+                    $("#click_num").html("已有0人助力")
+                }
+            });
+
+            $.ajax({
+                url: domain+'/light/eleven/add-chance',
+                asyns: true,
+                type: 'post',
+                data: {
+                    activeId:activeId,
+                    MAC:macAddress,
+                    cEmmcCID:emmcId,
+                    cUDID:cUDID,
+                    cOpenId:cOpenId,
+                    chanceSource:2
+                },
+                dataType:'json',
+                success: function(data){
+                    console.log("求助信息:"+data.data.length+JSON.stringify(data));
+                    if (data.code == 50100) {
+                        help = "true";
+                        console.log("助力成功");
+                        _czc.push(['_trackEvent', '扫码分享页面（手机）',  '加机会成功', '']);
+                    }else if(data.code == 91007){
+                        help = "true";
+                        console.log("已经助力过");
+                        _czc.push(['_trackEvent', '扫码分享页面（手机）', '已经助力过', '']);
+                    }else{
+                        help = "error";
+                        _czc.push(['_trackEvent', '扫码分享页面（手机）',  '加机会失败', '']);
+                    }
+                },
+                error: function(err){
+                    help = "error";
+                    console.log(err);
+                    _czc.push(['_trackEvent', '扫码分享页面（手机）', '加机会失败', '']);
+                }
+            });
+        }
+        getHelp();
+
+        $('#help_btn').on('click',function() {
+            $.ajax({
+                url: domain+'/light/eleven/add-click',
+                asyns: true,
+                type: 'get',
+                data: {
+                    activeId:activeId,
+                    source:1,
+                    cEmmcCID:emmcId,
+                    cUDID:cUDID,
+                    cOpenId:cOpenId,
+                    MAC:macAddress
+                },
+                dataType:'json',
+                success: function(data){
+                    console.log("点击助力:"+JSON.stringify(data));
+                    $('.tips-help,.help_success').css('display', 'block');
+                    setTimeout(function(){$('.tips-help,.help_success').css('display', 'none') }, 3000);
+                    $("#click_num").html("已有"+data.data+"人助力")
+                },
+                error: function(err){
+                    $('.tips-help,.help_alerdy').css('display', 'block');
+                    setTimeout(function(){$('.tips-help,.help_alerdy').css('display', 'none') }, 3000);
+                }
+            });
+
+
+        });
+    </script>
+    <script type="text/javascript">
+         var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+         document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1274516766'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1274516766' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+
+
+
+
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+    var pageUrl ={
+        url:(window.location.href).split('#')[0]
+    };
+    _pageUrl = encodeURIComponent(pageUrl.url);
+    pageUrl = pageUrl.url;
+    console.log("微信分享url=============:"+_pageUrl);
+    var url = domain+'/v3/lottery/verify/wechat/share?url='+_pageUrl;
+    console.log("微信分享url:"+url);
+        $.ajax({
+            url: url,
+            asyns: true,
+            type: 'post',
+            dataType: 'jsonp',
+            jsonp: "callback",
+            success:function (data){
+                console.log("微信分享"+JSON.stringify(data));
+                if(data.returnCode == "200"){
+                    wx.config({
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来
+                        appId: data.data.appid, // 必填，公众号的唯一标识
+                        timestamp: data.data.timestamp, // 必填，生成签名的时间戳
+                        nonceStr: data.data.nonceStr, // 必填，生成签名的随机串
+                        signature: data.data.signature,// 必填，签名，见附录1
+                        jsApiList: [
+                            "onMenuShareTimeline",
+                            "onMenuShareAppMessage"
+                        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    });
+                    wx.ready(function () {
+                        var shareData = {
+                            title: '创维电视正在发红包，一不小心还能赢免单！',  //  标题
+                            desc: '百万红包助力双11，抢红包还能赢免单，福利限时快来参与',    //  描述
+                            link: pageUrl,   //  分享的URL，必须和当前打开的网页的URL是一样的
+                            imgUrl: 'http://beta.webapp.skysrt.com/zy/address/img/share.jpg'  //  缩略图地址
+                        };
+                        wx.onMenuShareAppMessage(shareData);
+                        wx.onMenuShareTimeline(shareData);
+                    });
+                    wx.error(function (res) {
+                        alert("错误"+ JSON.stringify(res));
+                    });
+                }
+
+            },
+            error:function (error){
+                //alert(error)
+            }
+        });
+
+
+
+
+    </script>
+  </body>
+</html>
