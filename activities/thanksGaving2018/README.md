@@ -39,7 +39,10 @@ action=157
 更新：
 2018.11.16： action参数不再需要，在页面中自动判断后设置；
 
-###开发中需要的信息：
+----------------------------------开发中需要的信息：----------------------------------
+##活动产品文档：
+http://wiki.skyoss.com/pages/viewpage.action?pageId=20237674
+
 ##后台接口
 #0.抽奖系统——接口文档
 http://wiki.skyoss.com/pages/viewpage.action?pageId=12712183&tdsourcetag=s_pcqq_aiomsg
@@ -53,4 +56,5 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189
 	正式环境接口地址：https://restful.skysrt.com 
 
 #2. 活动id：
-157
+ 运营提供
+ 

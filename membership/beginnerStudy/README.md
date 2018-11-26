@@ -18,9 +18,9 @@ https://beta.webapp.skysrt.com/yuanbo/preReleaseDir/beginner/index.html
 am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt.com/yuanbo/preReleaseDir/beginner/index.html";
 
 3.正式环境url:
-https://webapp.skysrt.com/cc7.0/beginner/index.html
+https://webapp.skysrt.com/cc7.0/beginner/index.html?bgtrans=true
 测试板上输入命令：
-am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/cc7.0/beginner/index.html";
+am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/cc7.0/beginner/index.html?bgtrans=true";
 
 #以下信息备份供参考
 1、新手学习页： 
