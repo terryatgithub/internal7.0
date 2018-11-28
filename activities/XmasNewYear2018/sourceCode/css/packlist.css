@@ -1,0 +1,149 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	
+	background-image: url(../images/packlist/bg-effect-tmp.png);
+	background-repeat: no-repeat;
+		
+}
+
+.goodsContainerClass {
+	position: absolute;
+	left: 170px;
+	width: 1560px;
+	display: none;
+}
+
+#packGoodsContainer {
+	top: 156px;	
+}
+#moreGoodsContainer {
+	top: 552px;
+}
+
+.goodsTitleClass {
+	position: relative;
+	left: 475px;
+	width: 617px;
+	height: 50px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#packGoodsTitle {
+	background-image: url(../images/packlist/title-pack.png);	
+}
+#moreGoodsTitle {
+	background-image: url(../images/packlist/title-more.png);
+}
+
+.goodsListClass {
+	position: relative;
+	top: 10px;
+}
+
+.goodsItemClass {
+	display: inline-block;
+	width: 301px;
+	height: 332px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	margin: 0 10px 62px 0;
+}
+
+#packGoodsList .goodsItemClass {
+	background-image: url(../images/packlist/goods-placeholder.png);	
+}
+#moregoodsList .goodsItemClass {
+	background-image: url(../images/packlist/goods-more.png);	
+}
+
+#packGoodsList .goodsItemClass[class~=btn-focus] {
+	background-image: url(../images/packlist/goods-placeholder.png), url(../images/packlist/focus.png);		
+}
+#moregoodsList .goodsItemClass[class~=btn-focus] {
+	background-image: url(../images/packlist/goods-more.png), url(../images/packlist/focus.png);		
+}
+
+.packGoodsItemPic {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	width: 241px;
+	height: 177px;
+}
+
+.packGoodsItemName {
+	position: absolute;
+	top: 212px;
+	width: 215px;
+	margin: 0px 43px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #7a2920;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.packGoodsItemLabel {
+    position: absolute;
+    top: 244px;
+    left: 38px;
+    height: 24px;
+}
+
+.packGoodsItemLabelPriceNow {
+	position: relative;
+	display: inline-block;
+	line-height: 24px;
+	font-size: 24px;
+	color: #F70400;
+	font-weight: bold;
+	margin-right: 17px;
+	
+}
+.packGoodsItemLabelTip {
+	position: relative;
+	display: inline-block;
+	line-height: 24px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #3e3e3e;
+}
+.packGoodsItemLabelPriceOld {
+	position: relative;
+	display: inline-block;
+	right: 17px;
+	line-height: 24px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #3e3e3e;
+	text-decoration: line-through;
+}
+
+div[id^="toast"] {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+	background-repeat: no-repeat;
+	display: none;
+}
+#toastEmpty {
+	width: 981px;
+	height: 485px;
+	background-image: url(../images/packlist/toast-empty.png);
+}
+#toastEnd {
+	width: 980px;
+	height: 483px;
+	background-image: url(../images/packlist/toast-end.png);
+}
