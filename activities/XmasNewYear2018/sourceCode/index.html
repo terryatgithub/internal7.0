@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/index.css"/>
+		<title>Skyworth 2018</title>
+		<script>
+			var adjust=function(){
+			    if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+			        var version = parseFloat(RegExp.$1);
+			        if(version>2.3){
+			            var phoneScale = parseInt(window.screen.width)/1920;
+			            document.write('<meta name="viewport" content="width=1920, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+			        }else{
+			            document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+			        }
+			    }else{
+			        document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+			    }
+			}
+			adjust();
+    	</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.0.js"></script>
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/framework.js"></script>
+		
+    	<script type="text/javascript">
+    		setTimeout("otherPageInit()",10);
+    		function otherPageInit(){
+//  			$("#secondPage").css("background-image","url(images/rules.webp)");
+    		}
+    	</script>
+	</body>
+
+</html>
