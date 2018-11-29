@@ -64,7 +64,7 @@ var app = {
 		$(".coocaa_btn").bind("itemClick", function() {
 			var _Index1 = $(".coocaa_btn").index($(this));
 			console.log("itemClick _Index1 = " + _Index1);
-			processKey($this);
+			processKey($(this));
 		});
 	},
 	triggleButton: function() {
