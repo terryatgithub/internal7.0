@@ -28,6 +28,7 @@ am start -a coocaa.intent.action.browser --es "url"  "https://beta.webapp.skysrt
 https://webapp.skysrt.com/cc7.0/memberLevelInterest/index2.html
 测试板上输入命令：
 am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/cc7.0/memberLevelInterest/index2.html";
+am start -a coocaa.intent.action.browser --es "url"  "https://webapp.skysrt.com/cc7.0/memberLevelInterest/index.html";
 
 ###后台服务器接口：
 1.成长值等级划分

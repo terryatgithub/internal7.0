@@ -7,6 +7,7 @@ var _picFocus = 2;
 var _picFocusDisabled=3;
 var _picBig=4;
 var _preLoadImageArray;
+var _preLoadMaskImg;
 
 //保存图标对应的详细信息
 var _levelInfos = new Array();
@@ -64,7 +65,7 @@ _levelInfos = [
 	 	picFocusDisabled:__uri("../img/lv5focus.png"),
 	 	picBig: __uri("../img/lv5big.png"),
 		levelName:"专属客服", 
-		levelCondition:"Lv5（含）以上可解", 
+		levelCondition:"Lv5（含）以上可解锁", 
 		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰。 <br/>服务热线：<br/>拨打专线400-168-8880"
 	}
 	,{
@@ -231,6 +232,15 @@ function preLoadImg(arr) {
 	var pic = app.rel_html_imgpath(__uri("../img/light.png"));
 	$("#flash").css("background-image", "url("+pic+")");
 	
+	//提前加载
+	_preLoadMaskImg = new Array(4);
+	for(var i=0; i<4;i++) {
+		_preLoadMaskImg[i] = new Image();
+	}
+	_preLoadMaskImg[0].src = app.rel_html_imgpath(__uri("../img/maskOne.png"));	
+	_preLoadMaskImg[1].src = app.rel_html_imgpath(__uri("../img/maskTwo.png"));
+	_preLoadMaskImg[2].src = app.rel_html_imgpath(__uri("../img/maskThree.png"));
+	_preLoadMaskImg[3].src = app.rel_html_imgpath(__uri("../img/mask0.png"));
 	
 	console.log("preLoadImg out...");
 }
@@ -295,16 +305,16 @@ function showLevelDetails(el) {
 		console.log("showLevelDetails in...el.id:"+el.attr("id"));
 		switch(el.attr("id")) {
 			case "Icon4":
-				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskOne.webp')");
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url("+_preLoadMaskImg[0].src+")");
 				break;
 			case "Icon5":
-				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskTwo.webp')");
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url("+_preLoadMaskImg[1].src+")");
 				break;
 			case "Icon6":
-				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/maskThree.webp')");
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url("+_preLoadMaskImg[2].src+")");
 				break;
 			default:
-				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url('img/mask0.webp')");
+				$(".sideLevelIconShowClass").css("-webkit-mask-image", "url("+_preLoadMaskImg[3].src+")");
 				break;
 		}
 	}
