@@ -1,0 +1,121 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	
+	background-image: url(../images/myaward/bg-tmp.png);
+	background-repeat: no-repeat;
+		
+}
+
+/*页面大标题*/
+#myGiftsTitle {
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	height: 90px;
+	line-height: 90px;
+	font-size: 90px;
+	font-weight: bold;
+	color: white;
+	transform: translateX(-50%);
+}
+
+/*我的礼物板块*/
+#myGiftsContainer {
+	position: absolute;
+	top: 197px;
+	left: 147px;
+	display: none;
+}
+
+/*每种奖品的小版块容器-通用类*/
+.sectionContainerClass {
+	position: relative;
+	margin-bottom: 30px;
+	display: none;  /*初始化都是display none的*/
+}
+/*小版块标题-通用类*/
+.sectionTitleClass {
+	position: relative;
+	left: 23px;
+	height: 50px;
+	line-height: 50px;
+	font-family: "SourceHanSansCN", sans-serif;
+	font-size: 36px;
+	font-weight: bold;
+	color: #B40000;
+	text-align: center;
+	background-color: white;
+	border-radius: 4px;	
+}
+
+#koiTitle {
+	width: 200px;
+}
+/*小版块展示入口列表-通用类*/
+.sectionListClass {
+	position: relative;
+	top: 11px;
+	margin-bottom: 20px;
+}
+/*小版块展示入口-单个入口-通用类*/
+.sectionItemClass {
+	display: inline-block;
+}
+
+/*锦鲤礼包专区*/
+#koiList .sectionItemClass {
+	position: relative;
+	width: 246px;
+	height: 289px;
+	margin-right: 24px;  
+}
+/*锦鲤礼包-正常显示(没有焦点)时的入口图标显示*/
+#koiList .sectionItemNormalClass {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 230px;
+	height: 260px;
+	transform: translate(-50%, -50%);
+	background-image: url(../images/myaward/koi.png);
+	background-repeat: no-repeat;
+}
+/*锦鲤礼包-获取焦点时的入口图标显示*/
+#koiList .sectionItemFocusClass{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	height: 240px;
+	transform: translate(-53%, -50%);
+	background-image: url(../images/myaward/koiFocus.png);
+	background-repeat: no-repeat;
+	display: none;
+}
+/*锦鲤礼包-获取焦点时的入口块处理*/
+#koiList .sectionItemClass[class~=btn-focus] {
+	background-image: url(../images/myaward/koiFocusBg.png);
+	background-repeat: no-repeat;
+}
+#koiList .sectionItemClass[class~=btn-focus] .sectionItemNormalClass {
+	display: none;
+}
+#koiList .sectionItemClass[class~=btn-focus] .sectionItemFocusClass {
+	display: block;
+}
+/*锦鲤礼包-按键*/
+#koiList .sectionItemButtonClass {
+	position: absolute;
+	bottom: 34px;
+	left: 55px;
+	width: 134px;
+	height: 44px;
+	background-image: url(../images/myaward/btnKoi.png);
+	background-repeat: no-repeat;
+}
