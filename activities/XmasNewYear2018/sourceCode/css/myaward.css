@@ -344,6 +344,9 @@ body {
 }
 
 /*4. 实物奖励 专区*/
+#entityContainerId {
+	margin-bottom: 23px;
+}
 #entityListId {
 	top: 14px;
 	left: -6px;
@@ -384,4 +387,47 @@ body {
 	height: 68px;
 	background-image: url(../images/myaward/entityBtn.png);
 	background-repeat: no-repeat;
+}
+
+/*5. 第三方优惠券 专区*/ 
+#thirdPartyContainerId {
+	/*margin-bottom: 40px;*/ 
+}
+#thirdPartyTitleId {
+	width: 250px;
+}
+#thirdPartyListId {
+	top: 14px;
+	left: 13px;
+}
+#thirdPartyListId .sectionItemClass {
+	width: 320px;
+	height: 165px;
+}
+/* 第三方优惠券 -正常显示时的入口图标显示*/
+#thirdPartyListId .sectionItemNormalClass {
+	width: 290px;
+	height: 140px;
+	top: auto;
+	bottom: 5px;
+	left: 5px;
+	transform: none;
+	background-image: url(../images/myaward/thirdparty.png);
+	/*shadow显示,左右10px，下17px*/
+	box-shadow: 10px 0px 10px -10px #000, -10px 0 10px -10px #000, 0 17px 17px -17px #000;
+}
+/*第三方优惠券 -获取焦点时的入口块处理*/
+#thirdPartyListId .sectionItemClass[class~=btn-focus] {
+	background-image: url(../images/myaward/thirdpartyFocus.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	/*shadow显示,左右10px，下17px*/
+	box-shadow: 10px 0px 10px -10px #000, -10px 0 10px -10px #000, 0 17px 17px -17px #000;
+}
+#thirdPartyListId .sectionItemClass[class~=btn-focus] .sectionItemNormalClass {
+	/*shadow隐藏*/
+	box-shadow:none;
+}
+#thirdPartyListId .sectionItemClass[class~=btn-focus] .sectionItemFocusHatClass {
+	display: block;
 }
