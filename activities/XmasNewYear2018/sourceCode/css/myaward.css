@@ -513,3 +513,35 @@
 .koiCollectClass .toastPageTipClass>div:first-of-type {
 	font-size: 48px;
 }
+
+
+/*三、 弹窗对话框 start*/ 
+.toastDialogClass {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(0,0,0,0.8);
+	background-image: url(../images/myaward/bg-tmp.png);
+	background-repeat: no-repeat;
+	display: none;
+}
+.giftCollectedDialogClass {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 696px;
+	height: 627px;
+	padding: 220px 102px 0px 102px;
+	font-family: "SourceHanSansCN", sans-serif;
+	font-size: 24px;
+	color: #FFFFFF;
+	background-image: url(../images/myaward/toastBg.png);
+	background-repeat: no-repeat;
+}
+.giftTitleClass {
+	font-size: 30px;
+	color: #FCDD35;
+	font-weight: bold;
+}
+hr {margin: 40px 0;}

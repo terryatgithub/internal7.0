@@ -29,7 +29,7 @@
 
 	<body>
 		<div id="deviceready">
-			<!-- 一、我的礼物-有奖品页面-->
+			<!-- 一、我的礼物-有奖品页面 start -->
 			<div class="myGiftsPageClass">
 				<!--大标题 我的礼物-->
 				<div id="myGiftsTitle">我的礼物</div>
@@ -182,6 +182,7 @@
 				</div>
 				<!--我的礼物-总的container end -->
 			</div>
+			<!-- 一、我的礼物-有奖品页面 end -->
 			
 			<!--二、 弹窗页面 start -->
 			<div id="toastPageId"  class="toastPageClass">
@@ -197,6 +198,7 @@
 				</div>
 				
 				<!--2. 未获得任何奖励时-活动期间-->
+				<!--当用户未获得任何奖励，此时已经到了1.2号，显示以下提示：-->
 				<div class="noGiftsAfterActivityEndClass">
 					<div class="toastPageTitleClass"></div>
 					<div class="toastPageTipClass">抱歉，您还没有获得礼物~</div>
@@ -212,11 +214,22 @@
 					</div>
 				</div>
 			</div>
-			<!-- 弹窗页面 end -->
+			<!-- 二、 弹窗页面  end -->
 			
-			<!-- 弹窗对话框 start -->
-			
-			<!-- 弹窗对话框 end -->
+			<!--三、 弹窗对话框 start -->
+			<div id="toastDialogId" class="toastDialogClass">
+				<!--1.已领取页面-->
+				<div class="giftCollectedDialogClass">
+					<div class="giftTitleClass"><span>奖品名称: </span><span>锦鲤礼包</span></div>
+					<div class="giftTimeClass"><span>获得时间: </span><span>2018.8.23</span></div>
+					<hr />
+					<div class="giftReceiverNameClass"><span>收货人: </span><span>马花藤</span></div>
+					<div class="giftReceiverTelClass"><span>收货电话: </span><span>13813801380</span></div>
+					<div class="giftReceiverAddrClass"><span>收货地址: </span><span>广东省深圳市宝安区创维园111号</span></div>
+					<div>信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+				</div>
+			</div>
+			<!-- 三、弹窗对话框 end -->
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
