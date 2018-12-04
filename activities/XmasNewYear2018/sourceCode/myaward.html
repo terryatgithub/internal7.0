@@ -78,16 +78,65 @@
 				
 				<!--3 现金红包容器-->
 				<div id="redbagCashContainer" class="sectionContainerClass">
-					<!--标题：平台优惠红包-->
-					<div id="redbagCashTitle" class="sectionTitleClass">锦鲤礼包</div>
-					<!--平台优惠红包-列表区-->
+					<!--标题：现金红包-->
+					<div id="redbagCashTitle" class="sectionTitleClass">现金红包</div>
+					<!--副标题：现金红包总计 -->
+					<div id="redbagCashTotalId" class="sectionTotalClass">(共获得1000元)</div>
+					<!--现金红包-列表区-->
 					<div id="redbagCashList" class="sectionListClass">
-						<!--列表项-->
-						<div class="sectionItemClass coocaa_btn">
+						<!--列表项-未领取的红包-->
+						<div id="redbagUncollectedId" class="sectionItemClass coocaa_btn">
 							<!--未获得焦点时-->
 							<div class="sectionItemNormalClass"></div>
 							<!--获得焦点时-->
 							<div class="sectionItemFocusClass"></div>
+							<!--红包详细信息-->
+							<div class="sectionItemDetailsClass">
+								<div class="sectionItemDetailsValueClass">4.5</div>
+								<div>(总计)</div>
+							</div>
+							<!--按钮-->
+							<div class="sectionItemButtonClass"></div>
+						</div>
+						<!--列表项-已领取的红包-->
+						<div id="redbagCollectedId" class="sectionItemClass coocaa_btn">
+							<!--未获得焦点时-->
+							<div class="sectionItemNormalClass"></div>
+							<!--获得焦点时-->
+							<div class="sectionItemFocusClass"></div>
+							<!--红包详细信息-->
+							<div class="sectionItemDetailsClass">
+								<div>￥</div>
+								<div class="sectionItemDetailsValueClass">100</div>
+								<div>(总计)</div>
+							</div>
+							<!--按钮-->
+							<div class="sectionItemButtonClass"></div>
+						</div>
+						<!--列表项-未领取的大额现金-->
+						<div class="cashUncollectedClass sectionItemClass coocaa_btn">
+							<!--未获得焦点时-->
+							<div class="sectionItemNormalClass"></div>
+							<!--获得焦点时-->
+							<div class="sectionItemFocusClass"></div>
+							<!--现金详细信息-->
+							<div class="sectionItemDetailsClass">
+								<div class="sectionItemDetailsValueClass">1000</div>
+							</div>
+							<!--按钮-->
+							<div class="sectionItemButtonClass"></div>
+						</div>
+						<!--列表项-已领取的大额现金-->
+						<div class="cashCollectedClass sectionItemClass coocaa_btn">
+							<!--未获得焦点时-->
+							<div class="sectionItemNormalClass"></div>
+							<!--获得焦点时-->
+							<div class="sectionItemFocusClass"></div>
+							<!--现金详细信息-->
+							<div class="sectionItemDetailsClass">
+								<div>￥</div>
+								<div class="sectionItemDetailsValueClass">1000</div>
+							</div>
 							<!--按钮-->
 							<div class="sectionItemButtonClass"></div>
 						</div>
@@ -97,7 +146,7 @@
 				<!--4 实物奖励容器-->
 				<div id="entityContainer" class="sectionContainerClass">
 					<!--标题：平台优惠红包-->
-					<div id="entityTitle" class="sectionTitleClass">锦鲤礼包</div>
+					<div id="entityTitle" class="sectionTitleClass">实物奖励</div>
 					<!--平台优惠红包-列表区-->
 					<div id="entityList" class="sectionListClass">
 						<!--列表项-->
@@ -115,7 +164,7 @@
 				<!--5 第三方优惠券容器-->
 				<div id="thirdPartyContainer" class="sectionContainerClass">
 					<!--标题：平台优惠红包-->
-					<div id="thirdPartyTitle" class="sectionTitleClass">锦鲤礼包</div>
+					<div id="thirdPartyTitle" class="sectionTitleClass">第三方优惠券</div>
 					<!--平台优惠红包-列表区-->
 					<div id="thirdPartyList" class="sectionListClass">
 						<!--列表项-->
