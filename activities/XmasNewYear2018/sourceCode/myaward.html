@@ -29,155 +29,194 @@
 
 	<body>
 		<div id="deviceready">
-			<!--大标题 我的礼物-->
-			<div id="myGiftsTitle">我的礼物</div>
-			
-			<!--我的礼物-总的container-->
-			<div id="myGiftsContainer">
+			<!-- 一、我的礼物-有奖品页面-->
+			<div class="myGiftsPageClass">
+				<!--大标题 我的礼物-->
+				<div id="myGiftsTitle">我的礼物</div>
 				
-				<!--1 锦鲤礼包 container-->
-				<div id="koiContainer" class="sectionContainerClass">
-					<!--标题：锦鲤礼包-->
-					<div id="koiTitle" class="sectionTitleClass">锦鲤礼包</div>
-					<!--锦鲤礼包-列表区-->
-					<div id="koiList" class="sectionListClass">
-						<!--列表项-->
-						<div class="sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
+				<!--我的礼物-总的container start -->
+				<div id="myGiftsContainer">
+					
+					<!--1 锦鲤礼包 container-->
+					<div id="koiContainer" class="sectionContainerClass">
+						<!--标题：锦鲤礼包-->
+						<div id="koiTitle" class="sectionTitleClass">锦鲤礼包</div>
+						<!--锦鲤礼包-列表区-->
+						<div id="koiList" class="sectionListClass">
+							<!--列表项-->
+							<div class="sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<!--2 平台优惠红包 容器-->
-				<div id="couponContainer" class="sectionContainerClass">
-					<!--标题：平台优惠红包-->
-					<div id="couponTitle" class="sectionTitleClass">平台优惠红包</div>
-					<!--平台优惠红包-列表区-->
-					<div id="couponList" class="sectionListClass">
-						<!--列表项-->
-						<div class="sectionItemClass coocaa_btn">
-							<!--只有一张图片，焦点靠css实现-->
-							<div class="sectionItemNormalClass"></div>
-							<!--角标-->
-							<div class="sectionItemSupClass">
-								<div id="sectionItemSupMultiplierId"></div>
-								<div id="sectionItemSupMultiplyId">x</div>
+					
+					<!--2 平台优惠红包 容器-->
+					<div id="couponContainer" class="sectionContainerClass">
+						<!--标题：平台优惠红包-->
+						<div id="couponTitle" class="sectionTitleClass">平台优惠红包</div>
+						<!--平台优惠红包-列表区-->
+						<div id="couponList" class="sectionListClass">
+							<!--列表项-->
+							<div class="sectionItemClass coocaa_btn">
+								<!--只有一张图片，焦点靠css实现-->
+								<div class="sectionItemNormalClass"></div>
+								<!--角标-->
+								<div class="sectionItemSupClass">
+									<div id="sectionItemSupMultiplierId"></div>
+									<div id="sectionItemSupMultiplyId">x</div>
+								</div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
+								<!--获得焦点时-帽子-->
+								<div class="sectionItemFocusHatClass"></div>
 							</div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
-							<!--获得焦点时-帽子-->
-							<div class="sectionItemFocusHatClass"></div>
 						</div>
 					</div>
-				</div>
-				
-				<!--3 现金红包容器-->
-				<div id="redbagCashContainer" class="sectionContainerClass">
-					<!--标题：现金红包-->
-					<div id="redbagCashTitle" class="sectionTitleClass">现金红包</div>
-					<!--副标题：现金红包总计 -->
-					<div id="redbagCashTotalId" class="sectionTotalClass">(共获得1000元)</div>
-					<!--现金红包-列表区-->
-					<div id="redbagCashList" class="sectionListClass">
-						<!--列表项-未领取的红包-->
-						<div id="redbagUncollectedId" class="sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--红包详细信息-->
-							<div class="sectionItemDetailsClass">
-								<div class="sectionItemDetailsValueClass">4.5</div>
-								<div>(总计)</div>
+					
+					<!--3 现金红包容器-->
+					<div id="redbagCashContainer" class="sectionContainerClass">
+						<!--标题：现金红包-->
+						<div id="redbagCashTitle" class="sectionTitleClass">现金红包</div>
+						<!--副标题：现金红包总计 -->
+						<div id="redbagCashTotalId" class="sectionTotalClass">(共获得1000元)</div>
+						<!--现金红包-列表区-->
+						<div id="redbagCashList" class="sectionListClass">
+							<!--列表项-未领取的红包-->
+							<div id="redbagUncollectedId" class="sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--红包详细信息-->
+								<div class="sectionItemDetailsClass">
+									<div class="sectionItemDetailsValueClass">4.5</div>
+									<div>(总计)</div>
+								</div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
 							</div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
-						</div>
-						<!--列表项-已领取的红包-->
-						<div id="redbagCollectedId" class="sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--红包详细信息-->
-							<div class="sectionItemDetailsClass">
-								<div>￥</div>
-								<div class="sectionItemDetailsValueClass">100</div>
-								<div>(总计)</div>
+							<!--列表项-已领取的红包-->
+							<div id="redbagCollectedId" class="sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--红包详细信息-->
+								<div class="sectionItemDetailsClass">
+									<div>￥</div>
+									<div class="sectionItemDetailsValueClass">100</div>
+									<div>(总计)</div>
+								</div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
 							</div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
-						</div>
-						<!--列表项-未领取的大额现金-->
-						<div class="cashUncollectedClass sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--现金详细信息-->
-							<div class="sectionItemDetailsClass">
-								<div class="sectionItemDetailsValueClass">1000</div>
+							<!--列表项-未领取的大额现金-->
+							<div class="cashUncollectedClass sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--现金详细信息-->
+								<div class="sectionItemDetailsClass">
+									<div class="sectionItemDetailsValueClass">1000</div>
+								</div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
 							</div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
-						</div>
-						<!--列表项-已领取的大额现金-->
-						<div class="cashCollectedClass sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--现金详细信息-->
-							<div class="sectionItemDetailsClass">
-								<div>￥</div>
-								<div class="sectionItemDetailsValueClass">1000</div>
+							<!--列表项-已领取的大额现金-->
+							<div class="cashCollectedClass sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--现金详细信息-->
+								<div class="sectionItemDetailsClass">
+									<div>￥</div>
+									<div class="sectionItemDetailsValueClass">1000</div>
+								</div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
 							</div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
 						</div>
 					</div>
-				</div>
-				
-				<!--4 实物奖励 容器-->
-				<div id="entityContainerId" class="sectionContainerClass">
-					<!--标题：实物奖励-->
-					<div id="entityTitleId" class="sectionTitleClass">实物奖励</div>
-					<!--实物奖励-列表区-->
-					<div id="entityListId" class="sectionListClass">
-						<!--列表项-->
-						<div class="sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-->
-							<div class="sectionItemFocusClass"></div>
-							<!--按钮-->
-							<div class="sectionItemButtonClass"></div>
+					
+					<!--4 实物奖励 容器-->
+					<div id="entityContainerId" class="sectionContainerClass">
+						<!--标题：实物奖励-->
+						<div id="entityTitleId" class="sectionTitleClass">实物奖励</div>
+						<!--实物奖励-列表区-->
+						<div id="entityListId" class="sectionListClass">
+							<!--列表项-->
+							<div class="sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-->
+								<div class="sectionItemFocusClass"></div>
+								<!--按钮-->
+								<div class="sectionItemButtonClass"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<!--5 第三方优惠券容器-->
-				<div id="thirdPartyContainerId" class="sectionContainerClass">
-					<!--标题：平台优惠红包-->
-					<div id="thirdPartyTitleId" class="sectionTitleClass">第三方优惠券</div>
-					<!--平台优惠红包-列表区-->
-					<div id="thirdPartyListId" class="sectionListClass">
-						<!--列表项-->
-						<div class="sectionItemClass coocaa_btn">
-							<!--未获得焦点时-->
-							<div class="sectionItemNormalClass"></div>
-							<!--获得焦点时-帽子-->
-							<div class="sectionItemFocusHatClass"></div>
+					
+					<!--5 第三方优惠券容器-->
+					<div id="thirdPartyContainerId" class="sectionContainerClass">
+						<!--标题：平台优惠红包-->
+						<div id="thirdPartyTitleId" class="sectionTitleClass">第三方优惠券</div>
+						<!--平台优惠红包-列表区-->
+						<div id="thirdPartyListId" class="sectionListClass">
+							<!--列表项-->
+							<div class="sectionItemClass coocaa_btn">
+								<!--未获得焦点时-->
+								<div class="sectionItemNormalClass"></div>
+								<!--获得焦点时-帽子-->
+								<div class="sectionItemFocusHatClass"></div>
+							</div>
 						</div>
 					</div>
+					
 				</div>
-				
+				<!--我的礼物-总的container end -->
 			</div>
+			
+			<!--二、 弹窗页面 start -->
+			<div id="toastPageId"  class="toastPageClass">
+				<!--1. 未获得任何奖励时-活动期间-->
+				<div class="noGiftsDuringActivityClass">
+					<div class="toastPageTitleClass"></div>
+					<div class="toastPageTipClass">
+						<div>您还未收到礼物哦~</div>
+						<div>快去圣诞小屋做任务集铃铛赢礼物吧!</div>
+						<div>12月31日黄金小屋等你来探宝，有机会一人独享5万奖励。</div>
+					</div>
+					<div class="toastPageBtnClass"></div>
+				</div>
+				
+				<!--2. 未获得任何奖励时-活动期间-->
+				<div class="noGiftsAfterActivityEndClass">
+					<div class="toastPageTitleClass"></div>
+					<div class="toastPageTipClass">抱歉，您还没有获得礼物~</div>
+				</div>
+				
+				<!--3. 锦鲤领奖页面-->
+				<div class="koiCollectClass">
+					<div class="koiCollectQrClass"><img></img></div>
+					<div class="toastPageTipClass">
+						<div>恭喜您，获得超级锦鲤礼包</div>
+						<div>请使用微信扫码提交收货信息</div>
+						<div>我们将尽快把礼物送到您手上哦~</div>
+					</div>
+				</div>
+			</div>
+			<!-- 弹窗页面 end -->
+			
+			<!-- 弹窗对话框 start -->
+			
+			<!-- 弹窗对话框 end -->
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>

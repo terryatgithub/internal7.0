@@ -2,14 +2,16 @@
 	margin: 0;
 	padding: 0;
 }
-body {
+
+/*一、我的礼物-有奖品页面*/
+.myGiftsPageClass {
 	position: absolute;
 	width: 1920px;
 	height: 1080px;
 	
-	background-image: url(../images/myaward/bg-tmp.png);
+	background-image: url(../images/myaward/bg.png);
 	background-repeat: no-repeat;
-		
+	display: none;	
 }
 
 /*页面大标题*/
@@ -30,7 +32,6 @@ body {
 	position: absolute;
 	top: 197px;
 	left: 147px;
-	display: none;
 }
 
 /*每种奖品的小版块容器-通用类*/
@@ -430,4 +431,85 @@ body {
 }
 #thirdPartyListId .sectionItemClass[class~=btn-focus] .sectionItemFocusHatClass {
 	display: block;
+}
+
+/*二、 弹窗页面 start*/ 
+.toastPageClass {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-image: url(../images/myaward/bg-tmp.png);
+	background-repeat: no-repeat;
+	display: none;
+}
+.toastPageClass>div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.toastPageTitleClass {
+	position: absolute;
+	top: 70px;
+	left: 170px;
+	width: 216px;
+	height: 64px;
+	background-image: url(../images/myaward/titleSecMyGift.png);
+	background-repeat: no-repeat;
+}
+.toastPageTipClass {
+	position: relative;
+	top: 330px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: "SourceHanSansCN", sans-serif;
+	font-weight: bold;
+	font-size: 36px;
+	color: #FFFFFF;
+	text-align: center;
+}
+.toastPageTipClass div {
+	margin-bottom: 22px;
+}
+/*2-1*/
+.toastPageBtnClass {
+	position: relative;
+	top: 367px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 377px;
+	height: 148px;
+	background-image: url(../images/myaward/btnToXmasHouse.png);
+	background-repeat: no-repeat;
+}
+
+/*2-2*/
+.noGiftsAfterActivityEndClass .toastPageTipClass{
+	top: 430px;
+	font-size: 48px;
+}
+
+/*2-3*/
+.koiCollectQrClass {
+	position: relative;
+	top: 160px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 402px;
+	height: 402px;
+	background-color: white;
+}
+.koiCollectQrClass img{
+	width: 100%;
+	height: 100%;
+}
+.koiCollectClass .toastPageTipClass{
+	top: 200px;
+}
+.koiCollectClass .toastPageTipClass>div {
+	font-size: 30px;
+}
+.koiCollectClass .toastPageTipClass>div:first-of-type {
+	font-size: 48px;
 }
