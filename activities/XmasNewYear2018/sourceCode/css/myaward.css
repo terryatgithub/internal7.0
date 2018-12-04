@@ -60,7 +60,7 @@ body {
 .sectionListClass {
 	position: relative;
 	top: 11px;
-	margin-bottom: 20px;
+	margin-bottom: 15x;
 }	
 /*小版块展示入口-单个入口-通用类*/
 .sectionItemClass {
@@ -213,6 +213,9 @@ body {
 }
 
 /*3. 现金红包专区*/ 
+#redbagCashContainer {
+	margin-bottom: 17px;
+}
 #redbagCashList {
 	top: 6px;
 	left: -8px;
@@ -338,4 +341,47 @@ body {
 .cashCollectedClass .sectionItemDetailsClass div:first-of-type{
 	font-size: 32px;
     line-height: 24px;
+}
+
+/*4. 实物奖励 专区*/
+#entityListId {
+	top: 14px;
+	left: -6px;
+}
+#entityListId .sectionItemClass {
+	width: 278px;
+	height: 333px;
+}
+/*实物奖励 -正常显示(没有焦点)时的入口图标显示*/
+#entityListId .sectionItemNormalClass {
+	width: 240px;
+	height: 310px;
+	background-image: url(../images/myaward/entity.png);
+}
+/*实物奖励 -获取焦点时的入口图标显示*/
+#entityListId .sectionItemFocusClass{
+	width: 220px;
+	height: 280px;
+	background-image: url(../images/myaward/entityFocus.png);
+}
+/*实物奖励 -获取焦点时的入口块处理*/
+#entityListId .sectionItemClass[class~=btn-focus] {
+	background-image: url(../images/myaward/entityFocusBg.png);
+	background-repeat: no-repeat;
+}
+#entityListId .sectionItemClass[class~=btn-focus] .sectionItemNormalClass {
+	display: none;
+}
+#entityListId .sectionItemClass[class~=btn-focus] .sectionItemFocusClass {
+	display: block;
+}
+/*实物奖励 -按键*/
+#entityListId .sectionItemButtonClass {
+	position: absolute;
+	bottom: 40px;
+	left: 40px;
+	width: 196px;
+	height: 68px;
+	background-image: url(../images/myaward/entityBtn.png);
+	background-repeat: no-repeat;
 }
