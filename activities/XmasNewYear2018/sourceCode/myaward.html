@@ -219,7 +219,7 @@
 			<!--三、 弹窗对话框 start -->
 			<div id="toastDialogId" class="toastDialogClass">
 				<!-- 1.1.已领取页面(有收货人信息等，用于：锦鲤，实物， ) -->
-				<div id="gitCollectedDialogAId" class="giftToastDialogClass">
+				<div id="toastDialogEntityCollectedId" class="giftToastDialogClass">
 					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span>锦鲤礼包</span></div>
 					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
 					<hr />
@@ -229,7 +229,7 @@
 					<div class="giftReceiverTipClass">信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
 				</div>
 				<!-- 1.2.已领取页面(有继续参与按钮，用于：红包， ) -->
-				<div id="gitCollectedDialogBId" class="giftToastDialogClass">
+				<div id="toastDialogRedbagCollectedId" class="giftToastDialogClass">
 					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;微信红包<span>4.5</span>元</div>
 					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
 					<hr />
@@ -238,7 +238,7 @@
 					<div class="giftReceiverTipClass">多玩游戏还能获得大额红包</div>
 				</div>
 				<!-- 2.1.待领取页面(用于：实物 ) -->
-				<div id="gitUncollectedDialogBId" class="giftToastDialogClass">
+				<div id="toastDialogEntityUncollectedId" class="giftToastDialogClass">
 					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span>戴森吹风机</span></div>
 					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
 					<hr />
@@ -248,9 +248,23 @@
 							<div>请微信扫码完善收货信息,</div>
 							<div>确保奖品能够送达哦~</div>
 						</div>
+					</div>
 				</div>
-			</div>
+				<!-- 2.2.待领取页面(用于：红包 ) -->
+				<div id="toastDialogRedbagUncollectedId" class="giftToastDialogClass">
+					<div class="giftTitleClass" style="color: #FFFFFF;">
+						目前累计获得红包<span style="color: #FCDD35; font-size: 60px;">100</span>元
+					</div>
+					<hr style="margin: 20px 0;"/>
+					<div class="giftReceiverNameClass">微信扫码累积提现~</div>
+					<div class="giftReceiverDetailsClass">
+						<div class="giftReceiverQrClass"><img></img></div>
+					</div>
+					<div class="giftReceiverTipClass">红包已放入<span style="color: #FCDD35;"> 【我的礼物】 </span>，可前往查看</div>
+				</div>
 			<!-- 三、弹窗对话框 end -->
+			
+			
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
