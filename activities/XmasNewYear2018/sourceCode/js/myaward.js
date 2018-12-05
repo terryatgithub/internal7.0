@@ -14,7 +14,6 @@ var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,
 //url传进来的参数：
 var _bActivityEnd = false; //活动是否结束，默认进行中。
 
-
 //函数正式开始：
 var app = {
 	canonical_uri: function(src, base_path) {

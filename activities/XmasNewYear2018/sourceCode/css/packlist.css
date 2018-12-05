@@ -15,7 +15,6 @@ body {
 .goodsContainerClass {
 	position: absolute;
 	left: 170px;
-	width: 1560px;
 	display: none;
 }
 
@@ -52,7 +51,7 @@ body {
 	width: 301px;
 	height: 332px;
 	background-repeat: no-repeat;
-	background-size: 100%;
+	background-size: cover;
 	margin: 0 10px 62px 0;
 }
 

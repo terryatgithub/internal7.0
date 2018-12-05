@@ -1,18 +1,19 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
 var _urlGetPacklists = "http://beta.api.tvshop.coocaa.com/cors/tvCartAPI/packGoodsList";
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/light";
 var _xMasNewYearActivityId = 164;
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _urlGetPacklists;
-//var _urlActivityServer = "https://restful.skysrt.com/light";
 //var _xMasNewYearActivityId;
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
 //全局参数
-var _macAddress, _activityId="", _TVmodel, _TVchip, _emmcCID;
-var _access_token = "", _openId, _nickName="";
+//全局参数
+var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
+var _access_token="", _openId="", _nickName="";
 var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
+//url传进来的参数：
+var _bActivityEnd = false; //活动是否结束，默认进行中。
 
 //函数正式开始：
 var app = {
@@ -36,6 +37,10 @@ var app = {
 		this.bindEvents();
 		//PC debug start
 //		PCOnly_getPackLists();
+		_access_token = "2.570091b5bc284914854a219a22fb4aed";
+		_activityId = "3978822";
+		_macAddress = "60427f7f186b";
+		test_packGifts();
 		//PC debug end
 	},
 	bindEvents: function() {
@@ -69,11 +74,19 @@ var app = {
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
-		getDeviceInfo();
+		pageInit();
 	}
 };
 
 app.initialize();
+
+function pageInit() {
+	if(_bActivityEnd == true) { //活动已结束
+		setToastEndDisplay("block");
+	}else {//活动进行中
+		getDeviceInfo();
+	}
+}
 
 //处理按键
 function processKey(el) {
@@ -101,46 +114,6 @@ function getDeviceInfo() {
 	}, function(error) {
 		console.log("获取设备信息出现异常。");
 	});
-}
-//获取活动开始时间等信息
-function getActivityInfos() {
-	console.log(_xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
-	var ajaxTimeoutOne = $.ajax({
-		type: "POST",
-		async: true,
-		timeout: 10000,
-		dataType: 'json',
-		jsonp: "callback",
-		url: _urlActivityServer + "/xmas/init",
-		data: {
-			"id": _xMasNewYearActivityId,
-			"MAC": _macAddress,
-			"cChip": _TVchip,
-			"cModel": _TVmodel,
-			"cEmmcCID": _emmcCID,
-			"cUDID": _activityId,
-			"accessToken": _access_token,
-			"cOpenId": _openId,
-			"cNickName": _nickName
-		},
-		success: function(data) {
-			console.log(JSON.stringify(data));
-			if(data.code == "50100") { //活动已开始
-				getPackLists();
-			}else if(data.code == "50003") {//活动已结束
-				setToastEndDisplay("block");
-			}
-		},
-		error: function() {
-			
-		},
-		complete: function(XMLHttpRequest, status) {　　　　
-			console.log("-------------complete------------------" + status);
-			if(status == 'timeout') {　　　　　
-				ajaxTimeoutOne.abort();　　　　
-			}
-		}
-	});	
 }
 //获取打包清单
 function getPackLists() {
@@ -175,7 +148,6 @@ function getPackLists() {
 	　　　　	}
 	　　	}
 	});	
-	
 }
 //处理从后台返回的打包列表数据
 function processPackListsData(data) {
@@ -184,12 +156,12 @@ function processPackListsData(data) {
 		setToastEmptyDisplay("block");
 		return;
 	}
-	
+	console.log("processPackListsData 222len:"+len);
 	for(var i=0; i<len; i++) {
-		var goodsInfo = JSON.parse(data.data[i].goodsInfo);
-		console.log("i:"+i+", goodsinfo:" + goodsInfo.goodsId + " "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice);
+		var goodsInfo = (data.data[i].goodsInfo);
+		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
 		
-		var goodsItem = '<div  class="goodsItemClass coocaa_btn" goodsid=" ' + goodsInfo.goodsId + ' "> \
+		var goodsItem = '<div  class="goodsItemClass coocaa_btn" goodsid=" ' + data.goodsId + ' "> \
 							<div class="packGoodsItemPic"></div>										\
 							<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
 							<div class="packGoodsItemLabel">\
@@ -198,7 +170,8 @@ function processPackListsData(data) {
 								<div class="packGoodsItemLabelPriceOld">￥' + goodsInfo.promotePrice + '</div>\
 							</div>\
 						</div>';
-		$("#packGoodsContainer").append(goodsItem);			
+		$("#packGoodsList").append(goodsItem);
+		$("#packGoodsList .goodsItemClass:last-of-type").css("background-image", "url("+goodsInfo.goodsThumb+")");
 	}
 	$("#packGoodsContainer").css("display", "block");
 	
@@ -240,8 +213,10 @@ function hasLogin(needQQ) {
 				_tencentWay = "qq";
 			}
 			_access_token = "";
-			//未登录时获取活动信息:
-			getActivityInfos();
+			
+			test_packGifts();
+			//未登录时获取打包信息:
+//			getPackLists();
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -331,8 +306,9 @@ function hasLogin(needQQ) {
 							}
 						}
 					}
-					//登录后获取活动信息
-					getActivityInfos();
+					test_packGifts();
+					//登录后获取打包信息
+//					getPackLists();
 				}, function(error) {})
 			}, function(error) {});
 		}
@@ -350,42 +326,23 @@ function getQueryString(name) {
 	return null;
 }
 
-
-
-//for PC debug only:
-//获取打包清单
-function PCOnly_getPackLists() {
-	var myUrl = _urlGetPacklists + "?param=";
-	var data = {
-		"token": "",
-		"cudid": _activityId + "_" + _macAddress
-	};
-	myUrl += JSON.stringify(data);
-	console.log("getPackLists myUrl:"+myUrl);
-	
-	var ajaxTimeoutOne = $.ajax({
-		type: "GET", // get post 方法都是一样的
-		async: true,
-		timeout : 10000, 
-		dataType: 'jsonp',
-		jsonp: "callback",
-		url: myUrl,
-		success: function(data) {
-			console.log("getPackLists success..."+JSON.stringify(data));
-			if(data.code == 0) {
-				
-			}
-		},
-		error: function(error) {
-			console.log("getPackLists error..."+error);
-		},
-		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　	console.log("getPackLists complete--"+status);
-			if(status=='timeout'){
-	 　　　　　 		ajaxTimeoutOne.abort();
-	　　　　	}
-	　　	}
-	});	
-	
+//test
+function test_packGifts() {
+	 // 打包接口
+       var data = JSON.stringify({"goodsId":"14770","token":_access_token,"cudid":_activityId+"_"+_macAddress});
+       console.log("============="+data);
+       $.ajax({
+           type: "get",
+           async: true,
+           url: "http://beta.api.tvshop.coocaa.com/cors/tvCartAPI/addCartFromAct",
+           data: {param:data},
+           dataType: "json",
+           success: function(data) {
+               console.log("------------addPack----result-------------"+JSON.stringify(data));
+  				getPackLists();
+           },
+           error: function(error) {
+               console.log("--------访问失败" + JSON.stringify(error));
+           }
+       });
 }
-
