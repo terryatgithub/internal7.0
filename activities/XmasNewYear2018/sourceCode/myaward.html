@@ -218,15 +218,36 @@
 			
 			<!--三、 弹窗对话框 start -->
 			<div id="toastDialogId" class="toastDialogClass">
-				<!--1.已领取页面-->
-				<div class="giftCollectedDialogClass">
-					<div class="giftTitleClass"><span>奖品名称: </span><span>锦鲤礼包</span></div>
-					<div class="giftTimeClass"><span>获得时间: </span><span>2018.8.23</span></div>
+				<!-- 1.1.已领取页面(有收货人信息等，用于：锦鲤，实物， ) -->
+				<div id="gitCollectedDialogAId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span>锦鲤礼包</span></div>
+					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
 					<hr />
-					<div class="giftReceiverNameClass"><span>收货人: </span><span>马花藤</span></div>
-					<div class="giftReceiverTelClass"><span>收货电话: </span><span>13813801380</span></div>
-					<div class="giftReceiverAddrClass"><span>收货地址: </span><span>广东省深圳市宝安区创维园111号</span></div>
-					<div>信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+					<div class="giftReceiverNameClass">收货人 : <span>马花藤</span></div>
+					<div class="giftReceiverTelClass">收货电话 : <span>13813801380</span></div>
+					<div class="giftReceiverAddrClass">收货地址 : <span>广东省深圳市宝安区创维园111号</span></div>
+					<div class="giftReceiverTipClass">信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+				</div>
+				<!-- 1.2.已领取页面(有继续参与按钮，用于：红包， ) -->
+				<div id="gitCollectedDialogBId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;微信红包<span>4.5</span>元</div>
+					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
+					<hr />
+					<div id="giftReceiverBtnId"></div>
+					<div class="giftReceiverTipClass">再接再厉哦~</div>
+					<div class="giftReceiverTipClass">多玩游戏还能获得大额红包</div>
+				</div>
+				<!-- 2.1.待领取页面(用于：实物 ) -->
+				<div id="gitUncollectedDialogBId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span>戴森吹风机</span></div>
+					<div class="giftTimeClass">获得时间 : <span>2018.8.23</span></div>
+					<hr />
+					<div class="giftReceiverDetailsClass">
+						<div class="giftReceiverQrClass"><img></img></div>
+						<div class="giftReceiverTipClass">
+							<div>请微信扫码完善收货信息,</div>
+							<div>确保奖品能够送达哦~</div>
+						</div>
 				</div>
 			</div>
 			<!-- 三、弹窗对话框 end -->

@@ -514,8 +514,8 @@
 	font-size: 48px;
 }
 
-
 /*三、 弹窗对话框 start*/ 
+/*3.1 锦鲤-已领取*/
 .toastDialogClass {
 	position: absolute;
 	width: 1920px;
@@ -525,23 +525,78 @@
 	background-repeat: no-repeat;
 	display: none;
 }
-.giftCollectedDialogClass {
+.giftToastDialogClass {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
+	top: 226px;
+	left: 607px;
 	width: 696px;
 	height: 627px;
-	padding: 220px 102px 0px 102px;
+	padding: 234px 102px 0px 107px;
 	font-family: "SourceHanSansCN", sans-serif;
 	font-size: 24px;
+	line-height: 24px;
 	color: #FFFFFF;
 	background-image: url(../images/myaward/toastBg.png);
 	background-repeat: no-repeat;
+	display: none;
+}
+.giftToastDialogClass>div{
+	margin-bottom: 20px;
+	width: 500px;
+}
+.giftReceiverTipClass {
+	margin-top: 30px;
+	font-size: 20px;
 }
 .giftTitleClass {
 	font-size: 30px;
+	height: 30px;
+	line-height: 30px;
 	color: #FCDD35;
 	font-weight: bold;
 }
-hr {margin: 40px 0;}
+hr {margin: 40px 0; width: 468px;}
+
+/*1.2.已领取页面(红包， )*/
+#gitCollectedDialogBId>div {
+	text-align: center;
+}
+#giftReceiverBtnId {
+	position: relative;
+	left: 135px;
+	background-image: url(../images/myaward/btnContinue.png);
+	width: 218px;
+	height: 68px;
+	margin-bottom: 40px;
+}
+#gitCollectedDialogBId .giftReceiverTipClass {
+	margin: 0 0 16px 0;
+}
+
+/*2.1.待领取页面(用于：实物 )*/
+#gitUncollectedDialogBId>div {
+	text-align: center;
+}
+.giftReceiverDetailsClass {
+	position: relative;
+	height: 200px;
+}
+.giftReceiverDetailsClass>div {
+	display: inline-block;
+}
+.giftReceiverQrClass {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	background-color: white;
+}
+.giftReceiverQrClass img{width: 100%;height: 100%;}
+
+#gitUncollectedDialogBId .giftReceiverTipClass{
+	position: relative;
+	top: -70px;
+	left: 10px;
+	width: 250px;
+	text-align:left;
+}
+#gitUncollectedDialogBId .giftReceiverTipClass>div {margin-bottom: 20px;}
