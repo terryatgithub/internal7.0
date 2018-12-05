@@ -66,6 +66,11 @@ var app = {
 			console.log("itemClick _Index1 = " + _Index1);
 			processKey($(this));
 		});
+		$(".coocaa_btn").bind("itemFocus", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("itemFocus _Lindex: "+_Lindex);
+			focusShift(_Lindex);
+		});
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");

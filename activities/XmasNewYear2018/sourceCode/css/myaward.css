@@ -28,10 +28,16 @@
 }
 
 /*我的礼物板块*/
-#myGiftsContainer {
+#myGiftsOuterContainer{
 	position: absolute;
 	top: 197px;
 	left: 147px;
+	width: 1773px;
+	height: 883px;
+	overflow: hidden;
+}
+#myGiftsContainer {
+	position: relative;
 }
 
 /*每种奖品的小版块容器-通用类*/

@@ -38,11 +38,8 @@ function coocaakeymap(buts, curlink, hover, getVal, setVal, keyDownEvent){
 	this.keyDownEvent = keyDownEvent || function(){};
 	this.hoverClass = hover ? hover : "hover";
 	this.input = null;
-	
-	this.setHeightLight(this);
-	
+
 	this.setVal = setVal || function(val){
-		
 		$(this).val(val);
 	};
 	this.getVal = getVal ||function(){
@@ -53,8 +50,7 @@ function coocaakeymap(buts, curlink, hover, getVal, setVal, keyDownEvent){
 	//设置只读属性
 	//$(buts).attr('readonly',true);
 	//设置鼠标事件
-	//$(buts).unbind("click").bind("click", function(){_this.handleClick(this); });
-	$(buts).unbind("keyinput").bind('keyinput', this.handleInputVal);
+	// $(buts).unbind("keyinput").bind('keyinput', this.handleInputVal);
 	
 	$(window).unbind("keydown").bind('keydown', function(ev){_this.keyHandler(_this, ev);});
 	this.cmd = [];
@@ -75,6 +71,15 @@ function coocaakeymap(buts, curlink, hover, getVal, setVal, keyDownEvent){
 				});
 			}
 	};
+	if(!true){
+		var focusDom = $("#focus");
+		if(focus.length == 0){
+			focusDom = $("<div id='focus' class='" + this.hoverClass  + "'></div>").appendTo($("body"));
+		}
+		this.focusDom = focusDom;
+	}
+	_this.focusDomMoving = false;
+	this.setHeightLight(this);
 }
 //移除焦点元素
 coocaakeymap.prototype.remove = function(wh){
@@ -105,16 +110,36 @@ coocaakeymap.prototype.triggerCmd = function(code){
 		this.debugCmd[cmd]();
 	}
 };
-coocaakeymap.prototype.setFocus = function(obj){
+coocaakeymap.prototype.setFocus = function(curLink){
 	//传入null则聚焦到第一个可见元素
-	if(obj.length == 0){
+	if(curLink.length == 0){
 		return;
 	}
-	if(!obj.is(":visible")){
-		obj = null;
+	if(!curLink.is(":visible")){
+		curLink = this.curLink;
 	}
-	this.curLink = obj;
-	this.setHeightLight(this);
+	this.curLink = curLink;
+	var _this = this;
+	if(this.focusDom != null){
+		if(curLink != null){
+			var top = curLink.position().top + parseInt(curLink.css('marginTop').replace("px",""));
+			var left = curLink.position().left + parseInt(curLink.css('marginLeft').replace("px",""));
+			//设置焦点框的值
+			var hover = _this.hoverClass;
+			_this.linkbuttons.removeClass(hover);
+			_this.focusDom.show();
+			_this.focusDomMoving = true;
+			_this.focusDom.animate({width:curLink.width(),height:curLink.height(), top:top, left:left},100, function(){
+				_this.focusDom.hide();
+				_this.setHeightLight(_this);
+				_this.focusDomMoving = false;
+			});
+		}else{
+			_this.focusDom.hide();
+		}
+	}else{
+		_this.setHeightLight(_this);
+	}
 };
 
 coocaakeymap.prototype.handleClick = function(obj){
@@ -122,6 +147,10 @@ coocaakeymap.prototype.handleClick = function(obj){
 	this.curLink.trigger("itemClick");
 };
 coocaakeymap.prototype.keyHandler = function(_this, ev){
+	if(_this.focusDomMoving == true){
+		return;
+	}
+	console.log("用户正在点击按键：keyCode=" + ev.keyCode);
 	//var ev = event;
 	var curKey = ev.keyCode;
 	debug("<br/>");
@@ -149,13 +178,6 @@ coocaakeymap.prototype.keyHandler = function(_this, ev){
 	//}
 	if(ev.isPropagationStopped() == false){
 		switch(curKey){
-			case 8:// 遥控器删除
-				_this.iscmd = true;
-				_this.cmd = [];
-				if(curKey == 8){
-					ev.preventDefault();
-				}
-				break;
 			case 27: // esc返回
 
 				break;
@@ -179,16 +201,23 @@ coocaakeymap.prototype.keyHandler = function(_this, ev){
 			case 13: // enter
 				_this.curLink.trigger("itemClick");
 				break;
+			case 8:// 遥控器删除
+				_this.iscmd = true;
+				_this.cmd = [];
+				ev.preventDefault();
+			default:
+				_this.handleInputVal(ev, curKey, _this);
 		}
 	}
 	if(lastLink != _this.curLink){
-		lastLink.trigger("blur");
-		_this.curLink.trigger("focus");
+		lastLink.trigger("itemBlur");
+		_this.curLink.trigger("itemFocus");
 	}
 	this.keyDownEvent(ev);
 };
 
 coocaakeymap.prototype.setHeightLight = function(_this){
+
 	if(_this.curLink == null){
 		//将第一个可见元素设置为焦点元素
 		for(var i = 0; i <_this.linkbuttons.length; i++ ){
@@ -220,6 +249,13 @@ coocaakeymap.prototype.setHeightLight = function(_this){
 	//将焦点赋给文档
 	$(document).focus();
 	this.curLink.trigger("itemSelected");
+	if(this.focusDom !=null){
+		var top = curLink.position().top + parseInt(curLink.css('marginTop').replace("px",""));
+		var left = curLink.position().left + parseInt(curLink.css('marginLeft').replace("px",""));
+		//设置焦点框的值
+		this.focusDom.css({width:curLink.width(),height:curLink.height(), top:top, left:left});
+		this.focusDom.hide();
+	}
 };
 
 coocaakeymap.prototype.moveLeft = function(){
@@ -228,8 +264,7 @@ coocaakeymap.prototype.moveLeft = function(){
 	if(_this.curLink.attr("leftTarget")){
 		var link = $(_this.curLink.attr("leftTarget"));
 		if(link.size() > 0){
-			_this.curLink = link;
-			_this.setHeightLight(_this);
+			_this.setFocus(link);
 			return;
 		}
 	}
@@ -248,7 +283,7 @@ coocaakeymap.prototype.moveLeft = function(){
 	var prev = _this.curLink.prev();
 	while(prev.length > 0){
 		//查找相邻的节点
-		if(_this.linkbuttons.index(prev) != -1){
+		if(_this.linkbuttons.index(prev) != -1 && !(prev.is(":hidden"))){
 			curLink = prev;
 			break;
 		}else{
@@ -258,7 +293,7 @@ coocaakeymap.prototype.moveLeft = function(){
 	if(_this.curLink == curLink){
 		_this.linkbuttons.each(function () {
 			xthis = $(this);
-			if(xthis.is(":hidden") || xthis.css("visibility") == 'hidden'){
+			if(xthis.is(":hidden")){
 				return true;
 			}
 			nx = xthis.offset().left;
@@ -291,9 +326,7 @@ coocaakeymap.prototype.moveLeft = function(){
 		});
 	}
 	//
-	_this.curLink = curLink;
-	_this.setHeightLight(_this);
-	
+	_this.setFocus(curLink);
 };
 
 coocaakeymap.prototype.lineDistance = function(x1, y1, x2, y2) {
@@ -311,12 +344,11 @@ coocaakeymap.prototype.lineDistance = function(x1, y1, x2, y2) {
 
 coocaakeymap.prototype.moveRight = function(){
 	var _this = this;
-	// 如果有rightTarget标识,直接聚焦到标识所属元素
+	// 如果有leftTarget 标识,直接聚焦到标识所属元素
 	if(_this.curLink.attr("rightTarget")){
 		var link = $(_this.curLink.attr("rightTarget"));
 		if(link.size() > 0){
-			_this.curLink = link;
-			_this.setHeightLight(_this);
+			_this.setFocus(link);
 			return;
 		}
 	}
@@ -335,7 +367,7 @@ coocaakeymap.prototype.moveRight = function(){
 	
 	var next = _this.curLink.next();
 	while(next.length > 0){
-		if(_this.linkbuttons.index(next) != -1){
+		if(_this.linkbuttons.index(next) != -1 && !(next.is(":hidden"))){
 			curLink = next;
 			break;
 		}else{
@@ -345,7 +377,7 @@ coocaakeymap.prototype.moveRight = function(){
 	if(_this.curLink == curLink){
 		_this.linkbuttons.each(function () {
 	        xthis = $(this);
-	        if(xthis.is(":hidden") || xthis.css("visibility") == 'hidden'){
+	        if(xthis.is(":hidden")){
 				return true;
 			}
 	        nx = xthis.offset().left;
@@ -375,19 +407,17 @@ coocaakeymap.prototype.moveRight = function(){
 	        }
 	    });
 	}
-	
-	_this.curLink = curLink;
-	_this.setHeightLight(_this);
+
+	_this.setFocus(curLink);
 };
 
 coocaakeymap.prototype.moveUp = function(){
 	var _this = this;
-	//如果有 upTarget 标识,直接聚焦到标识所属元素
+	//如果有leftTarget 标识,直接聚焦到标识所属元素
 	if(_this.curLink.attr("upTarget")){
 		var link = $(_this.curLink.attr("upTarget"));
 		if(link.size() > 0){
-			_this.curLink = link;
-			_this.setHeightLight(_this);
+			_this.setFocus(link);
 			return;
 		}
 	}
@@ -406,7 +436,7 @@ coocaakeymap.prototype.moveUp = function(){
 	var findF = false;
 	_this.linkbuttons.each(function () {
         xthis = $(this);
-        if(xthis.is(":hidden") || xthis.css("visibility") == 'hidden'){
+        if(xthis.is(":hidden") ){
 			return true;
 		}
         nx = xthis.offset().left;
@@ -437,19 +467,17 @@ coocaakeymap.prototype.moveUp = function(){
 	        }
         }
     });
-	
-	_this.curLink = curLink;
-	_this.setHeightLight(_this);
+
+	_this.setFocus(curLink);
 };
 
 coocaakeymap.prototype.moveDown = function(){
 	var _this = this;
-	//如果有 downTarget 标识,直接聚焦到标识所属元素
+	//如果有leftTarget 标识,直接聚焦到标识所属元素
 	if(_this.curLink.attr("downTarget")){
 		var link = $(_this.curLink.attr("downTarget"));
 		if(link.size() > 0){
-			_this.curLink = link;
-			_this.setHeightLight(_this);
+			_this.setFocus(link);
 			return;
 		}
 	}
@@ -468,7 +496,7 @@ coocaakeymap.prototype.moveDown = function(){
 	var findF = false;
 	_this.linkbuttons.each(function () {
         xthis = $(this);
-        if(xthis.is(":hidden") || xthis.css("visibility") == 'hidden'){
+        if(xthis.is(":hidden")){
 			return true;
 		}
         nx = xthis.offset().left;
@@ -499,8 +527,7 @@ coocaakeymap.prototype.moveDown = function(){
 	        }
         }
     });
-    _this.curLink = curLink;
-	_this.setHeightLight(_this);
+	_this.setFocus(curLink);
 };
 
 coocaakeymap.prototype.handleInputVal = function(ev, code, map){
@@ -523,9 +550,6 @@ coocaakeymap.prototype.handleInputVal = function(ev, code, map){
 	case 56:
 	case 57:
 		//输入法输入
-		if($(this).attr("readonly") == undefined){
-			return;
-		}
 		//ev.isPropagationStopped();
 		char =  String.fromCharCode(code);
 		var old = _this.getVal.call(this);
@@ -550,10 +574,6 @@ coocaakeymap.prototype.handleInputVal = function(ev, code, map){
 	case 103:
 	case 104:
 	case 105:
-		//输入法输入
-		if($(this).attr("readonly") == undefined){
-			return;
-		}
 		//ev.isPropagationStopped();
 		var c = code - 48;
 		char = String.fromCharCode(c);
