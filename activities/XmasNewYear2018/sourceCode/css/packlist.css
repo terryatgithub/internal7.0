@@ -40,13 +40,19 @@ body {
 #moreGoodsTitle {
 	background-image: url(../images/packlist/title-more.png);
 }
-
+#packGoodsListOuterContainerId {
+	position: absolute;
+	top: 60px;
+	width: 1750px;
+	height: 798px;
+	overflow: hidden;
+}
 .goodsListClass {
 	position: relative;
-	top: 10px;
 }
 
 .goodsItemClass {
+	position: relative;
 	display: inline-block;
 	width: 301px;
 	height: 332px;
@@ -75,6 +81,8 @@ body {
 	left: 30px;
 	width: 241px;
 	height: 177px;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .packGoodsItemName {

@@ -36,11 +36,7 @@ var app = {
 	initialize: function() {
 		this.bindEvents();
 		//PC debug start
-//		PCOnly_getPackLists();
-		_access_token = "2.570091b5bc284914854a219a22fb4aed";
-		_activityId = "3978822";
-		_macAddress = "60427f7f186b";
-		test_packGifts();
+		testtesttesttest();
 		//PC debug end
 	},
 	bindEvents: function() {
@@ -71,6 +67,11 @@ var app = {
 			console.log("itemClick _Index1 = " + _Index1);
 			processKey($(this));
 		});
+		$(".coocaa_btn").bind("itemFocus", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("itemFocus _Lindex: "+_Lindex);
+			focusShift($(this));
+		});	
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
@@ -80,6 +81,35 @@ var app = {
 
 app.initialize();
 
+//测试函数，最后需要关闭或删除
+function testtesttesttest() {
+		_access_token = "3.570091b5bc284914854a219a22fb4aed";
+		_activityId = "4978822";
+		_macAddress = "70427f7f186b";
+		test_packGifts("14770");
+		test_packGifts("14801");
+		test_packGifts("14802");
+		test_packGifts("14803");
+//		test_packGifts("14804");
+//		test_packGifts("14805");
+//		test_packGifts("14806");
+//		test_packGifts("14807");
+//		test_packGifts("14808");
+//		test_packGifts("14809");
+//		test_packGifts("14810");
+//		test_packGifts("14811");
+//		test_packGifts("14812");
+//		test_packGifts("14813");
+//		test_packGifts("14814");
+//		test_packGifts("14815");
+//		test_packGifts("14816");
+//		test_packGifts("14817");
+//		test_packGifts("14818");
+//		test_packGifts("14819");
+//		test_packGifts("14820");
+		setTimeout("getPackLists()", 10000);	
+}
+
 function pageInit() {
 	if(_bActivityEnd == true) { //活动已结束
 		setToastEndDisplay("block");
@@ -87,7 +117,22 @@ function pageInit() {
 		getDeviceInfo();
 	}
 }
-
+//页面翻页
+function focusShift(el) {
+	//获取焦点元素所属section的top值：
+	var parentId = el.parent().attr("id");
+	var myScrollTopValue = el.position().top;
+	console.log("focusShift myScrollTopValue: " + myScrollTopValue +"parentId:"+parentId);
+	if(parentId == "packGoodsList") {
+		$("#packGoodsListOuterContainerId").stop(true, true).animate({
+			scrollTop: myScrollTopValue
+		}, {
+			duration: 0,
+			easing: "swing",
+			complete: function() {}
+		});
+	}
+}
 //处理按键
 function processKey(el) {
 	var curId = el.attr("id");
@@ -171,7 +216,7 @@ function processPackListsData(data) {
 							</div>\
 						</div>';
 		$("#packGoodsList").append(goodsItem);
-		$("#packGoodsList .goodsItemClass:last-of-type").css("background-image", "url("+goodsInfo.goodsThumb+")");
+		$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", "url("+goodsInfo.goodsThumb+")");
 	}
 	$("#packGoodsContainer").css("display", "block");
 	
@@ -327,9 +372,9 @@ function getQueryString(name) {
 }
 
 //test
-function test_packGifts() {
+function test_packGifts(goodsid) {
 	 // 打包接口
-       var data = JSON.stringify({"goodsId":"14770","token":_access_token,"cudid":_activityId+"_"+_macAddress});
+       var data = JSON.stringify({"goodsId":goodsid,"token":_access_token,"cudid":_activityId+"_"+_macAddress});
        console.log("============="+data);
        $.ajax({
            type: "get",
@@ -339,7 +384,6 @@ function test_packGifts() {
            dataType: "json",
            success: function(data) {
                console.log("------------addPack----result-------------"+JSON.stringify(data));
-  				getPackLists();
            },
            error: function(error) {
                console.log("--------访问失败" + JSON.stringify(error));
