@@ -1,10 +1,8 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
 var _urlGetPacklists = "http://beta.api.tvshop.coocaa.com/cors/tvCartAPI/packGoodsList";
-var _xMasNewYearActivityId = 164;
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _urlGetPacklists;
-//var _xMasNewYearActivityId;
 var _moreGoodsIdArr=[14770, 14770, 14770, 14770, 14770];
 //-----------------------------正式上线需配置参数 end---------------------------------//
 //全局参数
@@ -28,8 +26,8 @@ var app = {
 		return absolute_regex.test(src) ? src : ((src.charAt(0) == "/" ? root_domain : root_page) + src);
 	},
 
-	rel_html_imgpath: function(iconurl) {
-		return app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+)$/, '$1'));
+	rel_html_imgpath: function(iconurl) {//修改为只支持二级目录，比如  ../images/packlist/toast-end.png
+		return app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+\/[^\/]+)$/, '$1'));
 	},
 
 	initialize: function() {
@@ -80,41 +78,27 @@ var app = {
 
 app.initialize();
 
-//测试函数，最后需要关闭或删除
-function testtesttesttest() {
-		_access_token = "3.570091b5bc284914854a219a22fb4aed";
-		_activityId = "4978822";
-		_macAddress = "70427f7f186b";
-		test_packGifts("14770");
-		test_packGifts("14801");
-		test_packGifts("14802");
-		test_packGifts("14803");
-//		test_packGifts("14804");
-//		test_packGifts("14805");
-//		test_packGifts("14806");
-//		test_packGifts("14807");
-//		test_packGifts("14808");
-//		test_packGifts("14809");
-//		test_packGifts("14810");
-//		test_packGifts("14811");
-//		test_packGifts("14812");
-//		test_packGifts("14813");
-//		test_packGifts("14814");
-//		test_packGifts("14815");
-//		test_packGifts("14816");
-//		test_packGifts("14817");
-//		test_packGifts("14818");
-//		test_packGifts("14819");
-//		test_packGifts("14820");
-		setTimeout("getPackLists()", 10000);	
-}
-
 function pageInit() {
+	otherPageInit();
 	if(_bActivityEnd == true) { //活动已结束
 		setToastEndDisplay("block");
 	}else {//活动进行中
 		getDeviceInfo();
 	}
+}
+function otherPageInit(){
+	$("body").css("background-image","url(images/packlist/bg.jpg)");
+	var pic=app.rel_html_imgpath(__uri("../images/packlist/title-pack.png"));
+	$("#packGoodsTitle").css("background-image","url("+pic+")");
+	pic=app.rel_html_imgpath(__uri("../images/packlist/title-more.png"));
+	$("#moreGoodsTitle").css("background-image","url("+pic+")");
+	pic=app.rel_html_imgpath(__uri("../images/packlist/goods-more.png"));
+	$("#moregoodsList .goodsItemClass").css("background-image","url("+pic+")");
+	pic=app.rel_html_imgpath(__uri("../images/packlist/toast-empty.png"));
+	$("#toastEmpty").css("background-image","url("+pic+")");
+	pic=app.rel_html_imgpath(__uri("../images/packlist/toast-end.png"));
+	console.log("11111111111111111111 pic:"+pic);
+	$("#toastEnd").css("background-image","url("+pic+")");
 }
 //页面翻页
 function focusShift(el) {
@@ -134,17 +118,27 @@ function focusShift(el) {
 }
 //处理按键
 function processKey(el) {
-	enterPurchasePage(el);
-}
-
-//进入商品购买详情页
-function enterPurchasePage(el) {
-	var goodsId = el.attr("goodsid");
-	console.log("enterPurchasePage goodsId:"+goodsId);
+	var curId = el.attr("id");
+	console.log("processKey curId:"+curId);
 	
-	coocaaosapi.startAppShopDetail(goodsId, function(msg){
-		console.log("startAppShopDetail success.");
-	}, function(err){console.log("startAppShopDetail error.");});
+	switch(curId) {
+		case "toastEmpty":
+			//马上去打包
+			console.log("go packing now....");
+			break;
+		case "toastEnd":
+			//跳去我的礼物页面
+			console.log("go myGifts now....");
+			break;
+		default:
+			var goodsId = el.attr("goodsid");
+			console.log("processKey goodsId:"+goodsId);
+			//进入商品购买详情页
+			coocaaosapi.startAppShopDetail(goodsId, function(msg){
+				console.log("startAppShopDetail success.");
+			}, function(err){console.log("startAppShopDetail error.");});
+		break;
+	}
 }
 
 //获取设备信息并初始化
@@ -209,7 +203,7 @@ function processPackListsData(data) {
 		setToastEmptyDisplay("block");
 		return;
 	}
-	console.log("processPackListsData 222len:"+len);
+	console.log("processPackListsData len:"+len);
 	for(var i=0; i<len; i++) {
 		var goodsInfo = (data.data[i].goodsInfo);
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
@@ -236,7 +230,7 @@ function processPackListsData(data) {
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
 
-//设置 moreGoodsContainer display状态
+//设置更多商品 moreGoodsContainer display状态
 function setMoreGoodsContainerDisplay(display) {
 	var list = $("#moreGoodsContainer .goodsItemClass");
 	var len = list.length;
@@ -246,13 +240,13 @@ function setMoreGoodsContainerDisplay(display) {
 	$("#moreGoodsContainer").css("display", display);
 }
 
-//设置toastEmpty display状态
+//设置打包清单为空 toastEmpty display状态
 function setToastEmptyDisplay(display) {
 	$("#toastEmpty").css("display", display);
 	app.registerKeyHandler();
 	map = new coocaakeymap($(".coocaa_btn"), document.getElementById("toastEmpty"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
-//设置toastEnd display状态
+//设置活动结束 toastEnd display状态
 function setToastEndDisplay(display) {
 	$("#toastEnd").css("display", display);
 	app.registerKeyHandler();
@@ -271,9 +265,9 @@ function hasLogin(needQQ) {
 			}
 			_access_token = "";
 			
-			test_packGifts("14770");
+//			test_packGifts("14770");
 			//未登录时获取打包信息:
-//			getPackLists();
+			getPackLists();
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -363,9 +357,9 @@ function hasLogin(needQQ) {
 							}
 						}
 					}
-					test_packGifts("14770");
+//					test_packGifts("14770");
 					//登录后获取打包信息
-//					getPackLists();
+					getPackLists();
 				}, function(error) {})
 			}, function(error) {});
 		}
@@ -377,6 +371,36 @@ function getQueryString(name) {
 	var r = window.location.search.substr(1).match(reg);
 	if(r != null) return unescape(r[2]);
 	return null;
+}
+
+
+//测试函数，最后需要关闭或删除
+function testtesttesttest() {
+		_access_token = "3.570091b5bc284914854a219a22fb4aed";
+		_activityId = "4978822";
+		_macAddress = "70427f7f186b";
+		test_packGifts("14770");
+		test_packGifts("14801");
+		test_packGifts("14802");
+		test_packGifts("14803");
+//		test_packGifts("14804");
+//		test_packGifts("14805");
+//		test_packGifts("14806");
+//		test_packGifts("14807");
+//		test_packGifts("14808");
+//		test_packGifts("14809");
+//		test_packGifts("14810");
+//		test_packGifts("14811");
+//		test_packGifts("14812");
+//		test_packGifts("14813");
+//		test_packGifts("14814");
+//		test_packGifts("14815");
+//		test_packGifts("14816");
+//		test_packGifts("14817");
+//		test_packGifts("14818");
+//		test_packGifts("14819");
+//		test_packGifts("14820");
+		setTimeout("getPackLists()", 10000);	
 }
 
 //test

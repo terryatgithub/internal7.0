@@ -6,7 +6,6 @@ body {
 	position: absolute;
 	width: 1920px;
 	height: 1080px;
-	background-image: url(../images/packlist/bg.jpg);
 	background-repeat: no-repeat;
 }
 
@@ -31,13 +30,6 @@ body {
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
-
-#packGoodsTitle {
-	background-image: url(../images/packlist/title-pack.png);	
-}
-#moreGoodsTitle {
-	background-image: url(../images/packlist/title-more.png);
-}
 #packGoodsListOuterContainerId {
 	position: absolute;
 	top: 70px;
@@ -61,9 +53,6 @@ body {
 
 #packGoodsList .goodsItemClass {
 	background-image: url(../images/packlist/goods-placeholder.png);	
-}
-#moregoodsList .goodsItemClass {
-	background-image: url(../images/packlist/goods-more.png);	
 }
 
 #packGoodsList .goodsItemClass[class~=btn-focus] {
@@ -145,10 +134,8 @@ div[id^="toast"] {
 #toastEmpty {
 	width: 981px;
 	height: 485px;
-	background-image: url(../images/packlist/toast-empty.png);
 }
 #toastEnd {
 	width: 980px;
 	height: 483px;
-	background-image: url(../images/packlist/toast-end.png);
 }

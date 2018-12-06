@@ -1,10 +1,10 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/light";
-var _xMasNewYearActivityId = 164;
+var _xMasNewYearActivityId = 87;
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _urlActivityServer = "https://restful.skysrt.com/light";
-//var _xMasNewYearActivityId;
+//var _xMasNewYearActivityId = 87;
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
 //全局参数
