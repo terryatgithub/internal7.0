@@ -5,9 +5,8 @@ var _xMasNewYearActivityId = 164;
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _urlGetPacklists;
 //var _xMasNewYearActivityId;
+var _moreGoodsIdArr=[14770, 14770, 14770, 14770, 14770];
 //-----------------------------正式上线需配置参数 end---------------------------------//
-
-//全局参数
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
 var _access_token="", _openId="", _nickName="";
@@ -36,7 +35,7 @@ var app = {
 	initialize: function() {
 		this.bindEvents();
 		//PC debug start
-		testtesttesttest();
+//		testtesttesttest();
 		//PC debug end
 	},
 	bindEvents: function() {
@@ -135,10 +134,19 @@ function focusShift(el) {
 }
 //处理按键
 function processKey(el) {
-	var curId = el.attr("id");
-	console.log("curId: "+ curId);
-	
+	enterPurchasePage(el);
 }
+
+//进入商品购买详情页
+function enterPurchasePage(el) {
+	var goodsId = el.attr("goodsid");
+	console.log("enterPurchasePage goodsId:"+goodsId);
+	
+	coocaaosapi.startAppShopDetail(goodsId, function(msg){
+		console.log("startAppShopDetail success.");
+	}, function(err){console.log("startAppShopDetail error.");});
+}
+
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -206,7 +214,7 @@ function processPackListsData(data) {
 		var goodsInfo = (data.data[i].goodsInfo);
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
 		
-		var goodsItem = '<div  class="goodsItemClass coocaa_btn" goodsid=" ' + data.goodsId + ' "> \
+		var goodsItem = '<div  class="goodsItemClass coocaa_btn" goodsid=" ' + data.data[i].goodsId + ' "> \
 							<div class="packGoodsItemPic"></div>										\
 							<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
 							<div class="packGoodsItemLabel">\
@@ -230,6 +238,11 @@ function processPackListsData(data) {
 
 //设置 moreGoodsContainer display状态
 function setMoreGoodsContainerDisplay(display) {
+	var list = $("#moreGoodsContainer .goodsItemClass");
+	var len = list.length;
+	for(var i=0; i<len; i++) {
+		list.eq(i).attr("goodsid", _moreGoodsIdArr[i]);
+	}
 	$("#moreGoodsContainer").css("display", display);
 }
 
@@ -246,7 +259,6 @@ function setToastEndDisplay(display) {
 	map = new coocaakeymap($(".coocaa_btn"), document.getElementById("toastEnd"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
 
-
 function hasLogin(needQQ) {
 	console.log("in hasLogin");
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
@@ -259,7 +271,7 @@ function hasLogin(needQQ) {
 			}
 			_access_token = "";
 			
-			test_packGifts();
+			test_packGifts("14770");
 			//未登录时获取打包信息:
 //			getPackLists();
 		} else {
@@ -351,18 +363,14 @@ function hasLogin(needQQ) {
 							}
 						}
 					}
-					test_packGifts();
+					test_packGifts("14770");
 					//登录后获取打包信息
 //					getPackLists();
 				}, function(error) {})
 			}, function(error) {});
 		}
-		
 	}, function(error) {});
 }
-
-
-
 
 function getQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -384,6 +392,7 @@ function test_packGifts(goodsid) {
            dataType: "json",
            success: function(data) {
                console.log("------------addPack----result-------------"+JSON.stringify(data));
+               getPackLists();
            },
            error: function(error) {
                console.log("--------访问失败" + JSON.stringify(error));
