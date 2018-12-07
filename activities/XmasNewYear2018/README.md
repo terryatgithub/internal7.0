@@ -26,3 +26,6 @@ logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.we
 
 2. 双旦活动-接口
 	http://wiki.skyoss.com/pages/viewpage.action?pageId=20241841
+	
+3. 奖品信息公共参数(包括各类奖品typeid)
+http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189&tdsourcetag=s_pcqq_aiomsg
