@@ -59,13 +59,13 @@ var app = {
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-		$(".coocaa_btn").bind("itemClick", function() {
-			var _Index1 = $(".coocaa_btn").index($(this));
+		$(".coocaa_btn_pack").bind("itemClick", function() {
+			var _Index1 = $(".coocaa_btn_pack").index($(this));
 			console.log("itemClick _Index1 = " + _Index1);
 			processKey($(this));
 		});
-		$(".coocaa_btn").bind("itemFocus", function() {
-			_Lindex = $(".coocaa_btn").index($(this));
+		$(".coocaa_btn_pack").bind("itemFocus", function() {
+			_Lindex = $(".coocaa_btn_pack").index($(this));
 			console.log("itemFocus _Lindex: "+_Lindex);
 			focusShift($(this));
 		});	
@@ -208,7 +208,7 @@ function processPackListsData(data) {
 		var goodsInfo = (data.data[i].goodsInfo);
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
 		
-		var goodsItem = '<div  class="goodsItemClass coocaa_btn" goodsid=" ' + data.data[i].goodsId + ' "> \
+		var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' "> \
 							<div class="packGoodsItemPic"></div>										\
 							<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
 							<div class="packGoodsItemLabel">\
@@ -218,7 +218,8 @@ function processPackListsData(data) {
 							</div>\
 						</div>';
 		$("#packGoodsList").append(goodsItem);
-		$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", "url("+goodsInfo.goodsThumb+")");
+		var thumb = "url('http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/img/p'"+data.data[i].goodsId+".png)";
+		$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", "url("+thumb+")");
 	}
 	$("#packGoodsContainer").css("display", "block");
 	
@@ -227,7 +228,7 @@ function processPackListsData(data) {
 	}
 	
 	app.registerKeyHandler();
-	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn_pack"), $(".coocaa_btn_pack").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
 
 //设置更多商品 moreGoodsContainer display状态
@@ -244,13 +245,13 @@ function setMoreGoodsContainerDisplay(display) {
 function setToastEmptyDisplay(display) {
 	$("#toastEmpty").css("display", display);
 	app.registerKeyHandler();
-	map = new coocaakeymap($(".coocaa_btn"), document.getElementById("toastEmpty"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn_pack"), document.getElementById("toastEmpty"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
 //设置活动结束 toastEnd display状态
 function setToastEndDisplay(display) {
 	$("#toastEnd").css("display", display);
 	app.registerKeyHandler();
-	map = new coocaakeymap($(".coocaa_btn"), document.getElementById("toastEnd"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn_pack"), document.getElementById("toastEnd"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 }
 
 function hasLogin(needQQ) {
