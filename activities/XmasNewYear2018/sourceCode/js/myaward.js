@@ -1,6 +1,6 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com//light";
+var _urlActivityServer = "http://172.20.155.51:3000/light";//"http://beta.restful.lottery.coocaatv.com//light";
 var _xMasNewYearActivityId = 87;
 //实物二维码领取接口
 var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接口
@@ -21,7 +21,8 @@ var _access_token="", _openId="", _nickName="";
 var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
 //url传进来的参数：
 var _bActivityEnd = false; //活动是否结束，默认进行中。
-
+var _bAwardToast = false; //是否显示”奖励弹窗“，默认不需要；
+var _bCallHome = false; //默认不启动主页； 如果是从主页进我的礼物页面，再去主页时，不需要启动主页，直接把“我的礼物”页面退掉就行； 从福利节进我的礼物页面，再去主页时，需要启动主页；
 
 //-----------------------------------动态插入的页面元素 start--------------------------//
 //更新我的礼品信息到页面:
@@ -153,14 +154,6 @@ var app = {
 	initialize: function() {
 		//PC debug start
 		test_test_test_getMyGifts();
-//      var initPhoneMap = function(obj) {
-//			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//			console.log("----------initPhoneMap End---------");
-//		}
-//		firstFocus = document.getElementsByClassName("coocaa_btn")[0];
-//		initPhoneMap(firstFocus);
-//		app.registerKeyHandler();
-		
 		//PC debug end
 
 		this.bindEvents();
@@ -230,10 +223,16 @@ var app = {
 app.initialize();
 
 function pageInit() {
-	if(/true/i.test(getQueryString("activityEnd"))) { //活动是否结束
+	console.log("pageInit params: actEnd:"+getQueryString("actEnd")+",awardToast:"+ getQueryString("awardToast")+",from:"+getQueryString("from"));
+	if(/true/i.test(getQueryString("actEnd"))) { //活动是否结束
 		_bActivityEnd = true;
 	}
-	
+	if(/true/i.test(getQueryString("awardToast"))) { //是否显示"奖励弹窗"
+		_bAwardToast = true;
+	}
+	if(/street/i.test(getQueryString("from"))) { //是否需要启动主页
+		_bCallHome = true;
+	}
 }
 //页面翻页
 function focusShift(el) {
@@ -303,6 +302,8 @@ function getDeviceInfo() {
 		_TVchip = message.chip;
 		_macAddress = message.mac;
 		_activityId = message.activeid;
+//		yuanbotest 测试用激活id: "16706858"
+		_activityId = "16706858";
 		if (message.emmcid ==""||message.emmcid==null) {
 			_emmcCID = "123456";
 		} else{
@@ -373,7 +374,7 @@ function getMyGifts() {
 			"cChip": _TVchip,
 			"cModel": _TVmodel,
 			"cEmmcCID": _emmcCID,
-			"cUDID": _activityId, //测试用激活id: "16706858"
+			"cUDID": _activityId, 
 			"accessToken": _access_token,
 			"cOpenId": _openId,
 			"cNickName": _nickName,
@@ -416,7 +417,17 @@ function updateGiftsInfoToPage(data) {
 	console.log("updateGiftsInfoOnPage len:"+len);
 	var itemName, listId, containerName; //页面元素变量
 	var awardTypeId;	//服务器返回数据变量
-	var abc;	//提交给服务器的变量
+	var giftsAttributes = {	//给页面元素增加的属性(公共部分):
+			"lotteryActiveId": data[i].lotteryActiveId
+			,"rememberId":data[i].lotteryRememberId
+		   	,"awardId": data[i].awardId
+		   	,"userKeyId": data[i].userKeyId
+		   	,"userOpenId":data[i].userOpenId
+		   	,"awardTypeId":data[i].awardTypeId
+		   	,"awardExchangeFlag":data[i].awardExchangeFlag
+		   	,"awardName":data[i].awardName
+		   	,"awardTime":data[i].awardTime
+	};	
 	for(var i = 0; i < len; i++) {
 		awardTypeId = data[i].awardTypeId;
 		console.log("awardTypeId: "+awardTypeId);
@@ -425,6 +436,8 @@ function updateGiftsInfoToPage(data) {
 				itemName = koiItem;
 				listId = "koiList";
 				containerName = "koiContainer";
+				//专属属性:
+				giftsAttributes
 				break;
 			case "5": //优惠券
 				itemName = couponItem;
@@ -463,28 +476,18 @@ function updateGiftsInfoToPage(data) {
 		console.log("listId: "+listId + " containerName" + containerName);
 		//添加到页面上
 		$("#"+listId).append(itemName);
-		$("#" + listId +" .sectionItemClass:last-of-type").attr({
-			"lotteryActiveId": data[i].lotteryActiveId
-			,"rememberId":data[i].lotteryRememberId
-		   	,"awardId": data[i].awardId
-		   	,"userKeyId": data[i].userKeyId
-		   	,"userOpenId":data[i].userOpenId
-		   	,"awardTypeId":data[i].awardTypeId
-		   	,"awardExchangeFlag":data[i].awardExchangeFlag
-//		   	,"thirdUserId":thirdUserId //第三方id 如果是腾讯源 则必须要第三方qq 的 id
-//		   	,"source":source // tencent/iqiyi
-		});
+		$("#" + listId +" .sectionItemClass:last-of-type").attr(giftsAttributes);
 		
 		//每种礼物需要单独处理的地方:
 		//锦鲤更新按钮(已领取)
-		if(awardTypeId == 16) {
+		if(awardTypeId == "16") {
 			if(data[i].awardExchangeFlag == 1) { 
-				$("#"+listId+" .sectionItemClass:last-of-type .sectionItemButtonClass").css("background-image", "../images/myaward/KoiBtnCollected.png");
+				$("#"+listId+" .sectionItemClass:last-of-type .sectionItemButtonClass").css("background-image", "url(images/myaward/KoiBtnCollected.png)");
 			}
 		}
 		
 		//同一种优惠券id有几张,需要根据awardTypeId和优惠券id积累计算.
-		if(awardTypeId == 5) {
+		if(awardTypeId == "5") {
 			$("#couponList .sectionItemClass:last-of-type #sectionItemSupMultiplierId").text("5");
 		}
 
@@ -561,7 +564,8 @@ function getEntityAward(awardExchangeFlag, awardTypeId, activeId, rememberId, us
 		case "2": //实体奖
 		break;
 	}
-	
+	//yuanbotest 
+	awardExchangeFlag = 0;
 	if(awardExchangeFlag == 1) { //已领取
 		//具体信息再显示
 
@@ -641,7 +645,7 @@ function getRedbagAward(awardExchangeFlag, activeId, rememberId, userKeyId) {
 			"type": 23,
 		},
 		success: function(data) {
-			console.log("getWechatLuckyMoney success:" + JSON.stringify(data));
+			console.log("getRedbagAward success:" + JSON.stringify(data));
 			if(data.code == "200") {
 				document.getElementById("imgIdRedbagReceiveQr").innerHTML = "";
 				var url = data.data;
@@ -653,7 +657,7 @@ function getRedbagAward(awardExchangeFlag, activeId, rememberId, userKeyId) {
 				$("#toastDialogRedbagUncollectedId").css("display", "block");
 				$("#toastDialogId").css("display", "block");
 			} else {
-				console.log('getWechatLuckyMoney fail..');
+				console.log('getRedbagAward fail..');
 			}
 		},
 		error: function() {
@@ -661,7 +665,7 @@ function getRedbagAward(awardExchangeFlag, activeId, rememberId, userKeyId) {
 			errorToast();
 		},
 		complete: function(XMLHttpRequest, status) {　　　　
-			console.log("-------------complete------------------" + status);
+			console.log("----------getRedbagAward---complete------------------" + status);
 			if(status == 'timeout') {　　　　　
 				ajaxTimeoutOne.abort();　　　　
 			}　　

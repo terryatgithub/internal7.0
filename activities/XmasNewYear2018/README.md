@@ -9,16 +9,23 @@
 #测试配置url（主页入口配置需要）：
 //打包清单页面入口：
 logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/myaward.html"; logcat | grep chrom; \r
+
 //我的奖品页面入口：
 logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/packlist.html"; logcat | grep chrom; \r
-
+http://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/myaward.html?actEnd=true&awardToast=true&from=street
 ##输入参数说明： 
-			 	是否显示奖励弹窗
-我的礼物页面	 
-打包清单页面	 	AwardTip=true
-**默认不传或其他值，都是活动在进行中；
-
-
+1. actEnd=true 
+	活动已结束，传true
+	默认false
+2. awardToast=true 
+	需要“奖励弹窗”，传true
+	默认false
+3. from=street
+	从福利节进传street
+	其它情况默认为主页进（可以传home或不传)
+	
+	
+	
 #活动产品文档
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20239930
 
