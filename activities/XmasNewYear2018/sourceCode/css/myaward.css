@@ -126,7 +126,7 @@
 	left: 55px;
 	width: 134px;
 	height: 44px;
-	background-image: url(../images/myaward/btnKoi.png);
+	background-image: url(../images/myaward/koiBtn.png);
 	background-repeat: no-repeat;
 }
 
@@ -502,21 +502,22 @@
 	top: 160px;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 402px;
-	height: 402px;
+	width: 395px;
+	height: 395px;
 	background-color: white;
+	border: 7px solid white;
 }
 .koiCollectQrClass img{
 	width: 100%;
 	height: 100%;
 }
-.koiCollectClass .toastPageTipClass{
+#koiCollectId .toastPageTipClass{
 	top: 200px;
 }
-.koiCollectClass .toastPageTipClass>div {
+#koiCollectId .toastPageTipClass>div {
 	font-size: 30px;
 }
-.koiCollectClass .toastPageTipClass>div:first-of-type {
+#koiCollectId .toastPageTipClass>div:first-of-type {
 	font-size: 48px;
 }
 
@@ -565,7 +566,7 @@ hr {margin: 40px 0; width: 500px;}
 #toastDialogRedbagCollectedId>div {
 	text-align: center;
 }
-#giftReceiverBtnId {
+#btnGiftReceiverId {
 	position: relative;
 	left: 135px;
 	background-image: url(../images/myaward/btnContinue.png);
@@ -590,9 +591,10 @@ hr {margin: 40px 0; width: 500px;}
 }
 .giftReceiverQrClass {
 	position: relative;
-	width: 200px;
-	height: 200px;
+	width: 195px;
+	height: 195px;
 	background-color: white;
+	border: 5px solid white;
 }
 .giftReceiverQrClass img{width: 100%;height: 100%;}
 

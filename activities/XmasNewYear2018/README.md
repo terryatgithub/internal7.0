@@ -19,6 +19,9 @@ logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.we
 **默认不传或其他值，都是活动在进行中；
 
 
+#活动产品文档
+http://wiki.skyoss.com/pages/viewpage.action?pageId=20239930
+
 ###开发中需要的信息：
 ##后台接口
 1. 购物商城那边提供的接口文档
