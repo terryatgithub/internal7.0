@@ -298,10 +298,10 @@ function scrollPage() {
 function fillRankTable() {
 	var i = 0;
 	//去除默认Lv1的高亮:
-//	$("th").eq(1).removeClass("selectedTableEffect");
-//	for(i=0;i<_memberLevelPrivilegeLineNums;i++) {
-//		$("td").eq(i*_memberLevelPrivilegeColNums).removeClass("selectedTableEffect");
-//	}
+	$("th").eq(1).removeClass("selectedTableEffect");
+	for(i=0;i<_memberLevelPrivilegeLineNums;i++) {
+		$("td").eq(i*_memberLevelPrivilegeColNums).removeClass("selectedTableEffect");
+	}
 	//高亮当前等级权益:
 	var index = (_userLv <= 0) ? 1 : ((_userLv>=7) ? 7 : _userLv); 
 	console.log("lv index:"+index);
