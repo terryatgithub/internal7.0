@@ -609,3 +609,143 @@ hr {margin: 40px 0; width: 500px;}
 /* 2.2.待领取页面(用于：红包 ) */
 #toastDialogRedbagUncollectedId>div {text-align: center;}
 #toastDialogRedbagUncollectedId .giftReceiverTipClass {margin: 0 0 20px 0;}
+
+
+/*奖励弹窗css from 林心旺*/
+.santanbg,.milubg,.koibg,.koi2bg{
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.santanbg{
+	background-image: url(../images/dialogntan.png);
+}
+.milubg{
+	background-image: url(../images/dialog/milu.png);
+}
+.koibg{
+	background-image: url(../images/dialog/goodKoi.png);
+}
+.santanbg,.milubg,.koibg,.koi2bg{
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.santanbg{
+	background-image: url(../images/dialogntan.png);
+}
+.milubg{
+	background-image: url(../images/dialog/milu.png);
+}
+.koibg{
+	background-image: url(../images/dialog/goodKoi.png);
+}
+.none{
+	display: none;
+}
+
+#thanks_info1,#thanks_info2,#thanks_info3{
+	position: absolute;
+    top: 418px;
+    left: 720px;
+    height: 48px;
+    width: 484px;
+    font-size: 36px;
+    color: #ffffff;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 4px;
+}
+#thanks_info1{
+	font-weight: 600;
+}
+#thanks_info2{
+    top: 460px;
+    font-size: 22px;
+}
+#thanks_info3{
+    top: 675px;
+    font-size: 16px;
+    color: #fff642;
+    overflow: hidden;
+}
+#thanks_giftsBox{
+	position: absolute;
+    top: 521px;
+    left: 717px;
+    height: 149px;
+    width: 479px;
+	background-image: url(../images/dialog/redbell1.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#thanks_giftInfo{
+	position: absolute;
+    top: 10px;
+    left: 285px;
+    height: 125px;
+    width: 170px;
+    border: 1px solid red;
+    display: block;
+}
+#thanks_giftName{
+	position: absolute;
+    top: 20px;
+    height: 40px;
+    width: 130px;
+    line-height: 40px;
+    font-size: 28px;
+    color: #757575;
+}
+#thanks_giftContant{
+	position: absolute;
+    top: 60px;
+    height: 40px;
+    width: 170px;
+    line-height: 40px;
+    font-size: 28px;
+    color: #f04e48;
+}
+#thanks_giftImg{
+    height: 130px;
+    position: absolute;
+    top: 9px;
+    left: 162px;
+}
+#thanks_btn1,#thanks_btn2{
+	position: absolute;
+    top: 720px;
+    left: 765px;
+    height: 68px;
+    width: 147px;
+}
+#thanks_btn2{
+	left: 945px;
+	width: 210px;
+}
+.btnName{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    line-height: 68px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 25px;
+}
+#thanks_giftImg{
+    height: 130px;
+    position: absolute;
+    top: 9px;
+    left: 162px;
+}
+#thanks_btn1,#thanks_btn2{
+	position: absolute;
+    top: 720px;
+    left: 765px;
+    height: 68px;
+    width: 147px;
+}
+#thanks_btn2{
+	left: 945px;
+	width: 210px;
+}
