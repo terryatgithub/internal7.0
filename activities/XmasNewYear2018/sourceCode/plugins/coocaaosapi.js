@@ -1013,7 +1013,7 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
         console.log("启动新版浏览器")
         argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser', arguments);
         startapp.start([
-            ["action", "coocaa.intent.action.browser.no_route", "com.coocaa.app_browser"],
+            ["action", "coocaa.intent.action.browser", "com.coocaa.app_browser"],
             [{ "url": url }]
         ], success, error);
     }
@@ -1021,34 +1021,27 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
         console.log("启动新版浏览器")
         argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser', arguments);
         startapp.start([
-            ["action", "coocaa.intent.action.browser.no_trans.no_route", "com.coocaa.app_browser"],
+            ["action", "coocaa.intent.action.browser.no_trans", "com.coocaa.app_browser"],
             [{ "url": url }]
         ], success, error);
     }
-    //启动新版浏览器+++activity【有路径，即启动多层activity】
-    //如需要启动透明的，使用action：coocaa.intent.action.browser.withroute
     CoocaaOSApi.prototype.startNewBrowser3 = function(url, success, error) {
         console.log("启动新版浏览器")
-        var FLAG_ACTIVITY_NEW_TASK = 268435456;
-        var FLAG_ACTIVITY_MULTIPLE_TASK = 134217728;
-        var task = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
-        argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser2', arguments);
+        argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser', arguments);
         startapp.start([
-            ["action", "coocaa.intent.action.browser", "com.coocaa.app_browser", "", "", task + ""],
+            ["action", "coocaa.intent.action.browser.no_route", "com.coocaa.app_browser"],
             [{ "url": url }]
         ], success, error);
     }
     CoocaaOSApi.prototype.startNewBrowser4 = function(url, success, error) {
         console.log("启动新版浏览器")
-        var FLAG_ACTIVITY_NEW_TASK = 268435456;
-        var FLAG_ACTIVITY_MULTIPLE_TASK = 134217728;
-        var task = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK;
-        argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser2', arguments);
+        argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser', arguments);
         startapp.start([
-            ["action", "coocaa.intent.action.browser.no_trans", "com.coocaa.app_browser", "", "", task + ""],
+            ["action", "coocaa.intent.action.browser.no_trans.no_route", "com.coocaa.app_browser"],
             [{ "url": url }]
         ], success, error);
     }
+
 
     CoocaaOSApi.prototype.notifyJSLogResumeInfo = function(eventId, ddata, success, error) {
         console.log("resume===============")

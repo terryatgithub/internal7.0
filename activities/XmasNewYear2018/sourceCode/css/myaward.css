@@ -25,6 +25,7 @@
 	font-weight: bold;
 	color: white;
 	transform: translateX(-50%);
+	-webkit-transform:translateX(-50%);
 }
 
 /*我的礼物板块*/
@@ -79,6 +80,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	-webkit-transform:translate(-50%, -50%);
 	background-repeat: no-repeat;
 }
 .sectionItemFocusClass{
@@ -86,6 +88,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-53%, -50%);
+	-webkit-transform:translate(-53%, -50%);
 	background-repeat: no-repeat;
 	display: none;
 }
@@ -153,6 +156,7 @@
 	bottom: 10px;
 	left: 10px;
 	transform: none;
+	-webkit-transform:none;
 	background-image: url(../images/myaward/coupon.png);
 	/*shadow显示,左右10px，下17px*/
 	box-shadow: 10px 0px 10px -10px #000, -10px 0 10px -10px #000, 0 17px 17px -17px #000;
@@ -292,6 +296,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);	
+    -webkit-transform:translateX(-50%);
 	font-family: "SourceHanSansCN", sans-serif;
 	color: #FFFFFF;
 	font-size: 20px;
@@ -413,6 +418,7 @@
     height: 180px;
     width: 180px;
     transform: translateX(-50%);
+    -webkit-transform:translateX(-50%);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -439,6 +445,7 @@
 	bottom: 5px;
 	left: 5px;
 	transform: none;
+	-webkit-transform:none;
 	background-image: url(../images/myaward/thirdparty.png);
 	/*shadow显示,左右10px，下17px*/
 	box-shadow: 10px 0px 10px -10px #000, -10px 0 10px -10px #000, 0 17px 17px -17px #000;
@@ -489,6 +496,7 @@
 	top: 330px;
 	left: 50%;
 	transform: translateX(-50%);
+	-webkit-transform:translateX(-50%);
 	font-family: "SourceHanSansCN", sans-serif;
 	font-weight: bold;
 	font-size: 36px;
@@ -504,6 +512,7 @@
 	top: 367px;
 	left: 50%;
 	transform: translateX(-50%);
+	-webkit-transform:translateX(-50%);
 	width: 377px;
 	height: 148px;
 	background-image: url(../images/myaward/btnToXmasHouse.png);
@@ -522,6 +531,7 @@
 	top: 160px;
 	left: 50%;
 	transform: translateX(-50%);
+	-webkit-transform:translateX(-50%);
 	width: 395px;
 	height: 395px;
 	background-color: white;
@@ -636,26 +646,26 @@ hr {margin: 40px 0; width: 500px;}
 	background-size: 100%;
 }
 .santanbg{
-	background-image: url(../images/dialogntan.png);
+	background-image: url(../images/myaward/santan.png);
 }
 .milubg{
-	background-image: url(../images/dialog/milu.png);
+	background-image: url(../images/myaward/milu.png);
 }
 .koibg{
-	background-image: url(../images/dialog/goodKoi.png);
+	background-image: url(../images/myaward/goodKoi.png);
 }
 .santanbg,.milubg,.koibg,.koi2bg{
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
 .santanbg{
-	background-image: url(../images/dialogntan.png);
+	background-image: url(../images/myaward/santan.png);
 }
 .milubg{
-	background-image: url(../images/dialog/milu.png);
+	background-image: url(../images/myaward/milu.png);
 }
 .koibg{
-	background-image: url(../images/dialog/goodKoi.png);
+	background-image: url(../images/myaward/goodKoi.png);
 }
 .none{
 	display: none;
@@ -692,7 +702,7 @@ hr {margin: 40px 0; width: 500px;}
     left: 717px;
     height: 149px;
     width: 479px;
-	background-image: url(../images/dialog/redbell1.png);
+	background-image: url(../images/myaward/redbell1.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 }

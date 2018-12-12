@@ -265,15 +265,17 @@ function processKey(el) {
 	console.log("processKey curId: "+ curId);
 	switch(curId) {
 		case "btnGoXmasHouseNoGiftsDuringActivityId":
+		case "btnGiftReceiverId":			//微信红包 继续参与 按钮
+		if(_bCallHome) {
 			console.log("go to Xmas house....");
 			//调用进入圣诞小屋的接口
-			
-			return;
-		case "btnGiftReceiverId":
-			//微信红包 继续参与 按钮
-			//todo 要跳到哪里?
-			console.log("continue to where?....");
-			return;
+			var url = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";
+			coocaaosapi.startNewBrowser4(url, function(success){
+				console.log("startNewBrowser4 success");
+			}, function(err){console.log("startNewBrowser4 error")});
+		}
+		navigator.app.exitApp();
+		return;
 	}
 	
 	console.log("_loginstatus = "+_loginstatus);
@@ -309,7 +311,27 @@ function processKey(el) {
 			getEntityAward(giftsInfo);
 			break;
 		case "5": //优惠券
-			getCouponAward(giftsInfo);
+			//进到此页面时,已经自动领取,所以这里直接跳转到使用页面:
+			console.log("coupon success, go to use page...");
+			giftsInfo.business = el.attr("business");
+			switch(giftsInfo.business) {
+				case "movie":
+					console.log("movie business........");
+					coocaaosapi.startMovieMemberCenter(0,sourceid, function(success){
+						console.log("startMovieMemberCenter success: "+JSON.stringify(success));
+					}, function(err){console.log("startMovieMemberCenter success: "+JSON.stringify(err));});
+					break;
+				case "edu":
+					console.log("edu business........");
+					coocaaosapi.startMovieMemberCenter(1,sourceid, function(success){
+						console.log("startMovieMemberCenter success: "+JSON.stringify(success));
+					}, function(err){console.log("startMovieMemberCenter success: "+JSON.stringify(err));});
+					break;
+				case "tvmall":
+					console.log("tvmall business........");
+					//todo
+					break;	
+			}
 			break;
 		case "7": //微信红包
 			giftsInfo.bonus = el.attr("bonus");
@@ -459,6 +481,9 @@ function updateGiftsInfoToPage(data) {
 	var itemName, listId, containerName; //页面元素变量
 	var awardTypeId;	//服务器返回数据变量
 	var totalBonus = 0;
+	//存储不同优惠券的数组,相同优惠券在对应位+1;
+	var couponAwardIdArr = [], couponAwardNumArr = [];
+	var index=0;
 	for(var i = 0; i < len; i++) {
 		//给页面元素增加的属性(公共部分):
 		var giftsAttributes = {	
@@ -491,6 +516,28 @@ function updateGiftsInfoToPage(data) {
 				itemName = couponItem;
 				listId = "couponList";
 				containerName = "couponContainer";
+				if(_loginstatus != "false") {//如果用户已经登录,自动领取所有优惠券
+					console.log("auto collect coupon.............");
+					getCouponAward(giftsAttributes);
+				}
+				//专属属性:
+				if(data[i].awardInfo != null) {
+					var awardInfo = (data[i].awardInfo);
+					giftsAttributes.business = awardInfo.business;
+				}
+				//同一种优惠券需要叠加显示: id有几张,需要根据awardTypeId和优惠券id积累计算.
+				for(index=0; index < couponAwardIdArr.length; index++){
+					if(couponAwardIdArr[index] == data[i].awardId) {
+						couponAwardNumArr[index]++;
+						break;
+					}
+				}
+				if(index == couponAwardIdArr.length) {
+					couponAwardIdArr[index] = data[i].awardId;
+					couponAwardNumArr[index] = 1;
+				}else {
+					continue;//已经有同类型优惠券了,不再新增页面元素;
+				}
 				break;
 			case "7": //微信红包
 				if(data[i].awardExchangeFlag == 1) { 
@@ -547,7 +594,6 @@ function updateGiftsInfoToPage(data) {
 		}
 		//同一种优惠券id有几张,需要根据awardTypeId和优惠券id积累计算.
 		if(awardTypeId == "5") {
-			$("#couponList .sectionItemClass:last-of-type #sectionItemSupMultiplierId").text("5");
 			$("#couponList .sectionItemClass:last-of-type .sectionItemNormalClass").css("background-image", "url("+ data[i].awardUrl +")");
 		}
 		//微信红包上的金额显示:
@@ -562,8 +608,15 @@ function updateGiftsInfoToPage(data) {
 		$("#"+containerName).css("display", "block");
 	}
 	//显示主页面
+	//红包总金额更新:
 	if($("#redbagCashContainer").css("display") == "block") {
 		$("#redbagCashTotalId span").text(totalBonus);
+	}
+	//优惠券叠加数更新:
+	if($("#couponList").css("display") == "block") {
+		for(index=0; index < couponAwardNumArr.length; index++){
+			$("#couponList .sectionItemClass:eq("+index+") #sectionItemSupMultiplierId").text(couponAwardNumArr[index]);
+		}
 	}
 	
 	$(".myGiftsPageClass").css("display", "block");
@@ -629,13 +682,6 @@ function getThirdPartyAward(giftsInfo) {
 }
 //实体奖、锦鲤奖和大额红包: 显示领取二维码
 function getEntityAward(giftsInfo) {
-	//todo 能优化不
-	switch(giftsInfo.awardTypeId) {
-		case "16": //锦鲤
-		case "15": //大额现金
-		case "2": //实体奖
-		break;
-	}
 	//yuanbotest 
 	if(giftsInfo.awardExchangeFlag == 1) { //已领取
 		//奖品信息及领取人信息:
