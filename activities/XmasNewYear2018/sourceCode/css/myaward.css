@@ -339,6 +339,10 @@
 .cashUncollectedClass .sectionItemDetailsValueClass:after {
 	color: rosybrown;
 }
+.cashCollectedClass .sectionItemDetailsValueClass:after {
+	content: "";
+}
+
 /*现金-已领取*/
 .cashCollectedClass .sectionItemDetailsClass {
 	color: rosybrown;
