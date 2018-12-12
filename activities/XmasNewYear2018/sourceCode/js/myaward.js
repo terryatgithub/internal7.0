@@ -127,6 +127,8 @@ var entityItem = '														\
 		<div class="sectionItemFocusClass"></div>						\
 		<!--按钮-->														\
 		<div class="sectionItemButtonClass"></div>						\
+		<!--按钮-->														\
+		<div class="entityImgClass"></div>								\
 	</div>';
 var thirdPartyItem = '												\
 	<!--列表项-->														\
@@ -543,7 +545,6 @@ function updateGiftsInfoToPage(data) {
 				$("#"+listId+" .sectionItemClass:last-of-type .sectionItemButtonClass").css("background-image", "url(images/myaward/KoiBtnCollected.png)");
 			}
 		}
-		
 		//同一种优惠券id有几张,需要根据awardTypeId和优惠券id积累计算.
 		if(awardTypeId == "5") {
 			$("#couponList .sectionItemClass:last-of-type #sectionItemSupMultiplierId").text("5");
@@ -552,6 +553,10 @@ function updateGiftsInfoToPage(data) {
 		//微信红包上的金额显示:
 		if(awardTypeId == "7" || awardTypeId == "15") {
 			$("#"+listId+" .sectionItemClass:last-of-type .sectionItemDetailsClass .sectionItemDetailsValueClass").text(giftsAttributes.bonus);
+		}
+		//实物奖显示图片
+		if(awardTypeId == "2") {
+			$("#"+listId+" .sectionItemClass:last-of-type .entityImgClass").css("background-image", "url("+ data[i].awardUrl +")");
 		}
 		//显示对应容器 (不用每次都设置,可优化)
 		$("#"+containerName).css("display", "block");

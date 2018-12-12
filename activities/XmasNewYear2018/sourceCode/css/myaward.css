@@ -389,6 +389,13 @@
 #entityListId .sectionItemClass[class~=btn-focus] .sectionItemFocusClass {
 	display: block;
 }
+#entityListId .sectionItemClass[class~=btn-focus] .entityImgClass {
+	top: 45px;
+    left: 48%;
+}
+#entityListId .sectionItemClass[class~=btn-focus] .sectionItemButtonClass {
+	bottom: 25px;
+}
 /*实物奖励 -按键*/
 #entityListId .sectionItemButtonClass {
 	position: absolute;
@@ -399,7 +406,16 @@
 	background-image: url(../images/myaward/entityBtn.png);
 	background-repeat: no-repeat;
 }
-
+#entityListId .entityImgClass {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    height: 180px;
+    width: 180px;
+    transform: translateX(-50%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 /*5. 第三方优惠券 专区*/ 
 #thirdPartyContainerId {
 	/*margin-bottom: 40px;*/ 
@@ -600,7 +616,6 @@ hr {margin: 40px 0; width: 500px;}
 	background-color: white;
 	border: 5px solid white;
 }
-.giftReceiverQrClass img{width: 100%;height: 100%;}
 
 #toastDialogEntityUncollectedId .giftReceiverTipClass{
 	position: relative;
