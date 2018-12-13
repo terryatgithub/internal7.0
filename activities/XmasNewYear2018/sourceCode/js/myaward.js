@@ -163,6 +163,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
+//		test_test_test_function();
 //		test_test_test_getMyGifts();
 		//PC debug end
 
@@ -359,7 +360,7 @@ function getDeviceInfo() {
 		_macAddress = message.mac;
 		_activityId = message.activeid;
 //		yuanbotest 测试用激活id: "16706858"
-		_activityId = "16706858";
+//		_activityId = "16706858";
 		if (message.emmcid ==""||message.emmcid==null) {
 			_emmcCID = "123456";
 		} else{
@@ -401,21 +402,25 @@ function initActivityInfos() {
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
-			if(data.code == 50001) {
-				console.log("该活动不存在");
-			} else if(data.code == 50002) {
-				console.log("该活动未开始");
-			} else if(data.code == 50003) {
-				console.log("该活动已结束");
-			} else if(data.code == 50042) {
-				console.log("该活动已下架");
-			} else if(data.code == 50100) {
+			if(data.code == 50100) {
 				console.log("该活动进行中+获取数据成功");
-				showInitDialog(data.data);
+				showInitDialog(data.data); 
+			}else {
+				if(data.code == 50001) {
+					console.log("该活动不存在");
+				} else if(data.code == 50002) {
+					console.log("该活动未开始");
+				} else if(data.code == 50003) {
+					console.log("该活动已结束");
+				} else if(data.code == 50042) {
+					console.log("该活动已下架");
+				}  
+				getMyGifts();//不显示弹窗时获取我的礼物 
 			}
 		},
 		error: function() {
 			console.log("获取失败");
+			getMyGifts();//不显示弹窗时获取我的礼物 
 		},
 		complete: function(XMLHttpRequest, status) {　　　　
 			console.log("-------------complete------------------" + status);
@@ -1015,62 +1020,15 @@ function startLogin(needQQ) {
     }
     console.log("startLogin out...");
 }
-
-//获取视频源
+ 
 function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sSize, sAppVersion, sSdk, sBrand) {
 	console.log(smac + "--" + sudid+ "--" + sAppVersion + "--" + sSdk);
-	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
-	var ajaxTimeout = $.ajax({
-		type: "GET", // get post 方法都是一样的
-		async: true,
-		timeout : 10000, 
-		dataType: 'jsonp',
-		jsonp: "callback",
-		url: myUrl,
-		data: {
-			"MAC": smac,
-			"cChip": schip,
-			"cModel": smodel,
-			"cEmmcCID": semmcid,
-			"cUDID": sudid,
-			"cFMode": sFMode,
-			"cTcVersion": sTcVersion,
-			"cSize": sSize,
-			"cAppVersion": sAppVersion,
-			"cBrand": sBrand
-		},
-		success: function(data) {
-			console.log(JSON.stringify(data));
-			if(data.code == 0) {
-				_qsource = data.data.source;
-				if(_qsource == "tencent") {
-					needQQ = true;
-				}
-				console.log(_qsource + "--" + needQQ);
-			}
-		},
-		error: function(err) {
-			console.log('获取视频源失败'+JSON.stringify(err));
-		},
-		complete: function(XMLHttpRequest, status) {
-			console.log("-------------complete------------------" + status);
-			if(status == 'timeout') {　　
-				ajaxTimeout.abort();　　　　
-			}
-			hasLogin(needQQ,0);　　
-		}
-	});
-}
-//todo
-function getTvSourceTofix(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sSize, sAppVersion, sSdk, sBrand) {
-	console.log(smac + "--" + sudid+ "--" + sAppVersion + "--" + sSdk);
-	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
 	var ajaxTimeout = $.ajax({
 		type: "POST",
 		async: true,
 		timeout: 10000,
 		dataType: 'json',
-		url: myUrl,// + "ght/active/tv/source",
+		url: _urlActivityServer + "/active/tv/source",
 		data: {
 			"MAC": smac,
 			"cChip": schip,
@@ -1109,8 +1067,8 @@ function getTvSourceTofix(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersio
 //页面首次加载的弹窗逻辑
 function showInitDialog(dataObj) {
 	console.log("showInitDialog in.. " + JSON.stringify(dataObj));
-	//测试
-	dataObj.chanceResult.chanceSource = [1,2,3];
+//	yuanbotest
+//	dataObj.chanceResult.chanceSource = [1,2,3,1];
 	var len = dataObj.chanceResult.chanceSource.length;
  	if(len>0){
 		$("#toastDialogId").css("display", "block");
@@ -1305,9 +1263,7 @@ function webBtnClickLog(button_name, button_type) {
 
 //PC端测试函数
 //获取我的礼物信息
-function test_test_test_getMyGifts() {
-	console.log("test_test_test_getMyGifts in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
-
+function test_test_test_function() {
 	_macAddress = "001a9a000000";
 	_TVchip = "9S52";
 	_TVmodel = "Q4A";
@@ -1317,6 +1273,10 @@ function test_test_test_getMyGifts() {
 	_openId = "1266ec9cd2b811e8a09700505687790a";
 	_nickName = "原博";
 			
+	initActivityInfos();
+}
+function test_test_test_getMyGifts() {
+	console.log("test_test_test_getMyGifts in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
 	var param = {
 			//公共参数-start-
 			"MAC": "001a9a000000",
