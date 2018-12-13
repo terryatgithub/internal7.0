@@ -416,7 +416,16 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
             }]
         ], success, error);
     }
-
+    /*
+     * from lxw
+     */
+	CoocaaOSApi.prototype.startParamAction2 = function(bywhat, byvalue, sources, success, error) {
+        console.log(typeof sources);
+        argscheck.checkArgs('sssff', 'CoocaaOSApi.startParamAction', arguments);
+        sources = JSON.parse(sources);
+        console.log(typeof sources);
+        startapp.start([[bywhat, byvalue], sources], success, error);
+    }
     /*
      *启动应用商城列表页
      */

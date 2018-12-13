@@ -641,31 +641,22 @@ hr {margin: 40px 0; width: 500px;}
 
 
 /*奖励弹窗css from 林心旺*/
+.fullscreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(0,0,0,0.8);
+	overflow: hidden;
+}
+
 .santanbg,.milubg,.koibg,.koi2bg{
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
-.santanbg{
-	background-image: url(../images/myaward/santan.png);
-}
 .milubg{
 	background-image: url(../images/myaward/milu.png);
-}
-.koibg{
-	background-image: url(../images/myaward/goodKoi.png);
-}
-.santanbg,.milubg,.koibg,.koi2bg{
-	background-repeat: no-repeat;
-	background-size: 100%;
-}
-.santanbg{
-	background-image: url(../images/myaward/santan.png);
-}
-.milubg{
-	background-image: url(../images/myaward/milu.png);
-}
-.koibg{
-	background-image: url(../images/myaward/goodKoi.png);
 }
 .none{
 	display: none;
@@ -676,7 +667,7 @@ hr {margin: 40px 0; width: 500px;}
     top: 418px;
     left: 720px;
     height: 48px;
-    width: 484px;
+    width: 500px;
     font-size: 36px;
     color: #ffffff;
     line-height: 48px;
@@ -702,43 +693,61 @@ hr {margin: 40px 0; width: 500px;}
     left: 717px;
     height: 149px;
     width: 479px;
-	background-image: url(../images/myaward/redbell1.png);
+	background-image: url(../images/myaward/couponbell1.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
-#thanks_giftInfo{
+#thanks_giftCollectId{
 	position: absolute;
-    top: 10px;
-    left: 285px;
-    height: 125px;
-    width: 170px;
-    border: 1px solid red;
-    display: block;
+    top: 521px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    height: 200px;
+    width: 200px;
+    border: 5px solid white;
+	background-color: white;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;
 }
-#thanks_giftName{
-	position: absolute;
-    top: 20px;
-    height: 40px;
-    width: 130px;
-    line-height: 40px;
-    font-size: 28px;
-    color: #757575;
-}
-#thanks_giftContant{
-	position: absolute;
-    top: 60px;
-    height: 40px;
-    width: 170px;
-    line-height: 40px;
-    font-size: 28px;
-    color: #f04e48;
-}
-#thanks_giftImg{
-    height: 130px;
+#thanks_coupon,#thanks_red,#thanks_entity{
     position: absolute;
     top: 9px;
     left: 162px;
+    height: 130px;
+    width: 300px;
 }
+#thanks_couponImg{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+#thanks_redImg,#thanks_entityImg{
+	position: absolute;
+    top: 0;
+    left: 10px;
+    height: 130px;
+    width: 130px;
+}
+.redAwardBox,#enAwardBox{
+	position: absolute;
+    height: 100px;
+    width: 155px;
+    top: 15px;
+    left: 135px;
+    line-height: 46px;
+    font-size: 22px;
+    text-align: center;
+}
+
+#redAwardName{
+	color: #757575;
+}
+#redAwardInfo{
+	color: #f04e48;
+}
+
 #thanks_btn1,#thanks_btn2{
 	position: absolute;
     top: 720px;
@@ -761,20 +770,15 @@ hr {margin: 40px 0; width: 500px;}
     color: #FFFFFF;
     font-size: 25px;
 }
-#thanks_giftImg{
-    height: 130px;
-    position: absolute;
-    top: 9px;
-    left: 162px;
+.imgBlur {
+	display: block;
 }
-#thanks_btn1,#thanks_btn2{
-	position: absolute;
-    top: 720px;
-    left: 765px;
-    height: 68px;
-    width: 147px;
+.imgFocus {
+	display: none;
 }
-#thanks_btn2{
-	left: 945px;
-	width: 210px;
+.btn-focus .imgBlur {
+	display: none;
+}
+.btn-focus .imgFocus {
+	display: block;
 }
