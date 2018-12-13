@@ -178,6 +178,8 @@ var app = {
 	handleBackButton: function() {
 	},
 	onResume: function() {
+		console.log("我的礼物-onresume");
+		getMyGifts();//获取我的礼物	
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -198,7 +200,6 @@ var app = {
 			console.log("handleBackButtonDown in..001.");//debug
 			$("#toastDialogId").css("display", "none");
 			$("#thanks_Bg").css("display", "none");
-			getMyGifts();//获取我的礼物
 		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
 			console.log("handleBackButtonDown in..002.");//debug
 			$("#toastDialogEntityCollectedId").css("display", "none");
@@ -212,6 +213,7 @@ var app = {
 			}
 			
 			$("#toastDialogId").css("display", "none");
+			getMyGifts();//获取我的礼物
 		} else {
 			console.log("handleBackButtonDown in..002.");//debug
 			navigator.app.exitApp();
@@ -335,8 +337,9 @@ function processKey(el) {
 					console.log("tvmall business........");
 					break;	
 			}
+			giftsInfo.onclickData = el.attr("onclickData");
 			if(giftsInfo.onclickData != null || giftsInfo.onclickData != undefined){
-				goToCouponUsePage(giftsInfo.onclickData);
+				goToCouponUsePage(JSON.parse(giftsInfo.onclickData));
 			}else {
 				getCouponAward(giftsInfo, true);//如果未领取,先领取后使用
 			}
@@ -539,9 +542,7 @@ function updateGiftsInfoToPage(data) {
 					giftsAttributes.business = awardInfo.business;
 					//已领取了就保存已领取的优惠券使用信息:(未领取的当点击时领取使用)
 					if(awardInfo.onclickData != null || awardInfo.onclickData != undefined) {
-						var data_a = awardInfo.onclickData;
-						data_a = JSON.parse(data_a);
-						giftsAttributes.onclickData = data_a; 
+						giftsAttributes.onclickData = awardInfo.onclickData; 
 					}
 				}
 				//同一种优惠券需要叠加显示: id有几张,需要根据awardTypeId和优惠券id积累计算.
@@ -1154,7 +1155,6 @@ function showInitDialog(dataObj) {
 function regitserKeyEventsForThanksToast() {
 	console.log("---in regitserKeyEventsForThanksToast-----");
 	$(".coocaa_btn2").bind("itemClick", function() {
-		processKey($(this));
 		var el = $(this);
 		var id = el.attr("id");
 		console.log("cur el id: "+ el.attr("id"));
@@ -1283,7 +1283,7 @@ function test_test_test_getMyGifts() {
 			"cChip": "9S52",
 			"cModel": "Q4A",
 			"cEmmcCID": "1101003030384737300017c1438f6400",
-			"cUDID": "16706858",
+			"cUDID": "3978822",//"16706858",
 			"accessToken": "2.378b41b74eb048f795637b0d7d0d9aa6",
 			"cOpenId": "1266ec9cd2b811e8a09700505687790a",
 			"cNickName": "原博",
