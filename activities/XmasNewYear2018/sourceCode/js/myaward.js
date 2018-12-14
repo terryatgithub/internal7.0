@@ -1077,7 +1077,7 @@ function showInitDialog(dataObj) {
 		
 		var lastChanceSource = dataObj.chanceResult.chanceSource[len-1];
 		console.log(lastChanceSource);
-		
+		dataObj = dataObj.chanceResult;//为代码简练
 		if(lastChanceSource>0&&lastChanceSource<4){
 			if(lastChanceSource == 1||lastChanceSource == 2){ //1. 采购 2. 麋鹿
 				$("#thanks_btn2 .btnName").html("返回");

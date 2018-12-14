@@ -198,11 +198,12 @@ function getPackLists() {
 }
 //处理从后台返回的打包列表数据
 function processPackListsData(data) {
-	var len = 0;	
-	if(data.data == null || ((len = data.data.length) <= 0)) {//没有打包商品,显示toast_empty
+	if(data.data == null) { //没有打包商品,显示toast_empty
 		setToastEmptyDisplay("block");
 		return;
 	}
+	var len = 0;	
+	len = data.data.length;
 	console.log("processPackListsData len:"+len);
 	for(var i=0; i<len; i++) {
 		var goodsInfo = (data.data[i].goodsInfo);
