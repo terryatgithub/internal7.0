@@ -27,7 +27,7 @@ body {
 	position: absolute;
 	top: 43px;
 	left: 0px;
-	width: 192px;
+	/*width: 192px;*/
 	height: 48px;
 	font: 48px/72px NotoSansHans-Light,sans-serif;
 	color: rgba(153,153,153,1);
