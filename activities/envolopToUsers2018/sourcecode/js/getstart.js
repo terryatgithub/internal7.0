@@ -198,7 +198,7 @@ function scrollPage(el) {
 		break;
 		case "button1":
 		case "button2":
-			(_bFromKids == true) ? (y=2080) : (y = 2480);
+			(_bFromKids == true) ? (y=2123) : (y = 2600);
 		break;
 	}
 	console.log("scrollPage in... id:"+id+"  top:"+y + " _bFromKids:"+_bFromKids);
