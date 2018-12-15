@@ -293,7 +293,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 			_TVSource = data.source;
 			if(_TVSource == "tencent") {
 				console.log("腾讯视频源：" + _TVSource);
-			}else{ //if(_TVSource == "yinhe") 
+			}else{  
 				console.log("默认视频源：爱奇艺" + _TVSource);
 			}
 		},

@@ -40,9 +40,7 @@ body {
 }
 #deviceready[class~=kidsPage] #button1{
 	top: 2620px;
-	left: 50%;
-	transform: translateX(-50%);
-	-webkit-transform: translateX(-50%);
+	left: 585px;
 }
 #deviceready[class~=kidsPage] #button2{
 	display: none;
@@ -54,8 +52,11 @@ body {
 	height: 400px;
 	background-size: cover;
 	background-repeat: no-repeat;
-	transition: all 0.2s;
-	-webkit-transition: all 0.2s;
+	transition: transform 0.2s;
+	-webkit-transition: transform 0.2s;
+	border: 12px solid transparent;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 #block1 {
 	top: 1484px;
@@ -95,14 +96,14 @@ body {
     opacity: 1;*/
     /*box-shadow: 0px 0px 0px 0px black;
     box-shadow:0px 10px 25px rgba(0,0,0,0.5);*/
-    -ms-transform: scale(1.08, 1.08);
+    -ms-transform: scale(1.05, 1.05);
     /* IE 9 */
-    -o-transform: scale(1.08, 1.08);
+    -o-transform: scale(1.05, 1.05);
     /* Opera */
-    -moz-transform: scale(1.08, 1.08);
-    -webkit-transform: scale(1.08, 1.08);
+    -moz-transform: scale(1.05, 1.05);
+    -webkit-transform: scale(1.05, 1.05);
     /* Safari 和 Chrome */
-    transform: scale(1.08, 1.08);
+    transform: scale(1.05, 1.05);
     z-index: 2;	
 }
 
