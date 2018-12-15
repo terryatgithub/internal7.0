@@ -169,7 +169,7 @@ function processKey(el) {
 	console.log("scrollPage in..._TVSource:"+_TVSource+" id:"+id+"  sourceid:"+sourceid + ",businesstype:"+businesstype+" _bFromKids:"+_bFromKids);
 
 	if(clickType == 1) {
-		coocaaosapi.startMovieHomeSpecialTopic2(""+sourceid, function(success){
+		coocaaosapi.startMovieHomeCommonList(""+sourceid, function(success){
 			console.log("success: "+JSON.stringify(success));
 		}, function(err){console.log("err: "+JSON.stringify(err));});	
 	}else if(clickType == 2) {

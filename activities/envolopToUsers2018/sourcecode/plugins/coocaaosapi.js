@@ -324,10 +324,10 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
     /*
      *启动活动产品包跳转（致一封信）
      */
-    CoocaaOSApi.prototype.startMovieHomeSpecialTopic2 = function(id, success, error) {
-        argscheck.checkArgs('sff', 'CoocaaOSApi.startMovieHomeSpecialTopic', arguments);
+    CoocaaOSApi.prototype.startMovieHomeCommonList = function(id, success, error) {
+        argscheck.checkArgs('sff', 'CoocaaOSApi.startMovieHomeCommonList', arguments);
         startapp.start([
-            ["action", "coocaa.intent.action.HOME_SPECIAL_TOPIC"],
+            ["action", "coocaa.intent.action.HOME_COMMON_LIST"],
             [{ 'id': id }]
         ], success, error);
     }
