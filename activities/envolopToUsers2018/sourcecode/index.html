@@ -29,61 +29,29 @@
 //			_czc.push(["_setAccount", "1275001386"]);
 		</script>
 	
-	<title>影视VIP会员</title>
+	<title>致用户信</title>
 	</head>
 	
 	<body>
 		<div id="deviceready">
-			<!--标题页-->
-			<div class="header">
-				<div id="headerTitle">影视VIP会员</div>
-				<div id="userinfo">
-					<div id="userIcon"></div>
-					<div id="userLv"></div>
-					<div id="coinIcon"></div>
-					<div id="coinNum">1</div>
-				</div>
-				<div id="notLoginId" class="notLogin" downTarget="#vipEntry1">立即登录</div>
-			</div>
-			
-			<!--内容页-->
-			<div id="containerId" class="container">
-				<div class="innerContainer">
-					<!--VIP类型列表,根据后台个数动态调整-->
-					<div class="vipEntryZone">
-						<div class="vipEntry coocaa_btn" id="vipEntry1" upTarget="#notLoginId">
-							<div class="vipEntryValidity">
-								<div class="vipEntrySubscribe">立即查看</div>
-								<div class="vipEntryTimeTip"></div>
-							</div>
-							<div class="vipEntryIcon"></div>
-							<div class="vipEntryTitle">聚体育VIP</div>
-							<div class="vipEntryDescription">足不出户 畅享热门体育赛事</div>
-						</div>
-						<!--其它图标根据后台返回的产品源动态生成-->
-					</div>
-
-					<!--4K花园，根据是否支持4K动态显示/隐藏-->
-					<div class="vipEntryfourKGarden coocaa_btn" id="fourKGarden" upTarget="#vipEntry1" downTarget="#vipPrivilegeId">
-						<div class="vipEntryValidity">
-								<div class="vipEntrySubscribe">立即开通</div>
-								<div class="vipEntryTimeTip"></div>
-						</div>
-						<div class="vipEntryIcon4KGarden"></div>
-						<div class="vipEntryTitle4KGarden">4K花园VIP</div>
-						<div class="vipEntryDescription4KGarden">真正4K高清内容 4000小时海量片库</div>
-					</div>	
-					
-					<!-- VIP权益标题-->
-					<div id="vipPrivilegeId" class="sectionTitle coocaa_btn">VIP权益</div> 
-					<!-- VIP权益图片，根据腾讯源、爱奇艺源动态切换-->
-					<div class="vipPrivilegeDetails"></div>
-					<!-- 虚拟焦点 用于翻页效果-->
-					<div id="vf1" class="VirtualFocus1 coocaa_btn"></div>
-				</div>
-			</div>
-			
-			<div class="failToast"></div>
+			<!--被切割的背景长图-->
+			 <div class="containerClass">
+			 		<img id="bgImage1" src="img/bg_1.png"></img>
+			 		<img id="bgImage2" src="img/bg_2.png"></img>
+			 		<img id="bgImage3" src="img/bg_3.png"></img>
+			 		<img id="bgImage4" src="img/bg_4.png"></img>
+			 </div>
+			 <!--入口块-->
+			 <div id="block1" class="block coocaa_btn"></div>
+			 <div id="block2" class="block coocaa_btn"></div>
+			 <div id="block3" class="block coocaa_btn"></div>
+			 <!--最下面按键-->
+			 <div id="button1" class="block coocaa_btn"></div>
+			 <div id="button2" class="block coocaa_btn"></div>
+			 
+			 <!--虚拟按键-->
+			 <div id="virtualKey1" class="coocaa_btn"></div>
+			 <div id="virtualKey2" class="coocaa_btn"></div>
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>

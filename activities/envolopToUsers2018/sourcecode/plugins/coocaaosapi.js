@@ -321,6 +321,16 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
             [{ 'id': id }]
         ], success, error);
     }
+    /*
+     *启动活动产品包跳转（致一封信）
+     */
+    CoocaaOSApi.prototype.startMovieHomeSpecialTopic2 = function(id, success, error) {
+        argscheck.checkArgs('sff', 'CoocaaOSApi.startMovieHomeSpecialTopic', arguments);
+        startapp.start([
+            ["action", "coocaa.intent.action.HOME_SPECIAL_TOPIC"],
+            [{ 'id': id }]
+        ], success, error);
+    }
 
 
     /*启动影视会员中心2级页面*/
