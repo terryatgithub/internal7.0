@@ -31,6 +31,7 @@ var _bCallHome = false; //默认不启动主页； 如果是从主页进我的�
 
 //
 var _Lindex = 0;//主页当前焦点
+var _toastTimeoutId=null;//弹窗自动清除计时器id
 
 //-----------------------------------动态插入的页面元素 start--------------------------//
 //更新我的礼品信息到页面:
@@ -163,7 +164,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-		test_test_test_function();
+//		test_test_test_function();
 //		test_test_test_getMyGifts();
 		//PC debug end
 
@@ -209,6 +210,10 @@ var app = {
 			getMyGifts();//获取我的礼物
 		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
 			console.log("handleBackButtonDown in..002.");//debug
+			if(_toastTimeoutId!=null) {
+				clearTimeout(_toastTimeoutId);
+			}
+			console.log("yuanbotest- 4s计时器-手动清楚");
 			$("#toastDialogEntityCollectedId").css("display", "none");
 			$("#toastDialogEntityUncollectedId").css("display", "none");
 			$("#toastDialogRedbagUncollectedId").css("display", "none");
@@ -347,8 +352,7 @@ function processKey(el) {
 					break;	
 			}
 			giftsInfo.onclickData = el.attr("onclickData");
-			console.log("use coupon: giftsInfo.onclickData: "+giftsInfo.onclickData + "....type:"+typeof giftsInfo.onclickData);
-			if(giftsInfo.onclickData != null || giftsInfo.onclickData != undefined){
+			if(giftsInfo.onclickData != null && giftsInfo.onclickData != undefined){
 				goToCouponUsePage(JSON.parse(giftsInfo.onclickData));
 			}else {
 				getCouponAward(giftsInfo, true);//如果未领取,先领取后使用
@@ -556,11 +560,11 @@ function updateGiftsInfoToPage(data) {
 					getCouponAward(giftsAttributes, false);//页面初始化时只领取,不使用
 				}
 				//专属属性:
-				if(data[i].awardInfo != null || data[i].awardInfo!=undefined) {
+				if(data[i].awardInfo != null && data[i].awardInfo!=undefined) {
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.business = awardInfo.business;
 					//已领取了就保存已领取的优惠券使用信息:(未领取的当点击时领取使用)
-					if(awardInfo.onclickData != null || awardInfo.onclickData != undefined) {
+					if(awardInfo.onclickData != null && awardInfo.onclickData != undefined) {
 						giftsAttributes.onclickData = awardInfo.onclickData; 
 					}
 				}
@@ -590,8 +594,7 @@ function updateGiftsInfoToPage(data) {
 				if(data[i].awardInfo != null) {
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.bonus = awardInfo.bonus;
-					totalBonus += parseFloat(giftsAttributes.bonus);
-					console.log("totalBonus:" + totalBonus + "awardInfo.bonus:" + awardInfo.bonus);
+					totalBonus = totalBonus + (giftsAttributes.bonus*100);
 				}
 			break;
 			case "15": //大额现金
@@ -606,8 +609,7 @@ function updateGiftsInfoToPage(data) {
 				if(data[i].awardInfo != null) {
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.bonus = awardInfo.bonus;
-					totalBonus += parseFloat(giftsAttributes.bonus);
-					console.log("totalBonus:" + totalBonus + "awardInfo.bonus:" + awardInfo.bonus);
+					totalBonus = totalBonus + (giftsAttributes.bonus*100);
 				}
 				break;
 			case "2": //实体奖
@@ -662,7 +664,7 @@ function updateGiftsInfoToPage(data) {
 	//红包总金额更新:
 	if($("#redbagCashContainer").css("display") == "block") {
 		console.log("final totalBonus:" + totalBonus);
-		$("#redbagCashTotalId span").text(totalBonus);
+		$("#redbagCashTotalId span").text(totalBonus/100);
 	}
 	//优惠券叠加数更新:
 	if($("#couponList").css("display") == "block") {
@@ -754,6 +756,16 @@ function getThirdPartyAward(giftsInfo) {
 	$("#toastDialogEntityUncollectedId").css("display", "block");
 	$("#toastDialogId").css("display", "block");
 }
+//弹窗自动消失函数:
+function toastAutoClear(){
+		console.log("yuanbotest- 4s计时器到");
+		$("#toastDialogEntityCollectedId").css("display", "none");
+		$("#toastDialogId").css("display", "none");
+		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		app.registerKeyHandler();
+		$(".coocaa_btn").eq(_Lindex).trigger("itemFocus");
+		getMyGifts();//获取我的礼物
+}
 //实体奖、锦鲤奖和大额红包: 显示领取二维码
 function getEntityAward(giftsInfo) {
 	//数据采集:
@@ -786,6 +798,8 @@ function getEntityAward(giftsInfo) {
 		
 		$("#toastDialogEntityCollectedId").css("display", "block");
 		$("#toastDialogId").css("display", "block");
+		//4s后弹窗自动消失:
+		 _toastTimeoutId = setTimeout("toastAutoClear()", 4000);
 	}else { //未领取
 		if(giftsInfo.awardTypeId == "16") { //锦鲤未领取
 			document.getElementById("imgIdkoiCollectQr").innerHTML = "";
@@ -1202,7 +1216,12 @@ function regitserKeyEventsForThanksToast() {
 			switch(awardTypeId) {
 				case "2": //实物
 					$("#thanks_giftsBox").css("display", "none");
+					map = new coocaakeymap($(".coocaa_btn2"), null, null, function() {}, function(val) {}, function(obj) {});
+					$(".coocaa_btn2").unbind();
+					$("#thanks_btn1").css("display", "none");
+					$("#thanks_btn2").css("display", "none");
 					$("#thanks_giftCollectId").css("display", "block");
+					
 					//二维码
 					document.getElementById("thanks_giftCollectId").innerHTML = "";
 					var lotteryActiveId = $("#thanks_btn1").attr("activeId");
@@ -1210,8 +1229,8 @@ function regitserKeyEventsForThanksToast() {
 					var userKeyId = $("#thanks_btn1").attr("userKeyId");
 					var str = _entityAwardurl + "activeId=" + lotteryActiveId + "&rememberId=" + lotteryRememberId + "&userKeyId=" + userKeyId;
 					var qrcode = new QRCode(document.getElementById("thanks_giftCollectId"), {
-						width: 195,
-						height: 195
+						width: 190,
+						height: 190
 					});
 					qrcode.makeCode(str);
 					//提示信息:
@@ -1219,6 +1238,8 @@ function regitserKeyEventsForThanksToast() {
 					$("#thanks_info1").html('获得<span style="color:#fff642">'+name+'</span>');
 					$("#thanks_info2").html("微信扫码 领取奖励");
 					$("#thanks_info3").css("display","block");
+					$("#thanks_info3").css("color", "#FFFFFF");
+					$("#thanks_info3").css("top", "740px");
 					$("#thanks_info3").html('*红包已放入<span style="color:#fff642">[我的礼物]</span>,可前往查看');
 					break;
 				case "5": //优惠券
@@ -1233,6 +1254,10 @@ function regitserKeyEventsForThanksToast() {
 					break;
 				case "7": //红包
 					$("#thanks_giftsBox").css("display", "none");
+					map = new coocaakeymap($(".coocaa_btn2"), null, null, function() {}, function(val) {}, function(obj) {});
+					$(".coocaa_btn2").unbind();
+					$("#thanks_btn1").css("display", "none");
+					$("#thanks_btn2").css("display", "none");
 					$("#thanks_giftCollectId").css("display", "block");
 					//二维码
 					document.getElementById("thanks_giftCollectId").innerHTML = "";
@@ -1241,8 +1266,8 @@ function regitserKeyEventsForThanksToast() {
 					var userKeyId = $("#thanks_btn1").attr("userKeyId");
 					var str = _entityAwardurl + "activeId=" + lotteryActiveId + "&rememberId=" + lotteryRememberId + "&userKeyId=" + userKeyId;
 					var qrcode = new QRCode(document.getElementById("thanks_giftCollectId"), {
-						width: 195,
-						height: 195
+						width: 190,
+						height: 190
 					});
 					qrcode.makeCode(str);
 					//提示信息:
@@ -1250,6 +1275,8 @@ function regitserKeyEventsForThanksToast() {
 					$("#thanks_info1").html("目前累计获得红包"+bonus+"元");
 					$("#thanks_info2").html("微信扫码累计提现~");
 					$("#thanks_info3").css("display","block");
+					$("#thanks_info3").css("color", "#FFFFFF");
+					$("#thanks_info3").css("top", "740px");
 					$("#thanks_info3").html('*红包已放入<span style="color:#fff642">[我的礼物]</span>,可前往查看');
 				break;
 			}

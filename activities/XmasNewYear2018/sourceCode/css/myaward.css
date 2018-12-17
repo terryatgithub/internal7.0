@@ -707,6 +707,8 @@ hr {margin: 40px 0; width: 500px;}
     height: 200px;
     width: 200px;
     border: 5px solid white;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 	background-color: white;
 	background-repeat: no-repeat;
 	background-size: cover;
