@@ -134,7 +134,7 @@ function processKey(el) {
 			var goodsId = el.attr("goodsid");
 			console.log("processKey goodsId:"+goodsId);
 			//进入商品购买详情页
-			coocaaosapi.startAppShopDetail(goodsId, function(msg){
+			coocaaosapi.startAppShopDetail(goodsId.toString(), function(msg){
 				console.log("startAppShopDetail success.");
 			}, function(err){console.log("startAppShopDetail error.");});
 		break;

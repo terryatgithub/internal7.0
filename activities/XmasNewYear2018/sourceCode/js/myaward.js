@@ -163,7 +163,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-//		test_test_test_function();
+		test_test_test_function();
 //		test_test_test_getMyGifts();
 		//PC debug end
 
@@ -179,7 +179,12 @@ var app = {
 	},
 	onResume: function() {
 		console.log("我的礼物-onresume");
-		getMyGifts();//获取我的礼物	
+		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
+			//如果从奖励弹窗返回:
+			//todo
+		}else {
+			getMyGifts();//获取我的礼物	
+		}
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -293,7 +298,7 @@ function processKey(el) {
 	console.log("_loginstatus = "+_loginstatus);
 	//如果未登录,先弹登录框
 	if(_loginstatus == "false") {
-		startLogin();
+		startLogin(needQQ);
 		return;
 	}
 	
@@ -313,6 +318,8 @@ function processKey(el) {
 				, awardExchangeFlag:"+ giftsInfo.awardExchangeFlag + " \
 				,rememberId:"+giftsInfo.rememberId+ "\
 				,awardId:"+giftsInfo.awardId);
+	//进入弹窗前先unbind所有按键事件:
+	initMap();
 	switch(giftsInfo.awardTypeId) {
 		case "16": //锦鲤
 		case "15": //大额现金
@@ -340,6 +347,7 @@ function processKey(el) {
 					break;	
 			}
 			giftsInfo.onclickData = el.attr("onclickData");
+			console.log("use coupon: giftsInfo.onclickData: "+giftsInfo.onclickData + "....type:"+typeof giftsInfo.onclickData);
 			if(giftsInfo.onclickData != null || giftsInfo.onclickData != undefined){
 				goToCouponUsePage(JSON.parse(giftsInfo.onclickData));
 			}else {
@@ -355,6 +363,15 @@ function processKey(el) {
 			break;
 	}
 }
+//进入弹窗前先unbind所有按键事件:
+function initMap() {
+	console.log("delete all bind ......");
+	//需要删除焦点移动:
+	map = new coocaakeymap($(".coocaa_btn"), null, null, function() {}, function(val) {}, function(obj) {});
+	//只是删除绑定的事件处理
+	$(".coocaa_btn").unbind();
+}
+
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -1178,7 +1195,7 @@ function regitserKeyEventsForThanksToast() {
 		if(id == "thanks_btn1") {
 			//如果未登录,先弹登录框
 			if(_loginstatus == "false") {
-				startLogin();
+				startLogin(needQQ);
 				return;
 			}
 			var awardTypeId = el.attr("awardTypeId");
@@ -1256,7 +1273,7 @@ function regitserKeyEventsForThanksToast() {
 //监听账户变化
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
-		hasLogin(false,1);
+		hasLogin(needQQ,1);
 	});
 }
 
