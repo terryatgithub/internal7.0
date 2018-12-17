@@ -1246,9 +1246,15 @@ function regitserKeyEventsForThanksToast() {
 				//直接跳去使用页面,并消灭当前弹窗
 					$("#toastDialogId").css("display", "none");
 					$("#thanks_Bg").css("display", "none");
-					map = new coocaakeymap($(".coocaa_btn"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 					if(_loginstatus != "false") {//如果用户已经登录,自动领取所有优惠券
 						console.log("auto collect coupon.............");
+						var giftsAttributes = {
+							"lotteryActiveId":$("#thanks_btn1").attr("activeId")
+						   ,"awardId":$("#thanks_btn1").attr("awardId")
+						   ,"rememberId":$("#thanks_btn1").attr("rememberId")
+						   ,"awardTypeId":$("#thanks_btn1").attr("awardTypeId")
+						   ,"userKeyId":$("#thanks_btn1").attr("userKeyId")
+						}
 						getCouponAward(giftsAttributes, true);
 					}
 					break;
