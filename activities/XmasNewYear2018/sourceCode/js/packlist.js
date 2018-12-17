@@ -102,9 +102,15 @@ function otherPageInit(){
 }
 //页面翻页
 function focusShift(el) {
+	var index = $(".coocaa_btn_pack").index(el);
+	if(index < 5) { //第一行不往下翻页
+		return;
+	}
+	//超过一行，往下翻(index/5-1)的高度
 	//获取焦点元素所属section的top值：
 	var parentId = el.parent().attr("id");
-	var myScrollTopValue = el.position().top;
+	var itemHeight = 398;//398px 单个item高度是398
+	var myScrollTopValue = el.position().top - 398;
 	console.log("focusShift myScrollTopValue: " + myScrollTopValue +"parentId:"+parentId);
 	if(parentId == "packGoodsList") {
 		$("#packGoodsListOuterContainerId").stop(true, true).animate({
@@ -230,6 +236,7 @@ function processPackListsData(data) {
 	
 	app.registerKeyHandler();
 	map = new coocaakeymap($(".coocaa_btn_pack"), $(".coocaa_btn_pack").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	$(".coocaa_btn_pack").eq(0).trigger("itemFocus");	
 }
 
 //设置更多商品 moreGoodsContainer display状态
@@ -379,12 +386,12 @@ function getQueryString(name) {
 //测试函数，最后需要关闭或删除
 function testtesttesttest() {
 		_access_token = "3.570091b5bc284914854a219a22fb4aed";
-		_activityId = "4978822";
+		_activityId = "35474904";
 		_macAddress = "70427f7f186b";
-		test_packGifts("14770");
-		test_packGifts("14801");
-		test_packGifts("14802");
-		test_packGifts("14803");
+//		test_packGifts("14770");
+//		test_packGifts("14801");
+//		test_packGifts("14802");
+//		test_packGifts("14803");
 //		test_packGifts("14804");
 //		test_packGifts("14805");
 //		test_packGifts("14806");
@@ -402,7 +409,7 @@ function testtesttesttest() {
 //		test_packGifts("14818");
 //		test_packGifts("14819");
 //		test_packGifts("14820");
-		setTimeout("getPackLists()", 10000);	
+		setTimeout("getPackLists()", 3000);	
 }
 
 //test
