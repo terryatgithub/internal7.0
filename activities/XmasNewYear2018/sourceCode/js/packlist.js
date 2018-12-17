@@ -13,6 +13,7 @@ var _access_token="", _openId="", _nickName="";
 var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
 //url传进来的参数：
 var _bActivityEnd = false; //活动是否结束，默认进行中。
+var _TVSource = "tencent";//yuanbotest
 
 //函数正式开始：
 var app = {
@@ -35,7 +36,7 @@ var app = {
 	initialize: function() {
 		this.bindEvents();
 		//PC debug start
-		testtesttesttest();
+//		testtesttesttest();
 		//PC debug end
 	},
 	bindEvents: function() {
@@ -90,22 +91,29 @@ function pageInit() {
 }
 function otherPageInit(){
 	$("body").css("background-image","url(images/packlist/bg.jpg)");
-	var pic=app.rel_html_imgpath(__uri("../images/packlist/title-pack.png"));
-	$("#packGoodsTitle").css("background-image","url("+pic+")");
-	pic=app.rel_html_imgpath(__uri("../images/packlist/title-more.png"));
-	$("#moreGoodsTitle").css("background-image","url("+pic+")");
-	pic=app.rel_html_imgpath(__uri("../images/packlist/goods-more.png"));
-	$("#moregoodsList .goodsItemClass").css("background-image","url("+pic+")");
-	pic=app.rel_html_imgpath(__uri("../images/packlist/toast-empty.png"));
-	$("#toastEmpty").css("background-image","url("+pic+")");
-	pic=app.rel_html_imgpath(__uri("../images/packlist/toast-end.png"));
-	console.log("11111111111111111111 pic:"+pic);
-	$("#toastEnd").css("background-image","url("+pic+")");
+	
+	$("#packGoodsTitle").css("background-image","url(images/packlist/title-pack.png)");
+	
+	$("#moreGoodsTitle").css("background-image","url(images/packlist/title-more.png)");
+	
+	if(_TVSource == "tencent") {
+		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image","url(images/packlist/goods-more.png)");
+	}else {
+		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image","url(images/packlist/goods-moreA.png)");
+	}
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(1)").css("background-image","url(images/packlist/goods-more2.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(2)").css("background-image","url(images/packlist/goods-more3.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(3)").css("background-image","url(images/packlist/goods-more4.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image","url(images/packlist/goods-more5.png)");
+	
+	$("#toastEmpty").css("background-image","url(images/packlist/toast-empty.png)");
+	
+	$("#toastEnd").css("background-image","url(images/packlist/toast-end.png)");
 }
 //页面翻页
 function focusShift(el) {
 	var index = $(".coocaa_btn_pack").index(el);
-	if(index < 5) { //第一行不往下翻页
+	if(index < 5) { //第一行不往下翻页,有bug： 退出再进来，无法定焦，需要改！
 		return;
 	}
 	//超过一行，往下翻(index/5-1)的高度
@@ -163,7 +171,7 @@ function webPageShowLog(_bFromStreet, page_type) {
 	var _dateObj = {
 		"page_name":"打包清单页面",
 		"activity_name": "双旦活动-打包任务页面",
-		"last_page_name": _bFromStreet ? "福利街" : "圣诞小屋页面";
+		"last_page_name": (_bFromStreet ? "福利街" : "圣诞小屋页面"),
 		"page_type": page_type //黄金小屋未开启、黄金小屋已开启、黄金小屋已关闭
 	}
 	var _dataString = JSON.stringify(_dateObj);
@@ -254,6 +262,9 @@ function processPackListsData(data) {
 		setToastEmptyDisplay("block");
 		return;
 	}
+	//每次进来前清除之前加的元素,防止重复显示:
+	$("#packGoodsList .goodsItemClass").remove();
+	
 	var len = 0;	
 	len = data.data.length;
 	console.log("processPackListsData len:"+len);
@@ -262,6 +273,7 @@ function processPackListsData(data) {
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
 		
 		var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' " + goodsName=" ' + goodsInfo.goodsName + ' " > \
+							<div class="goodsItemPlaceHolderClass"></div>										\
 							<div class="packGoodsItemPic"></div>										\
 							<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
 							<div class="packGoodsItemLabel">\
@@ -271,8 +283,9 @@ function processPackListsData(data) {
 							</div>\
 						</div>';
 		$("#packGoodsList").append(goodsItem);
-		var thumb = "url('http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/img/p'"+data.data[i].goodsId+".png)";
-		$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", "url("+thumb+")");
+		var thumb = "url(http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/img/p"+data.data[i].goodsId+".png)";
+		console.log("thumb url..."+thumb);
+		$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", thumb);
 	}
 	$("#packGoodsContainer").css("display", "block");
 	
@@ -298,9 +311,9 @@ function setMoreGoodsContainerDisplay(display) {
 	for(var i=0; i<len; i++) {
 		list.eq(i).attr("goodsid", _moreGoodsIdArr[i]);
 		list.eq(i).attr("goodsName", _moreGoodsNameArr[i]);
-		if(i==1) {//影视
+		if(i==0) {//影视
 			list.eq(i).attr("businesstype", 0);
-		}else if(i==2) {//教育
+		}else if(i==1) {//教育
 			list.eq(i).attr("businesstype", 1);
 		}
 	}

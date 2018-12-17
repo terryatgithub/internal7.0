@@ -8,10 +8,10 @@
 
 #测试配置url（主页入口配置需要）：
 //打包清单页面入口：（合入了主页面）
-logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/myaward.html"; logcat | grep chrom; \r
+logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/myaward.html"; logcat | grep chrom; \r
 
 //我的奖品页面入口：
-logcat -c;  am start -a coocaa.intent.action.browser --es "url" "https://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/packlist.html"; logcat | grep chrom; \r
+logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.webapp.skysrt.com/yuanbo/test/XmasNewYear2018/packlist.html"; logcat | grep chrom; \r
 	
 #活动产品文档
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20239930
