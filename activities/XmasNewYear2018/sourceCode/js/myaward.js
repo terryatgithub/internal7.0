@@ -1159,16 +1159,16 @@ function showInitDialog(dataObj) {
 				$("#thanks_btn1 .btnName").html("收下红包");
 				$("#thanks_info3").css("display","none");
 				//更新弹窗图片
-				$("#thanks_coupon").css("display","block");
-				$("#thanks_couponImg").attr("src", dataObj.rememberModel.awardUrl);
+				$("#thanks_entity").css("display","block");
+				$("#thanks_entityImg").attr("src", dataObj.rememberModel.awardUrl);
 				$("#enAwardBox").html(dataObj.rememberModel.awardName);
 			} else if(_awardtype == 5) {//优惠券
 				$("#thanks_btn1 .btnName").html("使用红包");
 				$("#thanks_info3").css("display","block");
 				$("#thanks_info3").html("*特价购买打包商品特权已生效，限时福利快去看看");
 				//更新弹窗图片
-				$("#thanks_entity").css("display","block");
-				$("#thanks_entityImg").attr("src", dataObj.rememberModel.awardUrl);
+				$("#thanks_coupon").css("display","block");
+				$("#thanks_couponImg").attr("src", dataObj.rememberModel.awardUrl);
 			} else if(_awardtype == 7) {//微信红包
 				$("#thanks_btn1 .btnName").html("收下红包");
 				$("#thanks_btn1").attr("bonus",dataObj.rememberModel.awardInfo.bonus);

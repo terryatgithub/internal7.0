@@ -3,7 +3,9 @@
 var _urlGetPacklists = "http://beta.api.tvshop.coocaa.com/cors/tvCartAPI/packGoodsList";
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _urlGetPacklists;
-var _moreGoodsIdArr=[14770, 14770, 14770, 14770, 14770];
+var _moreGoodsIdArrTencent=[5, 57, 13230, 17231, 16992];
+var _moreGoodsIdArrIqiyi=[1, 57, 13230, 17231, 16992];
+var _moreGoodsNameArr= ["影视VIP年卡", "少儿VIP12个月", "欧慕迷你电烤箱", "山水触摸全钢电陶炉", "先锋电暖器"];
 //-----------------------------正式上线需配置参数 end---------------------------------//
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
@@ -33,7 +35,7 @@ var app = {
 	initialize: function() {
 		this.bindEvents();
 		//PC debug start
-//		testtesttesttest();
+		testtesttesttest();
 		//PC debug end
 	},
 	bindEvents: function() {
@@ -139,14 +141,58 @@ function processKey(el) {
 		default:
 			var goodsId = el.attr("goodsid");
 			console.log("processKey goodsId:"+goodsId);
-			//进入商品购买详情页
-			coocaaosapi.startAppShopDetail(goodsId.toString(), function(msg){
-				console.log("startAppShopDetail success.");
-			}, function(err){console.log("startAppShopDetail error.");});
+
+			var goodsName = el.attr("goodsName");
+			webBtnClickLog(goodsName, "黄金小屋未开启");
+			if(curId == "moreGoodsItemMovie" || curId == "moreGoodsItemEdu"){
+				var businesstype = el.attr("businesstype");
+				coocaaosapi.startMovieMemberCenter(businesstype.toString(), goodsId.toString(), function(msg){
+					console.log("startAppShopDetail success.");
+				}, function(err){console.log("startAppShopDetail error.");})
+			}else {
+				//进入商品购买详情页
+				coocaaosapi.startAppShopDetail(goodsId.toString(), function(msg){
+					console.log("startAppShopDetail success.");
+				}, function(err){console.log("startAppShopDetail error.");});
+			}
 		break;
 	}
 }
-
+//数据采集 - 打包页面曝光
+function webPageShowLog(_bFromStreet, page_type) {
+	var _dateObj = {
+		"page_name":"打包清单页面",
+		"activity_name": "双旦活动-打包任务页面",
+		"last_page_name": _bFromStreet ? "福利街" : "圣诞小屋页面";
+		"page_type": page_type //黄金小屋未开启、黄金小屋已开启、黄金小屋已关闭
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+//	_czc.push(["_trackEvent","双旦活动-打包任务页面",product_name,page_type,"",""]);
+	coocaaosapi.notifyJSLogInfo("pack_list_page_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//数据采集 - 各按钮点击
+function webBtnClickLog(product_name, page_type) {
+	var _dateObj = {
+		"page_name":"打包清单页面",
+		"activity_name": "双旦活动-打包任务页面",
+		"button_name": "商品推荐位",
+		"product_name": product_name, 
+		"page_type": page_type //黄金小屋未开启、黄金小屋已开启、黄金小屋已关闭
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+//	_czc.push(["_trackEvent","双旦活动-打包任务页面",product_name,page_type,"",""]);
+	coocaaosapi.notifyJSLogInfo("pack_list_wares_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -215,7 +261,7 @@ function processPackListsData(data) {
 		var goodsInfo = (data.data[i].goodsInfo);
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
 		
-		var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' "> \
+		var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' " + goodsName=" ' + goodsInfo.goodsName + ' " > \
 							<div class="packGoodsItemPic"></div>										\
 							<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
 							<div class="packGoodsItemLabel">\
@@ -234,8 +280,8 @@ function processPackListsData(data) {
 		setMoreGoodsContainerDisplay("block");	
 	}
 	
-	app.registerKeyHandler();
 	map = new coocaakeymap($(".coocaa_btn_pack"), $(".coocaa_btn_pack").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	app.registerKeyHandler();
 	$(".coocaa_btn_pack").eq(0).trigger("itemFocus");	
 }
 
@@ -243,8 +289,20 @@ function processPackListsData(data) {
 function setMoreGoodsContainerDisplay(display) {
 	var list = $("#moreGoodsContainer .goodsItemClass");
 	var len = list.length;
+	var _moreGoodsIdArr;
+	if(_TVSource == "tencent") {
+		_moreGoodsIdArr = _moreGoodsIdArrTencent;
+	}else {
+		_moreGoodsIdArr = _moreGoodsIdArrIqiyi;
+	}
 	for(var i=0; i<len; i++) {
 		list.eq(i).attr("goodsid", _moreGoodsIdArr[i]);
+		list.eq(i).attr("goodsName", _moreGoodsNameArr[i]);
+		if(i==1) {//影视
+			list.eq(i).attr("businesstype", 0);
+		}else if(i==2) {//教育
+			list.eq(i).attr("businesstype", 1);
+		}
 	}
 	$("#moreGoodsContainer").css("display", display);
 }
@@ -409,7 +467,8 @@ function testtesttesttest() {
 //		test_packGifts("14818");
 //		test_packGifts("14819");
 //		test_packGifts("14820");
-		setTimeout("getPackLists()", 3000);	
+//		setTimeout("getPackLists()", 3000);	
+		getPackLists();
 }
 
 //test
