@@ -194,12 +194,14 @@ var app = {
 		if($("#koiCollectId").css("display") == "block") {//如果锦鲤领取弹窗在显示,退回到主页
 			console.log("handleBackButtonDown in..000.");//debug
 			$("#koiCollectId").css("display", "none");
-			$("#toastPageId").css("display", "none");			
+			$("#toastPageId").css("display", "none");
+			getMyGifts();//获取我的礼物
 		}else if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
 			//如果从奖励弹窗返回:
 			console.log("handleBackButtonDown in..001.");//debug
 			$("#toastDialogId").css("display", "none");
 			$("#thanks_Bg").css("display", "none");
+			getMyGifts();//获取我的礼物
 		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
 			console.log("handleBackButtonDown in..002.");//debug
 			$("#toastDialogEntityCollectedId").css("display", "none");
@@ -746,13 +748,13 @@ function getEntityAward(giftsInfo) {
 	}
 	switch(giftsInfo.awardTypeId) {
 		case "16": //锦鲤
-		button_name = "锦鲤礼包";
+		button_type = "锦鲤礼包";
 		break;
 		case "15": //大额现金
-		button_name = "现金红包";
+		button_type = "大额现金红包";
 		break;
 		case "2": //实体奖
-		button_name = "实物奖励";
+		button_type = "实物奖励";
 		break;
 	}
 	webBtnClickLog(button_name, button_type);
