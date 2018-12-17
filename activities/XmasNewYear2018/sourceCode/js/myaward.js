@@ -30,7 +30,7 @@ var _bAwardToast = false; //是否显示”奖励弹窗“，默认不需要；
 var _bCallHome = false; //默认不启动主页； 如果是从主页进我的礼物页面，再去主页时，不需要启动主页，直接把“我的礼物”页面退掉就行； 从福利节进我的礼物页面，再去主页时，需要启动主页；
 
 //
-var _Lindex;//主页当前焦点
+var _Lindex = 0;//主页当前焦点
 
 //-----------------------------------动态插入的页面元素 start--------------------------//
 //更新我的礼品信息到页面:
@@ -208,7 +208,7 @@ var app = {
 			
 			//红包已领取的弹窗,因为有按钮,所以特殊处理:
 			if($("#toastDialogRedbagCollectedId").css("display") == "block"	) {
-				map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});				
+				//map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});				
 				$("#toastDialogRedbagCollectedId").css("display", "none");
 			}
 			
@@ -572,6 +572,7 @@ function updateGiftsInfoToPage(data) {
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.bonus = awardInfo.bonus;
 					totalBonus += parseFloat(giftsAttributes.bonus);
+					console.log("totalBonus:" + totalBonus + "awardInfo.bonus:" + awardInfo.bonus);
 				}
 			break;
 			case "15": //大额现金
@@ -587,12 +588,20 @@ function updateGiftsInfoToPage(data) {
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.bonus = awardInfo.bonus;
 					totalBonus += parseFloat(giftsAttributes.bonus);
+					console.log("totalBonus:" + totalBonus + "awardInfo.bonus:" + awardInfo.bonus);
 				}
 				break;
 			case "2": //实体奖
 				itemName = entityItem;
 				listId = "entityListId";
 				containerName = "entityContainerId";
+				//专属属性:
+				if(data[i].addressEntity != null) {
+					var addressEntity = (data[i].addressEntity);
+					giftsAttributes.userName = addressEntity.userName;
+					giftsAttributes.userPhone = addressEntity.userPhone;
+					giftsAttributes.address = addressEntity.province+addressEntity.city+addressEntity.area+addressEntity.address;
+				}
 				break;
 			case "4": //第三方优惠券
 				itemName = thirdPartyItem;
@@ -623,6 +632,9 @@ function updateGiftsInfoToPage(data) {
 		//实物奖显示图片
 		if(awardTypeId == "2") {
 			$("#"+listId+" .sectionItemClass:last-of-type .entityImgClass").css("background-image", "url("+ data[i].awardUrl +")");
+			if(data[i].awardExchangeFlag == 1) { 
+				$("#"+listId+" .sectionItemClass:last-of-type .sectionItemButtonClass").css("background-image", "url(images/myaward/entityBtnCollected.png)");
+			}
 		}
 		//显示对应容器 (不用每次都设置,可优化)
 		$("#"+containerName).css("display", "block");
@@ -630,6 +642,7 @@ function updateGiftsInfoToPage(data) {
 	//显示主页面
 	//红包总金额更新:
 	if($("#redbagCashContainer").css("display") == "block") {
+		console.log("final totalBonus:" + totalBonus);
 		$("#redbagCashTotalId span").text(totalBonus);
 	}
 	//优惠券叠加数更新:
@@ -640,8 +653,9 @@ function updateGiftsInfoToPage(data) {
 	}
 	
 	$(".myGiftsPageClass").css("display", "block");
-	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	app.registerKeyHandler();
+	$(".coocaa_btn").eq(_Lindex).trigger("itemFocus");
 }
 
 //优惠券 领取接口
@@ -1144,6 +1158,7 @@ function showInitDialog(dataObj) {
 			$("#thanks_btn2 .imgFocus").attr("src", "images/myaward/red_focus.png");
 			$("#thanks_info3").html('*还有更多任务奖励都已放入<span style="color:#fff642">[我的礼物]</span>，请前往查看');
 		}
+	 	
 		map = new coocaakeymap($(".coocaa_btn2"), document.getElementById("thanks_btn1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		//按键响应处理
 		regitserKeyEventsForThanksToast();
