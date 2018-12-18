@@ -555,10 +555,11 @@ function updateGiftsInfoToPage(data) {
 				itemName = couponItem;
 				listId = "couponList";
 				containerName = "couponContainer";
-				if(_loginstatus != "false") {//如果用户已经登录,自动领取所有优惠券
-					console.log("auto collect coupon.............");
-					getCouponAward(giftsAttributes, false);//页面初始化时只领取,不使用
-				}
+				//yuanbotest:不自动领取,避免后台服务器状态异常和压力
+//				if(_loginstatus != "false") {//如果用户已经登录,自动领取所有优惠券
+//					console.log("auto collect coupon.............");
+//					getCouponAward(giftsAttributes, false);//页面初始化时只领取,不使用
+//				}
 				//专属属性:
 				if(data[i].awardInfo != null && data[i].awardInfo!=undefined) {
 					var awardInfo = (data[i].awardInfo);
