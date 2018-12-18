@@ -1903,68 +1903,87 @@ function getPackedGoodsList(num,num2) {
 			console.log(JSON.stringify(data));
 			if(data.code == 0) {
 				packGoodsObj2 = [];
-				if(data.data == null) {
-					packGoodsShow(num);
-					$("#toastEmpty").css("display", "block");
-					$("#packGoodsContainer").css("display", "none");
-					if (num2 == 1) {
-						map = new coocaakeymap($(".coocaa_btn_pack"), document.getElementById("toastEmpty"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-					}
-				} else {
-					$("#toastEmpty").css("display", "none");
-					//每次进来前清除之前加的元素,防止重复显示:
-					$("#packGoodsList .goodsItemClass").remove();
-					console.log("yuanbotest: data.data.length: "+ data.data.length);
-					for(var i = 0; i < data.data.length; i++) {
-						packGoodsObj2.push(data.data[i].goodsId);
-						var goodsInfo = (data.data[i].goodsInfo);
-						var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' " + goodsName=" ' + goodsInfo.goodsName + ' " > \
-											<div class="goodsItemPlaceHolderClass"></div>								\
-											<div class="packGoodsItemPic"></div>										\
-											<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
-											<div class="packGoodsItemLabel">\
-												<div class="packGoodsItemLabelPriceNow">￥' + goodsInfo.shopPrice + '</div>\
-												<div class="packGoodsItemLabelTip">原价：</div>\
-												<div class="packGoodsItemLabelPriceOld">￥' + goodsInfo.promotePrice + '</div>\
-											</div>\
-										</div>';
-						$("#packGoodsList").append(goodsItem);
-						var thumb = "url(http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/img/p"+data.data[i].goodsId+".png)";
-						console.log("thumb url..."+thumb);
-						$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", thumb);
-					}
-					$("#packGoodsContainer").css("display", "block");
-					if (num2 == 1) {
-						map = new coocaakeymap($(".coocaa_btn_pack"), $(".coocaa_btn_pack").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-					}
-					packGoodsShow(num);
-					if(data.data.length <= 5) { //显示更多商品
-						var list = $("#moreGoodsContainer .goodsItemClass");
-						var len2 = list.length;
-						var _moreGoodsIdArr;
-						if(_qsource == "tencent") {
-							_moreGoodsIdArr = _moreGoodsIdArrTencent;
-						} else {
-							_moreGoodsIdArr = _moreGoodsIdArrIqiyi;
-						}
-						for(var i = 0; i < len2; i++) {
-							list.eq(i).attr("goodsid", _moreGoodsIdArr[i]);
-							list.eq(i).attr("goodsName", _moreGoodsNameArr[i]);
-							if(i == 0) { //影视
-								list.eq(i).attr("businesstype", 0);
-							} else if(i == 1) { //教育
-								list.eq(i).attr("businesstype", 1);
+					if(data.data == null) {
+						packGoodsShow(num);
+						$("#toastEmpty").css("display", "block");
+						$("#packGoodsContainer").css("display", "none");
+						if (num2 == 1) {
+							map = new coocaakeymap($(".coocaa_btn_pack"), document.getElementById("toastEmpty"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+						} 
+					}else {
+							$("#toastEmpty").css("display", "none");
+							//每次进来前清除之前加的元素,防止重复显示:
+							$("#packGoodsList .goodsItemClass").remove();
+							console.log("yuanbotest: data.data.length: "+ data.data.length);
+							//yuanbotest -start- 
+							var len = data.data.length;
+							len = 3; 
+		//					for(var i = 0; i < data.data.length; i++) {
+							for(var i = 0; i < len; i++) {
+							//yuanbotest -end-	
+								packGoodsObj2.push(data.data[i].goodsId);
+								var goodsInfo = (data.data[i].goodsInfo);
+								var goodsItem = '<div  class="goodsItemClass coocaa_btn_pack" goodsid=" ' + data.data[i].goodsId + ' " + goodsName=" ' + goodsInfo.goodsName + ' " > \
+													<div class="goodsItemPlaceHolderClass"></div>								\
+													<div class="packGoodsItemPic"></div>										\
+													<div class="packGoodsItemName">' + goodsInfo.goodsName + '</div>\
+													<div class="packGoodsItemLabel">\
+														<div class="packGoodsItemLabelPriceNow">￥' + goodsInfo.shopPrice + '</div>\
+														<div class="packGoodsItemLabelTip">原价：</div>\
+														<div class="packGoodsItemLabelPriceOld">￥' + goodsInfo.promotePrice + '</div>\
+													</div>\
+												</div>';
+								$("#packGoodsList").append(goodsItem);
+								var thumb = "url(http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/img/p"+data.data[i].goodsId+".png)";
+								console.log("thumb url..."+thumb);
+								$("#packGoodsList .goodsItemClass:last-of-type .packGoodsItemPic").css("background-image", thumb);
 							}
-						}
-						$("#moreGoodsContainer").css("display", "block");
-					} else {
-						$("#moreGoodsContainer").css("display", "none");
+							$("#packGoodsContainer").css("display", "block");
+							if (num2 == 1) {
+								map = new coocaakeymap($(".coocaa_btn_pack"), $(".coocaa_btn_pack").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+							}
+							packGoodsShow(num);
+							console.log("yuanbotest url: "+ $("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image"));
+							if(len <= 5) { //显示更多商品
+								var list = $("#moreGoodsContainer .goodsItemClass");
+								var len2 = list.length;
+								var _moreGoodsIdArr;
+								if(_qsource == "tencent") {
+									_moreGoodsIdArr = _moreGoodsIdArrTencent;
+								} else {
+									_moreGoodsIdArr = _moreGoodsIdArrIqiyi;
+								}
+								for(var i = 0; i < len2; i++) {
+									list.eq(i).attr("goodsid", _moreGoodsIdArr[i]);
+									list.eq(i).attr("goodsName", _moreGoodsNameArr[i]);
+									if(i == 0) { //影视
+										list.eq(i).attr("businesstype", 0);
+									} else if(i == 1) { //教育
+										list.eq(i).attr("businesstype", 1);
+									}
+								}
+								otherPageInit();
+								if(_qsource == "tencent") {
+									$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(images/packlist/goods-more.png)");
+								} else {
+									$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(images/packlist/goods-moreA.png)");
+								}
+								$("#moregoodsList .goodsItemPlaceHolderClass:eq(1)").css("background-image", "url(images/packlist/goods-more2.png)");
+								$("#moregoodsList .goodsItemPlaceHolderClass:eq(2)").css("background-image", "url(images/packlist/goods-more3.png)");
+								$("#moregoodsList .goodsItemPlaceHolderClass:eq(3)").css("background-image", "url(images/packlist/goods-more4.png)");
+								$("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image", "url(images/packlist/goods-more5.png)");
+								
+								console.log("yuanbotest url: "+ $("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image"));
+								$("#moreGoodsContainer").css("display", "block");
+							} else {
+								console.log("yuanbotest url: "+ $("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image"));
+								$("#moreGoodsContainer").css("display", "none");
+							}
+						buttonInitAfter2();
 					}
+				}else {
+					console.log("----------访问失败------");
 				}
-				buttonInitAfter2();
-			} else {
-				console.log("----------访问失败------");
-			}
 		},
 		error: function(error) {
 			console.log("--------访问失败" + JSON.stringify(error));
@@ -2823,21 +2842,23 @@ function setFocusInPack(haspack) {
 }
 
 function otherPageInit() {
-	$("#packGoodsPage").css("background-image", "url(images/packlist/bg.jpg)");
-	$("#packGoodsTitle").css("background-image", "url(../images/packlist/title-pack.png)");
-	$("#moreGoodsTitle").css("background-image", "url(../images/packlist/title-more.png)");
-	$("#toastEmpty").css("background-image", "url(../images/packlist/toast-empty.png)");
-	$("#toastEnd").css("background-image", "url(../images/packlist/toast-end.png)");
-
+//	$("#packGoodsPage").css("background-image", "url(images/packlist/bg.jpg)");
+//	$("#packGoodsTitle").css("background-image", "url(images/packlist/title-pack.png)");
+//	$("#moreGoodsTitle").css("background-image", "url(images/packlist/title-more.png)");
+//	$("#toastEmpty").css("background-image", "url(images/packlist/toast-empty.png)");
+//	$("#toastEnd").css("background-image", "url(images/packlist/toast-end.png)");
+	console.log("yuanbotest otherPageInit in......");
 	if(_qsource == "tencent") {
-		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(../images/packlist/goods-more.png)");
+		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(images/packlist/goods-more.png)");
 	} else {
-		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(../images/packlist/goods-moreA.png)");
+		$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(images/packlist/goods-moreA.png)");
 	}
-	$("#moregoodsList .goodsItemPlaceHolderClass:eq(1)").css("background-image", "url(../images/packlist/goods-more2.png)");
-	$("#moregoodsList .goodsItemPlaceHolderClass:eq(2)").css("background-image", "url(../images/packlist/goods-more3.png)");
-	$("#moregoodsList .goodsItemPlaceHolderClass:eq(3)").css("background-image", "url(../images/packlist/goods-more4.png)");
-	$("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image", "url(../images/packlist/goods-more5.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(1)").css("background-image", "url(images/packlist/goods-more2.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(2)").css("background-image", "url(images/packlist/goods-more3.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(3)").css("background-image", "url(images/packlist/goods-more4.png)");
+	$("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image", "url(images/packlist/goods-more5.png)");
+	console.log("yuanbotest url: "+ $("#moregoodsList .goodsItemPlaceHolderClass:eq(4)").css("background-image"));
+	console.log("yuanbotest otherPageInit out......");
 }
 //页面翻页
 function focusShift(el) {
