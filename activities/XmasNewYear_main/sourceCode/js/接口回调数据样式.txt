@@ -1,0 +1,210 @@
+1、初始化
+{
+	"code":"50100",
+	"msg":"成功",
+	"data":{
+		"sysTime":"2018-12-07 14:17:21",
+		"chanceResult":{
+			"remainingNumber":25,
+			"firstIn":3,
+			"elkOver":false,
+			"packageOver":false,
+			"taskLogin":false,
+			"bellLogin":false,
+			"chanceSource":"",
+			"rememberModel":null
+		},
+		"goldActiveEndTime":"2018-12-11 23:59:59",
+		"userKeyId":"49971737",
+		"goldActiveBeginTime":"2018-12-04 00:00:00"}
+}
+
+{"sysTime":"2018-12-07 15:34:01","chanceResult":{"remainingNumber":26,"firstIn":3,"elkOver":false,"packageOver":false,"taskLogin":false,"bellLogin":false,"chanceSource":"2","rememberModel":{"lotteryActiveId":87,"awardId":638,"lotteryRememberId":144,"awardName":"微信红包 0.1","awardUrl":"http://172.20.155.51/","awardTypeId":"7","userKeyId":"49971737","userOpenId":null,"awardExchangeFlag":0,"awardInfo":{"bonus":"0.1","addByDay":"false","queue":"43"},"awardTime":"2018-12-07 15:27:25","seq":2,"remark":null,"remainingNumber":0,"margeType":null,"mergeAwardInfo":null,"addressEntity":null}},"goldActiveEndTime":"2018-12-11 23:59:59","userKeyId":"49971737","goldActiveBeginTime":"2018-12-04 00:00:00"}
+
+
+1、首次抽奖结果
+{
+"code":"50100",
+"msg":"成功",
+"data":{
+	"remainingNumber":0,
+	"firstIn":0,
+	"elkOver":false,
+	"packageOver":false,
+	"chanceSource":null,
+	"rememberModel":{
+		"lotteryActiveId":165,
+		"awardId":342,
+		"lotteryRememberId":193,
+		"awardName":"0.3的微信红包",
+		"awardUrl":"http://172.20.132.129/",
+		"awardTypeId":"7",
+		"userKeyId":"49971737",
+		"userOpenId":"bb1c8f03275b11e8987500505687790a",
+		"awardExchangeFlag":0,
+		"awardInfo":{
+			"bonus":"0.3",
+			"addByDay":"false"
+			},
+		"awardTime":"2018-11-29 17:40:22",
+		"seq":1,"remark":null,
+		"margeType":null,
+		"mergeAwardInfo":null,
+		"addressEntity":null
+		}
+	}
+}
+
+
+{
+"code":"50100",
+"msg":"成功",
+"data":{
+	"koiNews":{"result":[],"code":"50100"},
+	"fakeNews":[
+		{"nickName":"昵称","awardName":"奖品","awardTime":"2018-07-21 12:20:32","province":null,"city":null,"queue":null},
+		{"nickName":"昵称1","awardName":"奖品","awardTime":"2018-07-21 12:20:31","province":null,"city":null,"queue":null},
+		{"nickName":"假昵称1","awardName":"假奖品2","awardTime":"2018-07-21 12:20:30","province":null,"city":null,"queue":null},
+		{"nickName":"假昵称1","awardName":"假奖品2","awardTime":"2018-07-21 12:20:30","province":null,"city":null,"queue":null}
+	]
+}}
+
+
+{
+    "code": "50100",
+    "msg": "成功",
+    "data": {
+        "sysTime": "2018-12-07 15:54:34",
+        "chanceResult": {
+            "remainingNumber": 1,
+            "firstIn": 3,
+            "elkOver": false,
+            "packageOver": false,
+            "taskLogin": false,
+            "bellLogin": false,
+            "chanceSource": "2",
+            "rememberModel": {
+                "lotteryActiveId": 87,
+                "awardId": 638,
+                "lotteryRememberId": 145,
+                "awardName": "微信红包 0.1",
+                "awardUrl": "http://172.20.155.51/",
+                "awardTypeId": "7",
+                "userKeyId": "test_6",
+                "userOpenId": null,
+                "awardExchangeFlag": 0,
+                "awardInfo": {
+                    "bonus": "0.1",
+                    "addByDay": "false",
+                    "queue": "44"
+                },
+                "awardTime": "2018-12-07 15:54:27",
+                "seq": 2,
+                "remark": null,
+                "remainingNumber": 0,
+                "margeType": null,
+                "mergeAwardInfo": null,
+                "addressEntity": null
+            }
+        },
+        "goldActiveEndTime": "2018-12-08 23:59:59",
+        "userKeyId": "test_6",
+        "goldActiveBeginTime": "2018-12-03 00:00:00"
+    }
+}
+
+
+
+
+
+
+
+//活动初始化 
+function actionInit() {
+	console.log(_mac + "--" + _chip + "--" + _model + "--" + _emmcCID + "--" + _udid);
+	console.log(_accessToken + "--" + _openId + "--" + _nickName);
+	var ajaxTimeoutOne = $.ajax({
+		type: "POST",
+		async: true,
+		timeout: 5000,
+		dataType: 'json',
+		url: _testurl + "/xmas/init",
+		data: {
+			"id": _actionid,
+			"cUDID": _udid,
+			"MAC": _mac,
+			"cChip": _chip,
+			"cModel": _model,
+			"cEmmcCID": _emmcCID,
+			"cOpenId": _openId,
+			"goldActiveId": _lotteryid,
+			"initSource": "2",
+			"accessToken": _accessToken,
+			"cNickName": _nickName,
+			"chanceSource": "2"
+		},
+		success: function(data) {
+			console.log(JSON.stringify(data));
+			if(data.code == 50001) {
+				console.log("该活动不存在");
+			} else if(data.code == 50002) {
+				console.log("该活动未开始");
+			} else if(data.code == 50003) {
+				console.log("该活动已结束");
+			} else if(data.code == 50042) {
+				console.log("该活动已下架");
+			} else if(data.code == 50100) {
+				console.log("该活动进行中+获取数据成功");
+				showInitDialog(data.data);
+			}
+		},
+		error: function() {
+			console.log("获取失败");
+		},
+		complete: function(XMLHttpRequest, status) {　　　　
+			console.log("-------------complete------------------" + status);
+			if(status == 'timeout') {　　　　　
+				ajaxTimeoutOne.abort();　　　　
+			}　　
+		}
+	});
+}
+
+
+
+{
+	"code":"50100",
+	"msg":"成功",
+	"data":{
+		"remainingNumber":3,
+		"firstIn":0,
+		"elkOver":false,
+		"packageOver":false,
+		"taskLogin":false,
+		"bellLogin":false,
+		"chanceSource":null,
+		"rememberModel":{
+			"lotteryActiveId":89,
+			"awardId":649,
+			"lotteryRememberId":210,
+			"awardName":"现金红包",
+			"awardUrl":"http://172.20.155.51/uploads/img/20181210/20181210163504611112.jpg",
+			"awardTypeId":"7",
+			"userKeyId":"49971737",
+			"userOpenId":"bb1c8f03275b11e8987500505687790a",
+			"awardExchangeFlag":0,
+			"awardInfo":{
+				"bonus":"0.30",
+				"addByDay":"false",
+				"queue":"3"
+			},
+			"awardTime":"2018-12-11 11:03:14",
+			"seq":2,
+			"remark":null,
+			"remainingNumber":0,
+			"margeType":null,
+			"mergeAwardInfo":null,
+			"addressEntity":null
+		}
+	}
+}

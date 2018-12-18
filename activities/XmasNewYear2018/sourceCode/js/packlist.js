@@ -268,6 +268,7 @@ function processPackListsData(data) {
 	var len = 0;	
 	len = data.data.length;
 	console.log("processPackListsData len:"+len);
+//	len = 3;//yuanbotest
 	for(var i=0; i<len; i++) {
 		var goodsInfo = (data.data[i].goodsInfo);
 		console.log("i:"+i+", "+goodsInfo.goodsName+" "+ goodsInfo.promotePrice + " "+goodsInfo.shopPrice+" "+goodsInfo.goodsThumb);
