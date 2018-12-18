@@ -13,8 +13,6 @@ body {
 	position: absolute;
 	width: 1920px;
 	height: 1080px;
-	
-	background-image: url(../images/myaward/bg.png);
 	background-repeat: no-repeat;
 	display: none;	
 }
@@ -476,7 +474,6 @@ body {
 	position: absolute;
 	width: 1920px;
 	height: 1080px;
-	background-image: url(../images/myaward/bgSec.png);
 	background-repeat: no-repeat;
 	display: none;
 }
@@ -572,7 +569,6 @@ body {
 	font-size: 24px;
 	line-height: 24px;
 	color: #FFFFFF;
-	background-image: url(../images/myaward/toastBg.png);
 	background-repeat: no-repeat;
 	display: none;
 }

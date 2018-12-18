@@ -37,9 +37,9 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189&tdsourcetag=s_pcqq_
 启动方式：coocaa.intent.action.browser.no_trans
 
 圣诞小屋页面：
-	主活动--http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold
-	打包清单页面--http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack
-	打包小屋--http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack
+	主活动--     http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold
+	打包清单页面-- http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack
+	打包小屋--	   http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack
 启动方式：coocaa.intent.action.browser.no_trans.no_route
 
 我的礼物页面：
