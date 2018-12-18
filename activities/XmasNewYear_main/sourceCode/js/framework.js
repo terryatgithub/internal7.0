@@ -1212,6 +1212,8 @@ function buttonInitBefore() {
 		console.log(_bActivityEnd);
 		if(_bActivityEnd == true) { //活动已结束
 			$("#toastEnd").css("display", "block");
+			//yuanbotest 关闭其他div?
+			
 			map = new coocaakeymap($(".coocaa_btn_pack"), document.getElementById("toastEnd"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else { //活动进行中
 			if(document.getElementById("toastEmpty").style.display == "block") {
@@ -1917,8 +1919,6 @@ function getPackedGoodsList(num,num2) {
 							console.log("yuanbotest: data.data.length: "+ data.data.length);
 							//yuanbotest -start- 
 							var len = data.data.length;
-							len = 3; 
-		//					for(var i = 0; i < data.data.length; i++) {
 							for(var i = 0; i < len; i++) {
 							//yuanbotest -end-	
 								packGoodsObj2.push(data.data[i].goodsId);
@@ -1962,7 +1962,6 @@ function getPackedGoodsList(num,num2) {
 										list.eq(i).attr("businesstype", 1);
 									}
 								}
-								otherPageInit();
 								if(_qsource == "tencent") {
 									$("#moregoodsList .goodsItemPlaceHolderClass:eq(0)").css("background-image", "url(images/packlist/goods-more.png)");
 								} else {
