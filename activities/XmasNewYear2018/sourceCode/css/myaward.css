@@ -248,15 +248,17 @@ body {
 	margin-right: 3px;  
 }
 /*现金红包-正常显示(没有焦点)时的入口图标显示*/
-#redbagCashList .sectionItemNormalClass {width: 200px;height: 250px;}
-/*现金红包-获取焦点时的入口图标显示*/
-#redbagCashList .sectionItemFocusClass  {width: 182px;height: 232px;}
+#redbagCashList .sectionItemNormalClass {width: 200px;height: 250px; left: 47%;}
 /*红包-待领取*/
-#redbagUncollectedId .sectionItemNormalClass {background-image: url(../images/myaward/redbag.png);}
-#redbagUncollectedId .sectionItemFocusClass  {background-image: url(../images/myaward/redbagFocus.png);}
+#redbagCashList .redbagUncollectedClass .sectionItemNormalClass {
+	background-image: url(../images/myaward/redbag.png);
+	background-size: cover;
+}
 /*红包-已领取*/
-#redbagCollectedId .sectionItemNormalClass {background-image: url(../images/myaward/redbagCollected.png);}
-#redbagCollectedId .sectionItemFocusClass  {background-image: url(../images/myaward/redbagCollectedFocus.png);}
+#redbagCollectedId .sectionItemNormalClass {
+	background-image: url(../images/myaward/redbagCollected.png);
+	background-size: cover;
+}
 /*现金-待领取*/
 .cashUncollectedClass .sectionItemNormalClass {background-image: url(../images/myaward/cash.png);}
 .cashUncollectedClass .sectionItemFocusClass  {background-image: url(../images/myaward/cashFocus.png);}
@@ -269,43 +271,70 @@ body {
 	background-image: url(../images/myaward/redbagFocusBg.png);
 	background-repeat: no-repeat;
 }
-#redbagCashList .sectionItemClass[class~=btn-focus] .sectionItemNormalClass {
-	display: none;
-}
-#redbagCashList .sectionItemClass[class~=btn-focus] .sectionItemFocusClass {
-	display: block;
-}
 /*现金红包-按键*/
 #redbagCashList .sectionItemButtonClass {
 	position: absolute;
-	bottom: 48px;
-	left: 42px;
-	width: 160px;
-	height: 55px;
+	bottom: 25px;
+	left: 52px;
+	width: 140px;
+	height: 60px;
 	background-repeat: no-repeat;
 }
 /*红包-待领取*/
-#redbagUncollectedId .sectionItemButtonClass {background-image: url(../images/myaward/redbagBtn.png);}
-/*红包-已领取*/
-#redbagCollectedId .sectionItemButtonClass {background-image: url(../images/myaward/redbagBtnCollected.png);}
+#redbagCashList .redbagUncollectedClass .sectionItemButtonClass {background-image: url(../images/myaward/redbagBtn.png);}
 /*现金-待领取*/
 .cashUncollectedClass .sectionItemButtonClass {background-image: url(../images/myaward/cashBtn.png);}
 /*现金-已领取*/
-.cashCollectedClass .sectionItemButtonClass {background-image: url(../images/myaward/redbagBtnCollected.png);}
+.cashCollectedClass .sectionItemButtonClass {background-image: url(../images/myaward/cashBtnCollected.png);}
 
 /*红包-金额显示-待领取*/
-.sectionItemDetailsClass {
-    top: 105px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);	
-    -webkit-transform:translateX(-50%);
-	font-family: "SourceHanSansCN", sans-serif;
-	color: #FFFFFF;
-	font-size: 20px;
-	line-height: 20px;
+.sectionItemTitleClass {
+	position: absolute;
+	top: 55px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #FFF6E5;
+	width: 100%;
 	text-align: center;
 }
+.sectionItemDetailsClass {
+    position: absolute;
+    top: 165px;
+    width: 100%;
+	font-family: "SourceHanSansCN", sans-serif;
+	font-size: 20px;
+	color: #FFF6E5;
+	text-align: center;
+}
+.sectionItemDetailsClass span {
+	font-size: 40px;
+}
+
+/*红包-金额显示-已领取*/
+#redbagCollectedId .sectionItemTitleClass { 
+	top: 215px;
+	font-size: 24px;
+}
+.sectionItemSumClass {
+	position: absolute;
+	top: 55px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #CF891D;
+	width: 100%;
+	text-align: center;
+}
+#redbagCollectedId .sectionItemDetailsClass {
+	top: 78px;
+	font-size: 42px;
+	color: #F1593F;
+	font-weight: bold;
+}
+/*现金-待领取*/
+.cashUncollectedClass .sectionItemDetailsClass {
+	color: rosybrown;
+	top: 107px;
+} 
 .sectionItemDetailsValueClass {
 	font-size: 48px;
 	height: 48px;
@@ -321,29 +350,6 @@ body {
 	position: absolute;
 	top: 8px;
 }
-/*红包-金额显示-已领取*/
-#redbagCollectedId .sectionItemDetailsClass {
-	color: #816328;
-	top: 55px;
-	text-align: left;
-}
-#redbagCollectedId .sectionItemDetailsClass div:first-of-type{
-	font-size: 32px;
-    height: 35px;
-    line-height: 32px;
-}
-#redbagCollectedId .sectionItemDetailsValueClass:after {
-	color: #816328;
-	top: 40px;
-}
-#redbagCollectedId .sectionItemDetailsClass div:last-of-type{
-	text-align: center;
-}
-/*现金-待领取*/
-.cashUncollectedClass .sectionItemDetailsClass {
-	color: rosybrown;
-	top: 107px;
-} 
 .cashUncollectedClass .sectionItemDetailsValueClass:after {
 	color: rosybrown;
 }

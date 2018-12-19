@@ -61,35 +61,28 @@ var couponItem = '									\
 		<div class="sectionItemFocusHatClass"></div>	\
 	</div>';
 var redbagUncollectedItem = '												\
-	<!--列表项-未领取的红包-->												\
-	<div id="redbagUncollectedId" class="sectionItemClass coocaa_btn">	\
-		<!--未获得焦点时-->													\
-		<div class="sectionItemNormalClass"></div>						\
-		<!--获得焦点时-->													\
-		<div class="sectionItemFocusClass"></div>						\
-		<!--红包详细信息-->													\
-		<div class="sectionItemDetailsClass">							\
-			<div class="sectionItemDetailsValueClass"></div>			\
-			<div>(总计)</div>												\
-		</div>															\
-		<!--按钮-->														\
-		<div class="sectionItemButtonClass"></div>						\
-	</div>';
+		<!--列表项-未领取的红包-->												 \
+		<div   class="redbagUncollectedClass sectionItemClass coocaa_btn">	 \
+			<!--红包图片-->													\
+			<div class="sectionItemNormalClass"></div>						 \
+			<!--红包类型-->													 \
+			<div class="sectionItemTitleClass"></div>						 \
+			<!--红包金额-->													 \
+			<div class="sectionItemDetailsClass">共计 <span ></span> 元 </div>		\
+			<!--按钮-->															\
+			<div class="sectionItemButtonClass"></div>						\
+		</div>';
 var redbagCollectedItem = '												\
 	<!--列表项-已领取的红包-->												\
 	<div id="redbagCollectedId" class="sectionItemClass coocaa_btn">	\
-		<!--未获得焦点时-->													\
+		<!--红包图片-->													\
 		<div class="sectionItemNormalClass"></div>						\
-		<!--获得焦点时-->													\
-		<div class="sectionItemFocusClass"></div>						\
-		<!--红包详细信息-->													\
-		<div class="sectionItemDetailsClass">							\
-			<div>￥</div>												\
-			<div class="sectionItemDetailsValueClass"></div>			\
-			<div>(总计)</div>												\
-		</div>															\
-		<!--按钮-->														\
-		<div class="sectionItemButtonClass"></div>						\
+		<!--提示文字-->													 \
+		<div class="sectionItemSumClass">总计</div>						\
+		<!--红包金额-->													\
+		<div class="sectionItemDetailsClass"><span></span></div>						\
+		<!--提示文字-->													\
+		<div class="sectionItemTitleClass">当前已领取</div>					\
 	</div>';
 var cashUncollectedItem = '												\
 	<!--列表项-未领取的大额现金-->												\
@@ -519,7 +512,9 @@ function updateGiftsInfoToPage(data) {
 	console.log("updateGiftsInfoOnPage len:"+len);
 	var itemName, listId, containerName; //页面元素变量
 	var awardTypeId;	//服务器返回数据变量
-	var totalBonus = 0;
+	var totalBonus = 0;//红包总额
+	var totalBonusCollected = 0; //红包已领取总额
+	var bRedbagCollectedItemAdded = false;//默认对应后台一条数据,需要添加一个与之对应的页面元素块; 例外是已领取红包,因为后台无法合并,所以页面需要只显示一处.
 	//存储不同优惠券的数组,相同优惠券在对应位+1;
 	var couponAwardIdArr = [], couponAwardNumArr = [];
 	var index=0;
@@ -584,18 +579,21 @@ function updateGiftsInfoToPage(data) {
 				}
 				break;
 			case "7": //微信红包
-				if(data[i].awardExchangeFlag == 1) { 
-					itemName = redbagCollectedItem;
-				}else {
-					itemName = redbagUncollectedItem;
-				}
-				listId = "redbagCashList";
-				containerName = "redbagCashContainer";
 				//专属属性:
 				if(data[i].awardInfo != null) {
+					listId = "redbagCashList";
+					containerName = "redbagCashContainer";
+					
 					var awardInfo = (data[i].awardInfo);
 					giftsAttributes.bonus = awardInfo.bonus;
 					totalBonus = totalBonus + (giftsAttributes.bonus*100);
+					
+					if(data[i].awardExchangeFlag == 1) { 
+						itemName = redbagCollectedItem;
+						totalBonusCollected = totalBonusCollected + (giftsAttributes.bonus*100);
+					}else {
+						itemName = redbagUncollectedItem;
+					}
 				}
 			break;
 			case "15": //大额现金
@@ -632,11 +630,39 @@ function updateGiftsInfoToPage(data) {
 				break;
 		}
 		console.log("listId: "+listId + " containerName" + containerName);
-		//添加到页面上
-		$("#"+listId).append(itemName);
-		$("#" + listId +" .sectionItemClass:last-of-type").attr(giftsAttributes);
+		
+		//yuanbotest -start - 
+		//"红包已领取"第一次添加,后续不再添加;只累计对应已领取金额
+		if(awardTypeId != "7" || data[i].awardExchangeFlag != 1 || bRedbagCollectedItemAdded==false) {
+			//页面增加新元素:
+			$("#"+listId).append(itemName);
+			$("#" + listId +" .sectionItemClass:last-of-type").attr(giftsAttributes);	
+		
+			//红包已领取添加后set flag,后续不再添加;
+			if(awardTypeId == "7" && data[i].awardExchangeFlag == 1 && bRedbagCollectedItemAdded==false) {
+				bRedbagCollectedItemAdded = true;
+			}
+		} 
+		//yuanbotest - end -
 		
 		//每种礼物需要单独处理的地方:
+		//微信红包上的金额显示:
+		if(awardTypeId == "7" && data[i].awardExchangeFlag == 0) {//未领取红包
+			var redbagClass = "红包";
+			switch(data[i].lotteryActiveId) {
+				case _xMasNewYearActivityId: 
+					redbagClass = "任务红包";
+					break;
+				case _goldHouseActivityId: 
+					redbagClass = "抽奖红包";
+					break;
+				case _buyActiveId: 
+					redbagClass = "返利红包";
+					break;	
+			}
+			$("#"+listId+" .sectionItemClass:last-of-type .sectionItemTitleClass").text(redbagClass);
+			$("#"+listId+" .sectionItemClass:last-of-type .sectionItemDetailsClass span").text(giftsAttributes.bonus);
+		}	
 		//锦鲤更新按钮(已领取)
 		if(awardTypeId == "16") {
 			if(data[i].awardExchangeFlag == 1) { 
@@ -647,8 +673,9 @@ function updateGiftsInfoToPage(data) {
 		if(awardTypeId == "5") {
 			$("#couponList .sectionItemClass:last-of-type .sectionItemNormalClass").css("background-image", "url("+ data[i].awardUrl +")");
 		}
-		//微信红包上的金额显示:
-		if(awardTypeId == "7" || awardTypeId == "15") {
+	
+		//大额现金的金额显示:
+		if(awardTypeId == "15") {
 			$("#"+listId+" .sectionItemClass:last-of-type .sectionItemDetailsClass .sectionItemDetailsValueClass").text(giftsAttributes.bonus);
 		}
 		//实物奖显示图片
@@ -664,8 +691,12 @@ function updateGiftsInfoToPage(data) {
 	//显示主页面
 	//红包总金额更新:
 	if($("#redbagCashContainer").css("display") == "block") {
-		console.log("final totalBonus:" + totalBonus);
+		console.log("final totalBonus:" + totalBonus + " totalBonusCollected:"+totalBonusCollected + "...");
 		$("#redbagCashTotalId span").text(totalBonus/100);
+		if(bRedbagCollectedItemAdded == true) {//如果有已领取元素,更新金额
+			$("#redbagCollectedId .sectionItemDetailsClass span").text(totalBonusCollected/100);
+			$("#redbagCollectedId").attr("bonus", totalBonusCollected/100);
+		}
 	}
 	//优惠券叠加数更新:
 	if($("#couponList").css("display") == "block") {
