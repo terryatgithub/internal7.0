@@ -89,17 +89,17 @@ var app = {
 		app.triggleButton();
 
 		//初始落焦
-        var initPhoneMap = function(obj) {
-			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
-			console.log("----------initPhoneMap End---------");
-		}
-		var firstFocus = document.getElementsByClassName("coocaa_btn")[0];
-		initPhoneMap(firstFocus);
+//      var initPhoneMap = function(obj) {
+//			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
+//			console.log("----------initPhoneMap End---------");
+//		}
+//		var firstFocus = document.getElementsByClassName("coocaa_btn")[0];
+//		initPhoneMap(firstFocus);
 
 		//注册事件监听
 		app.registerEventHandler();
 		//注册按键监听
-		app.registerKeyHandler();
+//		app.registerKeyHandler();
 		//开始跟底层和后台交互的流程：
 		getLocalDeviceInfo();
     },
@@ -237,7 +237,7 @@ function processKey() {
 		case "notLoginId":
 			console.log("user start login, TVSource:"+_TVSource);
 			webBtnClickLog("成长秘籍","立即登录顶部");
-			startLogin(false);//成长秘籍页不分视频源
+			startLogin((_TVSource == "tencent") ? true : false);//成长秘籍页不分视频源
 		break;
 		case "btnEnterTask":
 			webBtnClickLog("成长秘籍","做任务赚金币底部");
@@ -340,7 +340,7 @@ function calCurPointsLocation(isInit) {
 	console.log("------svgWidth:"+svgWidth+"-svgEllipseHeight:"+svgEllipseHeight);	
 	
 	//2.计算每个等级占用的空间宽度
-	var lvWidth = svgWidth / (len-1);
+	var lvWidth = Math.floor(svgWidth / (len-1));
 
 	//初始化时只显示页面静态元素
 	if (isInit == true) {
@@ -573,16 +573,16 @@ function updateUserLoginState(bLogin) {
 		//状态为未登录
 		$("#userinfo").css("display", "none");
 		$(".notLogin").css("display", "block");
-//		$(".notLogin").addClass("coocaa_btn");
+		$(".notLogin").addClass("coocaa_btn");
 	}else {
 		//已获取用户登录信息
 		$(".notLogin").css("display", "none");
-//		$(".notLogin").removeClass("coocaa_btn");
+		$(".notLogin").removeClass("coocaa_btn");
 		$("#userinfo").css("display", "block");
 	}
 	//更新右上角后,刷新下焦点
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//	app.registerKeyHandler();
+	app.registerKeyHandler();
 }
 
 function getLocalDeviceInfo() {
