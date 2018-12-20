@@ -27,7 +27,10 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=20239930
 3. 奖品信息公共参数(包括各类奖品typeid)
 http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189&tdsourcetag=s_pcqq_aiomsg
 
-
+4. 后台配置wiki（运营用）
+	http://wiki.skyoss.com/pages/viewpage.action?pageId=20246405&tdsourcetag=s_pcqq_aiomsg
+	
+	
 ---------------------------------------双旦测试地址---------------------------------------------------
 福利街页面：
 	默认、影视分入口--http://beta.webapp.skysrt.com/games/webapp/christmas/test/index.html
@@ -56,4 +59,29 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189&tdsourcetag=s_pcqq_
 			其它情况默认为主页进（可以传home)
 启动方式：coocaa.intent.action.browser.no_route
 
+---------------------------------------双旦正式地址---------------------------------------------------
+福利街页面：
+	默认、影视分入口-- https://webapp.skysrt.com/christmas18/street/index.html
+	教育分入口--https://webapp.skysrt.com/christmas18/street/index.html?from=edu
+	购物分入口--https://webapp.skysrt.com/christmas18/street/index.html?from=mall
+	应用分入口--https://webapp.skysrt.com/christmas18/street/index.html?from=apk
+启动方式：coocaa.intent.movie.webview.no_trans
 
+圣诞小屋页面：
+	主活动--https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold
+	打包清单--https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack
+启动方式：coocaa.intent.movie.webview.no_trans.no_route
+
+我的礼物页面：
+	从福利街进入：  https://webapp.skysrt.com/christmas18/myaward/index.html?actEnd=true&awardToast=true&from=street
+	从圣诞小屋进入:https://webapp.skysrt.com/christmas18/myaward/index.html?actEnd=true&awardToast=true&from=home
+		1. actEnd=true 
+			活动已结束，传true
+			默认false
+		2. awardToast=true 
+			需要“奖励弹窗”，传true
+			默认false
+		3. from=street
+			从福利节进传street
+			其它情况默认为主页进（可以传home)
+启动方式：coocaa.intent.movie.webview.no_route

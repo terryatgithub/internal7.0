@@ -1,18 +1,22 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _xMasNewYearActivityId = 89;//87;//89;
-var _goldHouseActivityId = 90;//88;//90;
-var _buyActiveId = 91;//返利红包活动id
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com//light";//主活动接口
-var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实物二维码领取接口
-var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
-//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 89;//87;//89;
 //var _goldHouseActivityId = 90;//88;//90;
 //var _buyActiveId = 91;//返利红包活动id
-//var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
-//var _entityAwardurl = "https://webapp.skysrt.com/movie/thanksgiving/address/index.html?";//实物二维码领取接口
-//var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
+//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/light";//主活动接口
+//var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实物二维码领取接口
+//var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
+//var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
+//var _packlistUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
+//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
+var _xMasNewYearActivityId = 97;
+var _goldHouseActivityId = 99;
+var _buyActiveId = 98;
+var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
+var _entityAwardurl = "https://webapp.skysrt.com/christmas18/address/index.html?";//实物二维码领取接口
+var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
+var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
+var _packlistUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
 //全局参数
@@ -290,8 +294,7 @@ function processKey(el) {
 		if(_bCallHome) {//需要启动主页
 			console.log("go to Xmas house....");
 			//调用进入圣诞小屋的接口
-			var url = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";
-			coocaaosapi.startNewBrowser4(url, function(success){
+			coocaaosapi.startNewBrowser4(_goldHouseUrl, function(success){
 				console.log("startNewBrowser4 success");
 			}, function(err){console.log("startNewBrowser4 error")});
 		}
@@ -1346,8 +1349,7 @@ function regitserKeyEventsForThanksToast() {
 				getMyGifts();//退出弹窗时再获取我的礼物 
 			}else if(clickType == 1){//跳转到打包清单页面,当前页面不消灭
 				console.log("go to pack list....");
-				var url = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";
-				coocaaosapi.startNewBrowser4(url, function(success){
+				coocaaosapi.startNewBrowser4(_packlistUrl, function(success){
 					console.log("startNewBrowser4 success");
 				}, function(err){console.log("startNewBrowser4 error")});
 			}
