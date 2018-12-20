@@ -1,20 +1,18 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _urlActivityServer = "http://172.20.155.51:3000/light";//"http://beta.restful.lottery.coocaatv.com//light";
 var _xMasNewYearActivityId = 89;//87;//89;
 var _goldHouseActivityId = 90;//88;//90;
 var _buyActiveId = 91;//返利红包活动id
-//实物二维码领取接口
-var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//测试接口
-//抽奖接口(生成微信红包二维码用)：
-var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//测试接口
+var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com//light";//主活动接口
+var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实物二维码领取接口
+var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-//var _urlActivityServer = "https://restful.skysrt.com/light";
-//var _xMasNewYearActivityId = 87;
-//实物二维码领取接口
-//var _entityAwardurl = "https://webapp.skysrt.com/movie/thanksgiving/address/index.html?";//正式接口
-////抽奖接口(生成微信红包二维码用)：
-//var _lotteryUrl = "https://restful.skysrt.com";//正式接口
+//var _xMasNewYearActivityId = 89;//87;//89;
+//var _goldHouseActivityId = 90;//88;//90;
+//var _buyActiveId = 91;//返利红包活动id
+//var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
+//var _entityAwardurl = "https://webapp.skysrt.com/movie/thanksgiving/address/index.html?";//实物二维码领取接口
+//var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
 //全局参数
@@ -32,6 +30,8 @@ var _bCallHome = false; //默认不启动主页； 如果是从主页进我的�
 //
 var _Lindex = 0;//主页当前焦点
 var _toastTimeoutId=null;//弹窗自动清除计时器id
+var _bAfterLoginAutoTriggerCollectGift = false;//奖励弹窗：用户未登录时，点击使用红包按钮，当用户登录回来后，自动触发“使用红包”的按钮，进入弹窗的下一个页面；
+var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
 //-----------------------------------动态插入的页面元素 start--------------------------//
 //更新我的礼品信息到页面:
@@ -174,9 +174,15 @@ var app = {
 	onResume: function() {
 		console.log("我的礼物-onresume");
 		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
+			console.log("我的礼物-onresume 111 _bAfterLoginAutoTriggerCollectGift:	"+_bAfterLoginAutoTriggerCollectGift + "_bUserLoginSuccess:"+_bUserLoginSuccess);
 			//如果从奖励弹窗返回:
-			//todo
+			if(_bAfterLoginAutoTriggerCollectGift == true && _bUserLoginSuccess == true) {
+				console.log("我的礼物-onresume 111 222");
+				//自动触发按键,进入奖品领取二维码页面(实物/红包)
+				$("#thanks_btn1").trigger("itemClick");
+			}
 		}else {
+			console.log("我的礼物-onresume 222");
 			getMyGifts();//获取我的礼物	
 		}
 	},
@@ -882,7 +888,14 @@ function showRedbagItem(giftsInfo) {
 		});
 	}else { //未领取
 		webBtnClickLog("待领取", "现金红包");
+		giftsInfo.qrDivId = "imgIdRedbagReceiveQr"
+		giftsInfo.width = 195;
+		giftsInfo.height = 195;
 		getRedbagAward(giftsInfo);
+		//奖品信息及领取人信息:
+		$("#toastDialogRedbagUncollectedId .giftTitleClass span").text(giftsInfo.bonus);	
+		$("#toastDialogRedbagUncollectedId").css("display", "block");
+		$("#toastDialogId").css("display", "block");
 	}	
 }
 
@@ -915,19 +928,13 @@ function getRedbagAward(giftsInfo) {
 		success: function(data) {
 			console.log("getRedbagAward success:" + JSON.stringify(data));
 			if(data.code == "200") {
-				document.getElementById("imgIdRedbagReceiveQr").innerHTML = "";
+				document.getElementById(giftsInfo.qrDivId).innerHTML = "";
 				var url = data.data;
-				var qrcode = new QRCode(document.getElementById("imgIdRedbagReceiveQr"), {
-					width: 195,
-					height: 195
+				var qrcode = new QRCode(document.getElementById(giftsInfo.qrDivId), {
+					width: giftsInfo.width,
+					height: giftsInfo.height
 				});
 				qrcode.makeCode(url);
-				
-				//奖品信息及领取人信息:
-				$("#toastDialogRedbagUncollectedId .giftTitleClass span").text(giftsInfo.bonus);	
-				
-				$("#toastDialogRedbagUncollectedId").css("display", "block");
-				$("#toastDialogId").css("display", "block");
 			} else {
 				console.log('getRedbagAward fail..');
 			}
@@ -954,7 +961,7 @@ function getQueryString(name) {
 }
 
 function hasLogin(needQQ,num) {
-	console.log("in hasLogin");
+	console.log("in hasLogin needQQ:"+needQQ+"num:"+num);
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
 		_loginstatus = message.haslogin;
 		if(_loginstatus == "false") {
@@ -970,7 +977,9 @@ function hasLogin(needQQ,num) {
 				initActivityInfos();
 			}else {
 				//未登录时也获取我的礼物信息:
+				if(num != 2) {
 				getMyGifts();
+				}
 			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
@@ -1068,7 +1077,9 @@ function hasLogin(needQQ,num) {
 						initActivityInfos();
 					}else {
 						//已登录时也获取我的礼物信息:
+						if(num != 2) {
 						getMyGifts();
+						}
 					}
 				}, function(error) {})
 			}, function(error) {});
@@ -1209,7 +1220,12 @@ function showInitDialog(dataObj) {
 				//更新弹窗图片
 				$("#thanks_red").css("display","block");
 				//$("#thanks_redImg").attr("src", dataObj.rememberModel.awardUrl);
-				$("#redAwardInfo").html(dataObj.rememberModel.mergeAwardInfo.bonus+"元");
+				
+				if(dataObj.rememberModel.mergeAwardInfo == "" || dataObj.rememberModel.mergeAwardInfo == null) {
+					$("#redAwardInfo").html(dataObj.rememberModel.awardInfo.bonus + "元");
+				} else {
+					$("#redAwardInfo").html(dataObj.rememberModel.mergeAwardInfo.bonus+"元");
+				}
 			}
 		}
 	 
@@ -1241,6 +1257,7 @@ function regitserKeyEventsForThanksToast() {
 		if(id == "thanks_btn1") {
 			//如果未登录,先弹登录框
 			if(_loginstatus == "false") {
+				_bAfterLoginAutoTriggerCollectGift = true;
 				startLogin(needQQ);
 				return;
 			}
@@ -1302,12 +1319,15 @@ function regitserKeyEventsForThanksToast() {
 					var lotteryActiveId = $("#thanks_btn1").attr("activeId");
 					var lotteryRememberId = $("#thanks_btn1").attr("rememberId");
 					var userKeyId = $("#thanks_btn1").attr("userKeyId");
-					var str = _entityAwardurl + "activeId=" + lotteryActiveId + "&rememberId=" + lotteryRememberId + "&userKeyId=" + userKeyId;
-					var qrcode = new QRCode(document.getElementById("thanks_giftCollectId"), {
-						width: 190,
-						height: 190
-					});
-					qrcode.makeCode(str);
+					var giftsInfo = {
+						"lotteryActiveId":lotteryActiveId,
+						"rememberId": lotteryRememberId,
+						"userKeyId":userKeyId,
+						"qrDivId": "thanks_giftCollectId",
+						"width":190,
+						"height":190
+					}
+					getRedbagAward(giftsInfo);
 					//提示信息:
 					var bonus = el.attr("bonus");
 					$("#thanks_info1").html("目前累计获得红包"+bonus+"元");
@@ -1338,7 +1358,15 @@ function regitserKeyEventsForThanksToast() {
 //监听账户变化
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
-		hasLogin(needQQ,1);
+		//如果检测到用户登录后,奖励弹窗还在,就只获取登录信息,不更新我的礼物页面(保障焦点等保持不变)
+		//否则,自动更新:
+		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
+			//如果从奖励弹窗返回:
+			_bUserLoginSuccess = true;
+			hasLogin(needQQ,2);
+		}else {
+			hasLogin(needQQ,1);
+		}
 	});
 }
 
