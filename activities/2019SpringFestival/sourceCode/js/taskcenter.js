@@ -8,6 +8,7 @@
 //var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
 //var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _packlistUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
+
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 var _xMasNewYearActivityId = 97;
 var _goldHouseActivityId = 99;
@@ -37,111 +38,129 @@ var _toastTimeoutId=null;//弹窗自动清除计时器id
 var _bAfterLoginAutoTriggerCollectGift = false;//奖励弹窗：用户未登录时，点击使用红包按钮，当用户登录回来后，自动触发“使用红包”的按钮，进入弹窗的下一个页面；
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
-//-----------------------------------动态插入的页面元素 start--------------------------//
-//更新我的礼品信息到页面:
-var koiItem = ' <!--列表项-->  						\
-	<div class="sectionItemClass coocaa_btn" >   	\
-		<!--未获得焦点时-->								\
-		<div class="sectionItemNormalClass"></div>	\
-		<!--获得焦点时-->								\
-		<div class="sectionItemFocusClass"></div>	\
-		<!--按钮-->									\
-		<div class="sectionItemButtonClass"></div>	\
-	</div> ';
-	
-var couponItem = '									\
-	<!--列表项-->										\
-	<div class="sectionItemClass coocaa_btn">		\
-		<!--只有一张图片，焦点靠css实现-->					\
-		<div class="sectionItemNormalClass"></div>	\
-		<!--角标-->									\
-		<div class="sectionItemSupClass">			\
-			<div id="sectionItemSupMultiplierId"></div>	\
-			<div id="sectionItemSupMultiplyId">x</div>	\
-		</div>											\
-		<!--按钮-->										\
-		<div class="sectionItemButtonClass"></div>		\
-		<!--获得焦点时-帽子-->								\
-		<div class="sectionItemFocusHatClass"></div>	\
-	</div>';
-var redbagUncollectedItem = '												\
-		<!--列表项-未领取的红包-->												 \
-		<div   class="redbagUncollectedClass sectionItemClass coocaa_btn">	 \
-			<!--红包图片-->													\
-			<div class="sectionItemNormalClass"></div>						 \
-			<!--红包类型-->													 \
-			<div class="sectionItemTitleClass"></div>						 \
-			<!--红包金额-->													 \
-			<div class="sectionItemDetailsClass">共计 <span ></span> 元 </div>		\
-			<!--按钮-->															\
-			<div class="sectionItemButtonClass"></div>						\
-		</div>';
-var redbagCollectedItem = '												\
-	<!--列表项-已领取的红包-->												\
-	<div id="redbagCollectedId" class="sectionItemClass coocaa_btn">	\
-		<!--红包图片-->													\
-		<div class="sectionItemNormalClass"></div>						\
-		<!--提示文字-->													 \
-		<div class="sectionItemSumClass">总计</div>						\
-		<!--红包金额-->													\
-		<div class="sectionItemDetailsClass"><span></span></div>						\
-		<!--提示文字-->													\
-		<div class="sectionItemTitleClass">当前已领取</div>					\
-	</div>';
-var cashUncollectedItem = '												\
-	<!--列表项-未领取的大额现金-->												\
-	<div class="cashUncollectedClass sectionItemClass coocaa_btn">		\
-		<!--未获得焦点时-->													\
-		<div class="sectionItemNormalClass"></div>						\
-		<!--获得焦点时-->													\
-		<div class="sectionItemFocusClass"></div>						\
-		<!--现金详细信息-->													\
-		<div class="sectionItemDetailsClass">							\
-			<div class="sectionItemDetailsValueClass"></div>		\
-		</div>															\
-		<!--按钮-->														\
-		<div class="sectionItemButtonClass"></div>						\
-	</div>';
-var cashCollectedItem = '												\
-	<!--列表项-已领取的大额现金-->												\
-	<div class="cashCollectedClass sectionItemClass coocaa_btn">		\
-		<!--未获得焦点时-->													\
-		<div class="sectionItemNormalClass"></div>						\
-		<!--获得焦点时-->													\
-		<div class="sectionItemFocusClass"></div>						\
-		<!--现金详细信息-->													\
-		<div class="sectionItemDetailsClass">							\
-			<div>￥</div>												\
-			<div class="sectionItemDetailsValueClass"></div>		\
-		</div>															\
-		<!--按钮-->														\
-		<div class="sectionItemButtonClass"></div>						\
-	</div>';
-var entityItem = '														\
-	<!--列表项-->															\
-	<div class="sectionItemClass coocaa_btn">							\
-		<!--未获得焦点时-->													\
-		<div class="sectionItemNormalClass"></div>						\
-		<!--获得焦点时-->													\
-		<div class="sectionItemFocusClass"></div>						\
-		<!--按钮-->														\
-		<div class="sectionItemButtonClass"></div>						\
-		<!--按钮-->														\
-		<div class="entityImgClass"></div>								\
-	</div>';
-var thirdPartyItem = '												\
-	<!--列表项-->														\
-	<div class="sectionItemClass coocaa_btn">						\
-		<!--未获得焦点时-->												\
-		<div class="sectionItemNormalClass"></div>					\
-		<!--获得焦点时-帽子-->											\
-		<div class="sectionItemFocusHatClass"></div>				\
-	</div>';
 
-//--------------------------------- 动态插入的页面元素 end -------------------------
-
-
+//---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
+var app = {
+	canonical_uri: function(src, base_path) {
+		var root_page = /^[^?#]*\//.exec(location.href)[0],
+			root_domain = /^\w+\:\/\/\/?[^\/]+/.exec(root_page)[0],
+			absolute_regex = /^\w+\:\/\//;
+		if(/^\/\/\/?/.test(src)) {
+			src = location.protocol + src;
+		} else if(!absolute_regex.test(src) && src.charAt(0) != "/") {
+			src = (base_path || "") + src;
+		}
+		return absolute_regex.test(src) ? src : ((src.charAt(0) == "/" ? root_domain : root_page) + src);
+	},
+
+	rel_html_imgpath: function(iconurl) {
+		return app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+)$/, '$1'));
+	},
+
+	initialize: function() {
+		//yuanbotest PC debug start
+//		test_test_test_function();
+//		test_test_test_getMyGifts();
+		//PC debug end
+
+		this.bindEvents();
+	},
+	bindEvents: function() {
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+		document.addEventListener("backbutton", this.handleBackButton, false);
+		document.addEventListener("backbuttondown", this.handleBackButtonDown, false);
+		document.addEventListener('resume', this.onResume, false);
+	},
+	handleBackButton: function() {
+	},
+	onResume: function() {
+		console.log("我的礼物-onresume");
+		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
+			console.log("我的礼物-onresume 111 _bAfterLoginAutoTriggerCollectGift:	"+_bAfterLoginAutoTriggerCollectGift + "_bUserLoginSuccess:"+_bUserLoginSuccess);
+			//如果从奖励弹窗返回:
+			if(_bAfterLoginAutoTriggerCollectGift == true && _bUserLoginSuccess == true) {
+				console.log("我的礼物-onresume 111 222");
+				//自动触发按键,进入奖品领取二维码页面(实物/红包)
+				$("#thanks_btn1").trigger("itemClick");
+			}
+		}else {
+			console.log("我的礼物-onresume 222");
+			getMyGifts();//获取我的礼物	
+		}
+	},
+	onDeviceReady: function() {
+		app.receivedEvent("deviceready");
+		pageInit();
+		app.triggleButton();
+	},
+	receivedEvent: function(id) {
+		console.log(id);
+	},
+	handleBackButtonDown: function() {
+		console.log("handleBackButtonDown in...");
+		if($("#koiCollectId").css("display") == "block") {//如果锦鲤领取弹窗在显示,退回到主页
+			console.log("handleBackButtonDown in..000.");//debug
+			$("#koiCollectId").css("display", "none");
+			$("#toastPageId").css("display", "none");
+			getMyGifts();//获取我的礼物
+		}else if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
+			//如果从奖励弹窗返回:
+			console.log("handleBackButtonDown in..001.");//debug
+			$("#toastDialogId").css("display", "none");
+			$("#thanks_Bg").css("display", "none");
+			getMyGifts();//获取我的礼物
+		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
+			console.log("handleBackButtonDown in..002.");//debug
+			if(_toastTimeoutId!=null) {
+				clearTimeout(_toastTimeoutId);
+			}
+			console.log("yuanbotest- 4s计时器-手动清楚");
+			$("#toastDialogEntityCollectedId").css("display", "none");
+			$("#toastDialogEntityUncollectedId").css("display", "none");
+			$("#toastDialogRedbagUncollectedId").css("display", "none");
+			
+			//红包已领取的弹窗,因为有按钮,所以特殊处理:
+			if($("#toastDialogRedbagCollectedId").css("display") == "block"	) {
+				//map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});				
+				$("#toastDialogRedbagCollectedId").css("display", "none");
+			}
+			
+			$("#toastDialogId").css("display", "none");
+			getMyGifts();//获取我的礼物
+		} else {
+			console.log("handleBackButtonDown in..002.");//debug
+			navigator.app.exitApp();
+		}
+	},
+	//注册按键
+	registerKeyHandler: function()	{
+		console.log("---in registerKeyHandler-----");
+		$(".coocaa_btn").bind("itemClick", function() {
+			var _Index1 = $(".coocaa_btn").index($(this));
+			console.log("itemClick _Index1 = " + _Index1);
+			processKey($(this));
+		});
+		$(".coocaa_btn").bind("itemFocus", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("itemFocus _Lindex: "+_Lindex);
+			focusShift($(this));
+		});
+	},
+	triggleButton: function() {
+		cordova.require("com.coocaaosapi");
+		_appversion = accountVersion;
+		getDeviceInfo();
+		listenUserChange();
+	}
+};
+
+app.initialize();
+
+
+//---------------------------------------------2019春节活动需要函数 end -----------------------------------------------
+
+//codebase 函数正式开始：
 var app = {
 	canonical_uri: function(src, base_path) {
 		var root_page = /^[^?#]*\//.exec(location.href)[0],
