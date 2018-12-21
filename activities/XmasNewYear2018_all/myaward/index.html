@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/myaward_48dac28.css"/>
+		<title>Skyworth 2018</title>
+		<script>
+			var adjust=function(){
+			    if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+			        var version = parseFloat(RegExp.$1);
+			        if(version>2.3){
+			            var phoneScale = parseInt(window.screen.width)/1920;
+			            document.write('<meta name="viewport" content="width=1920, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+			        }else{
+			            document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+			        }
+			    }else{
+			        document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+			    }
+			}
+			adjust();
+			var _czc = _czc || [];
+			_czc.push(["_setAccount", "1274864418"]);
+    	</script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<!-- 一、我的礼物-有奖品页面 start -->
+			<div class="myGiftsPageClass">
+				<!--大标题 我的礼物-->
+				<div id="myGiftsTitle">我的礼物</div>
+				
+				<!--我的礼物-总的container start -->
+				<div id="myGiftsOuterContainer">
+					<div id="myGiftsContainer">
+						
+						<!--1 锦鲤礼包 container-->
+						<div id="koiContainer" class="sectionContainerClass">
+							<!--标题：锦鲤礼包-->
+							<div id="koiTitle" class="sectionTitleClass">锦鲤礼包</div>
+							<!--锦鲤礼包-列表区-->
+							<div id="koiList" class="sectionListClass">
+							</div>
+						</div>
+						
+						<!--2 平台优惠红包 容器-->
+						<div id="couponContainer" class="sectionContainerClass">
+							<!--标题：平台优惠红包-->
+							<div id="couponTitle" class="sectionTitleClass">平台优惠红包</div>
+							<!--平台优惠红包-列表区-->
+							<div id="couponList" class="sectionListClass">
+							</div>
+						</div>
+						
+						<!--3 现金红包容器-->
+						<div id="redbagCashContainer" class="sectionContainerClass">
+							<!--标题：现金红包-->
+							<div id="redbagCashTitle" class="sectionTitleClass">现金红包</div>
+							<!--副标题：现金红包总计 -->
+							<div id="redbagCashTotalId" class="sectionTotalClass">(共获得<span></span>元)</div>
+							<!--现金红包-列表区-->
+							<div id="redbagCashList" class="sectionListClass">
+							</div>
+						</div>
+						
+						<!--4 实物奖励 容器-->
+						<div id="entityContainerId" class="sectionContainerClass">
+							<!--标题：实物奖励-->
+							<div id="entityTitleId" class="sectionTitleClass">实物奖励</div>
+							<!--实物奖励-列表区-->
+							<div id="entityListId" class="sectionListClass">
+							</div>
+						</div>
+						
+						<!--5 第三方优惠券容器-->
+						<div id="thirdPartyContainerId" class="sectionContainerClass">
+							<!--标题：平台优惠红包-->
+							<div id="thirdPartyTitleId" class="sectionTitleClass">第三方优惠券</div>
+							<!--平台优惠红包-列表区-->
+							<div id="thirdPartyListId" class="sectionListClass">
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<!--我的礼物-总的container end -->
+			</div>
+			<!-- 一、我的礼物-有奖品页面 end -->
+			
+			<!--二、 弹窗页面 start -->
+			<div id="toastPageId"  class="toastPageClass">
+				<!--1. 未获得任何奖励时-活动期间-->
+				<div class="noGiftsDuringActivityClass">
+					<div class="toastPageTitleClass"></div>
+					<div class="toastPageTipClass">
+						<div>您还未收到礼物哦~</div>
+						<div>快去圣诞小屋做任务集铃铛赢礼物吧!</div>
+						<div>12月31日黄金小屋等你来探宝，有机会一人独享5万奖励。</div>
+					</div>
+					<div id="btnGoXmasHouseNoGiftsDuringActivityId" class="toastPageBtnClass coocaa_btn"></div>
+				</div>
+				
+				<!--2. 未获得任何奖励时-活动期间-->
+				<!--当用户未获得任何奖励，此时已经到了1.2号，显示以下提示：-->
+				<div class="noGiftsAfterActivityEndClass">
+					<div class="toastPageTitleClass"></div>
+					<div class="toastPageTipClass">抱歉，您还没有获得礼物~</div>
+				</div>
+				
+				<!--3. 锦鲤领奖页面-->
+				<div id="koiCollectId">
+					<div id="imgIdkoiCollectQr" class="koiCollectQrClass"></div>
+					<div class="toastPageTipClass">
+						<div>恭喜您，获得超级锦鲤礼包</div>
+						<div>请使用微信扫码提交收货信息</div>
+						<div>我们将尽快把礼物送到您手上哦~</div>
+					</div>
+				</div>
+			</div>
+			<!-- 二、 弹窗页面  end -->
+			
+			<!--三、 弹窗对话框 start -->
+			<div id="toastDialogId" class="toastDialogClass">
+				<!-- 1.1.已领取页面(有收货人信息等，用于：锦鲤，实物， ) -->
+				<div id="toastDialogEntityCollectedId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span></span></div>
+					<div class="giftTimeClass">获得时间 : <span></span></div>
+					<hr />
+					<div class="giftReceiverNameClass">收货人 : <span></span></div>
+					<div class="giftReceiverTelClass">收货电话 : <span></span></div>
+					<div class="giftReceiverAddrClass">收货地址 : <span></span></div>
+					<div class="giftReceiverTipClass">信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+				</div>
+				<!-- 1.2.已领取页面(有继续参与按钮，用于：红包， ) -->
+				<div id="toastDialogRedbagCollectedId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;微信红包<span></span>元</div>
+					<div class="giftTimeClass">获得时间 : <span></span></div>
+					<hr />
+					<div id="btnGiftReceiverId" class="coocaa_btn_Continue"></div>
+					<div class="giftReceiverTipClass">再接再厉哦~</div>
+					<div class="giftReceiverTipClass">多玩游戏还能获得大额红包</div>
+				</div>
+				<!-- 2.1.待领取页面(用于：实物 ) -->
+				<div id="toastDialogEntityUncollectedId" class="giftToastDialogClass">
+					<div class="giftTitleClass">奖品名称:&nbsp;&nbsp;<span></span></div>
+					<div class="giftTimeClass">获得时间 : <span></span></div>
+					<hr />
+					<div class="giftReceiverDetailsClass">
+						<div id="imgIdEntityReceiverQr" class="giftReceiverQrClass"></div>
+						<div class="giftReceiverTipClass">
+							<div>请微信扫码完善收货信息,</div>
+							<div>确保奖品能够送达哦~</div>
+						</div>
+					</div>
+				</div>
+				<!-- 2.2.待领取页面(用于：红包 ) -->
+				<div id="toastDialogRedbagUncollectedId" class="giftToastDialogClass">
+					<div class="giftTitleClass" style="color: #FFFFFF;">
+						目前累计获得红包<span style="color: #FCDD35; font-size: 60px;"></span>元
+					</div>
+					<hr style="margin: 20px 0;"/>
+					<div class="giftReceiverNameClass">微信扫码累积提现~</div>
+					<div class="giftReceiverDetailsClass">
+						<div id="imgIdRedbagReceiveQr" class="giftReceiverQrClass"></div>
+					</div>
+					<div class="giftReceiverTipClass">红包已放入<span style="color: #FCDD35;"> 【我的礼物】 </span>，可前往查看</div>
+				</div>
+			<!-- 三、弹窗对话框 end -->
+			<!--Thanks for packing\purchase\play-->
+				<div id="thanks_Bg" class="milubg fullscreen none">
+					<div id="thanks_info1">感谢你帮圣诞爷爷打包礼物</div>
+					<div id="thanks_info2">小小心意请笑纳</div>
+					<div id="thanks_giftsBox">
+						<div id="thanks_coupon" class="thanks_giftItem none">
+							<img id="thanks_couponImg" src=""/>
+						</div>
+						<div id="thanks_red" class="thanks_giftItem none">
+							<img id="thanks_redImg" src="images/myaward/red.jpg"/>
+							<div class="redAwardBox">
+								<div id="redAwardName">现金红包</div>
+								<div id="redAwardInfo"></div>
+							</div>
+						</div>
+						<div id="thanks_entity" class="thanks_giftItem none">
+							<img id="thanks_entityImg" src="images/myaward/red.jpg"/>
+							<div id="enAwardBox">实物名称</div>
+						</div>
+					</div>
+					<div id="thanks_giftCollectId" ></div>
+					<div id="thanks_info3">*特价购买打包商品特权已生效，限时福利快去看看</div>
+					<div id="thanks_btn1" class="coocaa_btn2">
+						<img class="imgBlur" src="images/myaward/orange_blur.png"/>
+						<img class="imgFocus" src="images/myaward/orange_focus.png"/>
+						<div class="btnName">使用红包</div>
+					</div>
+					<div id="thanks_btn2" class="coocaa_btn2">
+						<img class="imgBlur" src="images/myaward/checkpacklist_blur.png"/>
+						<img class="imgFocus" src="images/myaward/checkpacklist_focus.png"/>
+						<div class="btnName">查看打包清单</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.1_df980a6.js"></script>
+		<script type="text/javascript" src="js/qrcode_663ef62.js"></script>
+		<script type="text/javascript" src="cordova_29c51f7.js"></script>
+		<script type="text/javascript" src="js/myaward_101bb85.js"></script>
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+			document.write(unescape("%3Cspan style='display:none;' id='cnzz_stat_icon_1274864418'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274864418' type='text/javascript'%3E%3C/script%3E"));
+	    </script>
+    	<script type="text/javascript">
+    		setTimeout("otherPageInit()",100);
+    		function otherPageInit(){
+    			$("body").css("background-image","url(images/myaward/bg.jpg)");
+    			$(".giftToastDialogClass").css("background-image","url(images/myaward/toastBg.png)");
+    			$(".toastPageClass").css("background-image","url(images/myaward/bgSec.jpg)");
+    		}
+    	</script>
+	</body>
+
+</html>
