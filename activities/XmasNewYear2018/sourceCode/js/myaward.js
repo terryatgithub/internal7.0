@@ -9,9 +9,9 @@
 //var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _packlistUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-var _xMasNewYearActivityId = 97;
-var _goldHouseActivityId = 99;
-var _buyActiveId = 98;
+var _xMasNewYearActivityId = 102;//97;
+var _goldHouseActivityId = 100;//99;
+var _buyActiveId = 101;//98;
 var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
 var _entityAwardurl = "https://webapp.skysrt.com/christmas18/address/index.html?";//实物二维码领取接口
 var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
@@ -742,8 +742,8 @@ function getCouponAward(giftsInfo, bUse) {
 			"userKeyId": giftsInfo.userKeyId,
 			"MAC": _macAddress,
 			"cOpenId": _openId,
-			"source" : _qsource,
-			"thirdUserId":_qqtoken
+			"source" : _qsource
+//			"thirdUserId":_qqtoken //卡密用
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
