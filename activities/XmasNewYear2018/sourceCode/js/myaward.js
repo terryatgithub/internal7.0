@@ -22,7 +22,7 @@ var _packlistUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagena
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
 var _access_token="", _openId="", _nickName="";
-var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
+var _qqtoken="", _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
 var _appversion, accountVersion, _deviceInfo;
 var _qsource, needQQ=false; //视频源
 
@@ -741,7 +741,9 @@ function getCouponAward(giftsInfo, bUse) {
 			"awardTypeId": giftsInfo.awardTypeId,
 			"userKeyId": giftsInfo.userKeyId,
 			"MAC": _macAddress,
-			"cOpenId": _openId
+			"cOpenId": _openId,
+			"source" : _qsource,
+			"thirdUserId":_qqtoken
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
