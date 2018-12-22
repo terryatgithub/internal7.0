@@ -75,19 +75,7 @@ var app = {
 	handleBackButton: function() {
 	},
 	onResume: function() {
-		console.log("我的礼物-onresume");
-		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
-			console.log("我的礼物-onresume 111 _bAfterLoginAutoTriggerCollectGift:	"+_bAfterLoginAutoTriggerCollectGift + "_bUserLoginSuccess:"+_bUserLoginSuccess);
-			//如果从奖励弹窗返回:
-			if(_bAfterLoginAutoTriggerCollectGift == true && _bUserLoginSuccess == true) {
-				console.log("我的礼物-onresume 111 222");
-				//自动触发按键,进入奖品领取二维码页面(实物/红包)
-				$("#thanks_btn1").trigger("itemClick");
-			}
-		}else {
-			console.log("我的礼物-onresume 222");
-			getMyGifts();//获取我的礼物	
-		}
+		console.log("onresume");
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -99,39 +87,7 @@ var app = {
 	},
 	handleBackButtonDown: function() {
 		console.log("handleBackButtonDown in...");
-		if($("#koiCollectId").css("display") == "block") {//如果锦鲤领取弹窗在显示,退回到主页
-			console.log("handleBackButtonDown in..000.");//debug
-			$("#koiCollectId").css("display", "none");
-			$("#toastPageId").css("display", "none");
-			getMyGifts();//获取我的礼物
-		}else if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
-			//如果从奖励弹窗返回:
-			console.log("handleBackButtonDown in..001.");//debug
-			$("#toastDialogId").css("display", "none");
-			$("#thanks_Bg").css("display", "none");
-			getMyGifts();//获取我的礼物
-		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
-			console.log("handleBackButtonDown in..002.");//debug
-			if(_toastTimeoutId!=null) {
-				clearTimeout(_toastTimeoutId);
-			}
-			console.log("yuanbotest- 4s计时器-手动清楚");
-			$("#toastDialogEntityCollectedId").css("display", "none");
-			$("#toastDialogEntityUncollectedId").css("display", "none");
-			$("#toastDialogRedbagUncollectedId").css("display", "none");
-			
-			//红包已领取的弹窗,因为有按钮,所以特殊处理:
-			if($("#toastDialogRedbagCollectedId").css("display") == "block"	) {
-				//map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});				
-				$("#toastDialogRedbagCollectedId").css("display", "none");
-			}
-			
-			$("#toastDialogId").css("display", "none");
-			getMyGifts();//获取我的礼物
-		} else {
-			console.log("handleBackButtonDown in..002.");//debug
-			navigator.app.exitApp();
-		}
+		navigator.app.exitApp();
 	},
 	//注册按键
 	registerKeyHandler: function()	{
@@ -760,7 +716,9 @@ function getCouponAward(giftsInfo, bUse) {
 			"awardTypeId": giftsInfo.awardTypeId,
 			"userKeyId": giftsInfo.userKeyId,
 			"MAC": _macAddress,
-			"cOpenId": _openId
+			"cOpenId": _openId,
+			"source" : _qsource,
+			"thirdUserId":_qqtoken
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
