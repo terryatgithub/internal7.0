@@ -92,7 +92,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-//		pageInit();
+		pageInit();
 		//PC debug end
 
 		this.bindEvents();
@@ -128,6 +128,9 @@ var app = {
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($(".interlucationPageClass").css("display") == "block") { //从互动问答页面返回
 			$(".interlucationPageClass").css("display", "none");
+			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
+			$(".moreGoodsPageClass").css("display", "none");
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else {
 			navigator.app.exitApp();
@@ -235,11 +238,18 @@ function processKey(el) {
 			}, function(err){console.log("startNewBrowser error")});
 			break;	
 		case "payTaskId":
-			//todo 跳转产品包 
-			var url = _packlistUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
+			$(".moreGoodsPageClass").css("display", "block");
+			//todo 显示所有商品
+			//yuanbotest -start
+			testAddmoreGoods();
+			//yuanbotest -end
+			map = new coocaakeymap($(".coocaa_btn_moregoods"), $(".coocaa_btn_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_moregoods").unbind("itemClick").bind("itemClick", function() {
+				showGoodDetailsPage();
+			});
+			$(".coocaa_btn_moregoods").unbind("itemFocus").bind("itemFocus", function() {
+				moreGoodsFocusShift();
+			});
 			break;		
 		case "adsTaskId":
 			//todo 观看广告 
@@ -250,6 +260,25 @@ function processKey(el) {
 			break;		
 	}
 }
+function showGoodDetailsPage() {
+	//todo 跳转产品包 
+	var url = _packlistUrl;
+	coocaaosapi.startNewBrowser(url, function(success){
+		console.log("startNewBrowser success");
+	}, function(err){console.log("startNewBrowser error")});
+}
+//焦点移动 ---------------testZone start------------------：
+function testAddmoreGoods() {
+	var count = 30;
+	for(var i = 0; i < count; i++) {
+		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
+	}
+}
+function moreGoodsFocusShift() {
+	
+}
+//焦点移动 ---------------testZone end------------------：
+
 //互动问答处理函数 
 //todo:最终定下里后优化流程
 function interlucationProcess(el) {

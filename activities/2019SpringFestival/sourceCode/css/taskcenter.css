@@ -181,7 +181,7 @@ body {
 
 
 .btn-focus{
-	border: 2px solid yellow;
+	/*border: 2px solid yellow;*/
 	-webkit-transform: scale(1.08);
 	transform: scale(1.08);
 }
