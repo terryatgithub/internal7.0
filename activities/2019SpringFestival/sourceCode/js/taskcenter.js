@@ -92,7 +92,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-		pageInit();
+//		pageInit();
 		//PC debug end
 
 		this.bindEvents();
@@ -107,6 +107,12 @@ var app = {
 	},
 	onResume: function() {
 		console.log("onresume");
+		if($(".coocaa_btn").eq(_Lindex).attr("id") == "loginTaskId" &&  _bUserLoginSuccess == true) {
+			console.log("onresume-用户登录成功");
+			 $(".coocaa_btn:eq("+_Lindex+") .taskBtnClass").css("background-image", 'url(http://beta.webapp.skysrt.com/yuanbo/test/materials/btnC.png)');
+		}else {
+			console.log("要获取其它任务的完成状态，以刷新页面");
+		}
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -121,12 +127,10 @@ var app = {
 			$(".wechatHelpPageClass").css("display", "none");
 			//恢复焦点
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			app.registerKeyHandler();	
 		} else if($(".interlucationPageClass").css("display") == "block") { //从互动问答页面返回
 			$(".interlucationPageClass").css("display", "none");
 			//恢复焦点
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			app.registerKeyHandler();
 		} else {
 			navigator.app.exitApp();
 		}
@@ -134,12 +138,12 @@ var app = {
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-		$(".coocaa_btn").bind("itemClick", function() {
+		$(".coocaa_btn").unbind("itemClick").bind("itemClick", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("itemClick _Lindex = " + _Lindex);
 			processKey($(this));
 		});
-		$(".coocaa_btn").bind("itemFocus", function() {
+		$(".coocaa_btn").unbind("itemFocus").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("itemFocus _Lindex: "+_Lindex);
 		});
@@ -147,9 +151,9 @@ var app = {
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
 		_appversion = accountVersion;
+		getDeviceInfo();
 		pageInit();
-//		getDeviceInfo();
-//		listenUserChange();
+		listenUserChange();
 	}
 };
 
@@ -159,12 +163,11 @@ function pageInit() {
 	console.log("pageInit in...");
 	//todo 根据后台获取数据，给任务赋予不同id：
 	$(".taskItemClass").eq(0).attr("id", "weixinHelpTaskId");
-	
 	$(".taskItemClass").eq(1).attr("id", "loginTaskId");
-	$(".taskItemClass").eq(2).attr("id", "interlucationTaskId");
-	$(".taskItemClass").eq(3).attr("id", "browserTaskId");
-//	$(".taskItemClass").eq(2).attr("id", "payTaskId");
-//	$(".taskItemClass").eq(3).attr("id", "adsTaskId");
+	$(".taskItemClass").eq(2).attr("id", "browserTaskId");
+	$(".taskItemClass").eq(3).attr("id", "interlucationTaskId");
+	$(".taskItemClass").eq(4).attr("id", "payTaskId");
+	$(".taskItemClass").eq(5).attr("id", "adsTaskId");
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	app.registerKeyHandler();	
@@ -244,7 +247,7 @@ function interlucationProcess(el) {
 	if(round == "firstRound") {//第一轮回答
 		var b = el.attr("correct");
 		console.log("answer right or wrong: "+b);
-		if(b == true) {//回答正确
+		if(b == "true") {//回答正确
 			//提示
 			$(".interlucationTitleClass").text(_interlucationsTipsArray[0].title);
 			//左键
@@ -265,6 +268,7 @@ function interlucationProcess(el) {
 		}
 		//设为第二轮
 		$(".interlucationBtnClass").attr("round", "secondRound");
+		map = new coocaakeymap($(".coocaa_btn_question"), $(".coocaa_btn_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	}else if(round == "secondRound") {
 		var url = el.attr("url");
 		console.log("answer url:" + url);
@@ -848,8 +852,8 @@ function getQueryString(name) {
 	return null;
 }
 
-function hasLogin(needQQ,num) {
-	console.log("in hasLogin needQQ:"+needQQ+"num:"+num);
+function hasLogin(needQQ) {
+	console.log("in hasLogin needQQ:"+needQQ);
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
 		_loginstatus = message.haslogin;
 		if(_loginstatus == "false") {
@@ -859,16 +863,6 @@ function hasLogin(needQQ,num) {
 				_tencentWay = "qq";
 			}
 			_access_token = "";
-			var _awardToast = getQueryString("awardToast");
-			console.log("初次加载页面,判断是否需要初始化 _awardToast:"+_awardToast);
-			if(num==0 && _awardToast){
-				initActivityInfos();
-			}else {
-				//未登录时也获取我的礼物信息:
-				if(num != 2) {
-				getMyGifts();
-				}
-			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -958,17 +952,7 @@ function hasLogin(needQQ,num) {
 							}
 						}
 					}
-					//登录后获取我的礼物信息:
-					var _awardToast = getQueryString("awardToast");
-					console.log("初次加载页面,判断是否需要初始化 _awardToast:"+_awardToast);
-					if(num==0 && _awardToast){
-						initActivityInfos();
-					}else {
-						//已登录时也获取我的礼物信息:
-						if(num != 2) {
-						getMyGifts();
-						}
-					}
+					
 				}, function(error) {})
 			}, function(error) {});
 		}
@@ -1038,7 +1022,7 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 			if(status == 'timeout') {　　
 				ajaxTimeout.abort();　　　　
 			}
-			hasLogin(needQQ,0);　　
+			hasLogin(needQQ);　　
 		}
 	});
 }
@@ -1046,15 +1030,8 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 //监听账户变化
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
-		//如果检测到用户登录后,奖励弹窗还在,就只获取登录信息,不更新我的礼物页面(保障焦点等保持不变)
-		//否则,自动更新:
-		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
-			//如果从奖励弹窗返回:
-			_bUserLoginSuccess = true;
-			hasLogin(needQQ,2);
-		}else {
-			hasLogin(needQQ,1);
-		}
+		console.log("用户登录成功.");
+		_bUserLoginSuccess = true;
 	});
 }
 
