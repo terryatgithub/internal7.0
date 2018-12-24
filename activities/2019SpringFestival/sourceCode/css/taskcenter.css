@@ -136,7 +136,7 @@ body {
 	background-color: green;
 	border: 2px solid black;
 }
-.interlucationBtnClass:last-of-type {
+.interlucationBtnClass:nth-child(3) {
 	left: 55%;
 }
 

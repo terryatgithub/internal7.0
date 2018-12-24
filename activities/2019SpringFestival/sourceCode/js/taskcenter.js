@@ -195,14 +195,14 @@ function processKey(el) {
 		case "interlucationTaskId":
 			//显示问题和答案
 			$(".interlucationTitleClass").text(_interlucationsArray[0].question);
-			$(".interlucationBtnClass:first-of-type").text(_interlucationsArray[0].answerA);
-			$(".interlucationBtnClass:last-of-type").text(_interlucationsArray[0].answerB);
+			$(".interlucationBtnClass").eq(0).text(_interlucationsArray[0].answerA);
+			$(".interlucationBtnClass").eq(1).text(_interlucationsArray[0].answerB);
 			if(_interlucationsArray[0].right == "A") { //根据答案设置元素属性
-				$(".interlucationBtnClass:first-of-type").attr("correct", true);
-				$(".interlucationBtnClass:last-of-type").attr("correct", false);	
+				$(".interlucationBtnClass").eq(0).attr("correct", true);
+				$(".interlucationBtnClass").eq(1).attr("correct", false);	
 			}else {
-				$(".interlucationBtnClass:first-of-type").attr("correct", false);
-				$(".interlucationBtnClass:last-of-type").attr("correct", true);
+				$(".interlucationBtnClass").eq(0).attr("correct", false);
+				$(".interlucationBtnClass").eq(1).attr("correct", true);
 			}
 
 			$(".interlucationBtnClass").attr("round", "firstRound");//第一轮回答
@@ -248,20 +248,20 @@ function interlucationProcess(el) {
 			//提示
 			$(".interlucationTitleClass").text(_interlucationsTipsArray[0].title);
 			//左键
-			$(".interlucationBtnClass:first-of-type").text(_interlucationsTipsArray[0].leftKey);
-			$(".interlucationBtnClass:first-of-type").attr("url", _interlucationsTipsArray[0].lefturl);
+			$(".interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
+			$(".interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[0].lefturl);
 			//右键
-			$(".interlucationBtnClass:last-of-type").text(_interlucationsTipsArray[0].rightKey);
-			$(".interlucationBtnClass:last-of-type").attr("url", _interlucationsTipsArray[0].righturl);
+			$(".interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
+			$(".interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
 		} else {//回答错误
 			//提示
 			$(".interlucationTitleClass").text(_interlucationsTipsArray[1].title);
 			//左键
-			$(".interlucationBtnClass:first-of-type").text(_interlucationsTipsArray[1].leftKey);
-			$(".interlucationBtnClass:first-of-type").attr("url", _interlucationsTipsArray[1].lefturl);
+			$(".interlucationBtnClass").eq(0).text(_interlucationsTipsArray[1].leftKey);
+			$(".interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[1].lefturl);
 			//右键
-			$(".interlucationBtnClass:last-of-type").text(_interlucationsTipsArray[1].rightKey);
-			$(".interlucationBtnClass:last-of-type").attr("url", _interlucationsTipsArray[1].righturl);
+			$(".interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
+			$(".interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
 		}
 		//设为第二轮
 		$(".interlucationBtnClass").attr("round", "secondRound");
