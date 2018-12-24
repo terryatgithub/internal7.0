@@ -11,8 +11,8 @@
 1. 购物商城那边提供的接口文档
 	http://wiki.skyoss.com/pages/viewpage.action?pageId=20239629
 
-2. 双旦活动-接口
-	http://wiki.skyoss.com/pages/viewpage.action?pageId=20241841
+2. 春节活动-接口 （王雪）
+	http://wiki.skyoss.com/pages/viewpage.action?pageId=20246516&tdsourcetag=s_pcqq_aiomsg
 	
 3. 奖品信息公共参数(包括各类奖品typeid)
 	http://wiki.skyoss.com/pages/viewpage.action?pageId=12712189&tdsourcetag=s_pcqq_aiomsg

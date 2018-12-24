@@ -38,20 +38,20 @@ var _toastTimeoutId=null;//弹窗自动清除计时器id
 var _bAfterLoginAutoTriggerCollectGift = false;//奖励弹窗：用户未登录时，点击使用红包按钮，当用户登录回来后，自动触发“使用红包”的按钮，进入弹窗的下一个页面；
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
-//互动问答题目区
+//互动问答题目区，由前端根据系统当前时间固定获取一个）
 var _interlucationsArray = [
-	{
-		question: "创维电视的全球代言人是谁？",
-		answerA:"A、李易峰",
-		answerB:"B、赵又廷",
-		right: "A"
-	}
-	,{
-		question: "中国彩电哪家强？",
-		answerA:"A、创维",
-		answerB:"B、其它",
-		right: "B"
-	}
+	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
+	 {question: "创维电视的全球代言人是谁？", answerA:"A、李易峰", answerB:"B、赵又廷", right: "A", date: 29, done: "no" }
+	,{question: "中国彩电哪家强1？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 30,done: "no"}
+	,{question: "中国彩电哪家强2？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 31,done: "no"}
+	,{question: "中国彩电哪家强3？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 1,done: "no"}
+	,{question: "中国彩电哪家强4？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 2,done: "no"}
+	,{question: "中国彩电哪家强5？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 3,done: "no"}
+	,{question: "中国彩电哪家强6？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 4,done: "no"}
+	,{question: "中国彩电哪家强7？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 5,done: "no"}
+	,{question: "中国彩电哪家强8？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 6,done: "no"}
+	,{question: "中国彩电哪家强9？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 7,done: "no"}
+	,{question: "中国彩电哪家强10？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 8,done: "no"}
 ]
 //回答正确或错误时的提示和跳转
 var _interlucationsTipsArray = [
@@ -125,11 +125,9 @@ var app = {
 		console.log("handleBackButtonDown in...");
 		if($(".wechatHelpPageClass").css("display") == "block") { //从微信帮助二维码页面返回
 			$(".wechatHelpPageClass").css("display", "none");
-			//恢复焦点
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($(".interlucationPageClass").css("display") == "block") { //从互动问答页面返回
 			$(".interlucationPageClass").css("display", "none");
-			//恢复焦点
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else {
 			navigator.app.exitApp();
@@ -171,7 +169,19 @@ function pageInit() {
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	app.registerKeyHandler();	
-	
+}
+
+function getQuestionIndex() {
+	var d = (new Date()).getDate();
+	var index = 0;
+	var len = _interlucationsArray.length;
+	for(var i = 0; i < len; i++) {
+		if(_interlucationsArray[i].date == d) {
+			index = i;
+		}
+	}
+	console.log("current date: "+ d + ", index:"+index);
+	return index;
 }
 
 function processKey(el) {
@@ -197,10 +207,11 @@ function processKey(el) {
 			break;
 		case "interlucationTaskId":
 			//显示问题和答案
-			$(".interlucationTitleClass").text(_interlucationsArray[0].question);
-			$(".interlucationBtnClass").eq(0).text(_interlucationsArray[0].answerA);
-			$(".interlucationBtnClass").eq(1).text(_interlucationsArray[0].answerB);
-			if(_interlucationsArray[0].right == "A") { //根据答案设置元素属性
+			var index = getQuestionIndex();
+			$(".interlucationTitleClass").text(_interlucationsArray[index].question);
+			$(".interlucationBtnClass").eq(0).text(_interlucationsArray[index].answerA);
+			$(".interlucationBtnClass").eq(1).text(_interlucationsArray[index].answerB);
+			if(_interlucationsArray[index].right == "A") { //根据答案设置元素属性
 				$(".interlucationBtnClass").eq(0).attr("correct", true);
 				$(".interlucationBtnClass").eq(1).attr("correct", false);	
 			}else {
