@@ -151,6 +151,8 @@ body {
 	position: absolute;
 	top: 156px;	
 	left: 180px;
+	height: 924px;
+	overflow: hidden;
 }
 .goodsItemClass {
 	position: relative;
@@ -171,17 +173,23 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
+.packGoodsItemPic {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	width: 241px;
+	height: 177px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
 .goodsItemClass[class~=btn-focus] {
 	background-image: url("http://beta.webapp.skysrt.com/yuanbo/test/materials/focus.png");		
 }
 
 
-
-
-
-
 .btn-focus{
 	/*border: 2px solid yellow;*/
-	-webkit-transform: scale(1.08);
-	transform: scale(1.08);
+	/*-webkit-transform: scale(1.08);
+	transform: scale(1.08);*/
 }

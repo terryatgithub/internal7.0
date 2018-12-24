@@ -92,7 +92,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-		pageInit();
+//		pageInit();
 		//PC debug end
 
 		this.bindEvents();
@@ -248,7 +248,7 @@ function processKey(el) {
 				showGoodDetailsPage();
 			});
 			$(".coocaa_btn_moregoods").unbind("itemFocus").bind("itemFocus", function() {
-				moreGoodsFocusShift();
+				moreGoodsFocusShift($(this));
 			});
 			break;		
 		case "adsTaskId":
@@ -269,13 +269,44 @@ function showGoodDetailsPage() {
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
-	var count = 30;
+	var count = 15;
 	for(var i = 0; i < count; i++) {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
+	var len = $(".goodsItemClass").length;
+	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
+	for(i = 0; i < len; i++) {
+		$(".packGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
+		$(".goodsItemPlaceHolderClass").eq(i).text(i);	
+	}
+	$(".goodsItemPlaceHolderClass").css("font-size", "32px");
 }
-function moreGoodsFocusShift() {
+function letEleInView(div, el) {
+	var scrollHeight = $("#"+div)[0].scrollHeight;
+	var clientHeight = $("#"+div)[0].clientHeight;
+	var scrollTop = $("#"+div)[0].scrollTop;
 	
+	//todo：研究下offsetTop是相对于parent的？
+	var divTop = 0;//$("#"+div)[0].offsetTop;
+	var elTop = el[0].offsetTop;
+	var offsetTopIn = elTop - divTop;
+	
+	console.log("isEleInView divTop:"+divTop + ",elTop:"+elTop);
+	
+	var elHeight = el[0].offsetHeight;
+	var offsetBottomIn = offsetTopIn + elHeight;
+	
+	console.log("isEleInView offsetTopIn:"+offsetTopIn + ",offsetBottomIn:"+offsetBottomIn);
+	console.log("isEleInView scrollTop:"+scrollTop + ",total top:"+(scrollTop+clientHeight));
+	
+	if(!((offsetTopIn >= scrollTop && offsetTopIn <= (scrollTop+clientHeight)) &&
+		(offsetBottomIn >= scrollTop && offsetBottomIn <= (scrollTop+clientHeight)))) {
+			$("#"+div)[0].scrollTop = offsetTopIn - (clientHeight-elHeight)/2;
+			console.log("set offset: "+ $("#"+div)[0].scrollTop);
+	}
+}
+function moreGoodsFocusShift(el) {
+	letEleInView("moregoodsList", el);
 }
 //焦点移动 ---------------testZone end------------------：
 
