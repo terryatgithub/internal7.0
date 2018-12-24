@@ -27,7 +27,6 @@ body {
 	box-sizing: border-box;
 }
 .taskItemClass div{
-	display: inline-block;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);

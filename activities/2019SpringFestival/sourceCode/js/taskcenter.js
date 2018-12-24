@@ -1,23 +1,23 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-//var _xMasNewYearActivityId = 89;//87;//89;
-//var _goldHouseActivityId = 90;//88;//90;
-//var _buyActiveId = 91;//返利红包活动id
-//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/light";//主活动接口
-//var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实物二维码领取接口
-//var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
-//var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
-//var _packlistUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
+var _xMasNewYearActivityId = 89;//87;//89;
+var _goldHouseActivityId = 90;//88;//90;
+var _buyActiveId = 91;//返利红包活动id
+var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/light";//主活动接口
+var _entityAwardurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实物二维码领取接口
+var _lotteryUrl = "http://beta.restful.lottery.coocaatv.com";//抽奖接口(生成微信红包、优惠券二维码用)：
+var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
+var _packlistUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-var _xMasNewYearActivityId = 97;
-var _goldHouseActivityId = 99;
-var _buyActiveId = 98;
-var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
-var _entityAwardurl = "https://webapp.skysrt.com/christmas18/address/index.html?";//实物二维码领取接口
-var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
-var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
-var _packlistUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
+//var _xMasNewYearActivityId = 97;
+//var _goldHouseActivityId = 99;
+//var _buyActiveId = 98;
+//var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
+//var _entityAwardurl = "https://webapp.skysrt.com/christmas18/address/index.html?";//实物二维码领取接口
+//var _lotteryUrl = "https://restful.skysrt.com";//抽奖接口(生成微信红包、优惠券二维码用)：
+//var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
+//var _packlistUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
 //全局参数
@@ -38,6 +38,38 @@ var _toastTimeoutId=null;//弹窗自动清除计时器id
 var _bAfterLoginAutoTriggerCollectGift = false;//奖励弹窗：用户未登录时，点击使用红包按钮，当用户登录回来后，自动触发“使用红包”的按钮，进入弹窗的下一个页面；
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
+//互动问答题目区
+var _interlucationsArray = [
+	{
+		question: "创维电视的全球代言人是谁？",
+		answerA:"A、李易峰",
+		answerB:"B、赵又廷",
+		right: "A"
+	}
+	,{
+		question: "中国彩电哪家强？",
+		answerA:"A、创维",
+		answerB:"B、其它",
+		right: "B"
+	}
+]
+//回答正确或错误时的提示和跳转
+var _interlucationsTipsArray = [
+	{
+		title: "恭喜回答正确! 获得1次抽奖机会",
+		leftKey: "了解创维",
+		lefturl: _goldHouseUrl,
+		rightKey: "去抽卡",
+		righturl: _packlistUrl
+	}
+	,{
+		title: "阿欧，回答错误！",
+		leftKey: "了解创维",
+		lefturl: _goldHouseUrl,
+		rightKey: "试试其它任务",
+		righturl: _packlistUrl
+	}
+]
 
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
@@ -60,8 +92,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-//		test_test_test_function();
-//		test_test_test_getMyGifts();
+		pageInit();
 		//PC debug end
 
 		this.bindEvents();
@@ -79,7 +110,6 @@ var app = {
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
-		pageInit();
 		app.triggleButton();
 	},
 	receivedEvent: function(id) {
@@ -87,125 +117,17 @@ var app = {
 	},
 	handleBackButtonDown: function() {
 		console.log("handleBackButtonDown in...");
-		navigator.app.exitApp();
-	},
-	//注册按键
-	registerKeyHandler: function()	{
-		console.log("---in registerKeyHandler-----");
-		$(".coocaa_btn").bind("itemClick", function() {
-			var _Index1 = $(".coocaa_btn").index($(this));
-			console.log("itemClick _Index1 = " + _Index1);
-			processKey($(this));
-		});
-		$(".coocaa_btn").bind("itemFocus", function() {
-			_Lindex = $(".coocaa_btn").index($(this));
-			console.log("itemFocus _Lindex: "+_Lindex);
-			focusShift($(this));
-		});
-	},
-	triggleButton: function() {
-		cordova.require("com.coocaaosapi");
-		_appversion = accountVersion;
-		getDeviceInfo();
-		listenUserChange();
-	}
-};
-
-app.initialize();
-
-
-//---------------------------------------------2019春节活动需要函数 end -----------------------------------------------
-
-//codebase 函数正式开始：
-var app = {
-	canonical_uri: function(src, base_path) {
-		var root_page = /^[^?#]*\//.exec(location.href)[0],
-			root_domain = /^\w+\:\/\/\/?[^\/]+/.exec(root_page)[0],
-			absolute_regex = /^\w+\:\/\//;
-		if(/^\/\/\/?/.test(src)) {
-			src = location.protocol + src;
-		} else if(!absolute_regex.test(src) && src.charAt(0) != "/") {
-			src = (base_path || "") + src;
-		}
-		return absolute_regex.test(src) ? src : ((src.charAt(0) == "/" ? root_domain : root_page) + src);
-	},
-
-	rel_html_imgpath: function(iconurl) {
-		return app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+)$/, '$1'));
-	},
-
-	initialize: function() {
-		//yuanbotest PC debug start
-//		test_test_test_function();
-//		test_test_test_getMyGifts();
-		//PC debug end
-
-		this.bindEvents();
-	},
-	bindEvents: function() {
-		document.addEventListener('deviceready', this.onDeviceReady, false);
-		document.addEventListener("backbutton", this.handleBackButton, false);
-		document.addEventListener("backbuttondown", this.handleBackButtonDown, false);
-		document.addEventListener('resume', this.onResume, false);
-	},
-	handleBackButton: function() {
-	},
-	onResume: function() {
-		console.log("我的礼物-onresume");
-		if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
-			console.log("我的礼物-onresume 111 _bAfterLoginAutoTriggerCollectGift:	"+_bAfterLoginAutoTriggerCollectGift + "_bUserLoginSuccess:"+_bUserLoginSuccess);
-			//如果从奖励弹窗返回:
-			if(_bAfterLoginAutoTriggerCollectGift == true && _bUserLoginSuccess == true) {
-				console.log("我的礼物-onresume 111 222");
-				//自动触发按键,进入奖品领取二维码页面(实物/红包)
-				$("#thanks_btn1").trigger("itemClick");
-			}
-		}else {
-			console.log("我的礼物-onresume 222");
-			getMyGifts();//获取我的礼物	
-		}
-	},
-	onDeviceReady: function() {
-		app.receivedEvent("deviceready");
-		pageInit();
-		app.triggleButton();
-	},
-	receivedEvent: function(id) {
-		console.log(id);
-	},
-	handleBackButtonDown: function() {
-		console.log("handleBackButtonDown in...");
-		if($("#koiCollectId").css("display") == "block") {//如果锦鲤领取弹窗在显示,退回到主页
-			console.log("handleBackButtonDown in..000.");//debug
-			$("#koiCollectId").css("display", "none");
-			$("#toastPageId").css("display", "none");
-			getMyGifts();//获取我的礼物
-		}else if($("#toastDialogId").css("display") == "block" && $("#thanks_Bg").css("display") == "block") {
-			//如果从奖励弹窗返回:
-			console.log("handleBackButtonDown in..001.");//debug
-			$("#toastDialogId").css("display", "none");
-			$("#thanks_Bg").css("display", "none");
-			getMyGifts();//获取我的礼物
-		}else if($("#toastDialogId").css("display") == "block") {//如果 待领取或已领取弹窗在,退出到主页
-			console.log("handleBackButtonDown in..002.");//debug
-			if(_toastTimeoutId!=null) {
-				clearTimeout(_toastTimeoutId);
-			}
-			console.log("yuanbotest- 4s计时器-手动清楚");
-			$("#toastDialogEntityCollectedId").css("display", "none");
-			$("#toastDialogEntityUncollectedId").css("display", "none");
-			$("#toastDialogRedbagUncollectedId").css("display", "none");
-			
-			//红包已领取的弹窗,因为有按钮,所以特殊处理:
-			if($("#toastDialogRedbagCollectedId").css("display") == "block"	) {
-				//map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});				
-				$("#toastDialogRedbagCollectedId").css("display", "none");
-			}
-			
-			$("#toastDialogId").css("display", "none");
-			getMyGifts();//获取我的礼物
+		if($(".wechatHelpPageClass").css("display") == "block") { //从微信帮助二维码页面返回
+			$(".wechatHelpPageClass").css("display", "none");
+			//恢复焦点
+			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			app.registerKeyHandler();	
+		} else if($(".interlucationPageClass").css("display") == "block") { //从互动问答页面返回
+			$(".interlucationPageClass").css("display", "none");
+			//恢复焦点
+			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			app.registerKeyHandler();
 		} else {
-			console.log("handleBackButtonDown in..002.");//debug
 			navigator.app.exitApp();
 		}
 	},
@@ -213,146 +135,158 @@ var app = {
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
 		$(".coocaa_btn").bind("itemClick", function() {
-			var _Index1 = $(".coocaa_btn").index($(this));
-			console.log("itemClick _Index1 = " + _Index1);
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("itemClick _Lindex = " + _Lindex);
 			processKey($(this));
 		});
 		$(".coocaa_btn").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("itemFocus _Lindex: "+_Lindex);
-			focusShift($(this));
 		});
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
 		_appversion = accountVersion;
-		getDeviceInfo();
-		listenUserChange();
+		pageInit();
+//		getDeviceInfo();
+//		listenUserChange();
 	}
 };
 
 app.initialize();
 
 function pageInit() {
-	console.log("pageInit total url+param: "+ window.location.search);
-	console.log("pageInit params: actEnd:"+getQueryString("actEnd")+",awardToast:"+ getQueryString("awardToast")+",from:"+getQueryString("from"));
-	if(/true/i.test(getQueryString("actEnd"))) { //活动是否结束
-		_bActivityEnd = true;
-	}
-	if(/true/i.test(getQueryString("awardToast"))) { //是否显示"奖励弹窗"
-		_bAwardToast = true;
-	}
-	if(/street/i.test(getQueryString("from"))) { //是否需要启动主页
-		_bCallHome = true;
-	}
+	console.log("pageInit in...");
+	//todo 根据后台获取数据，给任务赋予不同id：
+	$(".taskItemClass").eq(0).attr("id", "weixinHelpTaskId");
+	
+	$(".taskItemClass").eq(1).attr("id", "loginTaskId");
+	$(".taskItemClass").eq(2).attr("id", "interlucationTaskId");
+	$(".taskItemClass").eq(3).attr("id", "browserTaskId");
+//	$(".taskItemClass").eq(2).attr("id", "payTaskId");
+//	$(".taskItemClass").eq(3).attr("id", "adsTaskId");
+	//触发按键
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	app.registerKeyHandler();	
+	
 }
-//页面翻页
-function focusShift(el) {
-	//获取焦点元素所属section的top值：
-	var myScrollTopValue = el.offsetParent().offsetParent().position().top;
-	console.log("focusShift myScrollTopValue: "+ myScrollTopValue);
-	$("#myGiftsOuterContainer").stop(true, true).animate({
-			scrollTop: myScrollTopValue
-		}, {
-			duration: 0,
-			easing: "swing",
-			complete: function() {}
-	});
-}
-//处理按键
+
 function processKey(el) {
 	var curId = el.attr("id");
 	console.log("processKey curId: "+ curId);
+	//根据后台获取数据，对任务赋予不同id：
+//	1.微信好友助力
+//	2.登录任务
+//	3.互动问答
+//	4.浏览指定页面
+//	5.完成付费
+//	6.观看广告
 	switch(curId) {
-		case "btnGoXmasHouseNoGiftsDuringActivityId":
-		case "btnGiftReceiverId":			//微信红包 继续参与 按钮
-		if(_bCallHome) {//需要启动主页
-			console.log("go to Xmas house....");
-			//调用进入圣诞小屋的接口
-			coocaaosapi.startNewBrowser4(_goldHouseUrl, function(success){
-				console.log("startNewBrowser4 success");
-			}, function(err){console.log("startNewBrowser4 error")});
-		}
-		navigator.app.exitApp();
-		return;
-	}
-	
-	console.log("_loginstatus = "+_loginstatus);
-	//如果未登录,先弹登录框
-	if(_loginstatus == "false") {
-		startLogin(needQQ);
-		return;
-	}
-	
-	//我的礼物,点击礼品后的弹窗:
-	var giftsInfo = {
-		lotteryActiveId: el.attr("lotteryActiveId"),
-	 	rememberId : el.attr("rememberId"),
-		awardId : el.attr("awardId"),
-		userKeyId : el.attr("userKeyId"),
-		userOpenId : el.attr("userOpenId"),
-		awardTypeId : el.attr("awardTypeId"),
-		awardName : el.attr("awardName"),
-		awardTime : el.attr("awardTime"),
-		awardExchangeFlag : el.attr("awardExchangeFlag")	
-	}
-	console.log("processKey awardTypeId: "+giftsInfo.awardTypeId + " \
-				, awardExchangeFlag:"+ giftsInfo.awardExchangeFlag + " \
-				,rememberId:"+giftsInfo.rememberId+ "\
-				,awardId:"+giftsInfo.awardId);
-	//进入弹窗前先unbind所有按键事件:
-	initMap();
-	switch(giftsInfo.awardTypeId) {
-		case "16": //锦鲤
-		case "15": //大额现金
-		case "2": //实体奖
-			giftsInfo.userName = el.attr("userName");
-			giftsInfo.userPhone = el.attr("userPhone");
-			giftsInfo.address = el.attr("address");
-			getEntityAward(giftsInfo);
+		case "weixinHelpTaskId":
+			$(".wechatHelpPageClass").css("display", "block");
+			//todo 新btn获取焦点后，移动按键时，coocaa_btn是否也会移动？ 试下
+			map = new coocaakeymap($(".coocaa_btn_wechat"), $(".coocaa_btn_wechat").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+//			$(".coocaa_btn").unbind();
+			//todo 生成微信助力二维码
 			break;
-		case "5": //优惠券
-			console.log("coupon success, go to use page...");
-			giftsInfo.business = el.attr("business");
-			switch(giftsInfo.business) {
-				case "movie":
-					webBtnClickLog("使用红包", "影视优惠券");
-					console.log("movie business........");
-					break;
-				case "edu":
-					webBtnClickLog("使用红包", "教育优惠券");
-					console.log("edu business........");
-					break;
-				case "tvmall":
-					webBtnClickLog("使用红包", "购物优惠券");
-					console.log("tvmall business........");
-					break;	
-			}
-			giftsInfo.onclickData = el.attr("onclickData");
-			if(giftsInfo.onclickData != null && giftsInfo.onclickData != undefined){
-				goToCouponUsePage(JSON.parse(giftsInfo.onclickData));
+		case "loginTaskId":
+			startLogin(needQQ);
+			break;
+		case "interlucationTaskId":
+			//显示问题和答案
+			$(".interlucationTitleClass").text(_interlucationsArray[0].question);
+			$(".interlucationBtnClass:first-of-type").text(_interlucationsArray[0].answerA);
+			$(".interlucationBtnClass:last-of-type").text(_interlucationsArray[0].answerB);
+			if(_interlucationsArray[0].right == "A") { //根据答案设置元素属性
+				$(".interlucationBtnClass:first-of-type").attr("correct", true);
+				$(".interlucationBtnClass:last-of-type").attr("correct", false);	
 			}else {
-				getCouponAward(giftsInfo, true);//如果未领取,先领取后使用
+				$(".interlucationBtnClass:first-of-type").attr("correct", false);
+				$(".interlucationBtnClass:last-of-type").attr("correct", true);
 			}
+
+			$(".interlucationBtnClass").attr("round", "firstRound");//第一轮回答
+			$(".interlucationPageClass").css("display", "block");
+//			$(".coocaa_btn").unbind();	
+			map = new coocaakeymap($(".coocaa_btn_question"), $(".coocaa_btn_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_question").unbind().bind("itemClick", function() {
+				interlucationProcess($(this));
+			});
 			break;
-		case "7": //微信红包
-			giftsInfo.bonus = el.attr("bonus");
-			showRedbagItem(giftsInfo);
-			break;
-		case "4": //第三方优惠券
-			getThirdPartyAward(giftsInfo);
-			break;
+		case "browserTaskId":
+			//todo 
+			var url = _packlistUrl;
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+			break;	
+		case "payTaskId":
+			//todo 跳转产品包 
+			var url = _packlistUrl;
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+			break;		
+		case "adsTaskId":
+			//todo 观看广告 
+			var url = _packlistUrl;
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+			break;		
 	}
 }
-//进入弹窗前先unbind所有按键事件:
-function initMap() {
-	console.log("delete all bind ......");
-	//需要删除焦点移动:
-	map = new coocaakeymap($(".coocaa_btn"), null, null, function() {}, function(val) {}, function(obj) {});
-	//只是删除绑定的事件处理
-	$(".coocaa_btn").unbind();
+//互动问答处理函数 
+//todo:最终定下里后优化流程
+function interlucationProcess(el) {
+	var round = el.attr("round");
+	console.log("interlucationProcess round:" + round);
+	if(round == "firstRound") {//第一轮回答
+		var b = el.attr("correct");
+		console.log("answer right or wrong: "+b);
+		if(b == true) {//回答正确
+			//提示
+			$(".interlucationTitleClass").text(_interlucationsTipsArray[0].title);
+			//左键
+			$(".interlucationBtnClass:first-of-type").text(_interlucationsTipsArray[0].leftKey);
+			$(".interlucationBtnClass:first-of-type").attr("url", _interlucationsTipsArray[0].lefturl);
+			//右键
+			$(".interlucationBtnClass:last-of-type").text(_interlucationsTipsArray[0].rightKey);
+			$(".interlucationBtnClass:last-of-type").attr("url", _interlucationsTipsArray[0].righturl);
+		} else {//回答错误
+			//提示
+			$(".interlucationTitleClass").text(_interlucationsTipsArray[1].title);
+			//左键
+			$(".interlucationBtnClass:first-of-type").text(_interlucationsTipsArray[1].leftKey);
+			$(".interlucationBtnClass:first-of-type").attr("url", _interlucationsTipsArray[1].lefturl);
+			//右键
+			$(".interlucationBtnClass:last-of-type").text(_interlucationsTipsArray[1].rightKey);
+			$(".interlucationBtnClass:last-of-type").attr("url", _interlucationsTipsArray[1].righturl);
+		}
+		//设为第二轮
+		$(".interlucationBtnClass").attr("round", "secondRound");
+	}else if(round == "secondRound") {
+		var url = el.attr("url");
+		console.log("answer url:" + url);
+		if(b == true) {//左键处理
+			//todo (注意修改正确的api)：
+			//了解创维
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+		}else {//右键处理
+			//todo (注意修改正确的api)：
+			//去抽卡，或试试其它任务
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+		}
+	}	
 }
-
+//---------------------------------------------2019春节活动需要函数 end -----------------------------------------------
+ 
+ 
+ 
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -717,8 +651,8 @@ function getCouponAward(giftsInfo, bUse) {
 			"userKeyId": giftsInfo.userKeyId,
 			"MAC": _macAddress,
 			"cOpenId": _openId,
-			"source" : _qsource,
-			"thirdUserId":_qqtoken
+			"source" : _qsource
+//			"thirdUserId":_qqtoken //卡密用
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
@@ -757,32 +691,6 @@ function goToCouponUsePage(data_a) {
 	}
 	sources = JSON.stringify(sources);
 	coocaaosapi.startParamAction2(bywhat, byvalue, sources, function(message) {}, function(error) {console.log(error);});	
-}
-
-//获取第三方优惠券
-//之前做法是:获取的图片就是二维码,本地保存一张第三方优惠券的图片,确认下
-function getThirdPartyAward(giftsInfo) {
-	//todo 在实物待领取toast上微调 是后台直接返回二维码图片还是? 
-	document.getElementById("imgIdEntityReceiverQr").innerHTML = "";
-	var str = _entityAwardurl + "activeId=" + giftsInfo.lotteryActiveId + "&rememberId=" + giftsInfo.rememberId + "&userKeyId=" + giftsInfo.userKeyId;
-	var qrcode = new QRCode(document.getElementById("imgIdEntityReceiverQr"), {
-		width: 195,
-		height: 195
-	});
-	qrcode.makeCode(str);
-	
-	$("#toastDialogEntityUncollectedId").css("display", "block");
-	$("#toastDialogId").css("display", "block");
-}
-//弹窗自动消失函数:
-function toastAutoClear(){
-		console.log("yuanbotest- 4s计时器到");
-		$("#toastDialogEntityCollectedId").css("display", "none");
-		$("#toastDialogId").css("display", "none");
-		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
-		app.registerKeyHandler();
-		$(".coocaa_btn").eq(_Lindex).trigger("itemFocus");
-		getMyGifts();//获取我的礼物
 }
 //实体奖、锦鲤奖和大额红包: 显示领取二维码
 function getEntityAward(giftsInfo) {
@@ -1135,205 +1043,6 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 	});
 }
 
-//页面首次加载的弹窗逻辑
-function showInitDialog(dataObj) {
-	console.log("showInitDialog in.. " + JSON.stringify(dataObj));
-//	yuanbotest
-//	dataObj.chanceResult.chanceSource = [1,2,3,1];
-	var len = dataObj.chanceResult.chanceSource.length;
- 	if(len>0){
-		$("#toastDialogId").css("display", "block");
-		$("#thanks_Bg").css("display", "block");
-		
-		var lastChanceSource = dataObj.chanceResult.chanceSource[len-1];
-		console.log(lastChanceSource);
-		dataObj = dataObj.chanceResult;//为代码简练
-		if(lastChanceSource>0&&lastChanceSource<4){
-			if(lastChanceSource == 1||lastChanceSource == 2){ //1. 采购 2. 麋鹿
-				$("#thanks_btn2 .btnName").html("返回");
-				$("#thanks_btn2").css("left", "990px");
-				$("#thanks_btn2").css("width", "147px");
-				$("#thanks_btn2 .imgBlur").attr("src", "images/myaward/red_blur.png");
-				$("#thanks_btn2 .imgFocus").attr("src", "images/myaward/red_focus.png");
-				if(lastChanceSource == 1){
-					$("#thanks_info1").html("感谢你帮圣诞爷爷采购礼物");
-					$("#thanks_giftsBox").css("background-image", "url(images/myaward/couponbell5.png)" )
-				}else{
-					$("#thanks_info1").html("感谢你带麋鹿玩耍");
-				}
-				$("#thanks_btn2").attr("clicktype",0);
-			}else if(lastChanceSource == 3){ //3. 打包
-				$("#thanks_info1").html("感谢你帮圣诞爷爷打包礼物");
-				$("#thanks_btn2 .btnName").html("查看打包清单");
-				$("#thanks_btn2").css("left", "945px");
-				$("#thanks_btn2").css("width", "210px");
-				$("#thanks_btn2 .imgBlur").attr("src", "images/myaward/checkpacklist_blur.png");
-				$("#thanks_btn2 .imgFocus").attr("src", "images/myaward/checkpacklist_focus.png");
-				$("#thanks_btn2").attr("clicktype",1);
-			}
-			var _awardtype = dataObj.rememberModel.awardTypeId;
-			$("#thanks_btn1").attr("activeId",dataObj.rememberModel.lotteryActiveId);
-			$("#thanks_btn1").attr("userKeyId",dataObj.rememberModel.userKeyId);
-			$("#thanks_btn1").attr("awardId",dataObj.rememberModel.awardId);
-			$("#thanks_btn1").attr("rememberId",dataObj.rememberModel.lotteryRememberId);
-			$("#thanks_btn1").attr("awardTypeId",_awardtype);	
-			if(_awardtype == 2) {//实物
-				$("#thanks_btn1").attr("awardName",dataObj.rememberModel.awardName);
-				$("#thanks_btn1 .btnName").html("收下红包");
-				$("#thanks_info3").css("display","none");
-				//更新弹窗图片
-				$("#thanks_entity").css("display","block");
-				$("#thanks_entityImg").attr("src", dataObj.rememberModel.awardUrl);
-				$("#enAwardBox").html(dataObj.rememberModel.awardName);
-			} else if(_awardtype == 5) {//优惠券
-				$("#thanks_btn1 .btnName").html("使用红包");
-				$("#thanks_info3").css("display","block");
-				$("#thanks_info3").html("*特价购买打包商品特权已生效，限时福利快去看看");
-				//更新弹窗图片
-				$("#thanks_coupon").css("display","block");
-				$("#thanks_couponImg").attr("src", dataObj.rememberModel.awardUrl);
-			} else if(_awardtype == 7) {//微信红包
-				$("#thanks_btn1 .btnName").html("收下红包");
-				$("#thanks_btn1").attr("bonus",dataObj.rememberModel.awardInfo.bonus);
-				$("#thanks_info3").css("display","block");
-				$("#thanks_info3").html('*目前累计获得红包<span style="color:#fff642">'+dataObj.rememberModel.awardInfo.bonus+'</span>元');
-				//更新弹窗图片
-				$("#thanks_red").css("display","block");
-				//$("#thanks_redImg").attr("src", dataObj.rememberModel.awardUrl);
-				
-				if(dataObj.rememberModel.mergeAwardInfo == "" || dataObj.rememberModel.mergeAwardInfo == null) {
-					$("#redAwardInfo").html(dataObj.rememberModel.awardInfo.bonus + "元");
-				} else {
-					$("#redAwardInfo").html(dataObj.rememberModel.mergeAwardInfo.bonus+"元");
-				}
-			}
-		}
-	 
-	 	if(len > 1) {
-			console.log("弹多个奖励领取的奖励页");
-			$("#thanks_info1").html("感谢你带麋鹿玩耍");
-			$("#thanks_btn2 .btnName").html("返回");
-			$("#thanks_btn2").css("left", "990px");
-			$("#thanks_btn2").css("width", "147px");
-			$("#thanks_btn2 .imgBlur").attr("src", "images/myaward/red_blur.png");
-			$("#thanks_btn2 .imgFocus").attr("src", "images/myaward/red_focus.png");
-			$("#thanks_info3").html('*还有更多任务奖励都已放入<span style="color:#fff642">[我的礼物]</span>，请前往查看');
-		}
-	 	
-		map = new coocaakeymap($(".coocaa_btn2"), document.getElementById("thanks_btn1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-		//按键响应处理
-		regitserKeyEventsForThanksToast();
-	} else {
-		console.log("不弹窗");
-		getMyGifts();//不弹窗时获取我的礼物 
-	}
-}
-function regitserKeyEventsForThanksToast() {
-	console.log("---in regitserKeyEventsForThanksToast-----");
-	$(".coocaa_btn2").bind("itemClick", function() {
-		var el = $(this);
-		var id = el.attr("id");
-		console.log("cur el id: "+ el.attr("id"));
-		if(id == "thanks_btn1") {
-			//如果未登录,先弹登录框
-			if(_loginstatus == "false") {
-				_bAfterLoginAutoTriggerCollectGift = true;
-				startLogin(needQQ);
-				return;
-			}
-			var awardTypeId = el.attr("awardTypeId");
-			switch(awardTypeId) {
-				case "2": //实物
-					$("#thanks_giftsBox").css("display", "none");
-					map = new coocaakeymap($(".coocaa_btn2"), null, null, function() {}, function(val) {}, function(obj) {});
-					$(".coocaa_btn2").unbind();
-					$("#thanks_btn1").css("display", "none");
-					$("#thanks_btn2").css("display", "none");
-					$("#thanks_giftCollectId").css("display", "block");
-					
-					//二维码
-					document.getElementById("thanks_giftCollectId").innerHTML = "";
-					var lotteryActiveId = $("#thanks_btn1").attr("activeId");
-					var lotteryRememberId = $("#thanks_btn1").attr("rememberId");
-					var userKeyId = $("#thanks_btn1").attr("userKeyId");
-					var str = _entityAwardurl + "activeId=" + lotteryActiveId + "&rememberId=" + lotteryRememberId + "&userKeyId=" + userKeyId;
-					var qrcode = new QRCode(document.getElementById("thanks_giftCollectId"), {
-						width: 190,
-						height: 190
-					});
-					qrcode.makeCode(str);
-					//提示信息:
-					var name = $("#thanks_btn1").attr("awardName");
-					$("#thanks_info1").html('获得<span style="color:#fff642">'+name+'</span>');
-					$("#thanks_info2").html("微信扫码 领取奖励");
-					$("#thanks_info3").css("display","block");
-					$("#thanks_info3").css("color", "#FFFFFF");
-					$("#thanks_info3").css("top", "740px");
-					$("#thanks_info3").html('*红包已放入<span style="color:#fff642">[我的礼物]</span>,可前往查看');
-					break;
-				case "5": //优惠券
-				//直接跳去使用页面,并消灭当前弹窗
-					$("#toastDialogId").css("display", "none");
-					$("#thanks_Bg").css("display", "none");
-					if(_loginstatus != "false") {//如果用户已经登录,自动领取所有优惠券
-						console.log("auto collect coupon.............");
-						var giftsAttributes = {
-							"lotteryActiveId":$("#thanks_btn1").attr("activeId")
-						   ,"awardId":$("#thanks_btn1").attr("awardId")
-						   ,"rememberId":$("#thanks_btn1").attr("rememberId")
-						   ,"awardTypeId":$("#thanks_btn1").attr("awardTypeId")
-						   ,"userKeyId":$("#thanks_btn1").attr("userKeyId")
-						}
-						getCouponAward(giftsAttributes, true);
-					}
-					break;
-				case "7": //红包
-					$("#thanks_giftsBox").css("display", "none");
-					map = new coocaakeymap($(".coocaa_btn2"), null, null, function() {}, function(val) {}, function(obj) {});
-					$(".coocaa_btn2").unbind();
-					$("#thanks_btn1").css("display", "none");
-					$("#thanks_btn2").css("display", "none");
-					$("#thanks_giftCollectId").css("display", "block");
-					//二维码
-					document.getElementById("thanks_giftCollectId").innerHTML = "";
-					var lotteryActiveId = $("#thanks_btn1").attr("activeId");
-					var lotteryRememberId = $("#thanks_btn1").attr("rememberId");
-					var userKeyId = $("#thanks_btn1").attr("userKeyId");
-					var giftsInfo = {
-						"lotteryActiveId":lotteryActiveId,
-						"rememberId": lotteryRememberId,
-						"userKeyId":userKeyId,
-						"qrDivId": "thanks_giftCollectId",
-						"width":190,
-						"height":190
-					}
-					getRedbagAward(giftsInfo);
-					//提示信息:
-					var bonus = el.attr("bonus");
-					$("#thanks_info1").html("目前累计获得红包"+bonus+"元");
-					$("#thanks_info2").html("微信扫码累计提现~");
-					$("#thanks_info3").css("display","block");
-					$("#thanks_info3").css("color", "#FFFFFF");
-					$("#thanks_info3").css("top", "740px");
-					$("#thanks_info3").html('*红包已放入<span style="color:#fff642">[我的礼物]</span>,可前往查看');
-				break;
-			}
-		}else if(id == "thanks_btn2") {
-			var clickType = $("#thanks_btn2").attr("clicktype");
-			if(clickType == 0) {//返回到我的礼物页面,焦点和按键(消灭当前弹窗即可)
-				$("#toastDialogId").css("display", "none");
-				$("#thanks_Bg").css("display", "none");
-				getMyGifts();//退出弹窗时再获取我的礼物 
-			}else if(clickType == 1){//跳转到打包清单页面,当前页面不消灭
-				console.log("go to pack list....");
-				coocaaosapi.startNewBrowser4(_packlistUrl, function(success){
-					console.log("startNewBrowser4 success");
-				}, function(err){console.log("startNewBrowser4 error")});
-			}
-		}
-	});
-}
-
 //监听账户变化
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
@@ -1369,67 +1078,4 @@ function webBtnClickLog(button_name, button_type) {
 
 //PC端测试函数
 //获取我的礼物信息
-function test_test_test_function() {
-	_macAddress = "001a9a000000";
-	_TVchip = "9S52";
-	_TVmodel = "Q4A";
-	_emmcCID = "1101003030384737300017c1438f6400";
-	_activityId = "16706858";
-	_access_token = "2.378b41b74eb048f795637b0d7d0d9aa6";
-	_openId = "1266ec9cd2b811e8a09700505687790a";
-	_nickName = "原博";
-			
-	initActivityInfos();
-}
-function test_test_test_getMyGifts() {
-	console.log("test_test_test_getMyGifts in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
-	var param = {
-			//公共参数-start-
-			"MAC": "001a9a000000",
-			"cChip": "9S52",
-			"cModel": "Q4A",
-			"cEmmcCID": "1101003030384737300017c1438f6400",
-			"cUDID": "3978822",//"16706858",
-			"accessToken": "2.378b41b74eb048f795637b0d7d0d9aa6",
-			"cOpenId": "1266ec9cd2b811e8a09700505687790a",
-			"cNickName": "原博",
-			//公共参数-end-
-			"id": _xMasNewYearActivityId
-	};
-	var ajaxTimeoutOne = $.ajax({
-		type: "POST",
-		async: true,
-		timeout: 10000,
-		dataType: 'json',
-		url: _urlActivityServer + "/xmas/u-award",
-		data: param,
-		success: function(data) {
-			console.log(JSON.stringify(data));
-			if(data.code == "50100") { //服务器返回正常
-				if(data.data!=null) { //如果有礼物
-					updateGiftsInfoToPage(data.data);
-				}else { //如果没有礼物
-					console.log("没有礼物: 活动是否结束 _bActivityEnd:"+_bActivityEnd);
-					if(_bActivityEnd == true) { //如果活动已结束
-						$("#toastPageId").css("display","block");
-						$(".noGiftsAfterActivityEndClass").css("display","block");
-					}else { //如果在活动期间,有跳转按钮
-						$("#toastPageId").css("display","block");
-						$(".noGiftsDuringActivityClass").css("display","block");
-						map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-						app.registerKeyHandler();
-					}
-				}
-			}
-		},
-		error: function(err) {
-			console.log(JSON.stringify(err));
-		},
-		complete: function(XMLHttpRequest, status) {　　　　
-			console.log("-------------complete------------------" + status);
-			if(status == 'timeout') {　　　　　
-				ajaxTimeoutOne.abort();　　　　
-			}
-		}
-	});	
-}
+ 
