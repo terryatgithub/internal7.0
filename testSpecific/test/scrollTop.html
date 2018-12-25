@@ -2,18 +2,30 @@
 <head>
 <meta charset="utf-8" />
 <style type="text/css">
-button {margin:5px;}
+button {margin:15px;}
 #see { background-color: green; color:yellow;}
 </style>
 </head>
 <body style="font-size:12px; line-height:25px;">
 	<a href="https://blog.csdn.net/triplestudio/article/details/51024484">原文地址，推荐</a>
 <div id="divScroll" style="width:300px;height:200px;overflow-y:scroll;border:1px solid gray;">
+	<button id="b04">点击我哦</button><br />
+	<button id="b05">点击我哦</button><br />
+	<button id="b06">点击我哦</button><br />
+	<button id="b07">点击我哦</button><br />
+	<button id="b08">点击我哦</button><br />	
+	<button id="b09">点击我哦</button><br />
 	<button id="b01">点击我哦</button><br />
 	<button id="b02">点击我哦</button><br />
 	<button id="b03">点击我哦</button><br />
 	<button id="see">看见我不</button><br />
 	<button id="b04">点击我哦</button><br />
+	<button id="b04">点击我哦</button><br />
+	<button id="b05">点击我哦</button><br />
+	<button id="b06">点击我哦</button><br />
+	<button id="b07">点击我哦</button><br />
+	<button id="b08">点击我哦</button><br />	
+	<button id="b09">点击我哦</button><br />
 	<button id="b05">点击我哦</button><br />
 	<button id="b06">点击我哦</button><br />
 	<button id="b07">点击我哦</button><br />
@@ -23,11 +35,17 @@ button {margin:5px;}
  
 <div style="width:300px; text-align:center; padding-top:5px;">
 <!-- 如果元素不可见，让其可见 onclick -->
-<a href="javascript:void(0)" onclick="if(!isEleInView('see')) letEleInView('see');">
+<a href="javascript:void(0)" onclick="if(!isEleInView1('see')) focusShiftScroll('see');">
    如果“看见我不”不在可见区域，则让其可见
 </a>
 </div>
- 
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+<!--<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>-->
+<!--<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>-->
+<!--<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>-->
+<!--<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>--> 
 <script type="text/javascript">
 /** 元素是否处于父容器的可见区域 */
 function isEleInView(objId){
@@ -35,7 +53,7 @@ function isEleInView(objId){
     var div = document.getElementById("divScroll");
     var ele = document.getElementById(objId);
 	var offsetTopIn = ele.offsetTop - div.offsetTop;
- 
+ 	console.log("div:"+div+",ele:"+ele+", offsetTop:"+offsetTopIn);
 	var _scrollTop = div.scrollTop;
 	var _scrollHeight = div.scrollHeight;
 	var _height = div.clientHeight;
@@ -60,27 +78,49 @@ function letEleInView(objId){
 	    div.scrollTop = offsetTopIn;
 	}
 }
-
-
  //页面翻页-用scrollTop
 function isEleInView1(el) {
-	var scrollHeight = $("#myGiftsOuterContainer").prop("scrollHeight");
-	var clientHeight = $("#myGiftsOuterContainer").prop("clientHeight");
-	var scrollTop = $("#myGiftsOuterContainer").prop("scrollTop");
+//	var scrollHeight = $("#myGiftsOuterContainer").prop("scrollHeight");
+//	var clientHeight = $("#myGiftsOuterContainer").prop("clientHeight");
+//	var scrollTop = $("#myGiftsOuterContainer").prop("scrollTop");
+	//
+	var scrollHeight = $("#divScroll")[0].scrollHeight;
+	var clientHeight = $("#divScroll")[0].clientHeight;
+	var scrollTop = $("#divScroll")[0].scrollTop;
 	
+	var divTop = $("#"+el)[0].offsetTop;
+	var elTop = $("#"+el)[0].offsetTop;
+	var elHeight = elTop + $("#"+el)[0].offsetHeight;
 	
+	var offsetTopIn = elTop - divTop;
+	var offsetBottomIn = offsetTopIn + elHeight;
+	if((offsetTopIn >= scrollTop && offsetTopIn <= (scrollTop+clientHeight)) && 
+		(offsetBottomIn >= scrollTop && offsetBottomIn <= (scrollTop+clientHeight))) {
+		return true;
+	}else {
+		return false;
+	}
 }
 function focusShiftScroll(el) {
+	var clientHeight = $("#divScroll")[0].clientHeight;
+	var divTop = $("#divScroll")[0].offsetTop;
 	
-	var myScrollTopValue = el.offsetParent().offsetParent().position().top;
-	console.log("focusShift myScrollTopValue: "+ myScrollTopValue);
-	$("#myGiftsOuterContainer").stop(true, true).animate({
-			scrollTop: myScrollTopValue
-		}, {
-			duration: 0,
-			easing: "swing",
-			complete: function() {}
-	});
+	var elTop = $("#"+el)[0].offsetTop;
+	
+	var offsetTopIn = elTop - divTop;
+	offsetTopIn = offsetTopIn - clientHeight/2;
+	console.log("offsetTopIn: "+ offsetTopIn);
+	$("#divScroll")[0].scrollTop = offsetTopIn;
+	
+//	var myScrollTopValue = el.offsetParent().offsetParent().position().top;
+//	console.log("focusShift myScrollTopValue: "+ myScrollTopValue);
+//	$("#myGiftsOuterContainer").stop(true, true).animate({
+//			scrollTop: myScrollTopValue
+//		}, {
+//			duration: 0,
+//			easing: "swing",
+//			complete: function() {}
+//	});
 }
 
 </script>
