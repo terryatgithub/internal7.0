@@ -188,6 +188,8 @@ function pageInit() {
 	$(".taskItemClass").eq(3).attr("id", "interlucationTaskId");
 	$(".taskItemClass").eq(4).attr("id", "payTaskId");
 	$(".taskItemClass").eq(5).attr("id", "adsTaskId");
+	
+	$(".taskItemClass").attr("status", false);
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	app.registerKeyHandler();	
@@ -209,7 +211,8 @@ function getQuestionIndex() {
 function checkCurTaskStatus(el) {
 	//todo 需要初始化时先设置该属性
 	var status = el.attr("status");
-	if(status == "done"){
+	console.log("checkCurTaskStatus status:"+status);
+	if(status == "true"){
 		return true;
 	}else {
 		return false;
@@ -217,7 +220,7 @@ function checkCurTaskStatus(el) {
 }
 //获取第一个未完成任务，如都完成，跳toast：
 function getFirstUndoneTaskOrToast() {
-	var len = $(".goodsItemClass").length;
+	var len = $(".taskItemClass").length;
 	var i = 0;
 	// 0:当前任务完成，有其它未完成任务；
 	// 1：所有任务都完成，福卡集市未开启
@@ -225,12 +228,13 @@ function getFirstUndoneTaskOrToast() {
 	// 顺序与_tipsWhenClickTaskHasDone[]一致
 	var taskStatus = 0; 
 	for(;i<len;i++) {
-		if($(".goodsItemClass").attr("status") == "false") {
+		if($(".taskItemClass").eq(i).attr("status") == "false") {
 			_Lindex = i;
 			taskStatus = 0;
 			break;
 		}
 	}
+	console.log("getFirstUndoneTaskOrToast _Lindex:"+_Lindex);
 	//todo 还要分福卡集市是否开放的状态：
 	if(i == len) { 
 		(_blessingMarketOpen == true) ? (taskStatus = 2) : (taskStatus = 1); 
@@ -249,10 +253,22 @@ function getFirstUndoneTaskOrToast() {
 			//todo 跳到庙会
 			//当前页面要关闭吗？
 			console.log("跳到庙会");
+			var url = _packlistUrl;
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+			
+			navigator.app.exitApp();
 		}else if(taskStatus == 2){
 			//todo 跳到福卡集市
 			//当前页面要关闭吗？
 			console.log("跳到福卡集市");
+			var url = _packlistUrl;
+			coocaaosapi.startNewBrowser(url, function(success){
+				console.log("startNewBrowser success");
+			}, function(err){console.log("startNewBrowser error")});
+			
+			navigator.app.exitApp();
 		}
 	});
 }
@@ -268,7 +284,8 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	if(checkCurTaskStatus(el)) {
-		//todo 落焦到未完成任务 或 跳toast
+		//落焦到未完成任务 或 跳toast
+		getFirstUndoneTaskOrToast();
 		return;
 	}
 	switch(curId) {
