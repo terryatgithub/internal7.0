@@ -27,6 +27,8 @@ var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,
 var _appversion, accountVersion, _deviceInfo;
 var _qsource, needQQ=false; //视频源
 
+var _blessingMarketOpen = false;
+
 //url传进来的参数：
 var _bActivityEnd = false; //活动是否结束，默认进行中。
 var _bAwardToast = false; //是否显示”奖励弹窗“，默认不需要；
@@ -70,7 +72,21 @@ var _interlucationsTipsArray = [
 		righturl: _packlistUrl
 	}
 ]
-
+//任务完成时的提示：
+var _tipsWhenClickTaskHasDone = [
+	{
+		title: "今日任务已完成啦~ <br/> 实施其它任务吧",
+		btnName: "好的"
+	}
+	,{
+		title: "今日任务已经全部完成啦~ <br/> 任务每日更新，明天记得再来哦!",
+		btnName: "去逛庙会"
+	}
+	,{
+		title: "今日任务已经全部完成啦~ <br/> 还可去福卡集市找您想要的福卡哦!",
+		btnName: "去福卡集市"
+	}
+]
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
 var app = {
@@ -111,6 +127,7 @@ var app = {
 			console.log("onresume-用户登录成功");
 			 $(".coocaa_btn:eq("+_Lindex+") .taskBtnClass").css("background-image", 'url(http://beta.webapp.skysrt.com/yuanbo/test/materials/btnC.png)');
 		}else {
+			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
 		}
 	},
@@ -125,9 +142,11 @@ var app = {
 		console.log("handleBackButtonDown in...");
 		if($(".wechatHelpPageClass").css("display") == "block") { //从微信帮助二维码页面返回
 			$(".wechatHelpPageClass").css("display", "none");
+			//todo 获取微信任务状态，刷新页面：
+			
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
-		} else if($(".interlucationPageClass").css("display") == "block") { //从互动问答页面返回
-			$(".interlucationPageClass").css("display", "none");
+		} else if($("#interlucationPageId").css("display") == "block") { //从互动问答页面返回
+			$("#interlucationPageId").css("display", "none");
 			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
 			$(".moreGoodsPageClass").css("display", "none");
@@ -186,7 +205,57 @@ function getQuestionIndex() {
 	console.log("current date: "+ d + ", index:"+index);
 	return index;
 }
-
+//检查当前落焦任务是否完成
+function checkCurTaskStatus(el) {
+	//todo 需要初始化时先设置该属性
+	var status = el.attr("status");
+	if(status == "done"){
+		return true;
+	}else {
+		return false;
+	}
+}
+//获取第一个未完成任务，如都完成，跳toast：
+function getFirstUndoneTaskOrToast() {
+	var len = $(".goodsItemClass").length;
+	var i = 0;
+	// 0:当前任务完成，有其它未完成任务；
+	// 1：所有任务都完成，福卡集市未开启
+	// 2：所有任务都完成，福卡集市已开启
+	// 顺序与_tipsWhenClickTaskHasDone[]一致
+	var taskStatus = 0; 
+	for(;i<len;i++) {
+		if($(".goodsItemClass").attr("status") == "false") {
+			_Lindex = i;
+			taskStatus = 0;
+			break;
+		}
+	}
+	//todo 还要分福卡集市是否开放的状态：
+	if(i == len) { 
+		(_blessingMarketOpen == true) ? (taskStatus = 2) : (taskStatus = 1); 
+	}
+	$("#toastWhenClickTaskHasDoneId .interlucationTitleClass").html(_tipsWhenClickTaskHasDone[taskStatus].title);
+	$("#toastWhenClickTaskHasDoneId .interlucationBtnClass").text(_tipsWhenClickTaskHasDone[taskStatus].btnName);
+	$("#toastWhenClickTaskHasDoneId").css("display", "block");
+	
+	map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+	$(".coocaa_btn_taskcenter_toast").unbind().bind("itemClick", function() {
+		//todo
+		if(taskStatus == 0) {
+			$("#toastWhenClickTaskHasDoneId").css("display", "none");		
+			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+		}else if(taskStatus == 1){
+			//todo 跳到庙会
+			//当前页面要关闭吗？
+			console.log("跳到庙会");
+		}else if(taskStatus == 2){
+			//todo 跳到福卡集市
+			//当前页面要关闭吗？
+			console.log("跳到福卡集市");
+		}
+	});
+}
 function processKey(el) {
 	var curId = el.attr("id");
 	console.log("processKey curId: "+ curId);
@@ -197,6 +266,11 @@ function processKey(el) {
 //	4.浏览指定页面
 //	5.完成付费
 //	6.观看广告
+	//step 1: 先判断当前任务是否已完成：
+	if(checkCurTaskStatus(el)) {
+		//todo 落焦到未完成任务 或 跳toast
+		return;
+	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			$(".wechatHelpPageClass").css("display", "block");
@@ -223,7 +297,7 @@ function processKey(el) {
 			}
 
 			$(".interlucationBtnClass").attr("round", "firstRound");//第一轮回答
-			$(".interlucationPageClass").css("display", "block");
+			$("#interlucationPageId").css("display", "block");
 //			$(".coocaa_btn").unbind();	
 			map = new coocaakeymap($(".coocaa_btn_question"), $(".coocaa_btn_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			$(".coocaa_btn_question").unbind().bind("itemClick", function() {
@@ -269,7 +343,7 @@ function showGoodDetailsPage() {
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
-	var count = 6;//15;
+	var count = 15;
 	for(var i = 0; i < count; i++) {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
@@ -277,7 +351,8 @@ function testAddmoreGoods() {
 	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
 	for(i = 0; i < len; i++) {
 		$(".packGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
-		$(".goodsItemPlaceHolderClass").eq(i).text(i);	
+		$(".goodsItemPlaceHolderClass").eq(i).text(i);
+		//如果有放大效果的话，需要给每个元素单独设置 上下左右的target,否则按上下键时焦点会乱（因为coocaakeymap算法的原因）
 	}
 	$(".goodsItemPlaceHolderClass").css("font-size", "32px");
 }

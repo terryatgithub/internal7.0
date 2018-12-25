@@ -98,14 +98,12 @@ body {
 }
 
 /*互动问答页面*/
-.interlucationPageClass {
-	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/bgtvpi.png');
-	background-repeat: no-repeat;
-	background-size: cover;
+.taskcenterToastPageClass {
+	background-color: rgba(0,0,0,0.8) ;
 	display: none;
 }
 
-.interlucationToastClass {
+.taskcenterToastClass {
 	position: relative;
 	top: 50%;
 	left: 50%;
@@ -117,7 +115,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.interlucationToastClass div{
+.taskcenterToastClass div{
 	position: absolute;
 	text-align: center;
 	font-size: 36px;
@@ -136,10 +134,12 @@ body {
 	background-color: green;
 	border: 2px solid black;
 }
-.interlucationBtnClass:nth-child(3) {
+#interlucationPageId .interlucationBtnClass:nth-child(3) {
 	left: 55%;
 }
-
+#toastWhenClickTaskHasDoneId .interlucationBtnClass{
+	left: 40%;
+}
 /*付费商品展示页面*/
 .moreGoodsPageClass {
 	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/bgenve.png');
@@ -190,6 +190,6 @@ body {
 
 .btn-focus{
 	/*border: 2px solid yellow;*/
-	/*-webkit-transform: scale(1.08);
-	transform: scale(1.08);*/
+	-webkit-transform: scale(1.08);
+	transform: scale(1.08);
 }
