@@ -45,6 +45,8 @@ var _qqtoken = "";//qq信息
 
 //当前页面全局变量，存放从后台获取到的产品源信息：
 var _sourceDetailsArray = new Array();
+_sourceDetailsArray[0] = null;
+_sourceDetailsArray[1] = null;
 var _sourceSuperVIPInfo = null;
 
 //错误标志
@@ -226,12 +228,15 @@ function enterPurchasePage(){ //todo...
 	
 	var _sourceId = ""; //产品源ID
 	var _businessType = 1; //业务线，非必填项，-1获取全部,0获取影视，1获取教育,2iptv，默认0	
-	if(index == 0 && (_sourceSuperVIPInfo!= null)) {
-		_sourceId = _sourceSuperVIPInfo.id;
-		webBtnClickLog("教育VIP权益", "教育超级VIP");
-	}else {
-		webBtnClickLog("教育VIP权益", "教育分年龄VIP");
+
+	if(index == 0 && (_sourceDetailsArray[0] != null)) {
+		_sourceId = _sourceDetailsArray[0].id;
+		webBtnClickLog("教育VIP权益", "少儿VIP");
+	}else if (index == 1 && (_sourceDetailsArray[1] != null)) {
+		_sourceId = _sourceDetailsArray[1].id;
+		webBtnClickLog("教育VIP权益", "教育VIP");
 	}
+	
 	console.log("enterPurchasePage _sourceId:"+_sourceId);
 	coocaaosapi.startMovieMemberCenter(_sourceId.toString(), _businessType.toString(),
 			function(message){
@@ -249,6 +254,9 @@ function updateMemberVIPStates(data) {
 	var videoArray = data.data.sources;
 	console.log("source length: "+videoArray.length);
 	
+	_sourceDetailsArray[0] = {};
+	_sourceDetailsArray[1] = {};
+
 	function getSourceDetails(item,index,arr) {
 		var id = item.source_id;
 		var name = item.source_name;
@@ -273,9 +281,12 @@ function updateMemberVIPStates(data) {
 			"validType":validtype,
 			"validDate":validDate
 		}
-		//教育页面只取超级vip的source_id
-		if(sign.match(/supervip/i) != null){
-			_sourceSuperVIPInfo = sourceItem;		
+
+		if(sign.match(/shaoervip/i) != null){
+			_sourceDetailsArray[0] = sourceItem;		
+		}
+		else if(sign.match(/jiaoyuvip/i) != null){
+			_sourceDetailsArray[1] = sourceItem;		
 		}
 	}
 	videoArray.forEach(getSourceDetails);
@@ -294,14 +305,18 @@ function updateMemberVIPStates(data) {
 }
 
 //教育vip页面目前只有2个入口块，文件都是固定写在页面的，不用动态更新； 只更新vip状态和有效期；
-function drawVipEntryZone() {//todo...
+function drawVipEntryZone() {
+	
 	console.log("drawVipEntryZone in...:");
-	if(_sourceSuperVIPInfo == null) {
+	if(_sourceDetailsArray[0] == null || _sourceDetailsArray[1] == null) {
+		console.log("_sourceDetailsArray 数据空");
 		return;
 	}
 	var picOpen = app.rel_html_imgpath(__uri("../img/supOpen.png"));
 	var picRenew = app.rel_html_imgpath(__uri("../img/supRenewEdu.png"));
-	if (_sourceSuperVIPInfo.validType == 0 ){
+
+	// 少儿VIP
+	if (_sourceDetailsArray[0].validType == 0 ){
 		console.log("用户没有开通超级VIP，显示立即开通");
 		$("#vipEntry1 .vipEntrySubscribe").text("立即开通");
 		$("#vipEntry1 .vipEntrySubscribe").css("font-weight", "bold");
@@ -314,8 +329,9 @@ function drawVipEntryZone() {//todo...
 		$("#vipEntry1 .vipEntrySubscribe").css("font-weight", "normal");
 		$("#vipEntry1 .vipEntryValidity").css("background-image", "url("+picRenew+")");
 		$("#vipEntry1 .vipEntryValidity").css("width", "314px");
-		if(_sourceSuperVIPInfo.validDate != 0){
-			var d = new Date(_sourceSuperVIPInfo.validDate * 1000);
+		if (_sourceDetailsArray[0].validDate != 0)
+		{
+			var d = new Date(_sourceDetailsArray[0].validDate * 1000);
 			var year = d.getFullYear();
 			var month = d.getMonth()+1;
 			var day = d.getDate();
@@ -325,9 +341,35 @@ function drawVipEntryZone() {//todo...
 			$("#vipEntry1 .vipEntryTimeTip").text(d);
 		}
 	}
-	//更新分年龄段的角标背景：
-	$("#vipEntry2 .vipEntryValidity").css("background-image", "url("+picOpen+")");
-	console.log("drawVipEntryZone out...");
+
+	// 教育VIP
+	if (_sourceDetailsArray[1].validType == 0 ){
+		console.log("用户没有开通超级VIP，显示立即开通");
+		$("#vipEntry2 .vipEntrySubscribe").text("立即开通");
+		$("#vipEntry2 .vipEntrySubscribe").css("font-weight", "bold");
+		$("#vipEntry2 .vipEntryValidity").css("background-image", "url("+picOpen+")");
+		$("#vipEntry2 .vipEntryValidity").css("width", "138px");
+		//默认已显示立即开通
+	} else {
+		console.log("用户已经开通超级VIP，显示立即续费和有效期");
+		$("#vipEntry2 .vipEntrySubscribe").text("立即续费");
+		$("#vipEntry2 .vipEntrySubscribe").css("font-weight", "normal");
+		$("#vipEntry2 .vipEntryValidity").css("background-image", "url("+picRenew+")");
+		$("#vipEntry2 .vipEntryValidity").css("width", "314px");
+		if (_sourceDetailsArray[1].validDate != 0)
+		{
+			var d = new Date(_sourceDetailsArray[1].validDate * 1000);
+			var year = d.getFullYear();
+			var month = d.getMonth()+1;
+			var day = d.getDate();
+			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
+			console.log("validity....."+d);
+			$("#vipEntry2 .vipEntryTimeTip").css("display", "inline-block");
+			$("#vipEntry2 .vipEntryTimeTip").text(d);
+		}
+	}
+
+	console.log("drawVipEntryZone finish...");
 }
 
 //ajax跨域，需要设置header，这种情况需要后台服务器配置Access-Control-Allow-Origin 
@@ -347,6 +389,7 @@ function getProductPackLists() {
 	//从后台获取产品源列表的测试接口
 //	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
 //	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";//测试接口
+//	var myUrl = "http://dev.business.video.tc.skysrt.com/v3/source/getSourceList.html";   //测试接口
 	var myUrl = "http://business.video.tc.skysrt.com/v3/source/getSourceList.html";//正式接口
 	var data = {
 			"user_flag": _userFlag,
@@ -466,7 +509,7 @@ function processKey() {
 	if (elId =="notLoginId") {
 		console.log("user start login, TVSource:"+_TVSource);
 		webBtnClickLog("教育VIP权益", "立即登录顶部");
-		startLogin(false);//教育不需要qq/weixin //startLogin((_TVSource == "tencent") ? true : false);
+		startLogin(false);         //教育不需要qq/weixin //startLogin((_TVSource == "tencent") ? true : false);
 	}else if(el.hasClass("vipEntry")) {
 		console.log("user start purchase");
 		//测试进入购买页面：
