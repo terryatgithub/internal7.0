@@ -92,7 +92,7 @@ var app = {
 
 	initialize: function() {
 		//yuanbotest PC debug start
-//		pageInit();
+		pageInit();
 		//PC debug end
 
 		this.bindEvents();
@@ -269,7 +269,7 @@ function showGoodDetailsPage() {
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
-	var count = 15;
+	var count = 6;//15;
 	for(var i = 0; i < count; i++) {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
@@ -281,27 +281,26 @@ function testAddmoreGoods() {
 	}
 	$(".goodsItemPlaceHolderClass").css("font-size", "32px");
 }
+//div:容器id； el：当前焦点元素$(this)
 function letEleInView(div, el) {
 	var scrollHeight = $("#"+div)[0].scrollHeight;
 	var clientHeight = $("#"+div)[0].clientHeight;
+	if(scrollHeight <= clientHeight) {
+		return ;//如果内容没有超出可视区域，不用翻页
+	}
+	//滚动后的可视区域
 	var scrollTop = $("#"+div)[0].scrollTop;
-	
-	//todo：研究下offsetTop是相对于parent的？
-	var divTop = 0;//$("#"+div)[0].offsetTop;
-	var elTop = el[0].offsetTop;
-	var offsetTopIn = elTop - divTop;
-	
-	console.log("isEleInView divTop:"+divTop + ",elTop:"+elTop);
-	
-	var elHeight = el[0].offsetHeight;
-	var offsetBottomIn = offsetTopIn + elHeight;
+	var scrollBottom = scrollTop + clientHeight;
+	//落焦元素的top、bottom
+	var offsetTopIn = el[0].offsetTop;
+	var offsetBottomIn = offsetTopIn + el[0].offsetHeight;
 	
 	console.log("isEleInView offsetTopIn:"+offsetTopIn + ",offsetBottomIn:"+offsetBottomIn);
 	console.log("isEleInView scrollTop:"+scrollTop + ",total top:"+(scrollTop+clientHeight));
-	
-	if(!((offsetTopIn >= scrollTop && offsetTopIn <= (scrollTop+clientHeight)) &&
-		(offsetBottomIn >= scrollTop && offsetBottomIn <= (scrollTop+clientHeight)))) {
-			$("#"+div)[0].scrollTop = offsetTopIn - (clientHeight-elHeight)/2;
+	//元素top和bottom都必须在可视区域内，否则就滚动：
+	if(!((offsetTopIn >= scrollTop && offsetTopIn <= scrollBottom) &&
+		(offsetBottomIn >= scrollTop && offsetBottomIn <= scrollBottom))) {
+			$("#"+div)[0].scrollTop = offsetTopIn - (clientHeight-el[0].offsetHeight)/2;
 			console.log("set offset: "+ $("#"+div)[0].scrollTop);
 	}
 }
