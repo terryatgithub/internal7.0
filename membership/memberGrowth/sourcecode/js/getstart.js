@@ -128,13 +128,13 @@ var app = {
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
 
-		$(".coocaa_btn").bind("itemClick", function() {
+		$(".coocaa_btn").unbind("itemClick").bind("itemClick", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("-click---" + _Lindex);
 			processKey();
 		});
 		
-		$(".coocaa_btn").bind("itemFocus", function() {
+		$(".coocaa_btn").unbind("itemFocus").bind("itemFocus", function() {
 			_Lindex = $(".coocaa_btn").index($(this));
 			console.log("-focus-----"+_Lindex);
 			scrollPage();
@@ -264,26 +264,10 @@ function scrollPage() {
 
 	var curEl = $(".coocaa_btn").eq(_Lindex);
 	var mytop = 0;	
-	var containerHeight = $(".innerContainer").height();
-	var $window = $(window);
-	var windowHeight = $window.height();
-	var headerHeight = $(".header").height();
-	var mytopMax = containerHeight - $window.height() + headerHeight;
-
-	console.log("scrollPage..cur id:"+ curEl.attr("id")+
-		" containerHeight"+containerHeight + " headerHeight"+headerHeight+" mytopMax"+mytopMax);
-	
-	if(curEl.hasClass("VirtualFocus1") == true) {
-		mytop = 0;
-	} else if(curEl.hasClass("VirtualFocus2")== true) {
-		mytop = $(".curveDivClass").height() + parseInt($(".rankPrivilege").css("top"))/2; 
-	} else if(curEl.hasClass("VirtualFocus3")== true) {
-		mytop = $(".curveDivClass").height() + $(".rankPrivilege").height() + 
-				parseInt($(".rankPrivilege").css("top")) + parseInt($(".coinsIntro").css("top"))/2;
-	} else {
-		return;
+	if(curEl.attr("id") == "btnEnterTask") {
+		mytop = 400;
 	}
-	console.log("scrollPage ....mytop:"+mytop + " "+containerHeight);
+	console.log("scrollPage ....mytop:"+mytop);
 
 	var container = $(".innerContainer");
 	container.css("transform", "translateY(-" + mytop + "px)");

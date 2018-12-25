@@ -66,7 +66,7 @@ _levelInfos = [
 	 	picBig: __uri("../img/lv5big.png"),
 		levelName:"专属客服", 
 		levelCondition:"Lv5（含）以上可解锁", 
-		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰。 <br/>服务热线：<br/>拨打专线400-168-8880"
+		levelDes:"有问题随时随地找客服，等待时间短，尊享贵宾服务，客服小伙伴优先解决您的困扰。 "
 	}
 	,{
 		level:6, 
