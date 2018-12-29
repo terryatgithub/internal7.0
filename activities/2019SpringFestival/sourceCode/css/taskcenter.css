@@ -141,49 +141,67 @@ body {
 	background-color: white;
 }
 
-/*互动问答页面*/
+/*弹窗类通用*/
 .taskcenterToastPageClass {
 	background-color: rgba(0,0,0,0.8) ;
 	display: none;
 }
-
 .taskcenterToastClass {
 	position: relative;
-	top: 50%;
+	top: 512px;
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	width: 890px;
-	height: 576px;
-	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/toastxmas.png');
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+/*互动问答页面*/ 
+#interlucationPageId .taskcenterToastClass {
+	width: 716px;
+	height: 369px;
+	background-image: url(../images/taskcenter/interlucationBg.png);
 }
 .taskcenterToastClass div{
 	position: absolute;
 	text-align: center;
-	font-size: 36px;
+	font-weight: bold;
 	color: white;
 }
 .interlucationTitleClass {
+	font-size: 32px;
 	width: 100%;
-	top: 30%;
+	top: 75px;
 }
 .interlucationBtnClass {
-	top: 55%;
-	left: 20%;
-	width: 220px;
-	height: 50px;
-	line-height: 50px;
-	background-color: green;
-	border: 2px solid black;
+	top: 153px;
+	left: 45px;
+	width: 308px;
+	height: 100px;
+	line-height: 100px;
+	font-size: 30px;
+	background-image: url(../images/taskcenter/interlucationBtn.png);
+	background-repeat: no-repeat;
+	background-position: 16px,27px;
+}
+.interlucationBtnClass[class~=btn-focus] {
+	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
+	background-position-x: 0;
+	background-position-y: 23px;
+}
+#interlucationTipId {
+	font-size: 20px;
+	top: 257px;
+	left: 280px;
 }
 #interlucationPageId .interlucationBtnClass:nth-child(3) {
-	left: 55%;
+	left: 368px;
 }
+
+/*任务完成弹窗页面*/
 #toastWhenClickTaskHasDoneId .interlucationBtnClass{
 	left: 40%;
 }
+
 /*付费商品展示页面*/
 .moreGoodsPageClass {
 	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/bgenve.png');

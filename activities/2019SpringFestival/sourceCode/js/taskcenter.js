@@ -88,7 +88,7 @@ var _tipsWhenClickTaskHasDone = [
 	}
 ]
 //随机浏览任务，分视频源：
-//todo：去掉subtask
+//todo：public String subTask;//任务类型：0其他浏览任务    1观看视频任务
 var missionlistTencent = [
     {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
     {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
