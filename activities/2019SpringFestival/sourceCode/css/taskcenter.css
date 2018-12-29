@@ -132,7 +132,7 @@ body {
 	margin-top: 15px;
 }
 .wechatHelpTipsClass span {
-	font-size: 25px;
+	font-size: 36px;
 }
 #wechatQrCodeId {
 	width: 320px;
@@ -154,12 +154,18 @@ body {
 	transform: translate(-50%,-50%);
 	background-repeat: no-repeat;
 	background-size: cover;
+	display: none;
 }
 /*互动问答页面*/ 
-#interlucationPageId .taskcenterToastClass {
+#interlucationQuestionToastId{
 	width: 716px;
 	height: 369px;
 	background-image: url(../images/taskcenter/interlucationBg.png);
+}
+#interlucationAnswerToastId{
+	width: 716px;
+	height: 369px;
+	background-image: url(../images/taskcenter/interlucationBgRight.png);
 }
 .taskcenterToastClass div{
 	position: absolute;
@@ -171,6 +177,12 @@ body {
 	font-size: 32px;
 	width: 100%;
 	top: 75px;
+}
+.interlucationTitleClass span {
+	color: rgb(255,246,0);
+}
+#interlucationAnswerToastId .interlucationTitleClass {
+	top: 210px;
 }
 .interlucationBtnClass {
 	top: 153px;
@@ -188,14 +200,18 @@ body {
 	background-position-x: 0;
 	background-position-y: 23px;
 }
+#interlucationAnswerToastId .interlucationBtnClass {
+	top: 250px;
+}
+.interlucationBtnClass:nth-child(3) {
+	left: 368px;
+}
 #interlucationTipId {
 	font-size: 20px;
 	top: 257px;
 	left: 280px;
 }
-#interlucationPageId .interlucationBtnClass:nth-child(3) {
-	left: 368px;
-}
+
 
 /*任务完成弹窗页面*/
 #toastWhenClickTaskHasDoneId .interlucationBtnClass{
