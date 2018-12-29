@@ -87,6 +87,36 @@ var _tipsWhenClickTaskHasDone = [
 		btnName: "去福卡集市"
 	}
 ]
+//随机浏览任务，分视频源：
+//todo：去掉subtask
+var missionlistTencent = [
+    {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
+    {business:"mall",type:"malldetail",param:{"id":"17933"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
+    {business:"movie",type:"vip",param:{"source_id":"5"},action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0},
+    {business:"ad",type:"video",action:"app_browser.intent.action.PLAYER",param:{ "extra.id": "","extra.uri":"http://v-play.coocaatv.com/0915/wushuang.mp4","extra.tips":"看视频得铃铛","extra.height": "","extra.width": "","extra.http_call_url": "","extra.type": "","extra.name": "" },countDownTime:10,"subTask":1},
+    {business:"movie",type:"videospecial",param:{"topicCode":"98"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
+    {business:"movie",type:"specialtopic",param:{"id":"103065"},action:"coocaa.intent.action.HOME_SPECIAL_TOPIC",countDownTime:10,"subTask":0},
+    {business:"movie",type:"videospecial",param:{"pTopicCode":"1183"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"10738"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"102831"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"103177"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
+]
+
+var missionlistYinhe = [
+    {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
+    {business:"mall",type:"malldetail",param:{"id":"17933"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
+    {business:"movie",type:"vip",param:{"source_id":"1"},action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0},
+    {business:"ad",type:"video",action:"app_browser.intent.action.PLAYER",param:{ "extra.id": "","extra.uri":"http://v-play.coocaatv.com/0915/wushuang.mp4","extra.tips":"看视频得铃铛","extra.height": "","extra.width": "","extra.http_call_url": "","extra.type": "","extra.name": "" },countDownTime:10,"subTask":1},
+    {business:"movie",type:"videospecial",param:{"topicCode":"98"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
+    {business:"movie",type:"specialtopic",param:{"id":"103099"},action:"coocaa.intent.action.HOME_SPECIAL_TOPIC",countDownTime:10,"subTask":0},
+    {business:"movie",type:"videospecial",param:{"pTopicCode":"1183"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"10738"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"102987"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
+    {business:"edu",type:"commonlist",param:{"id":"103178"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
+]
+
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
 var app = {
@@ -182,13 +212,31 @@ app.initialize();
 function pageInit() {
 	console.log("pageInit in...");
 	//todo 根据后台获取数据，给任务赋予不同id：
-	$(".taskItemClass").eq(0).attr("id", "weixinHelpTaskId");
-	$(".taskItemClass").eq(1).attr("id", "loginTaskId");
-	$(".taskItemClass").eq(2).attr("id", "browserTaskId");
-	$(".taskItemClass").eq(3).attr("id", "interlucationTaskId");
-	$(".taskItemClass").eq(4).attr("id", "payTaskId");
-	$(".taskItemClass").eq(5).attr("id", "adsTaskId");
+	$(".taskItemClass").eq(0).attr("id", "interlucationTaskId");
+	$(".taskItemClass").eq(1).attr("id", "browserTaskId");
+	//登录、视频任务根据后台确认：
+	$(".taskItemClass").eq(2).attr("id", "loginTaskId");
+//	$(".taskItemClass").eq(2).attr("id", "adsTaskId");
+	$(".taskItemClass").eq(3).attr("id", "payTaskId");
+	$(".taskItemClass").eq(4).attr("id", "weixinHelpTaskId");
 	
+	$(".taskIconClass").eq(0).css("background-image", "url(images/taskcenter/icontaskinterlucation.png)");
+	$(".taskIconClass").eq(1).css("background-image", "url(images/taskcenter/icontaskbrowser.png)");
+	//登录、视频任务根据后台确认：
+	$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontasklogin.png)");
+//	$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");
+	$(".taskIconClass").eq(3).css("background-image", "url(images/taskcenter/icontaskbuy.png)");
+	$(".taskIconClass").eq(4).css("background-image", "url(images/taskcenter/icontaskwechat.png)");
+	
+	$(".taskBtnClass").eq(0).css("background-image", "url(images/taskcenter/btndoing.png)");
+	$(".taskBtnClass").eq(1).css("background-image", "url(images/taskcenter/btndone.png)");
+	//登录、视频任务根据后台确认：
+	$(".taskBtnClass").eq(2).css("background-image", "url(images/taskcenter/btndotask.png)");
+//	$(".taskBtnClass").eq(2).css("background-image", "url(images/taskcenter/btndotask.png)");
+	$(".taskBtnClass").eq(3).css("background-image", "url(images/taskcenter/btnoncemore.png)");
+	$(".taskBtnClass").eq(4).css("background-image", "url(images/taskcenter/btndoing.png)");
+
+
 	$(".taskItemClass").attr("status", false);
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -323,10 +371,7 @@ function processKey(el) {
 			break;
 		case "browserTaskId":
 			//todo 
-			var url = _packlistUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
+			doRandomBrowserTask();
 			break;	
 		case "payTaskId":
 			$(".moreGoodsPageClass").css("display", "block");
@@ -448,6 +493,143 @@ function interlucationProcess(el) {
 			}, function(err){console.log("startNewBrowser error")});
 		}
 	}	
+}
+
+function doRandomBrowserTask() {
+    var apkVersion = [];
+    var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
+    var a = '{ "pkgList": ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"] }';
+    var randomMax = 11;//任务数
+    var randomNum = Math.floor(Math.random()*(randomMax));
+    console.log("做任务：======="+randomNum);
+    // return;
+    coocaaosapi.getAppInfo(a, function(message) {
+        console.log("getAppInfo====" + message);
+        for(var i=0;i<4;i++){
+            apkVersion.push(JSON.parse(message)[apkArry[i]].versionCode);
+        }
+        activityCenterVersion = apkVersion[0];
+        browserVersion = apkVersion[1];
+        mallVersion = apkVersion[2];
+        cAppVersion = apkVersion[3];
+        console.log("===activityCenterVersion=="+activityCenterVersion+"===browserVersion=="+browserVersion+"==mallVersion=="+mallVersion+"==cAppVersion=="+cAppVersion);
+        if(needQQ){
+            missionlist = missionlistTencent;
+        }else{
+            missionlist = missionlistYinhe;
+        }
+        if(activityCenterVersion<203000){
+            console.log("活动中心版本过低！！！！");
+            return;
+        }else if(missionlist[randomNum].business == "ad"){
+            if(browserVersion < 104022){
+                console.log("浏览器版本过低！！！！");
+                return;
+            }else {
+                if(_elkOver){
+                    startLowVersionAction(randomNum);
+                }else{
+                    startNewVersionAction(randomNum);
+                }
+            }
+        }else if(missionlist[randomNum].business == "movie" || missionlist[randomNum].business == "edu"){
+            if(cAppVersion < 3410022){
+                if(missionlist[randomNum].type == "videospecial"){
+                    if(cAppVersion<3300000){
+                        startLowVersionAction(4);
+                    }else{
+                        startLowVersionAction(randomNum);
+                    }
+                }else if(missionlist[randomNum].type == "specialtopic"){
+                    if(cAppVersion<3170001){
+                        startLowVersionAction(4);
+                    }else{
+                        startLowVersionAction(randomNum);
+                    }
+                }else{
+                    startLowVersionAction(randomNum);
+                }
+
+            }else{
+                if(_elkOver){
+                    startLowVersionAction(randomNum);
+                }else{
+                    startNewVersionAction(randomNum);
+                }
+            }
+        }else if(missionlist[randomNum].business == "mall"){
+            if(mallVersion < 31000020){
+                console.log("商城版本不支持apk添加=======调用加机会接口");
+                startLowVersionAction(randomNum);
+            }else{
+                if(_elkOver){
+                    startLowVersionAction(randomNum);
+                }else{
+                    startNewVersionAction(randomNum);
+                }
+            }
+        }
+    }, function(error) {
+        console.log("getAppInfo----error" + JSON.stringify(error));
+    });
+    function startLowVersionAction(randomNum){
+        if(!_elkOver){
+            console.log("加机会");
+            addChance(missionlist[randomNum].subTask);
+        }else{console.log("不加机会");}
+        var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
+        var str = "[]";
+        if(JSON.stringify(missionlist[randomNum].param) != "{}"){
+            str = '['+JSON.stringify(missionlist[randomNum].param).replace(/,/g,"},{")+']'
+        }
+        coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+    }
+    function startNewVersionAction(randomNum) {
+        var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
+        var str = "[]";
+        if(JSON.stringify(missionlist[randomNum].param) != "{}"){
+            str = '['+JSON.stringify(missionlist[randomNum].param).replace(/,/g,"},{")+']'
+        }
+        str = JSON.parse(str);
+        var external = {"taskId":taskId,"id":actionId,"userKeyId":userKeyId, "countDownTime":missionlist[randomNum].countDownTime, "verify_key":new Date().getTime()}
+        var doubleEggs_Active = {"doubleEggs_Active":external};
+        str.push(doubleEggs_Active);
+        str = JSON.stringify(str);
+        coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+    }
+    function addChance(taskType) {
+        var taskName = "跳转任务";
+        if(taskType == "1"){
+            taskName == "视频任务";
+        }
+        console.log("id==="+actionId+"======userKeyId===="+userKeyId+"===chanceSource===2====subTask===0====openid===="+cOpenId);
+        $.ajax({
+            type: "post",
+            async: true,
+            url: adressIp+"/light/xmas/add-chance",
+            data: {id:actionId,userKeyId:userKeyId,chanceSource:2,subTask:0,cOpenId:cOpenId},
+            dataType: "json",
+            success: function(data) {
+                console.log("------------addChance----result-------------"+JSON.stringify(data));
+                if(data.code == 50100){
+                    if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
+                    sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务完成","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
+                    _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"完成", '', '']);
+                }else{
+                    if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
+                    sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
+                    _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
+                }
+
+            },
+            error: function(error) {
+                console.log("--------访问失败" + JSON.stringify(error));
+                if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
+                sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
+                _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
+            }
+        });
+    }
 }
 //---------------------------------------------2019春节活动需要函数 end -----------------------------------------------
  

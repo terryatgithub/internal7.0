@@ -5,7 +5,7 @@
 body {
 	width: 1920px;
 	height: 1080px;
-	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/bgxmas.jpg');
+	background-image: url('../images/taskcenter/bg.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden;
@@ -16,50 +16,89 @@ body {
 	width: 100%;
 	height: 100%;
 }
-.taskItemClass {
-	position: relative;
-	width: 60%;
-	height: 150px;
-	left: 200px;
-	background-color: red;
-	margin-bottom: 30px;
-	padding: 50px 10px;
-	box-sizing: border-box;
+/*任务中心首页*/
+.taskItemClassBig {
+	display: inline-block;
+	position: absolute;
+	top: 315px;
+	left: 415px;
+	width: 552px;
+	height: 323px;
+	background-image: url(../images/taskcenter/divbig.png);
+	background-repeat: no-repeat;
+	background-position: 15px,25px;
 }
-.taskItemClass div{
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+.taskItemClassBig:nth-child(2) {
+	left: 960px;
+}
+.taskItemClassBig[class~='btn-focus'] {
+	background-image: url(../images/taskcenter/divbigfocus.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0,0;
+}
+.taskItemClass {
+	display: inline-block;
+	position: absolute;
+	top: 608px;
+	left: 375px;
+	width: 393px;
+	height: 304px;
+	background-image: url(../images/taskcenter/divsmall.png);
+	background-repeat: no-repeat;
+	background-position: 14px,25px;
+}
+.taskItemClass:nth-child(4) {
+	left: 765px;
+}
+.taskItemClass:nth-child(5) {
+	left: 1150px;
+}
+.taskItemClass[class~='btn-focus'] {
+	background-image: url(../images/taskcenter/divsmallfocus.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0,0;
+}
+[class^=taskItemClass] div{
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.taskIconClass {
+	top: 45px;
+	width: 126px;
+	height: 126px;
+	background-image: url(../images/taskcenter/taskbrowser.png);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .taskTipsClass {
-	position: relative;
-	width: 60%;
-	height: 100px;
-	line-height: 100px;
-	font-size: 32px;
-	color: white;
+	top: 182px;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	font-size: 24px;
+	text-align: center;
+	color: #FFD6A9;
+}
+.taskItemClass .taskTipsClass {
+	top: 172px;
+}
+.taskTipsClass span {
+	font-size: 33px;
+	color: #FFDC39;
 }
 .taskBtnClass{
-	position: absolute;
-	right: 30px;
-	width: 160px;
-	height: 55px;
-	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/btnUn.png');
+	bottom: 6px;
+	width: 167px;
+	height: 62px;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.taskBtnFocusClass {
-	position: absolute;
-	right: 0px;
-	width: 226px;
-	height: 86px;
-	background-image: url('http://beta.webapp.skysrt.com/yuanbo/test/materials/btnFocus.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	display: none;
-}
-.btn-focus .taskBtnFocusClass{
-	display: block;
+.taskItemClass .taskBtnClass {
+	bottom: 4px;
 }
 
 /*微信助力二维码页面*/
@@ -185,11 +224,4 @@ body {
 }
 .goodsItemClass[class~=btn-focus] {
 	background-image: url("http://beta.webapp.skysrt.com/yuanbo/test/materials/focus.png");		
-}
-
-
-.btn-focus{
-	/*border: 2px solid yellow;*/
-	-webkit-transform: scale(1.08);
-	transform: scale(1.08);
 }
