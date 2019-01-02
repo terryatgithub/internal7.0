@@ -75,8 +75,8 @@ var _interlucationsTipsArray = [
 //任务完成时的提示：
 var _tipsWhenClickTaskHasDone = [
 	{
-		title: "今日任务已完成啦~ <br/> 实施其它任务吧",
-		btnName: "好的"
+		title: "今日该任务已完成啦~ <br/> 试试其它任务吧！",
+		btnName: "好 的"
 	}
 	,{
 		title: "今日任务已经全部完成啦~ <br/> 任务每日更新，明天记得再来哦!",

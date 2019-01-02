@@ -201,7 +201,7 @@ body {
 	background-position-y: 23px;
 }
 #interlucationAnswerToastId .interlucationBtnClass {
-	top: 250px;
+	top: 240px;
 }
 .interlucationBtnClass:nth-child(3) {
 	left: 368px;
@@ -212,11 +212,67 @@ body {
 	left: 280px;
 }
 
-
 /*任务完成弹窗页面*/
-#toastWhenClickTaskHasDoneId .interlucationBtnClass{
-	left: 40%;
+#taskcenterTaskHasDoneToastId{
+	width: 716px;
+	height: 369px;
+	background-image: url(../images/taskcenter/interlucationBg.png);
 }
+#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnFocusClass {
+	top: 223px;
+	left: 216px;
+	width: 268px;
+	height: 72px;
+	background-image: url(../images/taskcenter/toastBtnFocus.png);
+	background-repeat: no-repeat;
+}
+#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass {
+	top: 235px;
+	left: 230px;
+	width: 241px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 33px;
+	color: #FFEEC2;
+	background-image: url(../images/taskcenter/toastBtn.png);
+	background-repeat: no-repeat;
+}
+#taskcenterTaskHasDoneToastId .interlucationTitleClass {
+	top: 85px;
+	font-size: 36px;
+	line-height: 70px;
+}
+/*拆卡机会弹窗*/
+#taskcenterDiscardToastId {
+	width: 517px;
+	height: 487px;
+	background-image: url(../images/taskcenter/toastDiscardBg.png);
+}
+#taskcenterDiscardToastId .interlucationTitleClass {
+	top: 275px;
+	font-size: 32px;
+	line-height: 40px;
+}
+#taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnFocusClass {
+	top: 355px;
+	left: 127px;
+	width: 268px;
+	height: 72px;
+	background-image: url(../images/taskcenter/toastBtnFocus.png);
+	background-repeat: no-repeat;
+}
+#taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnClass {
+	top: 367px;
+	left: 140px;
+	width: 241px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 25px;
+	color: #FFEEC2;
+	background-image: url(../images/taskcenter/toastBtn.png);
+	background-repeat: no-repeat;
+}
+
 
 /*付费商品展示页面*/
 .moreGoodsPageClass {
