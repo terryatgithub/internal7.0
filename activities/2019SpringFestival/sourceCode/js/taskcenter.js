@@ -412,7 +412,7 @@ function testAddmoreGoods() {
 	var len = $(".goodsItemClass").length;
 	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
 	for(i = 0; i < len; i++) {
-		$(".packGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
+		$(".moreGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
 		$(".goodsItemPlaceHolderClass").eq(i).text(i);
 		//如果有放大效果的话，需要给每个元素单独设置 上下左右的target,否则按上下键时焦点会乱（因为coocaakeymap算法的原因）
 	}
