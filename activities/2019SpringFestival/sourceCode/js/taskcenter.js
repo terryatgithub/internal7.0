@@ -114,7 +114,7 @@ var missionlistYinhe = [
 var app = {
 	initialize: function() {
 		//yuanbotest PC debug start
-//		pageInit();
+		testtest_initActivityInfo();
 		//PC debug end
 		this.bindEvents();
 	},
@@ -510,7 +510,7 @@ function doRandomBrowserTask() {
     function startLowVersionAction(randomNum){
         if(!_elkOver){
             console.log("加机会");
-            addChance(missionlist[randomNum].subTask);
+            addChanceWhenFinishTask(missionlist[randomNum].subTask);
         }else{console.log("不加机会");}
         var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
         var str = "[]";
@@ -526,49 +526,49 @@ function doRandomBrowserTask() {
             str = '['+JSON.stringify(missionlist[randomNum].param).replace(/,/g,"},{")+']'
         }
         str = JSON.parse(str);
-        var external = {"taskId":taskId,"id":actionId,"userKeyId":userKeyId, "countDownTime":missionlist[randomNum].countDownTime, "verify_key":new Date().getTime()}
+        var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "countDownTime":missionlist[randomNum].countDownTime, "verify_key":new Date().getTime()}
         var doubleEggs_Active = {"doubleEggs_Active":external};
         str.push(doubleEggs_Active);
         str = JSON.stringify(str);
         coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
     }
-    function addChance(taskType) {
-        var taskName = "跳转任务";
-        if(taskType == "1"){
-            taskName == "视频任务";
-        }
-        console.log("id==="+actionId+"======userKeyId===="+userKeyId+"===chanceSource===2====subTask===0====openid===="+cOpenId);
-        $.ajax({
-            type: "post",
-            async: true,
-            timeout: 10000,
-            url: _urlActivityServer+"/building/task/finish-task",
-            data: {taskId:taskId,activeId:actionId,userKeyId:userKeyId},//,chanceSource:2,subTask:0,cOpenId:cOpenId},
-            dataType: "json",
-            success: function(data) {
-                console.log("------------addChance----result-------------"+JSON.stringify(data));
-                if(data.code == 50100){
-                    if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
-                    sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务完成","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
-                    _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"完成", '', '']);
-                }else{
-                    if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
-                    sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
-                    _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
-                }
-
-            },
-            error: function(error) {
-                console.log("--------访问失败" + JSON.stringify(error));
+}
+//完成任务时，增加机会接口：
+//todo taskId:
+ function addChanceWhenFinishTask(taskType, taskId) {
+    var taskName = "跳转任务";
+    if(taskType == "1"){
+        taskName == "视频任务";
+    }
+    console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"=subTask===0====openid===="+cOpenId);
+    $.ajax({
+        type: "post",
+        async: true,
+        timeout: 10000,
+        url: _urlActivityServer+"/building/task/finish-task",
+        data: {taskId:taskId,activeId:_xMasNewYearActivityId,userKeyId:_activityId},//,chanceSource:2,subTask:0,cOpenId:cOpenId},
+        dataType: "json",
+        success: function(data) {
+            console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
+            if(data.code == 50100){
+                if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
+                sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务完成","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
+                _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"完成", '', '']);
+            }else{
                 if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
                 sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
                 _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
             }
-        });
-    }
-}
 
-//---------------------------------------------2019春节活动需要函数 end -----------------------------------------------
+        },
+        error: function(error) {
+            console.log("--------访问失败" + JSON.stringify(error));
+            if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
+            sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
+            _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
+        }
+    });
+}
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -893,6 +893,7 @@ function updateTaskInfoToPage(data) {
 				bFinished = true;
 			}
 			$(".coocaa_btn_taskcenter").eq(index).attr("status", bFinished);
+			$(".coocaa_btn_taskcenter").eq(index).attr("taskId", task.taskId);
 		}
 	}
 	$(".coocaa_btn_taskcenter").eq(0).attr("id", "interlucationTaskId");
@@ -968,4 +969,17 @@ function webBtnClickLog(button_name, button_type) {
 
 //PC端测试函数
 //获取我的礼物信息
- 
+function testtest_initActivityInfo(){
+	_macAddress = "001a9a000000";
+	_TVchip = "9S52";
+	_TVmodel = "Q4A";
+	_emmcCID = "1101003030384737300017c1438f6400";
+	_activityId = "16706858";
+	_access_token = "2.378b41b74eb048f795637b0d7d0d9aa6";
+	_openId = "1266ec9cd2b811e8a09700505687790a";
+	_nickName = "原博";
+	
+	initActivityInfo();
+}
+
+
