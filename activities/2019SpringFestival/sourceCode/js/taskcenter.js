@@ -4,6 +4,7 @@ var _xMasNewYearActivityId = 95;
 var _goldHouseActivityId = 90;//88;//90;
 var _buyActiveId = 91;//返利红包活动id
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
+var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码生成地址
 
 var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
 var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
@@ -13,7 +14,7 @@ var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pac
 //var _goldHouseActivityId = 99;
 //var _buyActiveId = 98;
 //var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
-
+//var _urlWechatHelp = "";//微信助力二维码生成地址
 //var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _mainHomeUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
 //-----------------------------正式上线需配置参数 end---------------------------------//
@@ -50,18 +51,18 @@ var _interlucationsArray = [
 //回答正确或错误时的提示和跳转
 var _interlucationsTipsArray = [
 	{
-		title: "恭喜回答正确! 获得1次抽奖机会",
+		title: "恭喜回答正确! <span>+1</span>次抽奖机会",
 		leftKey: "了解创维",
 		lefturl: _goldHouseUrl,
 		rightKey: "去抽卡",
-		righturl: _mainHomeUrl
+		righturl: "goActivityHome"
 	}
 	,{
 		title: "阿欧，回答错误！",
 		leftKey: "了解创维",
 		lefturl: _goldHouseUrl,
 		rightKey: "试试其它任务",
-		righturl: _mainHomeUrl
+		righturl: "goTaskCenterHome"
 	}
 ]
 //任务完成时的提示：
@@ -129,13 +130,13 @@ var app = {
 	onResume: function() {
 		console.log("onresume");
 		//确保有且只有一次会更新到：
-		if($(".coocaa_btn").eq(_Lindex).attr("id") == "loginTaskId" &&  _bUserLoginSuccess == true) {
+		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId" &&  _bUserLoginSuccess == true) {
 			console.log("onresume-用户登录成功");
-			 $(".coocaa_btn:eq("+_Lindex+") .taskBtnClass").css("background-image", 'url(images/taskcenter/btndone.png)');
 		}else {
 			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
 		}
+		getMyTasksList();
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -222,16 +223,18 @@ function getFirstUndoneTaskOrToast() {
 	if(i == len) { 
 		(_blessingMarketOpen == true) ? (taskStatus = 2) : (taskStatus = 1); 
 	}
-	$("#toastWhenClickTaskHasDoneId .interlucationTitleClass").html(_tipsWhenClickTaskHasDone[taskStatus].title);
-	$("#toastWhenClickTaskHasDoneId .interlucationBtnClass").text(_tipsWhenClickTaskHasDone[taskStatus].btnName);
+	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html(_tipsWhenClickTaskHasDone[taskStatus].title);
+	$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text(_tipsWhenClickTaskHasDone[taskStatus].btnName);
+	$("#taskcenterTaskHasDoneToastId").css("display", "block");
 	$("#toastWhenClickTaskHasDoneId").css("display", "block");
 	
 	map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
-	$(".coocaa_btn_taskcenter_toast").unbind().bind("itemClick", function() {
+	$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
 		//todo
 		if(taskStatus == 0) {
+			$("#taskcenterTaskHasDoneToastId").css("display", "none");
 			$("#toastWhenClickTaskHasDoneId").css("display", "none");		
-			map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn").eq(_Lindex), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), 'btn-focus', function() {}, function(val) {}, function(obj) {});
 		}else if(taskStatus == 1){
 			//todo 跳到庙会
 			//当前页面要关闭吗？
@@ -257,7 +260,8 @@ function getFirstUndoneTaskOrToast() {
 }
 function processKey(el) {
 	var curId = el.attr("id");
-	console.log("processKey curId: "+ curId);
+	var taskId = el.attr("taskId");
+	console.log("processKey curId: "+ curId + ",taskId:"+taskId);
 	//根据后台获取数据，对任务赋予不同id：
 //	1.微信好友助力
 //	2.登录任务
@@ -275,9 +279,9 @@ function processKey(el) {
 		case "weixinHelpTaskId":
 			$(".wechatHelpPageClass").css("display", "block");
 			//todo 新btn获取焦点后，移动按键时，coocaa_btn是否也会移动？ 试下
-			map = new coocaakeymap($(".coocaa_btn_wechat"), $(".coocaa_btn_wechat").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
-//			$(".coocaa_btn").unbind();
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_wechat"), $(".coocaa_btn_taskcenter_wechat").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
 			//todo 生成微信助力二维码
+			getEncryptKeyForWechat(taskId);
 			break;
 		case "loginTaskId":
 			startLogin(needQQ);
@@ -285,28 +289,29 @@ function processKey(el) {
 		case "interlucationTaskId":
 			//显示问题和答案
 			var index = getQuestionIndex();
-			$(".interlucationTitleClass").text(_interlucationsArray[index].question);
-			$(".interlucationBtnClass").eq(0).text(_interlucationsArray[index].answerA);
-			$(".interlucationBtnClass").eq(1).text(_interlucationsArray[index].answerB);
+			$("#interlucationQuestionToastId .interlucationTitleClass").text(_interlucationsArray[index].question);
+			$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).text(_interlucationsArray[index].answerA);
+			$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).text(_interlucationsArray[index].answerB);
 			if(_interlucationsArray[index].right == "A") { //根据答案设置元素属性
-				$(".interlucationBtnClass").eq(0).attr("correct", true);
-				$(".interlucationBtnClass").eq(1).attr("correct", false);	
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", true);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", false);	
 			}else {
-				$(".interlucationBtnClass").eq(0).attr("correct", false);
-				$(".interlucationBtnClass").eq(1).attr("correct", true);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", false);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", true);
 			}
 
-			$(".interlucationBtnClass").attr("round", "firstRound");//第一轮回答
+			$("#interlucationQuestionToastId .interlucationBtnClass").attr("round", "firstRound");//第一轮回答
+			
+			$("#interlucationQuestionToastId").css("display", "block");
 			$("#interlucationPageId").css("display", "block");
-//			$(".coocaa_btn").unbind();	
-			map = new coocaakeymap($(".coocaa_btn_question"), $(".coocaa_btn_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			$(".coocaa_btn_question").unbind().bind("itemClick", function() {
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_question"), $(".coocaa_btn_taskcenter_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_taskcenter_question").unbind().bind("itemClick", function() {
 				interlucationProcess($(this));
 			});
 			break;
 		case "browserTaskId":
 			//todo 
-			doRandomBrowserTask();
+			doRandomBrowserTask(taskId);
 			break;	
 		case "payTaskId":
 			$(".moreGoodsPageClass").css("display", "block");
@@ -391,46 +396,68 @@ function interlucationProcess(el) {
 		console.log("answer right or wrong: "+b);
 		if(b == "true") {//回答正确
 			//提示
-			$(".interlucationTitleClass").text(_interlucationsTipsArray[0].title);
+			$("#interlucationQuestionToastId").css("display", "none");
+			$("#interlucationAnswerToastId").css("display", "block");
+			
+			$("#interlucationAnswerToastId .interlucationTitleClass").html(_interlucationsTipsArray[0].title);
 			//左键
-			$(".interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
-			$(".interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[0].lefturl);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[0].lefturl);
 			//右键
-			$(".interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
-			$(".interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
+			//todo 加机会
+			
 		} else {//回答错误
 			//提示
-			$(".interlucationTitleClass").text(_interlucationsTipsArray[1].title);
+			$("#interlucationQuestionToastId").css("display", "none");
+			$("#interlucationAnswerToastId").css("display", "block");
+			
+			$("#interlucationAnswerToastId .interlucationTitleClass").text(_interlucationsTipsArray[1].title);
 			//左键
-			$(".interlucationBtnClass").eq(0).text(_interlucationsTipsArray[1].leftKey);
-			$(".interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[1].lefturl);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[1].leftKey);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[1].lefturl);
 			//右键
-			$(".interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
-			$(".interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
+			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
 		}
 		//设为第二轮
-		$(".interlucationBtnClass").attr("round", "secondRound");
-		map = new coocaakeymap($(".coocaa_btn_question"), $(".coocaa_btn_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		$("#interlucationAnswerToastId .interlucationBtnClass").attr("round", "secondRound");
+		map = new coocaakeymap($(".coocaa_btn_taskcenter_question"), $(".coocaa_btn_taskcenter_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	}else if(round == "secondRound") {
 		var url = el.attr("url");
+		//todo :
+//		回答正确 左键:了解创维  右键:去抽卡
+//		回答错误 左键:了解创维  右键:试试其他任务
 		console.log("answer url:" + url);
-		if(b == true) {//左键处理
-			//todo (注意修改正确的api)：
-			//了解创维
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
-		}else {//右键处理
-			//todo (注意修改正确的api)：
-			//去抽卡，或试试其它任务
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
+		switch(url) {
+			case _interlucationsTipsArray[0].righturl: //回答正确右键
+				//todo
+				console.log("去抽卡");
+				coocaaosapi.startNewBrowser(url, function(success){
+					console.log("startNewBrowser success");
+				}, function(err){console.log("startNewBrowser error")});	
+				break;
+			case _interlucationsTipsArray[0].lefturl: //回答正确左键
+			case _interlucationsTipsArray[1].lefturl: //回答错误左键
+				//todo
+				console.log("了解创维");
+				coocaaosapi.startNewBrowser(url, function(success){
+					console.log("startNewBrowser success");
+				}, function(err){console.log("startNewBrowser error")});	
+				break;
+			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务：
+				$("#interlucationAnswerToastId").css("display", "none");
+				$("#interlucationPageId").css("display", "none");
+				//todo 焦点放在其他任务：
+				
+				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+				break;
 		}
 	}	
 }
 
-function doRandomBrowserTask() {
+function doRandomBrowserTask(taskId) {
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
     var a = '{ "pkgList": ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"] }';
@@ -461,11 +488,7 @@ function doRandomBrowserTask() {
                 console.log("浏览器版本过低！！！！");
                 return;
             }else {
-                if(_elkOver){
-                    startLowVersionAction(randomNum);
-                }else{
-                    startNewVersionAction(randomNum);
-                }
+                startNewVersionAction(randomNum);
             }
         }else if(missionlist[randomNum].business == "movie" || missionlist[randomNum].business == "edu"){
             if(cAppVersion < 3410022){
@@ -486,32 +509,23 @@ function doRandomBrowserTask() {
                 }
 
             }else{
-                if(_elkOver){
-                    startLowVersionAction(randomNum);
-                }else{
-                    startNewVersionAction(randomNum);
-                }
+                startNewVersionAction(randomNum);
             }
         }else if(missionlist[randomNum].business == "mall"){
             if(mallVersion < 31000020){
                 console.log("商城版本不支持apk添加=======调用加机会接口");
                 startLowVersionAction(randomNum);
             }else{
-                if(_elkOver){
-                    startLowVersionAction(randomNum);
-                }else{
-                    startNewVersionAction(randomNum);
-                }
+                startNewVersionAction(randomNum);
             }
         }
     }, function(error) {
         console.log("getAppInfo----error" + JSON.stringify(error));
     });
     function startLowVersionAction(randomNum){
-        if(!_elkOver){
-            console.log("加机会");
-            addChanceWhenFinishTask(missionlist[randomNum].subTask);
-        }else{console.log("不加机会");}
+        console.log("加机会");
+        addChanceWhenFinishTask(missionlist[randomNum].subTask, taskId);
+        
         var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
         var str = "[]";
         if(JSON.stringify(missionlist[randomNum].param) != "{}"){
@@ -536,6 +550,7 @@ function doRandomBrowserTask() {
 //完成任务时，增加机会接口：
 //todo taskId:
  function addChanceWhenFinishTask(taskType, taskId) {
+ 	console.log("taskType:"+taskType+",taskId:"+taskId);
     var taskName = "跳转任务";
     if(taskType == "1"){
         taskName == "视频任务";
@@ -551,21 +566,13 @@ function doRandomBrowserTask() {
         success: function(data) {
             console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
             if(data.code == 50100){
-                if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
-                sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务完成","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
-                _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"完成", '', '']);
+            	
             }else{
-                if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
-                sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
-                _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
+            	
             }
-
         },
         error: function(error) {
             console.log("--------访问失败" + JSON.stringify(error));
-            if(goldHouseIsOpen == "1"){goldHouseStation = "黄金小屋未开启";}else if(goldHouseIsOpen == "2"){goldHouseStation = "黄金小屋已开启";}else{goldHouseStation = "黄金小屋已关闭";}
-            sentLog("task_finished",'{"task_type":"'+taskName+'","task_result":"麋鹿任务失败","page_name":"圣诞小屋页面","activity_name":"双旦活动-麋鹿任务页面","page_type":"'+goldHouseStation+'"}');
-            _czc.push(['_trackEvent', '双旦活动-麋鹿任务页面', '圣诞小屋页面'+goldHouseStation, taskName+"失败", '', '']);
         }
     });
 }
@@ -779,6 +786,9 @@ function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
 		console.log("用户登录成功.");
 		_bUserLoginSuccess = true;
+		 //后台加机会，并根据后台数据处理：
+		 var taskId = $(".coocaa_btn_taskcenter").eq(_Linex).attr("taskId");
+		 addChanceWhenFinishTask(0, taskId);
 	});
 }
 //活动初始化
@@ -914,7 +924,7 @@ function updateTaskInfoToPage(data) {
 	$(".taskIconClass").eq(4).css("background-image", "url(images/taskcenter/icontaskwechat.png)");
 
 	//触发按键
-	map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	$(".coocaa_btn_taskcenter").unbind("itemClick").bind("itemClick", function() {
 		_Lindex = $(".coocaa_btn_taskcenter").index($(this));
 		console.log("itemClick _Lindex = " + _Lindex);
@@ -940,7 +950,60 @@ function updateTaskInfoToPage(data) {
 		});
 	}
 }
-
+//微信分享-获取电视的加密key
+function getEncryptKeyForWechat(taskId) {
+	console.log("getEncryptKeyForWechat in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
+	var ajaxTimeoutOne = $.ajax({
+		type: "post",
+		async: true,
+		timeout: 10000,
+		dataType: 'json',
+		url: _urlActivityServer + "/building/share/encrypt",
+		data: {
+			//公共参数-start-
+			"MAC": _macAddress,
+			"cChip": _TVchip,
+			"cModel": _TVmodel,
+			"cEmmcCID": _emmcCID,
+			"cUDID": _activityId, 
+			"accessToken": _access_token,
+			"cOpenId": _openId,
+			"cNickName": _nickName,
+			//公共参数-end-
+			"taskId":taskId,
+			"id": _xMasNewYearActivityId
+		},
+		success: function(data) {
+			console.log(JSON.stringify(data));
+			if(data.code == "50100") { //服务器返回正常
+				if(data.data!=null) { //
+					//todo 获取正式的key
+					getWechatHelpQr();
+				}
+			}
+		},
+		error: function(err) {
+			console.log(err);
+		},
+		complete: function(XMLHttpRequest, status) {　　　　
+			console.log("-------------complete------------------" + status);
+			if(status == 'timeout') {　　　　　
+				ajaxTimeoutOne.abort();　　　　
+			}
+		}
+	});	
+}
+//生成微信助力二维码
+function getWechatHelpQr() {
+	document.getElementById("wechatQrCodeId").innerHTML = "";
+	var testkey = "7e05e697ba2384df17ac35b7f35c3cc9f60dace357b6392ff12d4af6710108b2932044bfa440d1e524eab416d4048aca";
+	var str = _urlWechatHelp + testkey;
+	var qrcode = new QRCode(document.getElementById("wechatQrCodeId"), {
+		width: 320,
+		height: 320
+	});
+	qrcode.makeCode(str);
+}
 //获取url中的参数
 function getQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
