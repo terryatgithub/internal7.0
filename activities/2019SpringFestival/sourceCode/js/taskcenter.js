@@ -191,7 +191,8 @@ var app = {
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
 			$(".moreGoodsPageClass").css("display", "none");
-			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			//需要刷新任务状态
+			getMyTasksList();
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
 			$("#toastWhenClickTaskHasDoneId").css("display", "none");
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -509,7 +510,17 @@ function showGoodDetailsPage(index) {
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
-	var count = 9;
+	//step 1: 要先删掉之前添加的商品,避免重复
+	var count = $(".goodsItemClass").length;
+	console.log("count:"+count);
+	if(count >= 2) {
+		for(var i = count-1; i >= 1 ; i--) {
+			$(".goodsItemClass").eq(i).remove();	
+		}
+	}
+	
+//	step 2:添加新商品:
+	count = 9;
 	for(var i = 0; i < count; i++) {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
