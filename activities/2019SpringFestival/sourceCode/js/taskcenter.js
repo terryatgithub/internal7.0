@@ -28,6 +28,8 @@ var _qsource, needQQ=false; //视频源
 
 //福卡集市是否开放
 var _blessingMarketOpen = false; //isTrade
+//广告视频数据,广告任务id：
+var ADMsg = null, _adsTaskId=undefined;
 
 //
 var _Lindex = 0;//主页当前焦点
@@ -115,7 +117,7 @@ var missionlistYinhe = [
 var app = {
 	initialize: function() {
 		//yuanbotest PC debug start
-		testtest_initActivityInfo();
+//		testtest_initActivityInfo();
 		//PC debug end
 		this.bindEvents();
 	},
@@ -135,7 +137,6 @@ var app = {
 			getMyTasksList();
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
-			
 		}else {
 			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
@@ -171,9 +172,26 @@ var app = {
 			navigator.app.exitApp();
 		}
 	},
+	registerEventHandler: function() {
+		console.log("registerEventHandler---");
+		coocaaosapi.addCommonListener(function(message) {
+			console.log("--------------->commonListen==" + message.web_player_event);
+			if(message.web_player_event == "on_complete") {
+				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
+				sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString());
+				sentThirdAdshow("videoEnd",ADMsg);
+				//加机会
+				addChanceWhenFinishTask("",_adsTaskId);
+				//数据复位
+				ADMsg = null;
+				_adsTaskId = undefined;
+			}
+		});		
+	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
 		_appversion = accountVersion;
+		app.registerEventHandler();
 		getDeviceInfo();
 		listenUserChange();
 	}
@@ -337,13 +355,78 @@ function processKey(el) {
 			break;		
 		case "adsTaskId":
 			//todo 观看广告 
-			var url = _mainHomeUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
+			doPlayAdsTask(taskId);
 			break;		
 	}
 }
+//播放广告任务
+function doPlayAdsTask(taskId) {
+	//todo 
+	selectAd("CCADTV10015","","","","",_xMasNewYearActivityId.toString(),taskId.toString());
+}
+//获取广告信息
+function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id){
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@");
+    coocaaosapi.getAdData(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
+        console.log("getAdData===="+msg);
+        ADMsg = JSON.parse(msg);
+        console.log("getAdData====ADMsg:"+ADMsg);
+        if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
+        	console.log("广告请求超时----显示超时弹窗");
+        	//todo
+        }else {
+	        if(ADMsg.total > 0){
+	            //广告曝光
+	            _adsTaskId = task_id;
+				sentInnerAdshow(ADMsg,"","","","",activity_id,task_id);
+				sentThirdAdshow("video",ADMsg);
+				sentThirdAdshow("videoStart",ADMsg);
+	            var url = JSON.parse(msg).schedules[0].content;
+	            console.log("广告数据正常^^^^^^^^url:"+url);
+	            //播放视频广告
+				coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
+					console.log(message);
+				}, function(error) {
+					console.log("startCommonWebview-"+error);
+				});
+	        }else{
+	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^");
+	            //todo
+	        }
+        }
+    },function (error) {console.log("getAdData===="+error);});
+}
+//广告内部提交
+function sentInnerAdshow(msg,game_id,game_scene,game_panel,game_position,activity_id,task_id) {
+    coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]),game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
+        console.log("sentInnerAdshow success==="+msg);
+    },function (err) {
+        console.log("sentInnerAdshow err==="+err);
+    })
+}
+//广告第三方监测
+function sentThirdAdshow(type,msg) {
+    var thirdUrl = "";
+    if(type == "video"){
+        thirdUrl = JSON.stringify(msg.schedules[0].track_url);
+    }
+    else if(type == "videoStart"){
+        thirdUrl = JSON.stringify(msg.schedules[0].player_start_tracks);
+    }
+    else if(type == "videoEnd"){
+        thirdUrl = JSON.stringify(msg.schedules[0].player_end_tracks);
+    }
+    //todo     player_start_tracks是数组，需要传所有数组内容
+    for(var i = 0; i < thirdUrl.length; i++) {
+    	console.log("i:"+i+", 广告监测地址 url:"+thirdUrl[i]);
+	    coocaaosapi.submitThirdAdData(thirdUrl[i],msg.schedules[0].schedule_id,msg.schedules[0].order_id,msg.schedules[0].adspace_id,function (msg) {
+	        console.log("submitThirdAdData  success==="+msg);
+	    },function (err) {
+	        console.log("submitThirdAdData  err==="+err);
+	    })
+    }
+}
+
 function showGoodDetailsPage() {
 	//todo 跳转产品包 
 	var url = _mainHomeUrl;
@@ -808,7 +891,7 @@ function listenUserChange() {
 		console.log("用户登录成功.");
 		_bUserLoginSuccess = true;
 		 //后台加机会，并根据后台数据处理：
-		 var taskId = $(".coocaa_btn_taskcenter").eq(_Linex).attr("taskId");
+		 var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
 		 addChanceWhenFinishTask(0, taskId);
 	});
 }

@@ -993,8 +993,39 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
         ], success, error);
     }
 
+    /*
+     *获取广告数据【图文广告传appid+game_id,game_scene,game_panel,game_position】【视频广告传appid+activity_id,task_id,】
+     */
+    CoocaaOSApi.prototype.getAdData = function(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,success,error){
+        argscheck.checkArgs('sssssssff','CoocaaOSApi.getAdData',arguments);
+        exec(success,error,'CoocaaOSApi','callAdBusiness',[{'action':'getAdData'},{'appid':appid,'params':{'game_id':game_id,'game_scene':game_scene,'game_panel':game_panel,'game_position':game_position,'activity_id':activity_id,'task_id':task_id}}]);
+    }
 
+    /*
+     *提交内部广告数据
+     */
+    CoocaaOSApi.prototype.submitAdData = function(ad_base_info,game_id,game_scene,game_panel,game_position,activity_id,task_id,success,error){
+        argscheck.checkArgs('sssssssff','CoocaaOSApi.submitAdData',arguments);
+        exec(success,error,'CoocaaOSApi','callAdBusiness',[{'action':'submitCoocaaData'},{'baseinfo':ad_base_info,'eventid':'ad_show','params':{'game_id':game_id,'game_scene':game_scene,'game_panel':game_panel,'game_position':game_position,'activity_id':activity_id,'task_id':task_id}}]);
+    }
 
+    /*
+     *提交第三方广告数据
+     */
+    CoocaaOSApi.prototype.submitThirdAdData = function(url,scheduleId,orderId,adSpaceId,success,error){
+        argscheck.checkArgs('ssssff','CoocaaOSApi.submitThirdAdData',arguments);
+        var trackUrl = JSON.parse(url);
+        exec(success,error,'CoocaaOSApi','callAdBusiness',[{'action':'submitThirdData'},{'scheduleId':scheduleId,'orderId':orderId,'adSpaceId':adSpaceId}, {'trackUrl':trackUrl}]);
+    }
+    // 拓展参数[{key1:"value1"},{key2:"value2"}]
+    //用activity方式启动：1,2传参为包名、类名；3、4、5为空；
+    //用其他方式启动，1传参"action",2\3\4\5可选---2action名、5uri地址
+    CoocaaOSApi.prototype.startCommonNormalAction = function(param1,param2,param3,param4,param5, str, success, error) {
+        console.log("启动传参action")
+        argscheck.checkArgs('ssssssff', 'CoocaaOSApi.startCommonNormalAction', arguments);
+        str = JSON.parse(str);
+        startapp.start([[param1,param2,param3,param4,param5],str], success, error);
+    }
     //启动新版本浏览器【无路径，即不启动多层activity】
     //##启动方式 
         // ###透明主题 
