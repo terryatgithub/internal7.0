@@ -27,7 +27,7 @@ var _appversion, accountVersion, _deviceInfo;
 var _qsource, needQQ=false; //视频源
 
 //福卡集市是否开放
-var _blessingMarketOpen = false;
+var _blessingMarketOpen = false; //isTrade
 
 //
 var _Lindex = 0;//主页当前焦点
@@ -306,7 +306,7 @@ function processKey(el) {
 			$("#interlucationPageId").css("display", "block");
 			map = new coocaakeymap($(".coocaa_btn_taskcenter_question"), $(".coocaa_btn_taskcenter_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			$(".coocaa_btn_taskcenter_question").unbind().bind("itemClick", function() {
-				interlucationProcess($(this));
+				interlucationProcess($(this), taskId);
 			});
 			break;
 		case "browserTaskId":
@@ -319,11 +319,13 @@ function processKey(el) {
 			//yuanbotest -start
 			testAddmoreGoods();
 			//yuanbotest -end
-			map = new coocaakeymap($(".coocaa_btn_moregoods"), $(".coocaa_btn_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-			$(".coocaa_btn_moregoods").unbind("itemClick").bind("itemClick", function() {
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_moregoods"), $(".coocaa_btn_taskcenter_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_taskcenter_moregoods").unbind("itemClick").bind("itemClick", function() {
 				showGoodDetailsPage();
+				//todo 产品包跳转
+				console.log("购物任务-产品包跳转");
 			});
-			$(".coocaa_btn_moregoods").unbind("itemFocus").bind("itemFocus", function() {
+			$(".coocaa_btn_taskcenter_moregoods").unbind("itemFocus").bind("itemFocus", function() {
 				moreGoodsFocusShift($(this));
 			});
 			break;		
@@ -356,7 +358,6 @@ function testAddmoreGoods() {
 		$(".goodsItemPlaceHolderClass").eq(i).text(i);
 		//如果有放大效果的话，需要给每个元素单独设置 上下左右的target,否则按上下键时焦点会乱（因为coocaakeymap算法的原因）
 	}
-	$(".goodsItemPlaceHolderClass").css("font-size", "32px");
 }
 //div:容器id； el：当前焦点元素$(this)
 function letEleInView(div, el) {
@@ -388,7 +389,7 @@ function moreGoodsFocusShift(el) {
 
 //互动问答处理函数 
 //todo:最终定下后优化流程
-function interlucationProcess(el) {
+function interlucationProcess(el, taskId) {
 	var round = el.attr("round");
 	console.log("interlucationProcess round:" + round);
 	if(round == "firstRound") {//第一轮回答
@@ -407,7 +408,7 @@ function interlucationProcess(el) {
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
 			//todo 加机会
-			
+			addChanceWhenFinishTask(0, taskId);
 		} else {//回答错误
 			//提示
 			$("#interlucationQuestionToastId").css("display", "none");
@@ -421,9 +422,14 @@ function interlucationProcess(el) {
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
 		}
+		//todo 上报后台任务已完成：
+		
 		//设为第二轮
 		$("#interlucationAnswerToastId .interlucationBtnClass").attr("round", "secondRound");
-		map = new coocaakeymap($(".coocaa_btn_taskcenter_question"), $(".coocaa_btn_taskcenter_question").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		map = new coocaakeymap($(".coocaa_btn_taskcenter_answer"), $(".coocaa_btn_taskcenter_answer").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+		$(".coocaa_btn_taskcenter_answer").unbind().bind("itemClick", function() {
+			interlucationProcess($(this));
+		});
 	}else if(round == "secondRound") {
 		var url = el.attr("url");
 		//todo :
