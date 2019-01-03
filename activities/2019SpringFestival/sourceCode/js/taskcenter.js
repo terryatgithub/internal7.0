@@ -132,11 +132,15 @@ var app = {
 		//确保有且只有一次会更新到：
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId" &&  _bUserLoginSuccess == true) {
 			console.log("onresume-用户登录成功");
+			getMyTasksList();
+		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
+			console.log("onresume-互动问答页面存在");
+			
 		}else {
 			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
+			getMyTasksList();
 		}
-		getMyTasksList();
 	},
 	onDeviceReady: function() {
 		app.receivedEvent("deviceready");
@@ -154,6 +158,8 @@ var app = {
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($("#interlucationPageId").css("display") == "block") { //从互动问答页面返回
 			$("#interlucationPageId").css("display", "none");
+			$("#interlucationQuestionToastId").css("display", "none");
+			$("#interlucationAnswerToastId").css("display", "none");
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
 			$(".moreGoodsPageClass").css("display", "none");
@@ -400,6 +406,8 @@ function interlucationProcess(el, taskId) {
 			$("#interlucationQuestionToastId").css("display", "none");
 			$("#interlucationAnswerToastId").css("display", "block");
 			
+			$("#interlucationAnswerToastId").css("background-image", "url(images/taskcenter/interlucationBgRight.png)");
+			
 			$("#interlucationAnswerToastId .interlucationTitleClass").html(_interlucationsTipsArray[0].title);
 			//左键
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
@@ -407,12 +415,12 @@ function interlucationProcess(el, taskId) {
 			//右键
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
-			//todo 加机会
-			addChanceWhenFinishTask(0, taskId);
 		} else {//回答错误
 			//提示
 			$("#interlucationQuestionToastId").css("display", "none");
 			$("#interlucationAnswerToastId").css("display", "block");
+			//错误背景图
+			$("#interlucationAnswerToastId").css("background-image", "url(images/taskcenter/interlucationBgWrong.png)");
 			
 			$("#interlucationAnswerToastId .interlucationTitleClass").text(_interlucationsTipsArray[1].title);
 			//左键
@@ -423,6 +431,8 @@ function interlucationProcess(el, taskId) {
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
 		}
 		//todo 上报后台任务已完成：
+		var askResult = (b == "true") ? 1 : 0; //回答是否正确
+		addChanceWhenFinishTask(0, taskId, askResult);		
 		
 		//设为第二轮
 		$("#interlucationAnswerToastId .interlucationBtnClass").attr("round", "secondRound");
@@ -555,19 +565,24 @@ function doRandomBrowserTask(taskId) {
 }
 //完成任务时，增加机会接口：
 //todo taskId:
- function addChanceWhenFinishTask(taskType, taskId) {
+ function addChanceWhenFinishTask(taskType, taskId, askResult, shareId) {
  	console.log("taskType:"+taskType+",taskId:"+taskId);
     var taskName = "跳转任务";
     if(taskType == "1"){
         taskName == "视频任务";
     }
-    console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"=subTask===0====openid===="+cOpenId);
+    console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"=subTask===0====_openId===="+_openId);
     $.ajax({
         type: "post",
         async: true,
         timeout: 10000,
         url: _urlActivityServer+"/building/task/finish-task",
-        data: {taskId:taskId,activeId:_xMasNewYearActivityId,userKeyId:_activityId},//,chanceSource:2,subTask:0,cOpenId:cOpenId},
+        data: {
+        		taskId:taskId
+        		,activeId:_xMasNewYearActivityId
+        		,userKeyId:_activityId
+        		,askResult: askResult
+        },//,chanceSource:2,subTask:0,cOpenId:_openId},
         dataType: "json",
         success: function(data) {
             console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
