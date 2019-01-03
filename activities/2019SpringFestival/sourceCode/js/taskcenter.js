@@ -112,6 +112,30 @@ var missionlistYinhe = [
     {business:"edu",type:"commonlist",param:{"id":"103178"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
 ]
 
+var moreGoodsTencent = [
+	 {name:"影视产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "0", "source_id": "5"}}
+	,{name:"教育产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "1", "source_id": "58"}, versionCode: "1"}
+	,{name:"视频商品6475", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "6475"}, versionCode: "30800028"}
+	,{name:"视频商品17076", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17076"}, versionCode: "30800028"}
+	,{name:"视频商品17074", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17074"}, versionCode: "30800028"}
+	,{name:"视频商品17740", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17740"}, versionCode: "30800028"}
+	,{name:"视频商品18430", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18430"}, versionCode: "30800028"}
+	,{name:"视频商品18429", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18429"}, versionCode: "30800028"}
+	,{name:"视频商品18428", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18428"}, versionCode: "30800028"}
+	,{name:"更多", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_LIST_ZONE", param:{"pageId": "193"}, versionCode: "30700012"}
+]
+var moreGoodsYinhe = [
+	 {name:"影视产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "0", "source_id": "1"}}
+	,{name:"教育产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "1", "source_id": "57"}, versionCode: "1"}
+	,{name:"视频商品6475", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "6475"}, versionCode: "30800028"}
+	,{name:"视频商品17076", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17076"}, versionCode: "30800028"}
+	,{name:"视频商品17074", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17074"}, versionCode: "30800028"}
+	,{name:"视频商品17740", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17740"}, versionCode: "30800028"}
+	,{name:"视频商品18430", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18430"}, versionCode: "30800028"}
+	,{name:"视频商品18429", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18429"}, versionCode: "30800028"}
+	,{name:"视频商品18428", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18428"}, versionCode: "30800028"}
+	,{name:"更多", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_LIST_ZONE", param:{"pageId": "193"}, versionCode: "30700012"}
+]
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
 var app = {
@@ -137,7 +161,10 @@ var app = {
 			getMyTasksList();
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
-		}else {
+		}else if($(".moreGoodsPageClass").css("display") == "block") {
+			console.log("onresume-更多商品页面存在");
+			
+		} else {
 			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
 			getMyTasksList();
@@ -348,7 +375,8 @@ function processKey(el) {
 			//yuanbotest -end
 			map = new coocaakeymap($(".coocaa_btn_taskcenter_moregoods"), $(".coocaa_btn_taskcenter_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			$(".coocaa_btn_taskcenter_moregoods").unbind("itemClick").bind("itemClick", function() {
-				showGoodDetailsPage();
+				var index = $(".coocaa_btn_taskcenter_moregoods").index($(this));
+				showGoodDetailsPage(index);
 				//todo 产品包跳转
 				console.log("购物任务-产品包跳转");
 			});
@@ -430,25 +458,71 @@ function sentThirdAdshow(type,msg) {
     }
 }
 
-function showGoodDetailsPage() {
+function showGoodDetailsPage(index) {
 	//todo 跳转产品包 
-	var url = _mainHomeUrl;
-	coocaaosapi.startNewBrowser(url, function(success){
-		console.log("startNewBrowser success");
-	}, function(err){console.log("startNewBrowser error")});
+	var moreGoodsList = null;
+	if(needQQ) {
+		moreGoodsList = moreGoodsTencent;
+	}else {
+		moreGoodsList = moreGoodsYinhe;
+	}
+	if(index >= moreGoodsList.length) {
+		index = moreGoodsList.length - 1;
+	}
+	var moreGood = moreGoodsList[index];
+	
+	//todo 打开产品包页面：
+	var pkgname = moreGood.pkgname;
+	var action = moreGood.action;
+	var params = moreGood.param;
+	var versionCode = moreGood.versionCode;
+	
+	var hasversioncode = "";//当前版本号
+	var param1="",param2="",param3="",param4="",param5="";
+	var str = "[]";
+	
+	var a = '{"pkgList":["' + pkgname + '"]}';
+	coocaaosapi.getAppInfo(a, function(message){
+			console.log("getAppInfo====" + message);
+			var msg = JSON.parse(message);
+			if(msg[pkgname].status == -1) {//此apk不存在
+				coocaaosapi.startAppStoreDetail(pkgname, function(){},function(){});
+			}else {
+				hasversioncode = msg[pkgname].versionCode;
+				param1 = "action";
+				param2 = action;
+				if(JSON.stringify(params) != "{}"){
+					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
+				}
+				console.log("str:"+str);
+				if(hasversioncode < versionCode) {
+					console.log("当前版本过低，请前往应用圈搜索进行升级");
+				}else {
+					//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
+					coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+				}
+			}
+		},function(error) {
+            console.log("getAppInfo----error" + JSON.stringify(error));
+            coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
+   });	
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
-	var count = 15;
+	var count = 9;
 	for(var i = 0; i < count; i++) {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
 	var len = $(".goodsItemClass").length;
+	
 	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
 	for(i = 0; i < len; i++) {
+		//todo 需要更新页面图片：
+		//todo 需要更新每个商品价格等信息：
 		$(".moreGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
-		$(".goodsItemPlaceHolderClass").eq(i).text(i);
-		//如果有放大效果的话，需要给每个元素单独设置 上下左右的target,否则按上下键时焦点会乱（因为coocaakeymap算法的原因）
+//		$(".moreGoodsItemTitleClass").eq(i).text();
+//		$(".moreGoodsItemPriceClass").eq(i).text();
+//		$(".moreGoodsItemFooterClass").eq(i).text();
 	}
 }
 //div:容器id； el：当前焦点元素$(this)
@@ -596,7 +670,7 @@ function doJumpTask(param, taskId){
 			}
 		},function(error) {
             console.log("getAppInfo----error" + JSON.stringify(error));
-            coocaaosapi.startAppStoreDetail(pageid,function(){},function(){});
+            coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
    });
 }
 function doRandomBrowserTask(taskId) {
