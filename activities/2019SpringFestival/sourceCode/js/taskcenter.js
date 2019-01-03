@@ -117,7 +117,7 @@ var missionlistYinhe = [
 var app = {
 	initialize: function() {
 		//yuanbotest PC debug start
-//		testtest_initActivityInfo();
+		testtest_initActivityInfo();
 		//PC debug end
 		this.bindEvents();
 	},
@@ -335,7 +335,10 @@ function processKey(el) {
 			break;
 		case "browserTaskId":
 			//todo 
-			doRandomBrowserTask(taskId);
+			var param = el.attr("param");
+			console.log("param:"+param);
+			param = JSON.parse(param);
+			doJumpTask(param, taskId);
 			break;	
 		case "payTaskId":
 			$(".moreGoodsPageClass").css("display", "block");
@@ -361,7 +364,7 @@ function processKey(el) {
 }
 //播放广告任务
 function doPlayAdsTask(taskId) {
-	//todo 
+	//todo 判断浏览器版本号：
 	selectAd("CCADTV10015","","","","",_xMasNewYearActivityId.toString(),taskId.toString());
 }
 //获取广告信息
@@ -555,7 +558,47 @@ function interlucationProcess(el, taskId) {
 		}
 	}	
 }
-
+//浏览指定版面任务
+function doJumpTask(param, taskId){
+	var pkgname = param.packageName;
+	var action = param.byvalue;
+	var params = param.params;
+	var versionCode = param.versionCode;
+	var business = param.business;//视频或教育  商城
+	var hasversioncode = "";//当前版本号
+	var param1="",param2="",param3="",param4="",param5="";
+	var str = "[]";
+	
+	var a = '{"pkgList":["' + pkgname + '"]}';
+	coocaaosapi.getAppInfo(a, function(message){
+			console.log("getAppInfo====" + message);
+			var msg = JSON.parse(message);
+			if(msg[pkgname].status == -1) {//此apk不存在
+				coocaaosapi.startAppStoreDetail(pkgname, function(){},function(){});
+			}else {
+				hasversioncode = msg[pkgname].versionCode;
+				param1 = "action";
+				param2 = action;
+				if(JSON.stringify(params) != "{}"){
+					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
+				}
+				console.log("str:"+str);
+				if(hasversioncode < versionCode) {
+					console.log("当前版本过低，请前往应用圈搜索进行升级");
+				}else {
+					//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
+					//分movie/mall判断：
+					addChanceWhenFinishTask("", taskId);
+					coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+					//todo 加机会与否
+					
+				}
+			}
+		},function(error) {
+            console.log("getAppInfo----error" + JSON.stringify(error));
+            coocaaosapi.startAppStoreDetail(pageid,function(){},function(){});
+   });
+}
 function doRandomBrowserTask(taskId) {
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
@@ -1013,7 +1056,11 @@ function updateTaskInfoToPage(data) {
 	$(".coocaa_btn_taskcenter").eq(0).attr("id", "interlucationTaskId");
 	$(".taskIconClass").eq(0).css("background-image", "url(images/taskcenter/icontaskinterlucation.png)");			
 	$(".coocaa_btn_taskcenter").eq(1).attr("id", "browserTaskId");
-	$(".taskIconClass").eq(1).css("background-image", "url(images/taskcenter/icontaskbrowser.png)");	
+	$(".taskIconClass").eq(1).css("background-image", "url(images/taskcenter/icontaskbrowser.png)");
+	if(data.jump != undefined) {//跳转任务
+		var param = data.jump[0].param;
+		$(".coocaa_btn_taskcenter").eq(1).attr("param", param);	
+	}
 	if(data.video != undefined) {//观看视频
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "adsTaskId");		
 		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");		
