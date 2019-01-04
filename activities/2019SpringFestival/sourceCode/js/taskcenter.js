@@ -8,6 +8,7 @@ var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码�
 
 var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
 var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
+var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 97;
@@ -17,6 +18,7 @@ var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pac
 //var _urlWechatHelp = "";//微信助力二维码生成地址
 //var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _mainHomeUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
+//var _fukaMarketUrl = "";//福卡集市url
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
@@ -131,14 +133,14 @@ var _interlucationsArray = [
 var _interlucationsTipsArray = [
 	{
 		title: "恭喜回答正确! <span>+1</span>次抽奖机会",
-		leftKey: "了解创维",
+		leftKey: "更多答案详情",
 		lefturl: _goldHouseUrl,
 		rightKey: "去抽卡",
 		righturl: "goActivityHome"
 	}
 	,{
 		title: "阿欧，回答错误！",
-		leftKey: "了解创维",
+		leftKey: "更多答案详情",
 		lefturl: _goldHouseUrl,
 		rightKey: "试试其它任务",
 		righturl: "goTaskCenterHome"
@@ -331,8 +333,8 @@ function checkCurTaskStatus(el) {
 		return false;
 	}
 }
-//获取第一个未完成任务，如都完成，跳toast：
-function getFirstUndoneTaskOrToast() {
+//获取第一个未完成任务，如都完成，跳toast： bToast: true:弹窗  false：只获取第一个未完成任务，不弹窗；
+function getFirstUndoneTaskOrToast(bToast) {
 	var len = $(".coocaa_btn_taskcenter").length;
 	var i = 0;
 	// 0:当前任务完成，有其它未完成任务；
@@ -347,7 +349,12 @@ function getFirstUndoneTaskOrToast() {
 			break;
 		}
 	}
-	console.log("getFirstUndoneTaskOrToast _Lindex:"+_Lindex);
+	console.log("getFirstUndoneTaskOrToast _Lindex:"+_Lindex+",i:"+i);
+//	bToast: true:弹窗  false：只获取第一个未完成任务，不弹窗；
+	if(bToast == false) {
+		return;
+	}
+	
 	//todo 还要分福卡集市是否开放的状态：
 	if(i == len) { 
 		(_blessingMarketOpen == true) ? (taskStatus = 2) : (taskStatus = 1); 
@@ -378,7 +385,7 @@ function getFirstUndoneTaskOrToast() {
 			//todo 跳到福卡集市
 			//当前页面要关闭吗？
 			console.log("跳到福卡集市");
-			var url = _mainHomeUrl;
+			var url = _fukaMarketUrl;
 			coocaaosapi.startNewBrowser(url, function(success){
 				console.log("startNewBrowser success");
 			}, function(err){console.log("startNewBrowser error")});
@@ -402,7 +409,7 @@ function processKey(el) {
 	//yuanbotest
 //	if(checkCurTaskStatus(el)) {
 //		//落焦到未完成任务 或 跳toast
-//		getFirstUndoneTaskOrToast();
+//		getFirstUndoneTaskOrToast(true);
 //		return;
 //	}
 	switch(curId) {
@@ -672,16 +679,13 @@ function interlucationProcess(el, taskId) {
 			case _interlucationsTipsArray[0].lefturl: //回答正确左键
 			case _interlucationsTipsArray[1].lefturl: //回答错误左键
 				//todo
-				console.log("了解创维");
-				coocaaosapi.startNewBrowser(url, function(success){
-					console.log("startNewBrowser success");
-				}, function(err){console.log("startNewBrowser error")});	
+				console.log("更多答案详情");
+				doRandomBrowserTask(taskId);
 				break;
 			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务：
 				$("#interlucationAnswerToastId").css("display", "none");
 				$("#interlucationPageId").css("display", "none");
-				//todo 焦点放在其他任务：
-				
+				getFirstUndoneTaskOrToast(false);
 				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 				break;
 		}
@@ -762,7 +766,7 @@ function doSpecificBrowseTask(param, taskId){
         coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
     }   
 }
-
+//todo 做随机任务，暂时用作互动问答按键跳转，后续运营正式确定后再修改：（from谢金融）
 function doRandomBrowserTask(taskId) {
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
@@ -778,7 +782,7 @@ function doRandomBrowserTask(taskId) {
         }
         _activityCenterVersionLocal = apkVersion[0];
         _browserVersionLocal = apkVersion[1];
-        _mallVersionLocal = apkVersion[2];
+        var _mallVersionLocal = apkVersion[2];
         cAppVersion = apkVersion[3];
         console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==_mallVersionLocal=="+_mallVersionLocal+"==cAppVersion=="+cAppVersion);
         if(needQQ){
