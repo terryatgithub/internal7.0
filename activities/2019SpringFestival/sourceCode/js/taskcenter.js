@@ -17,8 +17,13 @@ var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pac
 //var _urlWechatHelp = "";//微信助力二维码生成地址
 //var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _mainHomeUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
+//支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
+var _activityCenterLatestVersion; //活动中心 最新版本号
+var _browserLatestVersion;	//浏览器 最新版本号
+var _mallLatestVersion = 31000020;	//商城最新版本号
+var _appLatestVersion = 3410022;  //影视教育最新版本号
 //-----------------------------正式上线需配置参数 end---------------------------------//
-
+        
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
 var _access_token="", _openId="", _nickName="";
@@ -181,8 +186,7 @@ var app = {
 		console.log("handleBackButtonDown in...");
 		if($(".wechatHelpPageClass").css("display") == "block") { //从微信帮助二维码页面返回
 			$(".wechatHelpPageClass").css("display", "none");
-			//todo 获取微信任务状态，刷新页面：
-			
+			document.getElementById("wechatQrCodeId").innerHTML = "";
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else if($("#interlucationPageId").css("display") == "block") { //从互动问答页面返回
 			$("#interlucationPageId").css("display", "none");
@@ -324,11 +328,12 @@ function processKey(el) {
 //	5.完成付费
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast();
-		return;
-	}
+	//yuanbotestlogcat -s
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast();
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			$(".wechatHelpPageClass").css("display", "block");
@@ -396,6 +401,9 @@ function processKey(el) {
 //播放广告任务
 function doPlayAdsTask(taskId) {
 	//todo 判断浏览器版本号：
+	//如果浏览器版本小,如何处理?
+	//doJumpTask(param, taskId)
+	
 	selectAd("CCADTV10015","","","","",_xMasNewYearActivityId.toString(),taskId.toString());
 }
 //获取广告信息
@@ -672,20 +680,45 @@ function doJumpTask(param, taskId){
 				console.log("str:"+str);
 				if(hasversioncode < versionCode) {
 					console.log("当前版本过低，请前往应用圈搜索进行升级");
+					//todo
+					
 				}else {
 					//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
-					//分movie/mall判断：
-					addChanceWhenFinishTask("", taskId);
-					coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
-					//todo 加机会与否
-					
+					if(business == "movie") {//影视教育
+						if(hasversioncode < _appLatestVersion) {
+							startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
+						}else {
+							startNewVersionAction(taskId,param1,param2,param3,param4,param5,str);
+						}
+					}else if(business == "mall"){//商城
+						if(hasversioncode < _mallLatestVersion) {
+							startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
+						}else {
+							startNewVersionAction(taskId,param1,param2,param3,param4,param5,str);
+						}
+					}
 				}
 			}
 		},function(error) {
             console.log("getAppInfo----error" + JSON.stringify(error));
             coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
    });
+	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
+	    console.log("LowVersion 前端加机会");
+	    addChanceWhenFinishTask("", taskId);
+		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+	}
+    function startNewVersionAction(taskId,param1,param2,param3,param4,param5,str) {
+        console.log("NewVersion 客户端加机会");
+        str = JSON.parse(str);
+        var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "countDownTime":10, "verify_key":new Date().getTime()}
+        var doubleEggs_Active = {"doubleEggs_Active":external};
+        str.push(doubleEggs_Active);
+        str = JSON.stringify(str);
+        coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+    }   
 }
+
 function doRandomBrowserTask(taskId) {
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
@@ -1230,7 +1263,8 @@ function getEncryptKeyForWechat(taskId) {
 			if(data.code == "50100") { //服务器返回正常
 				if(data.data!=null) { //
 					//todo 获取正式的key
-					getWechatHelpQr();
+					console.log("key:"+data.data.key);
+					getWechatHelpQr(data.data.key);
 				}
 			}
 		},
@@ -1246,10 +1280,10 @@ function getEncryptKeyForWechat(taskId) {
 	});	
 }
 //生成微信助力二维码
-function getWechatHelpQr() {
+function getWechatHelpQr(key) {
 	document.getElementById("wechatQrCodeId").innerHTML = "";
-	var testkey = "7e05e697ba2384df17ac35b7f35c3cc9f60dace357b6392ff12d4af6710108b2932044bfa440d1e524eab416d4048aca";
-	var str = _urlWechatHelp + testkey;
+//	var testkey = "7e05e697ba2384df17ac35b7f35c3cc9f60dace357b6392ff12d4af6710108b2932044bfa440d1e524eab416d4048aca";
+	var str = _urlWechatHelp + key;
 	var qrcode = new QRCode(document.getElementById("wechatQrCodeId"), {
 		width: 320,
 		height: 320
@@ -1298,3 +1332,26 @@ function testtest_initActivityInfo(){
 }
 
 
+//加载立即检测版本
+function checkVersion() {
+    if(activityCenterVersion<103004){
+        coocaaosapi.createDownloadTask(
+            "https://apk-sky-fs.skysrt.com/uploads/20181209/20181209111030764234.apk",
+            "5501D27CF6D0B187C49C6FBD217D59AA",
+            "活动中心",
+            "com.coocaa.activecenter",
+            "26417",
+            "http://img.sky.fs.skysrt.com//uploads/20170415/20170415110115834369.png",
+            function () {},function () {});
+    }
+    if(browserVersion<104031){
+        coocaaosapi.createDownloadTask(
+            "https://apk-sky-fs.skysrt.com/uploads/20181213/20181213190209511926.apk",
+            "270A47719CDBAB47EDBC5B1BD8808266",
+            "活动浏览器",
+            "com.coocaa.app_browser",
+            "26423",
+            "http://img.sky.fs.skysrt.com//uploads/20170415/20170415110115834369.png",
+            function () {},function () {})
+    }
+}
