@@ -195,6 +195,8 @@ var app = {
 			getMyTasksList();
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
 			$("#toastWhenClickTaskHasDoneId").css("display", "none");
+			$("#taskcenterTaskHasDoneToastId").css("display", "none");
+			$("#taskcenterDiscardToastId").css("display", "none");
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		} else {
 			navigator.app.exitApp();
@@ -1148,11 +1150,13 @@ function updateTaskInfoToPage(data) {
 	}
 	if(data.video != undefined) {//观看视频
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "adsTaskId");		
-		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");		
+		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");
+		$(".taskTipsClass").eq(2).html("观看视频<br/><span>+1</span>次抽卡机会");
 	}
 	if(data.login != undefined) {//登录任务
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "loginTaskId");	
-		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontasklogin.png)");		
+		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontasklogin.png)");
+		$(".taskTipsClass").eq(2).html("完成登录<br/><span>+1</span>次抽卡机会");
 	}
 	$(".coocaa_btn_taskcenter").eq(3).attr("id", "payTaskId");		
 	$(".taskIconClass").eq(3).css("background-image", "url(images/taskcenter/icontaskbuy.png)");		
