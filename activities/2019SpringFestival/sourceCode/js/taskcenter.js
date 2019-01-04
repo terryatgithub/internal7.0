@@ -795,6 +795,8 @@ function doRandomBrowserTask(taskId) {
         		,activeId:_xMasNewYearActivityId
         		,userKeyId:_activityId
         		,askResult: askResult
+        		,"cOpenId": _openId
+				,"cNickName": _nickName
         },//,chanceSource:2,subTask:0,cOpenId:_openId},
         dataType: "json",
         success: function(data) {
@@ -873,12 +875,12 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 			if(status == 'timeout') {　　
 				ajaxTimeout.abort();　　　　
 			}
-			hasLogin(needQQ);　　
+			hasLogin(needQQ, 0);　　
 		}
 	});
 }
-
-function hasLogin(needQQ) {
+//stage: 0 :初始化阶段,需要初始化活动信息  1:登录状态右边,用户登录成功时,获取用户信息
+function hasLogin(needQQ, stage) {
 	console.log("in hasLogin needQQ:"+needQQ);
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
 		_loginstatus = message.haslogin;
@@ -891,7 +893,12 @@ function hasLogin(needQQ) {
 			_access_token = "";
 			
 			//没有登录:
-			initActivityInfo();
+			if(stage == 0) {
+				initActivityInfo();
+			}else if(stage == 1) {
+				var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
+			 	addChanceWhenFinishTask(0, taskId);
+			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -983,7 +990,13 @@ function hasLogin(needQQ) {
 					}
 					
 					//已经登录:
-					initActivityInfo();
+					//没有登录:
+					if(stage == 0) {
+						initActivityInfo();
+					}else if(stage == 1) {
+						var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
+					 	addChanceWhenFinishTask(0, taskId);
+					}
 				}, function(error) {})
 			}, function(error) {});
 		}
@@ -1021,8 +1034,7 @@ function listenUserChange() {
 		console.log("用户登录成功.");
 		_bUserLoginSuccess = true;
 		 //后台加机会，并根据后台数据处理：
-		 var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-		 addChanceWhenFinishTask(0, taskId);
+		 hasLogin(needQQ, 1);
 	});
 }
 //活动初始化
