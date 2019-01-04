@@ -214,28 +214,22 @@ body {
 
 /*任务完成弹窗页面*/
 #taskcenterTaskHasDoneToastId{
-	width: 716px;
-	height: 369px;
-	background-image: url(../images/taskcenter/interlucationBg.png);
+	width: 648px;
+	height: 384px;
+	background-image: url(../images/taskcenter/toastBg.png);
 }
-#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnFocusClass {
-	top: 223px;
-	left: 216px;
-	width: 268px;
-	height: 72px;
-	background-image: url(../images/taskcenter/toastBtnFocus.png);
-	background-repeat: no-repeat;
-}
+
 #taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass {
-	top: 235px;
-	left: 230px;
-	width: 241px;
-	height: 48px;
-	line-height: 48px;
+	top: 285px;
+	left: 170px;
+	width: 308px;
+	height: 73px;
+	line-height: 59px;
 	font-size: 33px;
 	color: #FFEEC2;
-	background-image: url(../images/taskcenter/toastBtn.png);
+	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
 	background-repeat: no-repeat;
+	background-size: 100%;
 }
 #taskcenterTaskHasDoneToastId .interlucationTitleClass {
 	top: 85px;
@@ -253,24 +247,17 @@ body {
 	font-size: 32px;
 	line-height: 40px;
 }
-#taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnFocusClass {
-	top: 355px;
-	left: 127px;
-	width: 268px;
-	height: 72px;
-	background-image: url(../images/taskcenter/toastBtnFocus.png);
-	background-repeat: no-repeat;
-}
 #taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnClass {
-	top: 367px;
+	top: 368px;
 	left: 140px;
 	width: 241px;
-	height: 48px;
-	line-height: 48px;
+	height: 73px;
+	line-height: 44px;
 	font-size: 25px;
 	color: #FFEEC2;
-	background-image: url(../images/taskcenter/toastBtn.png);
+	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
 	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 /*付费商品展示页面*/

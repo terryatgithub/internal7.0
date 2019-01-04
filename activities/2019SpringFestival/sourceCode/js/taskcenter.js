@@ -17,13 +17,85 @@ var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pac
 //var _urlWechatHelp = "";//微信助力二维码生成地址
 //var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
 //var _mainHomeUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
+
+//本机客户端各apk版本号
+var _activityCenterVersionLocal; //活动中心 本地版本号
+var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
-var _activityCenterLatestVersion; //活动中心 最新版本号
-var _browserLatestVersion;	//浏览器 最新版本号
-var _mallLatestVersion = 31000020;	//商城最新版本号
-var _appLatestVersion = 3410022;  //影视教育最新版本号
+var _activityCenterVersionLatest=0; //活动中心 最新版本号
+var _browserVersionLatest=0;	//浏览器 最新版本号
+var _mallVersionLatest = 31000020;	//商城最新版本号
+var _appVersionLatest = 3410022;  //影视教育最新版本号
 //-----------------------------正式上线需配置参数 end---------------------------------//
-        
+//yuanbotest： 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
+var _adsTestMsg = {
+    "total": 1,
+    "sys_tracker": "http://tv.cctracker.com/hoisin/",
+    "schedules": [
+        {
+            "order_id": "O20181210000006",
+            "schedule_id": "S20190104000331",
+            "adspace_id": "CCADTV10001",
+            "position_x": 0,
+            "position_y": 0,
+            "width": 1920,
+            "height": 1080,
+            "media_type": "video",
+            "media_size": 11613888,
+            "content": "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts",
+            "media_md5": "92c3c2009d1f406eb348c13f25a19235",
+            "caption": "",
+            "show_time": 15,
+            "operate_model": 1,
+            "begin_time": 1546531200,
+            "end_time": 1580831999,
+            "click_event": "",
+            "subscript": {},
+            "skip_ad": false,
+            "extend_param": {},
+            "relation_info": {
+                "content": [],
+                "type": ""
+            },
+            "track_url": [
+                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010405&time=1540202820374&did=10001"
+            ],
+            "sdk_track": [],
+            "click_tracks": [],
+            "click_sdk_tracks": [],
+            "player_start_tracks": [
+                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010406&time=1540202820374&did=10001"
+            ],
+            "player_start_sdk_tracks": [],
+            "player_end_tracks": [
+                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010406&time=1540202820374&did=10001"
+            ],
+            "player_end_sdk_tracks": [],
+            "schedule_md5": "fb37025098df6adaf27cc0d6e0b9e4e0"
+        }
+    ],
+    "data_type": "json",
+    "db_path": "",
+    "pkg_md5": "90551afba0494ef94480fd1a1fd8767c",
+    "client_ip": "172.20.139.206",
+    "interval": 14820,
+    "next_time": 1546598781,
+    "ad_setting": {
+        "op_per_push_min_sys_ver": "-1",
+        "op_per_repair_on_boot": "true",
+        "op_per_roll_back_user_ver": "-1",
+        "op_per_de_min_sys_ver": "-1",
+        "tv_router_info_switch": "1",
+        "download_type": "1800018",
+        "client_req_timeout": "1500",
+        "tv_router_info_interval": "120",
+        "op_per_user_min_sys_ver": "500000000",
+        "op_per_ad_min_sys_ver": "-1",
+        "track_url": "http://172.20.155.60:3100/index",
+        "system_time": "1546583959"
+    }
+}
+
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
 var _access_token="", _openId="", _nickName="";
@@ -87,8 +159,7 @@ var _tipsWhenClickTaskHasDone = [
 		btnName: "去福卡集市"
 	}
 ]
-//随机浏览任务，分视频源：
-//todo：public String subTask;//任务类型：0其他浏览任务    1观看视频任务
+//随机浏览指定版面任务，分视频源：todo：public String subTask;//任务类型：0其他浏览任务    1观看视频任务
 var missionlistTencent = [
     {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
     {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
@@ -116,30 +187,30 @@ var missionlistYinhe = [
     {business:"edu",type:"commonlist",param:{"id":"102987"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
     {business:"edu",type:"commonlist",param:{"id":"103178"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
 ]
-
+//购买任务里的商品参数：
 var moreGoodsTencent = [
-	 {name:"影视产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "0", "source_id": "5"}}
-	,{name:"教育产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "1", "source_id": "58"}, versionCode: "1"}
-	,{name:"视频商品6475", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "6475"}, versionCode: "30800028"}
-	,{name:"视频商品17076", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17076"}, versionCode: "30800028"}
-	,{name:"视频商品17074", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17074"}, versionCode: "30800028"}
-	,{name:"视频商品17740", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17740"}, versionCode: "30800028"}
-	,{name:"视频商品18430", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18430"}, versionCode: "30800028"}
-	,{name:"视频商品18429", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18429"}, versionCode: "30800028"}
-	,{name:"视频商品18428", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18428"}, versionCode: "30800028"}
-	,{name:"更多", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_LIST_ZONE", param:{"pageId": "193"}, versionCode: "30700012"}
+	 {name:"影视产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "1"}
+	,{name:"教育产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "1"}
+	,{name:"视频商品6475", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "6475"}, versionCode: "30800028"}
+	,{name:"视频商品17076", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17076"}, versionCode: "30800028"}
+	,{name:"视频商品17074", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17074"}, versionCode: "30800028"}
+	,{name:"视频商品17740", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17740"}, versionCode: "30800028"}
+	,{name:"视频商品18430", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18430"}, versionCode: "30800028"}
+	,{name:"视频商品18429", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18429"}, versionCode: "30800028"}
+	,{name:"视频商品18428", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18428"}, versionCode: "30800028"}
+	,{name:"更多", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_LIST_ZONE", params:{"pageId": "193"}, versionCode: "30700012"}
 ]
 var moreGoodsYinhe = [
-	 {name:"影视产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "0", "source_id": "1"}}
-	,{name:"教育产品包", pkgname:"com.tianci.movieplatform", action:"coocaa.intent.vip.center", param:{"business_type": "1", "source_id": "57"}, versionCode: "1"}
-	,{name:"视频商品6475", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "6475"}, versionCode: "30800028"}
-	,{name:"视频商品17076", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17076"}, versionCode: "30800028"}
-	,{name:"视频商品17074", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17074"}, versionCode: "30800028"}
-	,{name:"视频商品17740", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "17740"}, versionCode: "30800028"}
-	,{name:"视频商品18430", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18430"}, versionCode: "30800028"}
-	,{name:"视频商品18429", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18429"}, versionCode: "30800028"}
-	,{name:"视频商品18428", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_DETAIL", param:{"id": "18428"}, versionCode: "30800028"}
-	,{name:"更多", pkgname:"com.coocaa.mall", action:"coocaa.intent.action.MALL_LIST_ZONE", param:{"pageId": "193"}, versionCode: "30700012"}
+	 {name:"影视产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "1"}
+	,{name:"教育产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "1"}
+	,{name:"视频商品6475", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "6475"}, versionCode: "30800028"}
+	,{name:"视频商品17076", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17076"}, versionCode: "30800028"}
+	,{name:"视频商品17074", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17074"}, versionCode: "30800028"}
+	,{name:"视频商品17740", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17740"}, versionCode: "30800028"}
+	,{name:"视频商品18430", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18430"}, versionCode: "30800028"}
+	,{name:"视频商品18429", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18429"}, versionCode: "30800028"}
+	,{name:"视频商品18428", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18428"}, versionCode: "30800028"}
+	,{name:"更多", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_LIST_ZONE", params:{"pageId": "193"}, versionCode: "30700012"}
 ]
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始：
@@ -329,11 +400,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotestlogcat -s
-//	if(checkCurTaskStatus(el)) {
-//		//落焦到未完成任务 或 跳toast
-//		getFirstUndoneTaskOrToast();
-//		return;
-//	}
+	if(checkCurTaskStatus(el)) {
+		//落焦到未完成任务 或 跳toast
+		getFirstUndoneTaskOrToast();
+		return;
+	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			$(".wechatHelpPageClass").css("display", "block");
@@ -369,24 +440,31 @@ function processKey(el) {
 			});
 			break;
 		case "browserTaskId":
-			//todo 
+			//浏览指定版面任务
 			var param = el.attr("param");
 			console.log("param:"+param);
 			param = JSON.parse(param);
-			doJumpTask(param, taskId);
+			doSpecificBrowseTask(param, taskId);
 			break;	
 		case "payTaskId":
 			$(".moreGoodsPageClass").css("display", "block");
-			//todo 显示所有商品
-			//yuanbotest -start
+			//todo 显示所有商品，
 			testAddmoreGoods();
-			//yuanbotest -end
 			map = new coocaakeymap($(".coocaa_btn_taskcenter_moregoods"), $(".coocaa_btn_taskcenter_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			$(".coocaa_btn_taskcenter_moregoods").unbind("itemClick").bind("itemClick", function() {
 				var index = $(".coocaa_btn_taskcenter_moregoods").index($(this));
-				showGoodDetailsPage(index);
-				//todo 产品包跳转
-				console.log("购物任务-产品包跳转");
+				var moreGoodsList = null;
+				if(needQQ) {
+					moreGoodsList = moreGoodsTencent;
+				}else {
+					moreGoodsList = moreGoodsYinhe;
+				}
+				if(index >= moreGoodsList.length) {
+					index = moreGoodsList.length - 1;
+				}
+				var moreGood = moreGoodsList[index];
+				//todo 支付任务不需要在前端加机会？而是由支付后台支付完成后加？ 如果是这样，这个参数要处理
+				doSpecificBrowseTask(moreGood, taskId);
 			});
 			$(".coocaa_btn_taskcenter_moregoods").unbind("itemFocus").bind("itemFocus", function() {
 				moreGoodsFocusShift($(this));
@@ -402,7 +480,7 @@ function processKey(el) {
 function doPlayAdsTask(taskId) {
 	//todo 判断浏览器版本号：
 	//如果浏览器版本小,如何处理?
-	//doJumpTask(param, taskId)
+	//doSpecificBrowseTask(param, taskId)
 	
 	selectAd("CCADTV10015","","","","",_xMasNewYearActivityId.toString(),taskId.toString());
 }
@@ -411,6 +489,9 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
     console.log("@@@@@@@@@@@@@@@@@@@@@@@");
     coocaaosapi.getAdData(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
         console.log("getAdData===="+msg);
+        
+        msg = _adsTestMsg;//yuanbotest
+        
         ADMsg = JSON.parse(msg);
         console.log("getAdData====ADMsg:"+ADMsg);
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
@@ -467,56 +548,6 @@ function sentThirdAdshow(type,msg) {
 	        console.log("submitThirdAdData  err==="+err);
 	    })
     }
-}
-
-function showGoodDetailsPage(index) {
-	//todo 跳转产品包 
-	var moreGoodsList = null;
-	if(needQQ) {
-		moreGoodsList = moreGoodsTencent;
-	}else {
-		moreGoodsList = moreGoodsYinhe;
-	}
-	if(index >= moreGoodsList.length) {
-		index = moreGoodsList.length - 1;
-	}
-	var moreGood = moreGoodsList[index];
-	
-	//todo 打开产品包页面：
-	var pkgname = moreGood.pkgname;
-	var action = moreGood.action;
-	var params = moreGood.param;
-	var versionCode = moreGood.versionCode;
-	
-	var hasversioncode = "";//当前版本号
-	var param1="",param2="",param3="",param4="",param5="";
-	var str = "[]";
-	
-	var a = '{"pkgList":["' + pkgname + '"]}';
-	coocaaosapi.getAppInfo(a, function(message){
-			console.log("getAppInfo====" + message);
-			var msg = JSON.parse(message);
-			if(msg[pkgname].status == -1) {//此apk不存在
-				coocaaosapi.startAppStoreDetail(pkgname, function(){},function(){});
-			}else {
-				hasversioncode = msg[pkgname].versionCode;
-				param1 = "action";
-				param2 = action;
-				if(JSON.stringify(params) != "{}"){
-					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
-				}
-				console.log("str:"+str);
-				if(hasversioncode < versionCode) {
-					console.log("当前版本过低，请前往应用圈搜索进行升级");
-				}else {
-					//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
-					coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
-				}
-			}
-		},function(error) {
-            console.log("getAppInfo----error" + JSON.stringify(error));
-            coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
-   });	
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {
@@ -653,18 +684,19 @@ function interlucationProcess(el, taskId) {
 		}
 	}	
 }
-//浏览指定版面任务
-function doJumpTask(param, taskId){
+//做浏览指定版面任务
+function doSpecificBrowseTask(param, taskId){
 	var pkgname = param.packageName;
 	var action = param.byvalue;
 	var params = param.params;
-	var versionCode = param.versionCode;
+	var minVersionCode = param.versionCode;//运营配置的最低版本要求
 	var business = param.business;//视频或教育  商城
+	
 	var hasversioncode = "";//当前版本号
 	var param1="",param2="",param3="",param4="",param5="";
 	var str = "[]";
-	
 	var a = '{"pkgList":["' + pkgname + '"]}';
+	
 	coocaaosapi.getAppInfo(a, function(message){
 			console.log("getAppInfo====" + message);
 			var msg = JSON.parse(message);
@@ -678,25 +710,34 @@ function doJumpTask(param, taskId){
 					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
 				}
 				console.log("str:"+str);
-				if(hasversioncode < versionCode) {
-					console.log("当前版本过低，请前往应用圈搜索进行升级");
-					//todo
-					
-				}else {
-					//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
-					if(business == "movie") {//影视教育
-						if(hasversioncode < _appLatestVersion) {
-							startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
-						}else {
-							startNewVersionAction(taskId,param1,param2,param3,param4,param5,str);
-						}
-					}else if(business == "mall"){//商城
-						if(hasversioncode < _mallLatestVersion) {
-							startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
-						}else {
-							startNewVersionAction(taskId,param1,param2,param3,param4,param5,str);
-						}
+				//todo 判断当前app版本是否大于正式发布版本（决定是否要在前端加机会），要找客户端要版本号：
+				var latestVersion;
+				if(business == "movie") {//影视教育
+					latestVersion = _appVersionLatest;
+				}else if(business == "mall"){//商城
+					latestVersion = _mallVersionLatest;
+					minVersionCode = -1;//商城总能进入，不用最低版本判断
+				}
+				
+				if(hasversioncode < latestVersion) {
+					if(hasversioncode < minVersionCode) {
+						//todo 显示弹窗
+						console.log("当前影视教育版本过低，请前往应用圈搜索进行升级（影视教育），显示弹窗");
+			        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉,你当前影视版本过低~<br>请先升级<p style="font-size:27px">方法:在<span>应用圈</span>搜索<span>"YSJY"(影视教育)</span>升级即可</p>');
+						$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+						$("#taskcenterTaskHasDoneToastId").css("display", "block");
+						$("#toastWhenClickTaskHasDoneId").css("display", "block");
+						map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+						$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+							$("#taskcenterTaskHasDoneToastId").css("display", "none");
+							$("#toastWhenClickTaskHasDoneId").css("display", "none");
+							map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+						});
+					}else {
+						startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
 					}
+				}else {
+					startNewVersionAction(taskId,param1,param2,param3,param4,param5,str);
 				}
 			}
 		},function(error) {
@@ -704,12 +745,12 @@ function doJumpTask(param, taskId){
             coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
    });
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
-	    console.log("LowVersion 前端加机会");
+	    console.log("startLowVersionAction 前端加机会");
 	    addChanceWhenFinishTask("", taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
     function startNewVersionAction(taskId,param1,param2,param3,param4,param5,str) {
-        console.log("NewVersion 客户端加机会");
+        console.log("startNewVersionAction 客户端加机会");
         str = JSON.parse(str);
         var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "countDownTime":10, "verify_key":new Date().getTime()}
         var doubleEggs_Active = {"doubleEggs_Active":external};
@@ -732,21 +773,21 @@ function doRandomBrowserTask(taskId) {
         for(var i=0;i<4;i++){
             apkVersion.push(JSON.parse(message)[apkArry[i]].versionCode);
         }
-        activityCenterVersion = apkVersion[0];
-        browserVersion = apkVersion[1];
-        mallVersion = apkVersion[2];
+        _activityCenterVersionLocal = apkVersion[0];
+        _browserVersionLocal = apkVersion[1];
+        _mallVersionLocal = apkVersion[2];
         cAppVersion = apkVersion[3];
-        console.log("===activityCenterVersion=="+activityCenterVersion+"===browserVersion=="+browserVersion+"==mallVersion=="+mallVersion+"==cAppVersion=="+cAppVersion);
+        console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==_mallVersionLocal=="+_mallVersionLocal+"==cAppVersion=="+cAppVersion);
         if(needQQ){
             missionlist = missionlistTencent;
         }else{
             missionlist = missionlistYinhe;
         }
-        if(activityCenterVersion<203000){
+        if(_activityCenterVersionLocal<203000){
             console.log("活动中心版本过低！！！！");
             return;
         }else if(missionlist[randomNum].business == "ad"){
-            if(browserVersion < 104022){
+            if(_browserVersionLocal < 104022){
                 console.log("浏览器版本过低！！！！");
                 return;
             }else {
@@ -774,7 +815,7 @@ function doRandomBrowserTask(taskId) {
                 startNewVersionAction(randomNum);
             }
         }else if(missionlist[randomNum].business == "mall"){
-            if(mallVersion < 31000020){
+            if(_mallVersionLocal < 31000020){
                 console.log("商城版本不支持apk添加=======调用加机会接口");
                 startLowVersionAction(randomNum);
             }else{
@@ -845,6 +886,42 @@ function doRandomBrowserTask(taskId) {
         }
     });
 }
+//获取本机应用版本号： 活动中心 浏览器 影视教育 商城
+function getLocalApkVersions(el) {
+    var apkVersion = [];
+    var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
+    var a = '{ "pkgList": ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"] }';
+    coocaaosapi.getAppInfo(a, function(message) {
+        console.log("getAppInfo====" + message);
+        for(var i=0;i<4;i++){
+            apkVersion.push(JSON.parse(message)[apkArry[i]].versionCode);
+        }
+        _activityCenterVersionLocal = apkVersion[0];
+        _browserVersionLocal = apkVersion[1];
+        
+        console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==cAppVersion=="+cAppVersion);
+        //如果活动中心或浏览器版本不能满足需求：
+        if((_activityCenterVersionLocal < _activityCenterVersionLatest) || (_browserVersionLocal < _browserVersionLatest)) {
+        	console.log("活动中心或浏览器版本太低，需要后台升级，显示弹窗");
+        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html("正在加载中,请稍候~");
+			$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+			$("#taskcenterTaskHasDoneToastId").css("display", "block");
+			$("#toastWhenClickTaskHasDoneId").css("display", "block");
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+				$("#taskcenterTaskHasDoneToastId").css("display", "none");
+				$("#toastWhenClickTaskHasDoneId").css("display", "none");
+				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			});
+        } else {//版本满足需求，才真正执行按键判断：
+        	processKey(el);
+        }
+        
+    }, function(error) {
+        console.log("getAppInfo----error" + JSON.stringify(error));
+    });
+}
+ 
 //获取设备信息并初始化
 function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
@@ -1213,7 +1290,7 @@ function updateTaskInfoToPage(data) {
 	$(".coocaa_btn_taskcenter").unbind("itemClick").bind("itemClick", function() {
 		_Lindex = $(".coocaa_btn_taskcenter").index($(this));
 		console.log("itemClick _Lindex = " + _Lindex);
-		processKey($(this));
+			getLocalApkVersions($(this));
 	});
 
 	//如果需要显示"+机会"弹窗:
@@ -1334,7 +1411,7 @@ function testtest_initActivityInfo(){
 
 //加载立即检测版本
 function checkVersion() {
-    if(activityCenterVersion<103004){
+    if(_activityCenterVersionLocal<103004){
         coocaaosapi.createDownloadTask(
             "https://apk-sky-fs.skysrt.com/uploads/20181209/20181209111030764234.apk",
             "5501D27CF6D0B187C49C6FBD217D59AA",
@@ -1344,7 +1421,7 @@ function checkVersion() {
             "http://img.sky.fs.skysrt.com//uploads/20170415/20170415110115834369.png",
             function () {},function () {});
     }
-    if(browserVersion<104031){
+    if(_browserVersionLocal<104031){
         coocaaosapi.createDownloadTask(
             "https://apk-sky-fs.skysrt.com/uploads/20181213/20181213190209511926.apk",
             "270A47719CDBAB47EDBC5B1BD8808266",
