@@ -790,7 +790,7 @@ function doRandomBrowserTask(taskId) {
         }else{
             missionlist = missionlistYinhe;
         }
-        if(_activityCenterVersionLocal<203000){
+        if(_activityCenterVersionLocal<103000){
             console.log("活动中心版本过低！！！！");
             return;
         }else if(missionlist[randomNum].business == "ad"){
@@ -1414,7 +1414,6 @@ function testtest_initActivityInfo(){
 	
 	initActivityInfo();
 }
-
 
 //加载立即检测版本
 function checkVersion() {
