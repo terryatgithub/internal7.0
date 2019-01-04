@@ -399,12 +399,12 @@ function processKey(el) {
 //	5.完成付费
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
-	//yuanbotestlogcat -s
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast();
-		return;
-	}
+	//yuanbotest
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast();
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			$(".wechatHelpPageClass").css("display", "block");
@@ -489,10 +489,8 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
     console.log("@@@@@@@@@@@@@@@@@@@@@@@");
     coocaaosapi.getAdData(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
         console.log("getAdData===="+msg);
-        
-        msg = _adsTestMsg;//yuanbotest
-        
         ADMsg = JSON.parse(msg);
+        ADMsg = _adsTestMsg;//yuanbotest
         console.log("getAdData====ADMsg:"+ADMsg);
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
         	console.log("广告请求超时----显示超时弹窗");
@@ -504,7 +502,7 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 				sentInnerAdshow(ADMsg,"","","","",activity_id,task_id);
 				sentThirdAdshow("video",ADMsg);
 				sentThirdAdshow("videoStart",ADMsg);
-	            var url = JSON.parse(msg).schedules[0].content;
+	            var url = ADMsg.schedules[0].content;
 	            console.log("广告数据正常^^^^^^^^url:"+url);
 	            //播放视频广告
 				coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
@@ -531,18 +529,18 @@ function sentInnerAdshow(msg,game_id,game_scene,game_panel,game_position,activit
 function sentThirdAdshow(type,msg) {
     var thirdUrl = "";
     if(type == "video"){
-        thirdUrl = JSON.stringify(msg.schedules[0].track_url);
+        thirdUrl = (msg.schedules[0].track_url);
     }
     else if(type == "videoStart"){
-        thirdUrl = JSON.stringify(msg.schedules[0].player_start_tracks);
+        thirdUrl = (msg.schedules[0].player_start_tracks);
     }
     else if(type == "videoEnd"){
-        thirdUrl = JSON.stringify(msg.schedules[0].player_end_tracks);
+        thirdUrl = (msg.schedules[0].player_end_tracks);
     }
     //todo     player_start_tracks是数组，需要传所有数组内容
     for(var i = 0; i < thirdUrl.length; i++) {
-    	console.log("i:"+i+", 广告监测地址 url:"+thirdUrl[i]);
-	    coocaaosapi.submitThirdAdData(thirdUrl[i],msg.schedules[0].schedule_id,msg.schedules[0].order_id,msg.schedules[0].adspace_id,function (msg) {
+    	console.log("i:"+i+", 广告监测地址 url:"+ JSON.stringify(thirdUrl[i]));
+	    coocaaosapi.submitThirdAdData(JSON.stringify(thirdUrl[i]),msg.schedules[0].schedule_id,msg.schedules[0].order_id,msg.schedules[0].adspace_id,function (msg) {
 	        console.log("submitThirdAdData  success==="+msg);
 	    },function (err) {
 	        console.log("submitThirdAdData  err==="+err);
