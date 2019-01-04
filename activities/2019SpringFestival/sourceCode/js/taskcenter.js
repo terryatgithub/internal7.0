@@ -494,7 +494,16 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
         console.log("getAdData====ADMsg:"+ADMsg);
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
         	console.log("广告请求超时----显示超时弹窗");
-        	//todo
+        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('视频暂时失踪了,<br>试试退出重新打开~');
+			$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+			$("#taskcenterTaskHasDoneToastId").css("display", "block");
+			$("#toastWhenClickTaskHasDoneId").css("display", "block");
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+				$("#taskcenterTaskHasDoneToastId").css("display", "none");
+				$("#toastWhenClickTaskHasDoneId").css("display", "none");
+				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			});
         }else {
 	        if(ADMsg.total > 0){
 	            //广告曝光
@@ -529,23 +538,19 @@ function sentInnerAdshow(msg,game_id,game_scene,game_panel,game_position,activit
 function sentThirdAdshow(type,msg) {
     var thirdUrl = "";
     if(type == "video"){
-        thirdUrl = (msg.schedules[0].track_url);
+        thirdUrl = JSON.stringify(msg.schedules[0].track_url);
     }
     else if(type == "videoStart"){
-        thirdUrl = (msg.schedules[0].player_start_tracks);
+        thirdUrl = JSON.stringify(msg.schedules[0].player_start_tracks);
     }
     else if(type == "videoEnd"){
-        thirdUrl = (msg.schedules[0].player_end_tracks);
+        thirdUrl = JSON.stringify(msg.schedules[0].player_end_tracks);
     }
-    //todo     player_start_tracks是数组，需要传所有数组内容
-    for(var i = 0; i < thirdUrl.length; i++) {
-    	console.log("i:"+i+", 广告监测地址 url:"+ JSON.stringify(thirdUrl[i]));
-	    coocaaosapi.submitThirdAdData(JSON.stringify(thirdUrl[i]),msg.schedules[0].schedule_id,msg.schedules[0].order_id,msg.schedules[0].adspace_id,function (msg) {
-	        console.log("submitThirdAdData  success==="+msg);
-	    },function (err) {
-	        console.log("submitThirdAdData  err==="+err);
-	    })
-    }
+    coocaaosapi.submitThirdAdData(thirdUrl,msg.schedules[0].schedule_id,msg.schedules[0].order_id,msg.schedules[0].adspace_id,function (msg) {
+        console.log("submitThirdAdData success==="+msg);
+    },function (err) {
+        console.log("submitThirdAdData err==="+err);
+    });
 }
 //焦点移动 ---------------testZone start------------------：
 function testAddmoreGoods() {

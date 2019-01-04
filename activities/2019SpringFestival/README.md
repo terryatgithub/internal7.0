@@ -26,5 +26,10 @@
 -------------------------------------------测试地址---------------------------------------------------
 #测试配置url（主页入口配置需要）：
 logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.webapp.skysrt.com/yuanbo/test/2019SpringFestival/taskcenter.html"; logcat | grep chrom; \r
-	
 
+
+------------------------------测试地址发布页面----------------------------------
+//张瑶：
+我的福卡页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=mycard
+福卡集市页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=market
+我的交易页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=mytrade
