@@ -21,8 +21,8 @@ var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
 var _activityCenterVersionLatest=0; //活动中心 最新版本号
 var _browserVersionLatest=0;	//浏览器 最新版本号
-var _mallVersionLatest = 31000020;	//商城最新版本号
-var _appVersionLatest = 3410022;  //影视教育最新版本号
+var _mallVersionLatest = -1;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
+var _appVersionLatest = 99999999;//3410022;  //影视教育最新版本号
 //-----------------------------正式上线需配置参数 end---------------------------------//
 //yuanbotest： 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
 var _adsTestMsg = {
@@ -405,11 +405,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotest
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast(true);
-		return;
-	}
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast(true);
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
