@@ -113,16 +113,16 @@ var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成�
 var _interlucationsArray = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
 	 {question: "创维电视的全球代言人是谁？", answerA:"A、李易峰", answerB:"B、赵又廷", right: "A", date: 29, done: "no" }
-	,{question: "中国彩电哪家强1？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 30,done: "no"}
-	,{question: "中国彩电哪家强2？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 31,done: "no"}
-	,{question: "中国彩电哪家强3？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 1,done: "no"}
-	,{question: "中国彩电哪家强4？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 2,done: "no"}
-	,{question: "中国彩电哪家强5？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 3,done: "no"}
-	,{question: "中国彩电哪家强6？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 4,done: "no"}
-	,{question: "中国彩电哪家强7？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 5,done: "no"}
-	,{question: "中国彩电哪家强8？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 6,done: "no"}
-	,{question: "中国彩电哪家强9？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 7,done: "no"}
-	,{question: "中国彩电哪家强10？",answerA:"A、创维",answerB:"B、其它",right: "B",date: 8,done: "no"}
+	,{question: "中国彩电哪家强1？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 30,done: "no"}
+	,{question: "中国彩电哪家强2？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 31,done: "no"}
+	,{question: "中国彩电哪家强3？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 1,done: "no"}
+	,{question: "中国彩电哪家强4？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 2,done: "no"}
+	,{question: "中国彩电哪家强5？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 3,done: "no"}
+	,{question: "中国彩电哪家强6？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 4,done: "no"}
+	,{question: "中国彩电哪家强7？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 5,done: "no"}
+	,{question: "中国彩电哪家强8？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 6,done: "no"}
+	,{question: "中国彩电哪家强9？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 7,done: "no"}
+	,{question: "中国彩电哪家强10？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 8,done: "no"}
 ]
 //回答正确或错误时的提示和跳转
 var _interlucationsTipsArray = [
@@ -405,11 +405,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotest
-//	if(checkCurTaskStatus(el)) {
-//		//落焦到未完成任务 或 跳toast
-//		getFirstUndoneTaskOrToast(true);
-//		return;
-//	}
+	if(checkCurTaskStatus(el)) {
+		//落焦到未完成任务 或 跳toast
+		getFirstUndoneTaskOrToast(true);
+		return;
+	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
