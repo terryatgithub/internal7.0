@@ -5,9 +5,6 @@ var _goldHouseActivityId = 90;//88;//90;
 var _buyActiveId = 91;//返利红包活动id
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
 var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码生成地址
-
-var _goldHouseUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=gold";//黄金小屋（活动主页面url)
-var _mainHomeUrl = "http://beta.webapp.skysrt.com/lxw/sd/index.html?pagename=pack";//打包清单url
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
@@ -16,8 +13,6 @@ var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=ma
 //var _buyActiveId = 98;
 //var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
 //var _urlWechatHelp = "";//微信助力二维码生成地址
-//var _goldHouseUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=gold";//黄金小屋（活动主页面url)
-//var _mainHomeUrl = "https://webapp.skysrt.com/christmas18/main/index.html?pagename=pack";//打包清单url
 //var _fukaMarketUrl = "";//福卡集市url
 
 //本机客户端各apk版本号
@@ -134,14 +129,14 @@ var _interlucationsTipsArray = [
 	{
 		title: "恭喜回答正确! <span>+1</span>次抽奖机会",
 		leftKey: "更多答案详情",
-		lefturl: _goldHouseUrl,
+		lefturl: "moreAnswerJumpUrl",
 		rightKey: "去抽卡",
-		righturl: "goActivityHome"
+		righturl: "goMainHomePage"
 	}
 	,{
 		title: "阿欧，回答错误！",
 		leftKey: "更多答案详情",
-		lefturl: _goldHouseUrl,
+		lefturl: "moreAnswerJumpUrl",
 		rightKey: "试试其它任务",
 		righturl: "goTaskCenterHome"
 	}
@@ -219,7 +214,7 @@ var moreGoodsYinhe = [
 var app = {
 	initialize: function() {
 		//yuanbotest PC debug start
-		testtest_initActivityInfo();
+//		testtest_initActivityInfo();
 		//PC debug end
 		this.bindEvents();
 	},
@@ -234,17 +229,25 @@ var app = {
 	onResume: function() {
 		console.log("onresume");
 		//确保有且只有一次会更新到：
-		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId" &&  _bUserLoginSuccess == true) {
-			console.log("onresume-用户登录成功");
-			getMyTasksList();
+		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
+			if(_bUserLoginSuccess == true) {
+				console.log("onresume-用户登录成功");
+				webTaskCenterClickedResultLog("登录任务页面", "登录成功");
+				getMyTasksList();
+			}else {
+				console.log("onresume-用户没有登录");
+				webTaskCenterClickedResultLog("登录任务页面", "登录失败");
+			}
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
+			webTaskCenterPageShowLog("任务中心页面");
 		}else if($(".moreGoodsPageClass").css("display") == "block") {
 			console.log("onresume-更多商品页面存在");
-			
+			webTaskCenterPageShowLog("支付任务商品采购页面");
 		} else {
 			//todo
 			console.log("要获取其它任务的完成状态，以刷新页面");
+			webTaskCenterPageShowLog("任务中心页面");
 			getMyTasksList();
 		}
 	},
@@ -269,6 +272,7 @@ var app = {
 		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
 			$(".moreGoodsPageClass").css("display", "none");
 			//需要刷新任务状态
+			webTaskCenterPageShowLog("任务中心页面");
 			getMyTasksList();
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
 			$("#toastWhenClickTaskHasDoneId").css("display", "none");
@@ -285,8 +289,9 @@ var app = {
 			console.log("--------------->commonListen==" + message.web_player_event);
 			if(message.web_player_event == "on_complete") {
 				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
-				sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString());
+				//sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString());
 				sentThirdAdshow("videoEnd",ADMsg);
+				webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 				//加机会
 				addChanceWhenFinishTask("",_adsTaskId);
 				//数据复位
@@ -373,24 +378,17 @@ function getFirstUndoneTaskOrToast(bToast) {
 			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), 'btn-focus', function() {}, function(val) {}, function(obj) {});
 		}else if(taskStatus == 1){
 			//todo 跳到庙会
-			//当前页面要关闭吗？
-			console.log("跳到庙会");
-			var url = _mainHomeUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
-			
+			console.log("跳到庙会,任务中心页面kill自己");
 			navigator.app.exitApp();
 		}else if(taskStatus == 2){
 			//todo 跳到福卡集市
 			//当前页面要关闭吗？
-			console.log("跳到福卡集市");
+			console.log("跳到福卡集市，任务中心页面kill自己");
 			var url = _fukaMarketUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
+			coocaaosapi.startNewBrowser4(url, function(success){
 				console.log("startNewBrowser success");
+				navigator.app.exitApp();
 			}, function(err){console.log("startNewBrowser error")});
-			
-			navigator.app.exitApp();
 		}
 	});
 }
@@ -414,6 +412,8 @@ function processKey(el) {
 //	}
 	switch(curId) {
 		case "weixinHelpTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
+			webTaskCenterPageShowLog("微信好友助力任务页面");
 			$(".wechatHelpPageClass").css("display", "block");
 			//todo 新btn获取焦点后，移动按键时，coocaa_btn是否也会移动？ 试下
 			map = new coocaakeymap($(".coocaa_btn_taskcenter_wechat"), $(".coocaa_btn_taskcenter_wechat").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
@@ -421,9 +421,13 @@ function processKey(el) {
 			getEncryptKeyForWechat(taskId);
 			break;
 		case "loginTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "登录");
+			webTaskCenterPageShowLog("登录任务页面");
 			startLogin(needQQ);
 			break;
 		case "interlucationTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "回答指定问题");
+			webTaskCenterPageShowLog("问答任务页面");
 			//显示问题和答案
 			var index = getQuestionIndex();
 			$("#interlucationQuestionToastId .interlucationTitleClass").text(_interlucationsArray[index].question);
@@ -447,6 +451,8 @@ function processKey(el) {
 			});
 			break;
 		case "browserTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "页面浏览");
+			webTaskCenterPageShowLog("跳转浏览任务页面");
 			//浏览指定版面任务
 			var param = el.attr("param");
 			console.log("param:"+param);
@@ -454,6 +460,8 @@ function processKey(el) {
 			doSpecificBrowseTask(param, taskId);
 			break;	
 		case "payTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "购买商品");
+			webTaskCenterPageShowLog("支付任务商品采购页面");
 			$(".moreGoodsPageClass").css("display", "block");
 			//todo 显示所有商品，
 			testAddmoreGoods();
@@ -470,6 +478,11 @@ function processKey(el) {
 					index = moreGoodsList.length - 1;
 				}
 				var moreGood = moreGoodsList[index];
+				//提交点击商品是第几排第几位
+				var row = 1, colume = 1;//第一排-第一位
+				row = index / 5 + 1;
+				colume = index % 5 + 1;
+				webTaskCenterBtnClickLog("支付任务商品采购页面", moreGood.name, row+"-"+colume);
 				//todo 支付任务不需要在前端加机会？而是由支付后台支付完成后加？ 如果是这样，这个参数要处理
 				doSpecificBrowseTask(moreGood, taskId);
 			});
@@ -478,6 +491,8 @@ function processKey(el) {
 			});
 			break;		
 		case "adsTaskId":
+			webTaskCenterBtnClickLog("任务中心页面", "做任务", "观看视频");
+			webTaskCenterPageShowLog("浏览视频广告任务页面");
 			//todo 观看广告 
 			doPlayAdsTask(taskId);
 			break;		
@@ -580,7 +595,7 @@ function testAddmoreGoods() {
 	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
 	for(i = 0; i < len; i++) {
 		//todo 需要更新页面图片：
-		//todo 需要更新每个商品价格等信息：
+		//todo 需要更新每个商品价格等信息，运营确认最终产品后，让设计把价格都做到图上
 		$(".moreGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
 //		$(".moreGoodsItemTitleClass").eq(i).text();
 //		$(".moreGoodsItemPriceClass").eq(i).text();
@@ -652,7 +667,9 @@ function interlucationProcess(el, taskId) {
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
 			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
 		}
-		//todo 上报后台任务已完成：
+		webTaskCenterClickedResultLog("问答任务页面", "回答成功");
+		
+		//todo 上报后台任务已完成,回答正确加机会：
 		var askResult = (b == "true") ? 1 : 0; //回答是否正确
 		addChanceWhenFinishTask(0, taskId, askResult);		
 		
@@ -671,10 +688,8 @@ function interlucationProcess(el, taskId) {
 		switch(url) {
 			case _interlucationsTipsArray[0].righturl: //回答正确右键
 				//todo
-				console.log("去抽卡");
-				coocaaosapi.startNewBrowser(url, function(success){
-					console.log("startNewBrowser success");
-				}, function(err){console.log("startNewBrowser error")});	
+				console.log("去抽卡,任务中心页面kill自己");
+				navigator.app.exitApp();
 				break;
 			case _interlucationsTipsArray[0].lefturl: //回答正确左键
 			case _interlucationsTipsArray[1].lefturl: //回答错误左键
@@ -753,6 +768,7 @@ function doSpecificBrowseTask(param, taskId){
    });
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
 	    console.log("startLowVersionAction 前端加机会");
+	    webTaskCenterClickedResultLog("跳转浏览任务页面", "浏览成功");
 	    addChanceWhenFinishTask("", taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
@@ -938,8 +954,6 @@ function getDeviceInfo() {
 		_TVchip = message.chip;
 		_macAddress = message.mac;
 		_activityId = message.activeid;
-//		yuanbotest 测试用激活id: "16706858"
-//		_activityId = "16706858";
 		if (message.emmcid ==""||message.emmcid==null) {
 			_emmcCID = "123456";
 		} else{
@@ -1311,11 +1325,8 @@ function updateTaskInfoToPage(data) {
 		map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function(){
 			//todo 需要修改为正确跳转方式
-			console.log("跳转到活动主页面");
-			var url = _mainHomeUrl;
-			coocaaosapi.startNewBrowser(url, function(success){
-				console.log("startNewBrowser success");
-			}, function(err){console.log("startNewBrowser error")});
+			console.log("跳转到活动主页面,任务中心页面kill自己");
+			navigator.app.exitApp();
 		});
 	}
 }
@@ -1382,18 +1393,74 @@ function getQueryString(name) {
 	return null;
 }
 
-//数据采集 - 各按钮点击
-function webBtnClickLog(button_name, button_type) {
+//数据采集-任务中心-子任务页面曝光
+function webTaskCenterPageShowLog(task_page_name) {
 	var _dateObj = {
-		"page_name":"我的礼物",
-		"activity_name": "双旦活动-我的礼物",
-		"button_name": button_name,
-		"button_type": button_type
+		"page_name": task_page_name,
+		"parent_page_name": "任务中心",
+		"activity_name": "春节集卡活动"
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-	_czc.push(["_trackEvent","双旦活动-我的礼物",button_name,button_type,"",""]);
-	coocaaosapi.notifyJSLogInfo("main_reward_page_button_click", _dataString, function(message) {
+	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,"页面曝光",""]);
+	coocaaosapi.notifyJSLogInfo("okr_web_page_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//数据采集-任务中心-子任务点击结果
+function webTaskCenterClickedResultLog(task_page_name, task_result) {
+	var _dateObj = {
+		"page_name":task_page_name,
+		"parent_page_name": "任务中心",
+		"activity_name": "春节集卡活动"
+	}
+	switch(task_page_name) {
+		case "登录任务页面":
+			_dateObj.login_result = task_result;
+			break;
+		case "问答任务页面":
+			_dateObj.question_result = task_result;
+			break;
+		case "跳转浏览任务页面":
+			_dateObj.browse_result = task_result;
+			break;
+		case "浏览视频广告任务页面":
+			_dateObj.ad_result = task_result;
+			break;		
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,task_result,""]);
+	coocaaosapi.notifyJSLogInfo("okr_web_clicked_result", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//数据采集-任务中心-按钮点击
+function webTaskCenterBtnClickLog(task_page_name, button_name, position_id) {
+	var _dateObj = {
+		"page_name":task_page_name,
+		"activity_name": "春节集卡活动",
+		"button_name":button_name 
+	}
+	switch(task_page_name) {
+		case "任务中心页面":
+			//任务类型:对任务中心页面点击, 值是: 回答指定问题、页面浏览、观看视频、购买商品、好友助力、登录
+			_dateObj.task_type = position_id;
+			break;
+		case "支付任务商品采购页面":
+			//对支付任务商品采购页面,值是: 1-1、1-2……（第N排-第N位）
+			_dateObj.position_id = position_id;
+			_dateObj.parent_page_name = "任务中心";
+			break;
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,button_name,position_id]);
+	coocaaosapi.notifyJSLogInfo("okr_web_button_click", _dataString, function(message) {
 		console.log(message);
 	}, function(error) {
 		console.log(error);
