@@ -95,7 +95,7 @@ var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
 var _access_token="", _openId="", _nickName="";
 var _qqtoken, _loginstatus=false, _tencentWay, cAppVersion, exterInfo, _vuserid,_login_type;
 var _appversion, accountVersion, _deviceInfo;
-var _qsource, needQQ=false; //视频源
+var _qsource="", needQQ=false; //视频源
 
 //福卡集市是否开放
 var _blessingMarketOpen = false; 
@@ -396,11 +396,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotest
-//	if(checkCurTaskStatus(el)) {
-//		//落焦到未完成任务 或 跳toast
-//		getFirstUndoneTaskOrToast(true);
-//		return;
-//	}
+	if(checkCurTaskStatus(el)) {
+		//落焦到未完成任务 或 跳toast
+		getFirstUndoneTaskOrToast(true);
+		return;
+	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
@@ -1200,7 +1200,8 @@ function getMyTasksList() {
 			"cNickName": _nickName,
 			//公共参数-end-
 			"id": _xMasNewYearActivityId,
-			"divideId":_springActivityDivideId
+			"divideId":_springActivityDivideId,
+			"source": (_qsource == "tencent") ? "tencent" : "iqiyi"
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
