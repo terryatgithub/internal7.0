@@ -184,8 +184,8 @@ var missionlistYinhe = [
 ]
 //购买任务里的商品参数：
 var moreGoodsTencent = [
-	 {name:"影视产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "1"}
-	,{name:"教育产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "1"}
+	 {name:"影视产品包", business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "1"}
+	,{name:"教育产品包", business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "1"}
 	,{name:"视频商品6475", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "6475"}, versionCode: "30800028"}
 	,{name:"视频商品17076", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17076"}, versionCode: "30800028"}
 	,{name:"视频商品17074", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17074"}, versionCode: "30800028"}
@@ -196,8 +196,8 @@ var moreGoodsTencent = [
 	,{name:"更多", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_LIST_ZONE", params:{"pageId": "193"}, versionCode: "30700012"}
 ]
 var moreGoodsYinhe = [
-	 {name:"影视产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "1"}
-	,{name:"教育产品包", business:"mall", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "1"}
+	 {name:"影视产品包", business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "1"}
+	,{name:"教育产品包", business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "1"}
 	,{name:"视频商品6475", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "6475"}, versionCode: "30800028"}
 	,{name:"视频商品17076", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17076"}, versionCode: "30800028"}
 	,{name:"视频商品17074", business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17074"}, versionCode: "30800028"}
