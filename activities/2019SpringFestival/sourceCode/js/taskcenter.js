@@ -22,7 +22,7 @@ var _browserVersionLatest=0;	//浏览器 最新版本号
 var _mallVersionLatest = 0;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
 var _appVersionLatest = 0;//3410022;  //影视教育最新版本号
 //-----------------------------正式上线需配置参数 end---------------------------------//
-//yuanbotest： 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
+// 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
 var _adsTestMsg = {
     "total": 1,
     "sys_tracker": "http://tv.cctracker.com/hoisin/",
@@ -496,7 +496,7 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
     coocaaosapi.getAdData(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
         console.log("getAdData===="+msg);
         ADMsg = JSON.parse(msg);
-        //ADMsg = _adsTestMsg;//yuanbotest
+        //ADMsg = _adsTestMsg;
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
         	console.log("广告请求超时----显示超时弹窗");
         	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('视频暂时失踪了,<br>试试退出重新打开~');
