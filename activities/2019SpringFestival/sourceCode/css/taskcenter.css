@@ -5,11 +5,11 @@
 body {
 	width: 1920px;
 	height: 1080px;
+	background-image: url(../images/taskcenter/bg.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden;
 }
-
 #deviceready>div {
 	position: absolute;
 	width: 100%;

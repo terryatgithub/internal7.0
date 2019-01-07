@@ -448,7 +448,7 @@ function processKey(el) {
 			var param = el.attr("param");
 			console.log("param:"+param);
 			param = JSON.parse(param);
-			doSpecificBrowseTask(param, taskId);
+			doSpecificBrowseTask(param, taskId, true);
 			break;	
 		case "payTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "购买商品");
@@ -473,7 +473,7 @@ function processKey(el) {
 				row = index / 5 + 1;
 				colume = index % 5 + 1;
 				webTaskCenterBtnClickLog("支付任务商品采购页面", moreGood.name, row+"-"+colume);
-				doSpecificBrowseTask(moreGood, taskId);
+				doSpecificBrowseTask(moreGood, taskId, false);
 			});
 			$(".coocaa_btn_taskcenter_moregoods").unbind("itemFocus").bind("itemFocus", function() {
 				moreGoodsFocusShift($(this));
@@ -689,15 +689,15 @@ function interlucationProcess(el, taskId) {
 		}
 	}	
 }
-//做浏览指定版面任务
-function doSpecificBrowseTask(param, taskId){
+//做浏览指定版面任务 
+function doSpecificBrowseTask(param, taskId, bNeedJudgeVer){
 	var pkgname = param.packageName;
 	var action = param.byvalue;
 	var params = param.params;
 	var minVersionCode = param.versionCode;//运营配置的最低版本要求
 	var business = param.business;//视频或教育  商城
 	
-	var hasversioncode = "";//当前版本号
+	var hasversioncode = "";//当前包名版本号
 	var param1="",param2="",param3="",param4="",param5="";
 	var str = "[]";
 	var a = '{"pkgList":["' + pkgname + '"]}';
@@ -722,8 +722,8 @@ function doSpecificBrowseTask(param, taskId){
 					latestVersion = _mallVersionLatest;
 					minVersionCode = -1;//商城总能进入，不用最低版本判断
 				}
-				
-				if(hasversioncode < latestVersion) {
+				//如果需要判断本机版本号vs最新版本号，并且本地版本号<最新版本号
+				if(bNeedJudgeVer && (hasversioncode < latestVersion)) {
 					if(hasversioncode < minVersionCode) {
 						console.log("当前影视教育版本过低，请前往应用圈搜索进行升级（影视教育），显示弹窗");
 			        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉,你当前影视版本过低~<br>请先升级<p style="font-size:27px">方法:在<span>应用圈</span>搜索<span>"YSJY"(影视教育)</span>升级即可</p>');
