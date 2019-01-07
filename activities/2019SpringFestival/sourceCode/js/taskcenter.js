@@ -1,16 +1,13 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _xMasNewYearActivityId = 95;
-var _goldHouseActivityId = 90;//88;//90;
-var _buyActiveId = 91;//返利红包活动id
+var _xMasNewYearActivityId = 95;   //活动id 由运营提供
+var _springActivityDivideId = 101; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
 var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 97;
-//var _goldHouseActivityId = 99;
-//var _buyActiveId = 98;
 //var _urlActivityServer = "https://restful.skysrt.com/light";//主活动接口
 //var _urlWechatHelp = "";//微信助力二维码生成地址
 //var _fukaMarketUrl = "";//福卡集市url
@@ -512,8 +509,8 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
     coocaaosapi.getAdData(appid,game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
         console.log("getAdData===="+msg);
         ADMsg = JSON.parse(msg);
-        ADMsg = _adsTestMsg;//yuanbotest
-        console.log("getAdData====ADMsg:"+ADMsg);
+        //ADMsg = _adsTestMsg;//yuanbotest
+        //console.log("getAdData====ADMsg:"+ADMsg);
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
         	console.log("广告请求超时----显示超时弹窗");
         	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('视频暂时失踪了,<br>试试退出重新打开~');
@@ -534,7 +531,7 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 				sentThirdAdshow("video",ADMsg);
 				sentThirdAdshow("videoStart",ADMsg);
 	            var url = ADMsg.schedules[0].content;
-	            console.log("广告数据正常^^^^^^^^url:"+url);
+	            console.log("广告数据正常 url:"+url);
 	            //播放视频广告
 				coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
 					console.log(message);
@@ -1188,8 +1185,8 @@ function initActivityInfo() {
 			"cOpenId": _openId,
 			"cNickName": _nickName,
 			//公共参数-end-
-			"userKeyId":_activityId,//todo tmp yuanbotest
-			"id": _xMasNewYearActivityId
+			"id": _xMasNewYearActivityId,
+			"divideId":_springActivityDivideId
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
@@ -1228,8 +1225,8 @@ function getMyTasksList() {
 			"cOpenId": _openId,
 			"cNickName": _nickName,
 			//公共参数-end-
-			"userKeyId":_activityId,//todo tmp yuanbotest
-			"id": _xMasNewYearActivityId
+			"id": _xMasNewYearActivityId,
+			"divideId":_springActivityDivideId
 		},
 		success: function(data) {
 			console.log(JSON.stringify(data));
