@@ -449,7 +449,6 @@ function processKey(el) {
 			break;
 		case "browserTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "页面浏览");
-			webTaskCenterPageShowLog("跳转浏览任务页面");
 			//浏览指定版面任务
 			var param = el.attr("param");
 			console.log("param:"+param);
@@ -510,7 +509,6 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
         console.log("getAdData===="+msg);
         ADMsg = JSON.parse(msg);
         //ADMsg = _adsTestMsg;//yuanbotest
-        //console.log("getAdData====ADMsg:"+ADMsg);
         if(ADMsg == null || ADMsg == undefined || ADMsg == "{}") {
         	console.log("广告请求超时----显示超时弹窗");
         	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('视频暂时失踪了,<br>试试退出重新打开~');
@@ -765,7 +763,7 @@ function doSpecificBrowseTask(param, taskId){
    });
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
 	    console.log("startLowVersionAction 前端加机会");
-	    webTaskCenterClickedResultLog("跳转浏览任务页面", "浏览成功");
+	    webTaskCenterPageShowLog("跳转浏览任务页面");
 	    addChanceWhenFinishTask("", taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
