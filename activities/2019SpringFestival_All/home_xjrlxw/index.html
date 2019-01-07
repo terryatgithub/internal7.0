@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/index_b75e179.css" />
+    <script>
+        var _czc = _czc || [];
+        _czc.push(["_setAccount", "1274864418"]);
+    </script>
+</head>
+
+<body>
+    <div id="deviceready">
+        <div id="mainbox">
+            <div id="topBanner">
+                <div id="normalbg" class="bgdiv"></div>
+                <div id="closebg" class="bgdiv"></div>
+                <div id="stopbg" class="bgdiv"></div>
+                <div id="allowance" class="topbtn coocaabtn"><div class="onfocus topbtn"></div><div class="finger"></div><div id="allowanceNum">999元</div></div>
+                <div id="mygift" class="topbtn coocaabtn"><div class="onfocus topbtn"></div><div class="finger"></div></div>
+                <div id="rule" class="topbtn coocaabtn"><div class="onfocus topbtn"></div><div class="finger"></div></div>
+                <div id="missionImg"></div>
+                <div id="missionBtn" class="coocaabtn banner" uptarget="#allowance" lefttarget="#missionBtn" downtarget="#myCard"><div class="onfocus topbtn"></div><div class="finger"></div></div>
+                <div id="overChance" class="coocaabtn banner"><div class="onfocus topbtn"></div><div class="finger"></div><div id="chanceNum"></div></div>
+                <div id="moveChace"></div>
+                <div id="buyZoneImg">
+                    <div id="otheruserinfo">xsx...正在发布交易</div>
+                    <div id="otherwant" class="wantcard"><div class="wanticon"></div></div>
+                    <div id="iwant" class="wantcard"><div class="wanticon"></div></div>
+                </div>
+                <div id="buyZoneBtn" class="coocaabtn banner" downtarget="#myCard" righttarget="#buyZoneBtn"><div class="onfocus topbtn"></div><div class="finger"></div></div>
+                <div id="myCard" class="coocaabtn banner"><div class="onfocus topbtn"></div><div class="finger"></div></div>
+                <div id="fakeNews">
+                    <ul id="fakeNewsul"></ul>
+                </div>
+                <div id="cutdown" class="worldTitle"><span id="collectNum"></span>人已集齐  距开奖还有  <span id="cutdownNum"></span></div>
+                <div id="hasown" class="worldTitle">已集齐<span></span>种福卡</div>
+                <div class="specialfoca"><span></span></div>
+                <div class="foca"  id="foca1"><span></span></div>
+                <div class="foca"  id="foca2"><span></span></div>
+                <div class="foca"  id="foca3"><span></span></div>
+                <div class="foca"  id="foca4"><span></span></div>
+            </div>
+            <div id="street"></div>
+            <div id="arrows"></div>
+            <div id="finishAct">
+                <div id="youhave">
+                    <div id="finishMyAwardNum">0.5元</div>
+                    <div id="finishMyAwardGet" class="coocaabtn finishWindowBtn" downtarget="#finishMyAwardBtn"></div>
+                    <div id="finishMyAwardBtn" class="coocaabtn finishWindowBtn" uptarget="#finishMyAwardGet"></div>
+                </div>
+                <div id="younothave"><div id="finishMyAward" class="coocaabtn finishWindowBtn"></div></div>
+            </div>
+        </div>
+        <div id="rulePage">
+            <div id="ruleInner">
+                <img src="http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/rule/newrule1.jpg" alt=""/>
+                <img src="http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/rule/newrule2.jpg" alt=""/>
+                <img src="http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/rule/newrule3.jpg" alt=""/>
+                <img src="http://sky.fs.skysrt.com/statics/webvip/webapp/christmas/rule/newrule4.jpg" alt=""/>
+            </div>
+        </div>
+        <div id="blackBg"></div>
+        <div id="needUpdate"></div>
+        <div id="indexWindow" class="window">
+            <div id="finishMissionWindow" class="window"><div id="addchanceaftermission"></div></div>
+            <div id="lastDayWindow" class="window"></div>
+            <div id="dealFinishWindow" class="window"><div id="dealbtn1" class="homewindowbtn"></div><div id="dealbtn2"  class="homewindowbtn"></div></div>
+        </div>
+        <div id="compoundWindow" class="window"><div id="compoundWindowImg"></div><div id="compoundWindowCode"></div><div id="compoundbtn1" class="homewindowbtn"></div><div id="compoundbtn2"  class="homewindowbtn"></div></div>
+        <div id="compound" class="window">
+            <div class="fbox" id="b1"></div>
+            <div class="fbox" id="b2"></div>
+            <div class="fbox" id="b3"></div>
+            <div class="fbox" id="b4"></div>
+            <div class="fbox" id="b5"></div>
+            <div class="fbox" id="b6"></div>
+            <div class="fbox" id="b7"></div>
+            <div class="fbox" id="b8"></div>
+            <div class="fbox" id="b9"></div>
+            <div class="fbox" id="b10"></div>
+        </div>
+        <div id="enjoyAwardWindow" class="finishwindow"><div id="enjoyAwardWindowWord"></div></div>
+        <div id="getAwardWindow" class="finishwindow"><div id="getAwardWindowWord"></div><div id="getAwardWindowCode"></div></div>
+
+        <div id="myAwardPage" class="pagesboxes">
+            <div id="myAwardBox" class="none">
+                <div id="allowanceBox" class="awardTabBox">
+                    <div class="awardTabName" id="allowanceTitle"></div>
+                    <div class="awardTabs" id="allowanceTabs">
+                        <div class="myAwards coocaa_btn2" id="allowanceAward">
+                            <img class="fullImg" src="images/award/allowCoupon.png"/>
+                            <img class="imgFocus" src="images/award/awardBorder.png"/>
+                            <div id="allowanceMoney" class="awardMoney"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="redBox" class="awardTabBox">
+                    <div class="awardTabName" id="redTitle"></div>
+                    <div class="awardTabs" id="redTabs"></div>
+                </div>
+                <div id="entityBox" class="awardTabBox">
+                    <div class="awardTabName" id="entityTitle"></div>
+                    <div class="awardTabs" id="entityTabs"></div>
+                </div>
+                <div id="couponBox" class="awardTabBox">
+                    <div class="awardTabName" id="couponTitle"></div>
+                    <div class="awardTabs" id="couponTabs"></div>
+                </div>
+            </div>
+            <div id="noAwardBox1" class="none imgstyle">
+                <div id="noAwardBtn" class="coocaa_btn2"></div>
+            </div>
+            <div id="noAwardBox2" class="none">
+                <div id="noAwardBtn2" class="coocaa_btn2">抱歉，暂未获得奖励</div>
+            </div>
+        </div>
+        <div id="myAllowancePage" class="pagesboxes">
+            <div id="allowanceValueBox" class="imgstyle">
+                <div id="allowanceValue"></div>
+            </div>
+            <div id="allowanceItemBox">
+                <div id="allowanceItem1" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem6">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem2" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem7">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem3" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem8">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem4" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem9">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem5" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem10">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem6" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem11" upTarget="#allowanceItem1">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem7" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem12" upTarget="#allowanceItem2">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem8" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem13" upTarget="#allowanceItem3">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem9" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem13" upTarget="#allowanceItem4">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+                <div id="allowanceItem10" class="allowanceItemLi coocaa_btn" downTarget="#allowanceItem13" upTarget="#allowanceItem5">
+                    <img class="imgBlur" src="images/allowance/itembg.png"/>
+                    <img class="imgFocus" src="images/allowance/itemborder.png"/>
+                </div>
+            </div>
+        </div>
+        <div id="dialogPage" class="pagesboxes">
+            <!--没有抽卡机会-->
+            <div id="noChance" class="fullscreen awardbg2 secondDialog">
+                <div id="noChanceImg" class="imgstyle"></div>
+                <div id="noChanceBtn" class="dialogbtn coocaa_btn3">
+                    <img class="imgBlur" src="images/foca/buttonbg2.png"/>
+                    <img class="imgFocus" src="images/foca/buttonbg1.png"/>
+                    <div class="btnName">去做任务</div>
+                </div>
+            </div>
+            <!--抽到福卡-->
+            <div id="getFoca" class="fullscreen awardbg3 secondDialog">
+                <div id="focaImg" class="coocaa_btn3"></div>
+            </div>
+            <!--挽留弹窗-->
+            <div id="detain" class="fullscreen awardbg2 secondDialog">
+                <div id="detainImg" class="imgstyle"></div>
+                <div id="detainBtn1" class="dialogbtn coocaa_btn3">
+                    <img class="imgBlur" src="images/foca/buttonbg2.png"/>
+                    <img class="imgFocus" src="images/foca/buttonbg1.png"/>
+                    <div class="btnName">坚决退出</div>
+                </div>
+                <div id="detainBtn2" class="dialogbtn coocaa_btn3">
+                    <img class="imgBlur" src="images/foca/buttonbg2.png"/>
+                    <img class="imgFocus" src="images/foca/buttonbg1.png"/>
+                    <div class="btnName">不，我要翻卡</div>
+                </div>
+            </div>
+            <!--抽到奖励 红包、实物、津贴-->
+            <div id="getOtherAward1" class="fullscreen awardbg4 secondDialog">
+                <div id="otherAwardName1">恭喜获得奖励红包</div>
+                <div id="otherImgBox1" class="imgstyle">
+                    <div id="redAwardNum" class="none">142</div><!--红包金额 根据类型不同，金额颜色不同-->
+                    <div id="allAwardNum" class="none">142</div><!--红包金额 根据类型不同，金额颜色不同-->
+                    <img id="entityAwardImg" class="none" src="images/award/entityimg.png"/><!--实物奖-->
+                </div>
+                <div id="otherAwardInfo1">*已放入【我的奖励】</div>
+                <div id="otherBtn1" class="dialogbtn coocaa_btn3">
+                    <img class="imgBlur" src="images/foca/buttonbg2.png"/>
+                    <img class="imgFocus" src="images/foca/buttonbg1.png"/>
+                    <div class="btnName">再看看</div>
+                </div>
+                <div id="otherBtn2" class="dialogbtn coocaa_btn3">
+                    <img class="imgBlur" src="images/foca/buttonbg2.png"/>
+                    <img class="imgFocus" src="images/foca/buttonbg1.png"/>
+                    <div class="btnName">领取奖励</div>
+                </div>
+            </div>
+            <!--抽到奖励 祝福语、祝福视频、第三方-->
+            <div id="getOtherAward2" class="fullscreen awardbg4 secondDialog">
+                <div id="otherAwardName2">恭喜获得奖励红包</div>
+                <div id="otherImgBox2" class="coocaa_btn3 imgstyle">
+                    <img id="thirdAwardImg" class="none" src=""/>
+                </div>
+                <div id="otherAwardInfo2">按返回关闭弹窗</div>
+            </div>
+
+            <!--未领取的福卡红包、瓜分红包的领取-->
+            <div id="redNotGet" class="fullscreen awardbg secondDialog">
+                <div id="redInfo1">当前<span id="redStrongPart">福卡红包</span>总金额为</div>
+                <div id="redContent"><span style="font-size: 112px;">888</span>元</div>
+                <div id="redInfo2" class="imgstyle"></div>
+                <div id="redQrcode" class="coocaa_btn3"></div>
+            </div>
+            <!--已领取的福卡红包、瓜分红包-->
+            <div id="redHasGet" class="fullscreen awardbg secondDialog">
+                <div id="redHasGetInfo" class="imgstyle">
+                    <div id="redHasGetNum"><span style="font-size: 72px;margin-right: 3px;">0.33</span>元</div>
+                </div>
+                <div id="redHasGetBtn" class="coocaa_btn3 imgstyle"></div>
+            </div>
+            <!--未领取的实物奖、第三方优惠券-->
+            <div id="otherNotGet" class="fullscreen awardbg secondDialog">
+                <div id="otherInfo1">奖品名称:1000元现金大奖</div>
+                <div id="otherInfo2">发放时间:2018.8.23</div>
+                <div id="otherInfo3" class="coocaa_btn3">使用<span class="otherAwardVar">微信扫码</span>提交个人信息，工作人员会尽快联系你哦~</div>
+                <div id="otherQrcode" class="none"></div>
+                <img id="otherQrcodeImg" class="none" src=""/>
+            </div>
+            <!--已领取的实物奖-->
+            <div id="otherHasGet" class="fullscreen awardbg secondDialog">
+                <div id="hasGotInfo1">奖品名称:1000元现金大奖</div>
+                <div id="hasGotInfo2">发放时间:2018.8.23</div>
+                <div class="line"></div>
+                <div id="hasGotInfo3">联系人:&nbsp;&nbsp;麻花疼</div>
+                <div id="hasGotInfo4" class="coocaa_btn3">联系电话:&nbsp;&nbsp;13813801380</div>
+                <div id="hasGotInfo5" class="none">收货地址:&nbsp;&nbsp;广东省深圳市宝安区创维工业园科技大楼一楼</div>
+                <div id="hasGotInfo6" class="none">信息已提交，请保持电话畅通，以便及时与您取得联系。</div>
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan  style='display:none' id='cnzz_stat_icon_1274864418'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274864418' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min_e128811.js"></script>
+    <script type="text/javascript" src="js/data_612e1c2.js"></script>
+    <script type="text/javascript" src="cordova_b97b6c9.js"></script>
+    <script type="text/javascript" src="js/index_feaf92e.js"></script>
+    <script type="text/javascript" src="js/assist_da83c0c.js"></script>
+    <script type="text/javascript" src="js/adjust_a333711.js"></script>
+    <script type="text/javascript" src="js/qrcode_22f2bad.js"></script>
+    <script type="text/javascript" src="js/coocaamap-1.1_521d03e.js"></script>
+    <script type="text/javascript">
+        setTimeout(otherPageInit,100);
+        function otherPageInit(){
+            $("#allowanceTitle").css("background-image", "url(images/award/allowance.png)");
+            $("#redTitle").css("background-image", "url(images/award/redmoney.png)");
+            $("#entityTitle").css("background-image", "url(images/award/entity.png)");
+            $("#couponTitle").css("background-image", "url(images/award/thirdcoupon.png)");
+            $("#redHasGetInfo").css("background-image", "url(images/award/redHasGetInfo.png)");
+            $("#redInfo2").css("background-image", "url(images/award/arrow.png)");
+            $("#noAwardBox1").css("background-image", "url(images/award/noaward.png)");
+            $("#allowanceValueBox").css("background-image", "url(images/allowance/allowance.png)");
+            $("#myAwardPage").css("background-image", "url(images/award/bg.png)");
+            $("#myAllowancePage").css("background-image", "url(images/allowance/bg2.jpg)");
+            $("#redHasGetBtn").css("background-image", "url(images/award/redHasGetBtn.png)");
+            $("#noChanceImg").css("background-image", "url(images/foca/failure.png)");
+            $("#detainImg").css("background-image", "url(images/foca/warm.png)");
+        }
+    </script>
+</body>
+
+</html>

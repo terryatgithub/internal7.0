@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="UTF-8">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<link rel="stylesheet" href="css/index.css" />
+		<title>福卡</title>
+		<script>
+			var adjust = function() {
+				if(/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+					var version = parseFloat(RegExp.$1);
+					if(version > 2.3) {
+						var phoneScale = parseInt(window.screen.width) / 1920;
+						document.write('<meta name="viewport" content="width=1920, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+					} else {
+						document.write('<meta name="viewport" content="width=1920, target-densitydpi=device-dpi">');
+					}
+				} else {
+					document.write('<meta name="viewport" content="width=1920, user-scalable=no, target-densitydpi=device-dpi">');
+				}
+			}
+			adjust();
+		</script>
+        <script>
+        //声明_czc对象:
+        var _czc = _czc || [];
+        //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+        //          _czc.push(["_setAccount", "1260740539"]);
+        _czc.push(["_setAccount", "1275237010"]);
+        </script>
+	</head>
+
+	<body>
+		<div id="deviceready">
+			<div class="bg-mask" id="bgMask"></div>
+
+			<!--我的福卡-->
+			<div id="myCard" class="none">
+
+				<div class="cardMiddle clearfix">
+					<div class="gather"><span class="num"></span><img src=""/></div>
+					<ul id="cardMiddle">
+							<!-- <div class="card coocaa_btn f1 btnFocus">
+								<span class="num">1</span><img class="img" src="images/mycard/f1.png"/><span class="changeBtn _drawbtnbgfocus none"><img src="images/mycard/go_change.png"/></span><span class="focus _drawbtnbgfocus none"><img src="images/mycard/focus.png"/></span>
+							</div>
+							<div class="card coocaa_btn f2 btnFocus">
+								<span class="num"></span><img class="img" src="images/mycard/empty.png"/><span class="focus _drawbtnbgfocus none"><img src="images/mycard/focus.png"/></span>
+							</div> -->
+					</ul>
+
+				</div>
+				<div class="cardRight">
+					<span id="goTestbtn" class="coocaabtn" leftTarget="#mycard_f3">
+						<img class="_drawbtnbgblur" src="images/mycard/totask.png"/>
+						<img class="_drawbtnbgfocus" src="images/mycard/totask_focus.png"/>	
+					</span>
+					<span id="goMarkebtn" class="coocaabtn" leftTarget="#mycard_f3">
+						<img class="_drawbtnbgblur" src="images/mycard/tomarket.png"/>
+						<img class="_drawbtnbgfocus" src="images/mycard/tomarket_focus.png"/>	
+					</span>
+				</div>
+			</div>
+
+			<!--福卡集市-->
+			<div id="market" class="none">
+				<div class="top_btn">
+					<ul class="top_btn1"><span id="release_btn" downTarget="#exem0" title="我要求卡" class="coocaabtn release_btn"></span></ul>
+					<ul class="top_btn2"><span id="trade_btn" downTarget="#exem0" title="我的交易" class="coocaabtn trade_btn"></span></ul>
+				</div>
+				
+				<p id="hint1" class="top_hint" style="display: none">活动期间总计4次发布机会/交换机会</p>
+				<p id="hint2" class="top_hint" style="display: none; font-size:22px; width: 610px; text-align: left;">活动期间总计3次发布/交换机会，完成登录再送一次！<span id="get_login" class="coocaabtn"></span></p>
+				<div id="adStation"></div>
+				<div class="screen">
+					<ul id="screen_box">
+						<span class="cardBtn coocaabtn" upTarget="#release_btn" rightTarget="#exem0" id="allbtn">
+							<img class="_drawbtnbgblur" src="images/market/all.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/all_focus.png"/>		
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f1">
+							<img class="_drawbtnbgblur" src="images/market/f1.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f1_focus.png"/>							
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f2">
+							<img class="_drawbtnbgblur" src="images/market/f2.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f2_focus.png"/>	
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f3">
+							<img class="_drawbtnbgblur" src="images/market/f3.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f3_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f4">
+							<img class="_drawbtnbgblur" src="images/market/f4.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f4_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f5">
+							<img class="_drawbtnbgblur" src="images/market/f5.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f5_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f6">
+							<img class="_drawbtnbgblur" src="images/market/f6.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f6_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f7">
+							<img class="_drawbtnbgblur" src="images/market/f7.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f7_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" rightTarget="#exem0" id="f8">
+							<img class="_drawbtnbgblur" src="images/market/f8.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f8_focus.png"/>
+						</span>
+						<span class="cardBtn coocaabtn" downTarget="#f9" rightTarget="#exem0" id="f9">
+							<img class="_drawbtnbgblur" src="images/market/f9.png"/>
+							<img class="_drawbtnbgfocus" src="images/market/f9_focus.png"/>
+						</span>
+					</ul>
+				</div>
+				<div class="changeBox">
+					<ul id="changeBox" class="clearfix">
+						<!-- <div class="cardTab" >
+							<ul class="userInfo">
+								<p class="advert">广告位</p>
+								<img id="userFace" src="images/psb.jpg"/>
+								<p id="userName" class="inaline">酷_如意</p>
+							</ul>
+							<ul class="exchangecard_box">
+								<div><span><img class="js_icon" src="images/s_chu.png"/></span><img class="js_card" src="images/window/f1.png"/></div>
+								<div><span><img class="js_icon" src="images/s_qiu.png"/></span><img class="js_card" src="images/window/f1.png"/></div>
+								<em class="arrow"><img src="images/arrow.png"/></em>
+								<p><span class="exchange_btn"><img class="drawbtnbgblur" src="images/exchange_btn.png"/><img class="drawbtnbgfocus" src="images/exchange_focus.png"/></span></p>
+							</ul>
+						</div>
+
+						<div class="cardTab" >
+							<ul class="userInfo">
+								<p class="advert">赠送</p>
+								<img id="userFace" src="images/psb.jpg"/>
+								<p id="userName" class="inaline">酷_如意</p>
+							</ul>
+							<ul class="exchangecard_box">
+								<div><span><img class="js_icon" src="images/s_chu.png"/></span><img class="js_card" src="images/window/f1.png"/></div>
+								<div class="receive_hint">
+									<p>发布者免费赠送</p>
+									<p>速速领取哦！</p>
+								</div>
+								<p><span class="exchange_btn"><img class="drawbtnbgblur" src="images/receive_btn.png"/><img class="drawbtnbgfocus" src="images/receive_focus.png.png"/></span></p>
+							</ul>
+						</div> -->
+
+					</ul>
+					<ul id="more" class="break coocaabtn none"><span>下拉查看更多哦</span></ul>
+				</div>
+			</div>
+
+			<!--我发布的交易-->
+			<div id="myRelease" class="none">
+				<div class="num"></div>
+				<div class="releaseBox">
+					<ul id="releaseBox" class="clearfix">
+						<!-- <div class="cardTab1 coocaabtn" >
+							<ul class="userInfo">
+								<img id="userFace1" src="images/psb.jpg"/>
+								<p id="userName" class="inaline">酷_如意</p>
+							</ul>
+							<ul class="exchangecard_box">
+								<div class="jy_chu"><span><img class="jy_icon" src="images/jy_chu.png"/></span><img class="jy_card" src="images/window/f1.png"/></div>
+								<div class="jy_qiu"><span><img class="jy_icon" src="images/jy_qiu.png"/></span><img class="jy_card" src="images/window/f1.png"/></div>
+								<p style="text-align: center;">
+									<img class="drawbtnbgblur" src="images/alerdy.png"/>
+									<img class="drawbtnbgfocus" src="images/cancel_focus.png"/>
+								</p>
+							</ul>
+						</div> -->						
+					</ul>
+				</div>
+			</div>
+
+			<!--弹窗-->
+		<div id="window" style="display: none">
+			<!--确认交易提醒-->
+			<div class="window none" id="changeCard">
+				<p class="title" style="margin-top: 60px">确认完成交换吗？</p>
+				<p class="title_1">交换后你将</p>
+				<ul class="changeCard clearfix">
+					<div id="card_chu"><span><img class="jh_icon" src="images/jh_chu.png"/></span><img class="jh_card" src="images/window/f1.png"/></div>
+					<div id="card_de"><span><img class="jh_icon" src="images/jh_de.png"/></span><img class="jh_card" src="images/window/f2.png"/></div>
+					<img class="arrow" src="images/window/arrow.png"/>
+				</ul>
+				<ul class="btnTab">
+					<div id="getBtn" class="coocaabtn clickBtn" downTarget="#getBtn" upTarget="#getBtn" leftTarget="#getBtn">
+						<span class="drawbtnImg drawbtnbgblur">确定</span>
+						<span class="drawbtnImg drawbtnbgfocus">确定</span>
+					</div>
+					<div id="cancelBtn" class="coocaabtn clickBtn" downTarget="#cancelBtn" upTarget="#cancelBtn" rightTarget="#cancelBtn">
+						<span class="drawbtnImg drawbtnbgblur">取消</span>
+						<span class="drawbtnImg drawbtnbgfocus">取消</span>
+					</div>
+				</ul>				
+			</div>
+
+			<!--获得交易的福卡-->
+			<div class="window none" id="getCard">
+				<p class="title" style="margin-top: 55px"><img src="images/window/success.png" /><span class="success_tit"></span></p>
+				<p class="getCard_name">恭喜获得<span class="cardname_style"></span></p>
+				<ul class="changeCard clearfix">
+					<div id="get_card"><img src=""/></div>
+				</ul>
+				<ul class="btnTab">
+					<div id="goonBtn" class="coocaabtn clickBtn" downTarget="#goonBtn" upTarget="#goonBtn" leftTarget="#goonBtn">
+						<span class="drawbtnImg drawbtnbgblur">继续逛逛</span>
+						<span class="drawbtnImg drawbtnbgfocus">继续逛逛</span>
+					</div>
+					<div id="mycardBtn" class="coocaabtn clickBtn" downTarget="#mycardBtn" upTarget="#mycardBtn" rightTarget="#mycardBtn">
+						<span class="drawbtnImg drawbtnbgblur">我的福卡</span>
+						<span class="drawbtnImg drawbtnbgfocus">我的福卡</span>
+					</div>
+				</ul>	
+				<p class="bottom_hing" style="text-align: center">*已放入[我的福卡]，可前往查看</p>
+			</div>
+
+			<!--当前订单失效-->
+			<div class="window toast none" id="invalid">
+				<p>哎呀，晚来一步啦</p>
+				<p>这个交易太火爆了，已经被人抢走啦！</p>
+				<p>快看看其他交易吧</p>
+			</div>
+
+			<!--无符合条件-->
+			<div class="window none" id="inconformity">
+				<p class="tit_img"><img src="images/window/error.png"/></p>
+				<p class="title">抱歉~您暂无符合交换条件的福卡哦，</p>
+				<p class="title">去完成任务抽更多福卡吧</p>
+				<ul class="btnTab">
+					<div id="backBtn" class="coocaabtn clickBtn" downTarget="#backBtn" upTarget="#backBtn" leftTarget="#backBtn">
+						<span class="drawbtnImg drawbtnbgblur">再看看</span>
+						<span class="drawbtnImg drawbtnbgfocus">再看看</span>
+					</div>
+					<div id="gotaskBtn" class="coocaabtn clickBtn" downTarget="#gotaskBtn" upTarget="#gotaskBtn" rightTarget="#gotaskBtn">
+						<span class="drawbtnImg drawbtnbgblur">去做任务</span>
+						<span class="drawbtnImg drawbtnbgfocus">去做任务</span>
+					</div>
+				</ul>
+
+			</div>
+
+			<!--仅剩一张提醒-->
+			<div class="window none" id="onlyone">
+				<p class="tit_img"><img src="images/window/caution.png"/></p>
+				<p class="title">当前只剩一张<span id="only_cardName" class="cardname_style"></span>啦</p>
+				<p class="title">确定还要交换吗？</p>
+				<ul class="btnTab">
+					<div id="yesBtn" class="coocaabtn clickBtn" downTarget="#yesBtn" upTarget="#yesBtn" leftTarget="#yesBtn">
+						<span class="drawbtnImg drawbtnbgblur">是</span>
+						<span class="drawbtnImg drawbtnbgfocus">是</span>
+					</div>
+					<div id="noBtn" class="coocaabtn clickBtn" downTarget="#noBtn" upTarget="#noBtn" rightTarget="#noBtn">
+						<span class="drawbtnImg drawbtnbgblur">否</span>
+						<span class="drawbtnImg drawbtnbgfocus">否</span>
+					</div>
+				</ul>	
+			</div>
+			
+			<!--交易机会已用完-->
+			<div class="window none" id="noChance">
+					<p class="tit_img"><img src="images/window/error.png"/></p>
+					<p class="title">哎呀，没有更多交易次数啦</p>
+					<p class="title">可完成任务获得更多抽卡机会哦</p>
+					<ul class="btnTab">
+						<div id="goonBtn_2" class="coocaabtn clickBtn" downTarget="#goonBtn_2" upTarget="#goonBtn_2" leftTarget="#goonBtn_2">
+							<span class="drawbtnImg drawbtnbgblur">继续逛逛</span>
+							<span class="drawbtnImg drawbtnbgfocus">继续逛逛</span>
+						</div>
+						<div id="gotaskBtn_1" class="coocaabtn clickBtn" downTarget="#gotaskBtn_1" upTarget="#gotaskBtn_1" rightTarget="#gotaskBtn_1">
+							<span class="drawbtnImg drawbtnbgblur">去做任务</span>
+							<span class="drawbtnImg drawbtnbgfocus">去做任务</span>
+						</div>
+					</ul>	
+			</div>
+
+			<div class="window none" id="noChance_1">
+				<p class="tit_img"><img src="images/window/error.png"/></p>
+				<p class="title">哎呀，没有更多交易次数啦</p>
+				<p class="title">可先取消1个当前交易再来发布新的交易吧</p>
+				<ul class="btnTab">
+					<div id="goonBtn_1" class="coocaabtn clickBtn" downTarget="#goonBtn_1" upTarget="#goonBtn_1" leftTarget="#goonBtn_1">
+						<span class="drawbtnImg drawbtnbgblur">继续逛逛</span>
+						<span class="drawbtnImg drawbtnbgfocus">继续逛逛</span>
+					</div>
+					<div id="cancelTrans" class="coocaabtn clickBtn" downTarget="#cancelTrans" upTarget="#cancelTrans" rightTarget="#cancelTrans">
+						<span class="drawbtnImg drawbtnbgblur">去取消交易</span>
+						<span class="drawbtnImg drawbtnbgfocus">去取消交易</span>
+					</div>
+				</ul>	
+			</div>
+
+			<div class="window none" id="noChance_2">
+				<p class="tit_img"><img src="images/window/error.png"/></p>
+				<p class="title">哎呀，没有更多交易次数啦</p>
+				<p class="title">完成登录可再赠送1次集市交换机会哦</p>
+				<ul class="btnTab">
+					<div id="goonBtn_3" class="coocaabtn clickBtn" downTarget="#goonBtn_3" upTarget="#goonBtn_3" leftTarget="#goonBtn_3">
+						<span class="drawbtnImg drawbtnbgblur">继续逛逛</span>
+						<span class="drawbtnImg drawbtnbgfocus">继续逛逛</span>
+					</div>
+					<div id="loginBtn" class="coocaabtn clickBtn" downTarget="#loginBtn" upTarget="#loginBtn" rightTarget="#loginBtn">
+						<span class="drawbtnImg drawbtnbgblur">登录</span>
+						<span class="drawbtnImg drawbtnbgfocus">登录</span>
+					</div>
+				</ul>	
+			</div>
+			<!--确认交易要获得的福卡-->
+			<div class="window none" id="wantCard">
+				<p class="title" style="margin-top:60px">请选择您想要的福卡</p>
+				<ul class="cardBox">
+					<div class="mid_cardBox">
+						<div class="coocaa_btn winCard" leftTarget="#f0" upTarget="#f0" needs_focaEnums="fx" downTarget="#cancelChangeBtn" style="float:left" id="f0">
+							<img src="images/window/empty.png" title="奉献卡"/>
+							<span class="focus _drawbtnbgfocus none"><img src="images/window/focus.png"/></span>
+						</div>
+						<ul id="lack_cardBox" style="float: left;">
+							<!-- <div class="coocaa_btn winCard btnFocus" id="2">
+								<img src="images/window/f1.png"/>
+								<span class="focus _drawbtnbgfocus none"><img src="images/window/focus.png"/></span>
+							</div>
+							<div class="coocaa_btn winCard " id="3">
+								<img src="images/window/f2.png"/>
+							</div>
+							<div class="coocaa_btn winCard" id="4">
+								<img src="images/window/f3.png"/>
+							</div>
+							<div class="coocaa_btn winCard" id="4">
+								<img src="images/window/f4.png"/>
+							</div> -->
+						</ul>
+					</div>
+					<span class="arrow arrow_left none"><img src="images/window/left.png"/></span>
+					<span class="arrow arrow_right none"><img src="images/window/right.png"/></span>
+				</ul>
+				<ul class="btnTab">
+					<p style="font-size: 22px">按【确定】键完成选择</p>
+					<div id="cancelChangeBtn" upTarget="#f0" downTarget="#cancelChangeBtn" rightTarget="#cancelChangeBtn" leftTarget="#cancelChangeBtn" class="coocaa_btn clickBtn">
+						<span class="drawbtnImg drawbtnbgblur">不了，再想想</span>
+						<span class="drawbtnImg drawbtnbgfocus">不了，再想想</span>
+					</div>
+				</ul>	
+				<p class="bottom_hing" style="text-align: center">Tips:若选择“奉献卡”则当交易完成时将不获得卡片~</p>
+			</div>
+
+			<!--确认要用来交换的福卡-->
+			<div class="window none" id="wantSell">
+				<p class="title" style="margin-top:60px">请选择您想送出的福卡</p>
+				<ul class="cardBox">
+					<div class="_mid_cardBox">
+						<ul id="has_cardBox" style="float: left;">
+							<!-- <div class="coocaabtn sellCard" id="2">
+								<img src="images/entity.png"/>
+							</div>
+							<div class="coocaabtn sellCard" id="3">
+								<img src="images/entity.png"/>
+							</div>
+							<div class="coocaabtn sellCard" id="4">
+								<img src="images/entity.png"/>
+							</div> -->
+						</ul>
+					</div>
+				</ul>
+				<ul class="btnTab">
+					<p style="font-size: 22px">按【确定】键完成选择</p>
+					<div id="cancelChangeBtn_1" class="coocaabtn clickBtn" downTarget="#cancelChangeBtn_1" rightTarget="#cancelChangeBtn_1" leftTarget="#cancelChangeBtn_1">
+						<span class="drawbtnImg drawbtnbgblur">不了，再想想</span>
+						<span class="drawbtnImg drawbtnbgfocus">不了，再想想</span>
+					</div>
+				</ul>
+				<span class="arrow arrow_left none"><img src="images/window/left.png"/></span>
+				<span class="arrow arrow_right none"><img src="images/window/right.png"/></span>	
+			</div>
+
+			<!--信息发布成功-->
+			<div class="window none" id="publish">
+				<p class="title" style="margin-top: 55px"><img src="images/window/success.png" />发布成功</p>
+
+				<ul class="changeCard clearfix" style="margin-top: 30px;">
+					<div id="chu_publish"><span class="s_icon"><img src="images/s_chu.png"/></span><img class="s_card chu_card" src=""/></div>
+					<div id="qiu_publish" style="display:none"><span class="s_icon"><img src="images/s_qiu.png"/></span><img class="s_card qiu_card" src=""/></div>
+				</ul>
+				<ul class="btnTab">
+					<div id="backBtn_1" class="coocaabtn clickBtn" upTarget="#backBtn_1" downTarget="#backBtn_1" leftTarget="#backBtn_1">
+						<span class="drawbtnImg drawbtnbgblur">再看看</span>
+						<span class="drawbtnImg drawbtnbgfocus">再看看</span>
+					</div>
+					<div id="gomarketBtn" class="coocaabtn clickBtn" upTarget="#gomarketBtn" downTarget="#gomarketBtn" rightTarget="#gomarketBtn">
+						<span class="drawbtnImg drawbtnbgblur">去集市看看</span>
+						<span class="drawbtnImg drawbtnbgfocus">去集市看看</span>	
+					</div>
+				</ul>	
+				<p class="bottom_hing" style="text-align: center">交易完成情况请留意通知或在[我的交易]页面查看</p>
+			</div>
+		</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/coocaamap-1.1.js"></script>
+		<script type="text/javascript" src="js/awardRotate.js"></script>
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/framework.js?id=2"></script>
+	    <script type="text/javascript">
+	    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	    document.write(unescape("%3Cspan  style='display:none' id='cnzz_stat_icon_1275237010'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1275237010' type='text/javascript'%3E%3C/script%3E"));
+	    </script>
+
+	    <script type="text/javascript">
+	    setTimeout("otherJsInit()", 1000);
+
+	    function otherJsInit() {
+	        var newScript = document.createElement('script');
+	        newScript.type = 'text/javascript';
+	        newScript.src = 'https://s19.cnzz.com/z_stat.php?id=1273388601&web_id=1273388601';
+	        document.body.appendChild(newScript);
+	    }
+		</script>
+		
+		
+
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
