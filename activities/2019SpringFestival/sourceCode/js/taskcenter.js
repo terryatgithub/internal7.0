@@ -510,7 +510,6 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			});
         }else {
-        	ADMsg.total = 0;//yuanbotest
         	_adsTaskId = task_id;
 	        if(ADMsg.total > 0){
 	            //广告曝光
