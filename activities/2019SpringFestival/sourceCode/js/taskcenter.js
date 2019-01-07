@@ -3,7 +3,7 @@
 var _xMasNewYearActivityId = 95;   //活动id 由运营提供
 var _springActivityDivideId = 101; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
-var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码生成地址
+var _urlWechatHelp = "http://bbs.coocaa.com/wxzl/?key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
