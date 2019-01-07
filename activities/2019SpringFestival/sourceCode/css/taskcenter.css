@@ -5,7 +5,6 @@
 body {
 	width: 1920px;
 	height: 1080px;
-	background-image: url('../images/taskcenter/bg.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden;
@@ -70,7 +69,6 @@ body {
 	top: 45px;
 	width: 126px;
 	height: 126px;
-	background-image: url(../images/taskcenter/taskbrowser.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -103,7 +101,6 @@ body {
 
 /*微信助力二维码页面*/
 .wechatHelpPageClass {
-	background-image: url(../images/taskcenter/wechatBg.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	display: none;
@@ -160,12 +157,10 @@ body {
 #interlucationQuestionToastId{
 	width: 716px;
 	height: 369px;
-	background-image: url(../images/taskcenter/interlucationBg.png);
 }
 #interlucationAnswerToastId{
 	width: 716px;
 	height: 369px;
-	background-image: url(../images/taskcenter/interlucationBgRight.png);
 }
 .taskcenterToastClass div{
 	position: absolute;
@@ -191,7 +186,7 @@ body {
 	height: 100px;
 	line-height: 100px;
 	font-size: 30px;
-	background-image: url(../images/taskcenter/interlucationBtn.png);
+	background-image: url(../images/taskcenter/interlucationBtn.png);	
 	background-repeat: no-repeat;
 	background-position: 16px,27px;
 }
@@ -216,7 +211,6 @@ body {
 #taskcenterTaskHasDoneToastId{
 	width: 648px;
 	height: 384px;
-	background-image: url(../images/taskcenter/toastBg.png);
 }
 
 #taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass {
@@ -227,7 +221,6 @@ body {
 	line-height: 59px;
 	font-size: 33px;
 	color: #FFEEC2;
-	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
@@ -240,7 +233,6 @@ body {
 #taskcenterDiscardToastId {
 	width: 517px;
 	height: 487px;
-	background-image: url(../images/taskcenter/toastDiscardBg.png);
 }
 #taskcenterDiscardToastId .interlucationTitleClass {
 	top: 275px;
@@ -255,14 +247,12 @@ body {
 	line-height: 44px;
 	font-size: 25px;
 	color: #FFEEC2;
-	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
 
 /*付费商品展示页面*/
 .moreGoodsPageClass {
-	background-image: url(../images/taskcenter/moreGoodsBg.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	display: none;	
