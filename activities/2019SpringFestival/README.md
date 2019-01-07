@@ -33,3 +33,5 @@ logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.web
 我的福卡页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=mycard
 福卡集市页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=market
 我的交易页：http://beta.webapp.skysrt.com/zy/spring/index.html?part=mytrade
+//活动主页面：
+http://beta.webapp.skysrt.com/games/webapp/springfestival/dev/index.html
