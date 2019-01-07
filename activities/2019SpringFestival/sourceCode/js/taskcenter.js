@@ -399,11 +399,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotest
-//	if(checkCurTaskStatus(el)) {
-//		//落焦到未完成任务 或 跳toast
-//		getFirstUndoneTaskOrToast(true);
-//		return;
-//	}
+	if(checkCurTaskStatus(el)) {
+		//落焦到未完成任务 或 跳toast
+		getFirstUndoneTaskOrToast(true);
+		return;
+	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
