@@ -5,6 +5,7 @@ var _springActivityDivideId = 101; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
 var _urlWechatHelp = "http://www.mobileui.cn/aa/?key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
+var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 97;
@@ -101,7 +102,7 @@ var _qsource="", needQQ=false; //视频源
 var _blessingMarketOpen = false; 
 //广告视频数据,广告任务id：
 var ADMsg = null, _adsTaskId=undefined;
-
+var _bPlayFormalAdsVideo = false;//播放的是否正式广告：  false：播放的是备用视频， true：正式广告
 //
 var _Lindex = 0;//主页当前焦点
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
@@ -285,8 +286,10 @@ var app = {
 			console.log("--------------->commonListen==" + message.web_player_event);
 			if(message.web_player_event == "on_complete") {
 				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
-				//sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString());
-				sentThirdAdshow("videoEnd",ADMsg);
+				if(_bPlayFormalAdsVideo == true) {//第三方监测：播放完成
+					sentThirdAdshow("videoEnd",ADMsg);
+					_bPlayFormalAdsVideo = false;//reset
+				}
 				webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 				//加机会
 				addChanceWhenFinishTask("",_adsTaskId);
@@ -396,11 +399,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成：
 	//yuanbotest
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast(true);
-		return;
-	}
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast(true);
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
@@ -507,23 +510,31 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			});
         }else {
+        	ADMsg.total = 0;//yuanbotest
+        	_adsTaskId = task_id;
 	        if(ADMsg.total > 0){
 	            //广告曝光
-	            _adsTaskId = task_id;
 				sentInnerAdshow(ADMsg,"","","","",activity_id,task_id);
 				sentThirdAdshow("video",ADMsg);
 				sentThirdAdshow("videoStart",ADMsg);
 	            var url = ADMsg.schedules[0].content;
 	            console.log("广告数据正常 url:"+url);
 	            //播放视频广告
+	            _bPlayFormalAdsVideo = true;
 				coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
 					console.log(message);
 				}, function(error) {
 					console.log("startCommonWebview-"+error);
 				});
 	        }else{
-	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^");
-	            //todo
+	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+_backupAdsVideourl);
+	            //todo 播放备用视频
+             	var url = _backupAdsVideourl;
+				coocaaosapi.startCommonWebview("", url, "广告备用视频", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
+					console.log(message);
+				}, function(error) {
+					console.log("startCommonWebview-"+error);
+				});
 	        }
         }
     },function (error) {console.log("getAdData===="+error);});
