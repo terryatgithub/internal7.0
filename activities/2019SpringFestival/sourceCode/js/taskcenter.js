@@ -19,8 +19,8 @@ var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
 var _activityCenterVersionLatest=0; //活动中心 最新版本号
 var _browserVersionLatest=0;	//浏览器 最新版本号
-var _mallVersionLatest = -1;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
-var _appVersionLatest = 99999999;//3410022;  //影视教育最新版本号
+var _mallVersionLatest = 0;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
+var _appVersionLatest = 0;//3410022;  //影视教育最新版本号
 //-----------------------------正式上线需配置参数 end---------------------------------//
 //yuanbotest： 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
 var _adsTestMsg = {
