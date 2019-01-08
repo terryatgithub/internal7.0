@@ -288,7 +288,7 @@ body {
 	left: 11px;
 	width: 319px;
 	height: 190px;
-	background-size: cover;
+	background-size: 100%;
 	background-repeat: no-repeat;
 	z-index: 2;
 }
