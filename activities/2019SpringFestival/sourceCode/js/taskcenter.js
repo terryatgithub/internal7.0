@@ -685,8 +685,10 @@ function interlucationProcess(el, taskId) {
 			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务：
 				$("#interlucationAnswerToastId").css("display", "none");
 				$("#interlucationPageId").css("display", "none");
+				//刷新页面任务状态
+				$(".coocaa_btn_taskcenter").eq(0).attr("status",true);
 				getFirstUndoneTaskOrToast(false);
-				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+				getMyTasksList();
 				break;
 		}
 	}	
