@@ -265,7 +265,7 @@ var app = {
 			$("#interlucationPageId").css("display", "none");
 			$("#interlucationQuestionToastId").css("display", "none");
 			$("#interlucationAnswerToastId").css("display", "none");
-			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			getMyTasksList();
 		} else if($(".moreGoodsPageClass").css("display") == "block") { //从更多商品页面返回
 			$(".moreGoodsPageClass").css("display", "none");
 			//需要刷新任务状态
@@ -293,6 +293,8 @@ var app = {
 				webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 				//加机会
 				addChanceWhenFinishTask("",_adsTaskId);
+				//刷新页面状态：
+				getMyTasksList();
 				//数据复位
 				ADMsg = null;
 				_adsTaskId = undefined;
