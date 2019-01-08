@@ -686,8 +686,6 @@ function interlucationProcess(el, taskId) {
 				$("#interlucationAnswerToastId").css("display", "none");
 				$("#interlucationPageId").css("display", "none");
 				//刷新页面任务状态
-				$(".coocaa_btn_taskcenter").eq(0).attr("status",true);
-				getFirstUndoneTaskOrToast(false);
 				getMyTasksList();
 				break;
 		}
