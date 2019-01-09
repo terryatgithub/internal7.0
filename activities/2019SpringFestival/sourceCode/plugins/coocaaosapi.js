@@ -1181,6 +1181,11 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
         argscheck.checkArgs('ssff','CoocaaOSApi.startHomeTab',arguments);
         startapp.start([["action", actionName],[{'jumpToPage':tabid}]], success,error);
     }
+    
+    CoocaaOSApi.prototype.startHomeCommonList = function(id,success,error){
+        argscheck.checkArgs('sff','CoocaaOSApi.startHomeCommonList',arguments);
+        startapp.start([["action", "coocaa.intent.action.HOME_COMMON_LIST"],[{'id':id}]], success,error);
+    }
 
     module.exports = new CoocaaOSApi();
 });
