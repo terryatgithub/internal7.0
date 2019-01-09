@@ -303,6 +303,7 @@ var app = {
 	},
 	triggleButton: function() {
 		cordova.require("com.coocaaosapi");
+		webTaskCenterPageShowLog("任务中心页面");
 		_appversion = accountVersion;
 		app.registerEventHandler();
 		getDeviceInfo();
