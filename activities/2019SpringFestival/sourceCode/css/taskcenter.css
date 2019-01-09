@@ -279,43 +279,9 @@ body {
 	left: 11px;
 	width: 319px;
 	height: 284px;
-	background-image: url(../images/taskcenter/moreGoodsItem.jpg);
 	background-repeat: no-repeat;
+	background-size: cover;
 }
-.moreGoodsItemPic {
-	position: absolute;
-	top: 11px;
-	left: 11px;
-	width: 319px;
-	height: 190px;
-	background-size: 100%;
-	background-repeat: no-repeat;
-	z-index: 2;
-}
-.moreGoodsItemDetailClass {
-	position: absolute;
-	width: 100%;
-	height: 27px;
-	line-height: 27px;
-	color: #FFFFFF;
-	font-weight: bold;
-}
-.moreGoodsItemTitleClass {
-	top: 209px;
-	left: 15px;
-	font-size: 27px;
-}
-.moreGoodsItemPriceClass {
-	top: 235px;
-	left: 10px;
-	font-size: 27px;
-}
-.moreGoodsItemFooterClass {
-	top: 267px;
-	font-size: 24px;
-	text-align: center;
-}
-
 .moreGoodsTipClass {
 	position: absolute;
 	bottom: 10px;

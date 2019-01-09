@@ -187,29 +187,30 @@ var _tipsWhenClickTaskHasDone = [
 
 //购买任务里的商品参数:
 var moreGoodsTencent = [
-	 {type:"影视产品包-腾讯", name:"影视VIP年卡", priceOld: 468, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "-1"}
-	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}
-	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001"}
-	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012"}
-	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012"}
-	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012"}
-	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012"}
-	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012"}
-	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012"}
-	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1"}
+	 {type:"影视产品包-腾讯", name:"影视VIP年卡", priceOld: 468, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem1Tencent.jpg"}
+	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001",  imgUrl: "images/taskcenter/moreGoodsItem2.jpg"}
+	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem3.jpg"}
+	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem4.jpg"}
+	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem5.jpg"}
+	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem6.jpg"}
+	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem7.jpg"}
+	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem8.jpg"}
+	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem9.jpg"}
+	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem10.jpg"}
 ]
 var moreGoodsYinhe = [
-	 {type:"影视产品包-爱奇艺", name:"影视VIP年卡", priceOld: 498, priceNew: 249, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "-1"}
-	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}
-	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001"}
-	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012"}
-	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012"}
-	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012"}
-	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012"}
-	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012"}
-	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012"}
-	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1"}
+	 {type:"影视产品包-爱奇艺", name:"影视VIP年卡", priceOld: 498, priceNew: 249, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem1Iqiyi.jpg"}
+	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem2.jpg"}
+	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem3.jpg"}
+	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem4.jpg"}
+	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem5.jpg"}
+	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem6.jpg"}
+	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem7.jpg"}
+	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem8.jpg"}
+	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem9.jpg"}
+	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem10.jpg"}
 ]
+var _payTaskMoreGoodsList = moreGoodsYinhe;
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
 //函数正式开始:
 var app = {
@@ -462,16 +463,10 @@ function processKey(el) {
 			map = new coocaakeymap($(".coocaa_btn_taskcenter_moregoods"), $(".coocaa_btn_taskcenter_moregoods").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			$(".coocaa_btn_taskcenter_moregoods").unbind("itemClick").bind("itemClick", function() {
 				var index = $(".coocaa_btn_taskcenter_moregoods").index($(this));
-				var moreGoodsList = null;
-				if(needQQ) {
-					moreGoodsList = moreGoodsTencent;
-				}else {
-					moreGoodsList = moreGoodsYinhe;
+				if(index >= _payTaskMoreGoodsList.length) {
+					index = _payTaskMoreGoodsList.length - 1;
 				}
-				if(index >= moreGoodsList.length) {
-					index = moreGoodsList.length - 1;
-				}
-				var moreGood = moreGoodsList[index];
+				var moreGood = _payTaskMoreGoodsList[index];
 				//提交点击商品是第几排第几位
 				var row = 1, colume = 1;//第一排-第一位
 				row = Math.floor(index / 5) + 1;
@@ -585,14 +580,9 @@ function testAddmoreGoods() {
 		$("#moregoodsList").append($(".goodsItemClass:last-of-type").clone());	
 	}
 	var len = $(".goodsItemClass").length;
-	
-	var imgbase="http://beta.webapp.skysrt.com/yuanbo/test/materials/goods/goods ("
 	for(i = 0; i < len; i++) {
 		//todo 需要更新页面图片,需要更新每个商品价格等信息，运营确认最终产品后，让设计把价格都做到图上
-		$(".moreGoodsItemPic").eq(i).css("background-image", "url('"+imgbase+(i+1)+").jpg')");
-//		$(".moreGoodsItemTitleClass").eq(i).text();
-//		$(".moreGoodsItemPriceClass").eq(i).text();
-//		$(".moreGoodsItemFooterClass").eq(i).text();
+		$(".goodsItemPlaceHolderClass").eq(i).css("background-image", "url('"+_payTaskMoreGoodsList[i].imgUrl+"')");
 	}
 }
 //div:容器id； el:当前焦点元素$(this)
@@ -963,6 +953,7 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 				if(_qsource == "tencent") {
 					needQQ = true;
 					_interlucationsArray = _interlucationsArrayTencent;
+					_payTaskMoreGoodsList = moreGoodsTencent;
 				}
 				//获取问答任务的index：
 				_interlucationArrayIndex = getQuestionIndex();
