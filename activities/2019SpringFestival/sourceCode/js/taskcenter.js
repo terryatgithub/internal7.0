@@ -777,11 +777,7 @@ function doInterlucationTaskJumpMission(taskId) {
         var _mallVersionLocal = apkVersion[2];
         cAppVersion = apkVersion[3];
         console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==_mallVersionLocal=="+_mallVersionLocal+"==cAppVersion=="+cAppVersion);
-        if(needQQ){
-            missionlist = _interlucationsArrayTencent[_interlucationArrayIndex].jump;
-        }else{
-            missionlist = _interlucationsArrayYinhe[_interlucationArrayIndex].jump;
-        }
+        missionlist = _interlucationsArray[_interlucationArrayIndex].jump;
         if(missionlist.business == "movie" || missionlist.business == "edu"){
         	//todo 影视版本小于最低要求时，会打不开指定页面？ 目前没有区别，等运营最终问答任务跳转及数据埋点后再做处理：
             if(cAppVersion < _appVersionLatest){
