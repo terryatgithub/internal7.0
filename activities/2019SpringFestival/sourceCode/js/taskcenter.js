@@ -107,6 +107,9 @@ var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的
 var _Lindex = 0;//主页当前焦点
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
+var _meterRefreshTasklistWhenDayChanged = undefined; //页面定期刷新计时器 todo
+var _bFrozenTimeHasCome = false; //活动是否已经到冻结期；
+
 //互动问答题目区，由前端根据系统当前时间固定获取一个）
 var _interlucationsArrayTencent = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
@@ -133,7 +136,7 @@ var _interlucationsArrayYinhe = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
 	 {businessName: "影视活动爱奇艺", question: "奇异果VIP会员每月免费赠送几张点播券?", answerA:"A.2张", answerB:"B.4张", right: "B", date: 29, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"http://img.sky.fs.skysrt.com/movie_homepage_images/20180823/20180823202553287008_1920x1080.jpg"}}}
-	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.开通多久送多久", answerB:"B.只送1个月", right: "A", date: 30, 
+	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.买多久送多久", answerB:"B.只送1个月", right: "A", date: 30, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_aiqiyi/index.html?part=2"}}}
 	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 31, 
 	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"875112600"}}}
@@ -276,10 +279,15 @@ var app = {
 			webTaskCenterPageShowLog("任务中心页面");
 			getMyTasksList();
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
-			$("#toastWhenClickTaskHasDoneId").css("display", "none");
-			$("#taskcenterTaskHasDoneToastId").css("display", "none");
-			$("#taskcenterDiscardToastId").css("display", "none");
-			map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			console.log("弹窗，是否冻结期? _bFrozenTimeHasCome: "+_bFrozenTimeHasCome);
+			if(_bFrozenTimeHasCome) {//如果是冻结期弹窗，直接返回主页面
+				navigator.app.exitApp();	
+			}else {
+				$("#toastWhenClickTaskHasDoneId").css("display", "none");
+				$("#taskcenterTaskHasDoneToastId").css("display", "none");
+				$("#taskcenterDiscardToastId").css("display", "none");
+				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			}
 		} else {
 			navigator.app.exitApp();
 		}
@@ -1154,6 +1162,8 @@ function initActivityInfo() {
 			if(data.code == "50100") { //服务器返回正常
 				getMyTasksList();
 				_blessingMarketOpen = data.isTrade;
+			}else {
+				toastWhenAcitivityEnterFrozenTime();
 			}
 		},
 		error: function(err) {
@@ -1194,9 +1204,12 @@ function getMyTasksList() {
 		success: function(data) {
 			console.log(JSON.stringify(data));
 			if(data.code == "50100") { //服务器返回正常
-				if(data.data!=null) { //如果有礼物
+				if(data.data!=null) { //如果有任务
 					updateTaskInfoToPage(data.data);
+//					refreshTasklistWhenDayChanged(data.data.systemTime);
 				}
+			}else {
+				toastWhenAcitivityEnterFrozenTime();
 			}
 		},
 		error: function(err) {
@@ -1210,6 +1223,48 @@ function getMyTasksList() {
 		}
 	});	
 }
+function toastWhenAcitivityEnterFrozenTime(){
+	//如果返回异常,就认为已经到冻结期:
+	console.log("初始化或获取任务接口返回异常----显示冻结期弹窗");
+	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉~抽卡通道已关闭,<br>20点准时瓜分百万现金');
+	$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+	$("#taskcenterTaskHasDoneToastId").css("display", "block");
+	$("#toastWhenClickTaskHasDoneId").css("display", "block");
+	_bFrozenTimeHasCome = true;
+	map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+	$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+		console.log("冻结期弹窗,直接回主页面,任务中心页面kill自己");
+		navigator.app.exitApp();
+	});
+}
+//开启一个倒计时刷新页面(用户在页面停留,跨天时,任务需要刷新)
+function refreshTasklistWhenDayChanged(time) {
+	clearTimeout(_meterRefreshTasklistWhenDayChanged);
+	console.log("refreshTasklistWhenDayChanged Time: "+time);
+	//获取当前日期
+	var now = new Date(time);
+	var year = now.getFullYear();
+	var month = now.getMonth();
+	var date = now.getDate();
+	//获取当前日期的0点时间
+	var todayBegin = new Date(year, month, date);
+	//获取当前时间点到0点已过去时间
+	var delta = now.getTime() - todayBegin.getTime();
+	console.log("delta: "+ delta);
+	//获取距离24点的时间,给倒计时用
+	var milisecondsOfOneDay = 24 * 60 * 60 * 1000;
+	var timeout = milisecondsOfOneDay - delta;
+	//以下是调试用,方便看时间:
+	var timeoutH = Math.floor(timeout/60/60/1000);
+	var timeoutM = Math.floor((timeout - timeoutH*60*60*1000)/60/1000);
+	var timeoutS = Math.floor((timeout - timeoutH*60*60*1000 - timeoutM*60*1000)/1000);
+	console.log("timeout: "+ timeout +": "+ timeoutH +"小时"+timeoutM +"分钟"+timeoutS +"秒");
+	
+//	timeout = 20*1000; //yuanbotest 30s 倒计时刷新页面,会影响用户操作状态?? 这个要怎么处理?
+	
+	_meterRefreshTasklistWhenDayChanged = setTimeout("getMyTasksList()", timeout);					
+}
+
 //更新后台数据到页面显示
 function updateTaskInfoToPage(data) {
 	console.log("updateTaskInfoToPage in...");
