@@ -3,7 +3,7 @@
 var _xMasNewYearActivityId = 95;   //活动id 由运营提供
 var _springActivityDivideId = 101; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
-var _urlWechatHelp = "http://beta-wx.coocaa.com/wxzl/?key=";//微信助力二维码生成地址
+var _urlWechatHelp = "http://beta-wx.coocaa.com/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
@@ -100,28 +100,58 @@ var _qsource="", needQQ=false; //视频源
 
 //福卡集市是否开放
 var _blessingMarketOpen = false; 
-//广告视频数据,广告任务id：
+//广告视频数据,广告任务id:
 var ADMsg = null, _adsTaskId=undefined;
-var _bPlayFormalAdsVideo = false;//播放的是否正式广告：  false：播放的是备用视频， true：正式广告
+var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的是备用视频， true:正式广告
 //
 var _Lindex = 0;//主页当前焦点
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
 
 //互动问答题目区，由前端根据系统当前时间固定获取一个）
-var _interlucationsArray = [
+var _interlucationsArrayTencent = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
-	 {question: "创维电视的全球代言人是谁？", answerA:"A、李易峰", answerB:"B、赵又廷", right: "A", date: 29, done: "no" }
-	,{question: "中国彩电哪家强1？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 30,done: "no"}
-	,{question: "中国彩电哪家强2？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 31,done: "no"}
-	,{question: "中国彩电哪家强3？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 1,done: "no"}
-	,{question: "中国彩电哪家强4？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 2,done: "no"}
-	,{question: "中国彩电哪家强5？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 3,done: "no"}
-	,{question: "中国彩电哪家强6？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 4,done: "no"}
-	,{question: "中国彩电哪家强7？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 5,done: "no"}
-	,{question: "中国彩电哪家强8？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 6,done: "no"}
-	,{question: "中国彩电哪家强9？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 7,done: "no"}
-	,{question: "中国彩电哪家强10？",answerA:"A、创维",answerB:"B、其它",right: "A",date: 8,done: "no"}
+	 {businessName: "影视活动腾讯", question: "《无双》《影》等院线大片影视VIP会员<br>都可以免费看吗?", answerA:"A.VIP会员免费看", answerB:"B.仍需付费观看", right: "A", date: 29,
+	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.list",countDownTime:10,"subTask":0,param:{"business_type":"0","id":"1", "filter":"美国~must&1~pay", "subTitle":"精彩好莱坞"}}}
+	,{businessName: "影视活动腾讯", question: "影视VIP会员可以跳过片头广告吗?", answerA:"A.可以", answerB:"B.不可以", right: "A", date: 30, 
+	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_tencent/index.html?part=2"}}}
+	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 31, 
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"z6j3ixjjcokafyc"}}}
+	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 1, 
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"xmw2gfef226jygj"}}}
+	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 2, 
+	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
+	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 3, 
+	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0,param:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}}
+	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 4, 
+	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"10738"}, versionCode: "3180001"}}
+	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 5, 
+	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
+	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 6, 
+	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
 ]
+var _interlucationsArrayYinhe = [
+	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
+	 {businessName: "影视活动爱奇艺", question: "奇异果VIP会员每月免费赠送几张点播券?", answerA:"A.2张", answerB:"B.4张", right: "B", date: 29, 
+	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"http://img.sky.fs.skysrt.com/movie_homepage_images/20180823/20180823202553287008_1920x1080.jpg"}}}
+	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.开通多久送多久", answerB:"B.只送1个月", right: "A", date: 30, 
+	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_aiqiyi/index.html?part=2"}}}
+	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 31, 
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"875112600"}}}
+	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 1, 
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"216266201"}}}
+	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 2, 
+	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
+	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 3, 
+	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0,param:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}}
+	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 4, 
+	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"10738"}, versionCode: "3180001"}}
+	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 5, 
+	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
+	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 6, 
+	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
+]
+var _interlucationsArray = _interlucationsArrayYinhe;
+var _interlucationArrayIndex = 0;
 //回答正确或错误时的提示和跳转
 var _interlucationsTipsArray = [
 	{
@@ -139,7 +169,7 @@ var _interlucationsTipsArray = [
 		righturl: "goTaskCenterHome"
 	}
 ]
-//任务完成时的提示：
+//任务完成时的提示:
 var _tipsWhenClickTaskHasDone = [
 	{
 		title: "今日该任务已完成啦~ <br/> 试试其它任务吧！",
@@ -154,35 +184,8 @@ var _tipsWhenClickTaskHasDone = [
 		btnName: "去福卡集市"
 	}
 ]
-//随机浏览指定版面任务，分视频源：todo：public String subTask;//任务类型：0其他浏览任务    1观看视频任务
-var missionlistTencent = [
-    {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
-    {business:"mall",type:"malldetail",param:{"id":"17933"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
-    {business:"movie",type:"vip",param:{"source_id":"5"},action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0},
-    {business:"ad",type:"video",action:"app_browser.intent.action.PLAYER",param:{ "extra.id": "","extra.uri":"http://v-play.coocaatv.com/0915/wushuang.mp4","extra.tips":"看视频得铃铛","extra.height": "","extra.width": "","extra.http_call_url": "","extra.type": "","extra.name": "" },countDownTime:10,"subTask":1},
-    {business:"movie",type:"videospecial",param:{"topicCode":"98"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
-    {business:"movie",type:"specialtopic",param:{"id":"103065"},action:"coocaa.intent.action.HOME_SPECIAL_TOPIC",countDownTime:10,"subTask":0},
-    {business:"movie",type:"videospecial",param:{"pTopicCode":"1183"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"10738"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"102831"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"103177"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
-]
 
-var missionlistYinhe = [
-    {business:"mall",type:"specialtopic",param:{"id":"102930"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"mall",type:"malldetail",param:{"id":"17186"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
-    {business:"mall",type:"malldetail",param:{"id":"17933"},action:"coocaa.intent.action.MALL_DETAIL",countDownTime:10,"subTask":0},
-    {business:"movie",type:"vip",param:{"source_id":"1"},action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0},
-    {business:"ad",type:"video",action:"app_browser.intent.action.PLAYER",param:{ "extra.id": "","extra.uri":"http://v-play.coocaatv.com/0915/wushuang.mp4","extra.tips":"看视频得铃铛","extra.height": "","extra.width": "","extra.http_call_url": "","extra.type": "","extra.name": "" },countDownTime:10,"subTask":1},
-    {business:"movie",type:"videospecial",param:{"topicCode":"98"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
-    {business:"movie",type:"specialtopic",param:{"id":"103099"},action:"coocaa.intent.action.HOME_SPECIAL_TOPIC",countDownTime:10,"subTask":0},
-    {business:"movie",type:"videospecial",param:{"pTopicCode":"1183"},action:"coocaa.intent.movie.videospecial",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"10738"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"102987"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0},
-    {business:"edu",type:"commonlist",param:{"id":"103178"},action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0}
-]
-//购买任务里的商品参数：
+//购买任务里的商品参数:
 var moreGoodsTencent = [
 	 {type:"影视产品包-腾讯", name:"影视VIP年卡", priceOld: 468, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "-1"}
 	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}
@@ -208,7 +211,7 @@ var moreGoodsYinhe = [
 	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1"}
 ]
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
-//函数正式开始：
+//函数正式开始:
 var app = {
 	initialize: function() {
 		//yuanbotest PC debug start
@@ -226,7 +229,7 @@ var app = {
 	},
 	onResume: function() {
 		console.log("onresume");
-		//确保有且只有一次会更新到：
+		//确保有且只有一次会更新到:
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
 			if(_bUserLoginSuccess == true) {
 				console.log("onresume-用户登录成功");
@@ -286,14 +289,14 @@ var app = {
 			console.log("--------------->commonListen==" + message.web_player_event);
 			if(message.web_player_event == "on_complete") {
 				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
-				if(_bPlayFormalAdsVideo == true) {//第三方监测：播放完成
+				if(_bPlayFormalAdsVideo == true) {//第三方监测:播放完成
 					sentThirdAdshow("videoEnd",ADMsg);
 					_bPlayFormalAdsVideo = false;//reset
 				}
 				webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 				//加机会
 				addChanceWhenFinishTask("",_adsTaskId);
-				//刷新页面状态：
+				//刷新页面状态:
 				getMyTasksList();
 				//数据复位
 				ADMsg = null;
@@ -339,13 +342,13 @@ function checkCurTaskStatus(el) {
 		return false;
 	}
 }
-//获取第一个未完成任务，如都完成，跳toast： bToast: true:弹窗  false：只获取第一个未完成任务，不弹窗；
+//获取第一个未完成任务，如都完成，跳toast: bToast: true:弹窗  false:只获取第一个未完成任务，不弹窗；
 function getFirstUndoneTaskOrToast(bToast) {
 	var len = $(".coocaa_btn_taskcenter").length;
 	var i = 0;
 	// 0:当前任务完成，有其它未完成任务；
-	// 1：所有任务都完成，福卡集市未开启
-	// 2：所有任务都完成，福卡集市已开启
+	// 1:所有任务都完成，福卡集市未开启
+	// 2:所有任务都完成，福卡集市已开启
 	// 顺序与_tipsWhenClickTaskHasDone[]一致
 	var taskStatus = 0; 
 	for(;i<len;i++) {
@@ -356,12 +359,12 @@ function getFirstUndoneTaskOrToast(bToast) {
 		}
 	}
 	console.log("getFirstUndoneTaskOrToast _Lindex:"+_Lindex+",i:"+i);
-//	bToast: true:弹窗  false：只获取第一个未完成任务，不弹窗；
+//	bToast: true:弹窗  false:只获取第一个未完成任务，不弹窗；
 	if(bToast == false) {
 		return;
 	}
 	
-	//还要分福卡集市是否开放的状态：
+	//还要分福卡集市是否开放的状态:
 	if(i == len) { 
 		(_blessingMarketOpen == true) ? (taskStatus = 2) : (taskStatus = 1); 
 	}
@@ -393,14 +396,14 @@ function processKey(el) {
 	var curId = el.attr("id");
 	var taskId = el.attr("taskId");
 	console.log("processKey curId: "+ curId + ",taskId:"+taskId);
-	//根据后台获取数据，对任务赋予不同id：
+	//根据后台获取数据，对任务赋予不同id:
 //	1.微信好友助力
 //	2.登录任务
 //	3.互动问答
 //	4.浏览指定页面
 //	5.完成付费
 //	6.观看广告
-	//step 1: 先判断当前任务是否已完成：
+	//step 1: 先判断当前任务是否已完成:
 	//yuanbotest
 	if(checkCurTaskStatus(el)) {
 		//落焦到未完成任务 或 跳toast
@@ -423,12 +426,10 @@ function processKey(el) {
 		case "interlucationTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "回答指定问题");
 			webTaskCenterPageShowLog("问答任务页面");
-			//显示问题和答案
-			var index = getQuestionIndex();
-			$("#interlucationQuestionToastId .interlucationTitleClass").text(_interlucationsArray[index].question);
-			$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).text(_interlucationsArray[index].answerA);
-			$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).text(_interlucationsArray[index].answerB);
-			if(_interlucationsArray[index].right == "A") { //根据答案设置元素属性
+			$("#interlucationQuestionToastId .interlucationTitleClass").html(_interlucationsArray[_interlucationArrayIndex].question);
+			$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).text(_interlucationsArray[_interlucationArrayIndex].answerA);
+			$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).text(_interlucationsArray[_interlucationArrayIndex].answerB);
+			if(_interlucationsArray[_interlucationArrayIndex].right == "A") { //根据答案设置元素属性
 				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", true);
 				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", false);	
 			}else {
@@ -473,7 +474,7 @@ function processKey(el) {
 				var moreGood = moreGoodsList[index];
 				//提交点击商品是第几排第几位
 				var row = 1, colume = 1;//第一排-第一位
-				row = index / 5 + 1;
+				row = Math.floor(index / 5) + 1;
 				colume = index % 5 + 1;
 				webTaskCenterBtnClickLog("支付任务商品采购页面", moreGood.name, row+"-"+colume);
 				doSpecificBrowseTask(moreGood, taskId, false);
@@ -567,7 +568,7 @@ function sentThirdAdshow(type,msg) {
         console.log("submitThirdAdData err==="+err);
     });
 }
-//焦点移动 ---------------testZone start------------------：
+//焦点移动 ---------------testZone start------------------:
 function testAddmoreGoods() {
 	//step 1: 要先删掉之前添加的商品,避免重复
 	var count = $(".goodsItemClass").length;
@@ -594,7 +595,7 @@ function testAddmoreGoods() {
 //		$(".moreGoodsItemFooterClass").eq(i).text();
 	}
 }
-//div:容器id； el：当前焦点元素$(this)
+//div:容器id； el:当前焦点元素$(this)
 function letEleInView(div, el) {
 	var scrollHeight = $("#"+div)[0].scrollHeight;
 	var clientHeight = $("#"+div)[0].clientHeight;
@@ -610,7 +611,7 @@ function letEleInView(div, el) {
 	
 	console.log("isEleInView offsetTopIn:"+offsetTopIn + ",offsetBottomIn:"+offsetBottomIn);
 	console.log("isEleInView scrollTop:"+scrollTop + ",total top:"+(scrollTop+clientHeight));
-	//元素top和bottom都必须在可视区域内，否则就滚动：
+	//元素top和bottom都必须在可视区域内，否则就滚动:
 	if(!((offsetTopIn >= scrollTop && offsetTopIn <= scrollBottom) &&
 		(offsetBottomIn >= scrollTop && offsetBottomIn <= scrollBottom))) {
 			$("#"+div)[0].scrollTop = offsetTopIn - (clientHeight-el[0].offsetHeight)/2;
@@ -620,7 +621,7 @@ function letEleInView(div, el) {
 function moreGoodsFocusShift(el) {
 	letEleInView("moregoodsList", el);
 }
-//焦点移动 ---------------testZone end------------------：
+//焦点移动 ---------------testZone end------------------:
 //互动问答处理函数 
 function interlucationProcess(el, taskId) {
 	var round = el.attr("round");
@@ -681,9 +682,9 @@ function interlucationProcess(el, taskId) {
 			case _interlucationsTipsArray[0].lefturl: //回答正确左键
 			case _interlucationsTipsArray[1].lefturl: //回答错误左键
 				console.log("更多答案详情");
-				doRandomBrowserTask(taskId);
+				doInterlucationTaskJumpMission(taskId);
 				break;
-			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务：
+			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务:
 				$("#interlucationAnswerToastId").css("display", "none");
 				$("#interlucationPageId").css("display", "none");
 				//刷新页面任务状态
@@ -769,15 +770,13 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
         coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
     }   
 }
-//todo 做随机任务，暂时用作互动问答按键跳转，后续运营正式确定后再修改：（from谢金融）
-function doRandomBrowserTask(taskId) {
+//todo 问答任务后的按钮跳转，运营正式确定后需修改：
+function doInterlucationTaskJumpMission(taskId) {
+	var missionlist;
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
     var a = '{ "pkgList": ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"] }';
-    var randomMax = 11;//任务数
-    var randomNum = Math.floor(Math.random()*(randomMax));
-    console.log("做任务：======="+randomNum);
-    // return;
+    console.log("===做任务，第"+ _interlucationArrayIndex+"个");
     coocaaosapi.getAppInfo(a, function(message) {
         console.log("getAppInfo====" + message);
         for(var i=0;i<4;i++){
@@ -789,78 +788,61 @@ function doRandomBrowserTask(taskId) {
         cAppVersion = apkVersion[3];
         console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==_mallVersionLocal=="+_mallVersionLocal+"==cAppVersion=="+cAppVersion);
         if(needQQ){
-            missionlist = missionlistTencent;
+            missionlist = _interlucationsArrayTencent[_interlucationArrayIndex].jump;
         }else{
-            missionlist = missionlistYinhe;
+            missionlist = _interlucationsArrayYinhe[_interlucationArrayIndex].jump;
         }
-        if(_activityCenterVersionLocal<103000){
-            console.log("活动中心版本过低！！！！");
-            return;
-        }else if(missionlist[randomNum].business == "ad"){
-            if(_browserVersionLocal < 104022){
-                console.log("浏览器版本过低！！！！");
-                return;
-            }else {
-                startNewVersionAction(randomNum);
-            }
-        }else if(missionlist[randomNum].business == "movie" || missionlist[randomNum].business == "edu"){
-            if(cAppVersion < 3410022){
-                if(missionlist[randomNum].type == "videospecial"){
-                    if(cAppVersion<3300000){
-                        startLowVersionAction(4);
-                    }else{
-                        startLowVersionAction(randomNum);
-                    }
-                }else if(missionlist[randomNum].type == "specialtopic"){
-                    if(cAppVersion<3170001){
-                        startLowVersionAction(4);
-                    }else{
-                        startLowVersionAction(randomNum);
-                    }
-                }else{
-                    startLowVersionAction(randomNum);
-                }
-
+        if(missionlist.business == "movie" || missionlist.business == "edu"){
+        	//todo 影视版本小于最低要求时，会打不开指定页面？ 目前没有区别，等运营最终问答任务跳转及数据埋点后再做处理：
+            if(cAppVersion < _appVersionLatest){
+	            startLowVersionAction();
             }else{
-                startNewVersionAction(randomNum);
+                startNewVersionAction();
             }
-        }else if(missionlist[randomNum].business == "mall"){
-            if(_mallVersionLocal < 31000020){
+        }else if(missionlist.business == "mall"){
+            if(_mallVersionLocal < _mallVersionLatest){
                 console.log("商城版本不支持apk添加=======调用加机会接口");
-                startLowVersionAction(randomNum);
+                startLowVersionAction();
             }else{
-                startNewVersionAction(randomNum);
+                startNewVersionAction();
             }
+        }else {
+        	startNewVersionAction();
+        }
+        //yuanbotest 为了测试可以测到每个任务
+        if(++_interlucationArrayIndex >= _interlucationsArrayTencent.length) {
+        	_interlucationArrayIndex = 0;
         }
     }, function(error) {
         console.log("getAppInfo----error" + JSON.stringify(error));
     });
-    function startLowVersionAction(randomNum){
+    function startLowVersionAction(){
         console.log("加机会");
-        addChanceWhenFinishTask(missionlist[randomNum].subTask, taskId);
+        addChanceWhenFinishTask(missionlist.subTask, taskId);
         
-        var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
+        var param1="action",param2=missionlist.action,param3="",param4="",param5="";
         var str = "[]";
-        if(JSON.stringify(missionlist[randomNum].param) != "{}"){
-            str = '['+JSON.stringify(missionlist[randomNum].param).replace(/,/g,"},{")+']'
+        if(JSON.stringify(missionlist.param) != "{}"){
+            str = '['+JSON.stringify(missionlist.param).replace(/,/g,"},{")+']'
         }
         coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
     }
-    function startNewVersionAction(randomNum) {
-        var param1="action",param2=missionlist[randomNum].action,param3="",param4="",param5="";
+    function startNewVersionAction() {
+        var param1="action",param2=missionlist.action,param3="",param4="",param5="";
         var str = "[]";
-        if(JSON.stringify(missionlist[randomNum].param) != "{}"){
-            str = '['+JSON.stringify(missionlist[randomNum].param).replace(/,/g,"},{")+']'
+        if(JSON.stringify(missionlist.param) != "{}"){
+            str = '['+JSON.stringify(missionlist.param).replace(/,/g,"},{")+']'
         }
-        str = JSON.parse(str);
-        var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "subTask":missionlist[randomNum].subTask, "countDownTime":missionlist[randomNum].countDownTime, "verify_key":new Date().getTime()}
-        var doubleEggs_Active = {"doubleEggs_Active":external};
-        str.push(doubleEggs_Active);
-        str = JSON.stringify(str);
+        //todo 先不加机会,后面运营确定后再看怎么处理:
+//      str = JSON.parse(str);
+//      var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "subTask":missionlist.subTask, "countDownTime":missionlist.countDownTime, "verify_key":new Date().getTime()}
+//      var doubleEggs_Active = {"doubleEggs_Active":external};
+//      str.push(doubleEggs_Active);
+//      str = JSON.stringify(str);
         coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
     }
 }
-//完成任务时，增加机会接口：
+//完成任务时，增加机会接口:
  function addChanceWhenFinishTask(taskType, taskId, askResult, shareId) {
  	console.log("taskType:"+taskType+",taskId:"+taskId);
     var taskName = "跳转任务";
@@ -895,7 +877,7 @@ function doRandomBrowserTask(taskId) {
         }
     });
 }
-//获取本机应用版本号： 活动中心 浏览器 影视教育 商城
+//获取本机应用版本号: 活动中心 浏览器 影视教育 商城
 function getLocalApkVersions(el) {
     var apkVersion = [];
     var apkArry = ["com.coocaa.activecenter","com.coocaa.app_browser","com.coocaa.mall","com.tianci.movieplatform"];
@@ -909,7 +891,7 @@ function getLocalApkVersions(el) {
         _browserVersionLocal = apkVersion[1];
         
         console.log("===_activityCenterVersionLocal=="+_activityCenterVersionLocal+"===_browserVersionLocal=="+_browserVersionLocal+"==cAppVersion=="+cAppVersion);
-        //如果活动中心或浏览器版本不能满足需求：
+        //如果活动中心或浏览器版本不能满足需求:
         if((_activityCenterVersionLocal < _activityCenterVersionLatest) || (_browserVersionLocal < _browserVersionLatest)) {
         	console.log("活动中心或浏览器版本太低，需要后台升级，显示弹窗");
         	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html("正在加载中,请稍候~");
@@ -922,7 +904,7 @@ function getLocalApkVersions(el) {
 				$("#toastWhenClickTaskHasDoneId").css("display", "none");
 				map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 			});
-        } else {//版本满足需求，才真正执行按键判断：
+        } else {//版本满足需求，才真正执行按键判断:
         	processKey(el);
         }
         
@@ -980,7 +962,10 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 				_qsource = data.data.source;
 				if(_qsource == "tencent") {
 					needQQ = true;
+					_interlucationsArray = _interlucationsArrayTencent;
 				}
+				//获取问答任务的index：
+				_interlucationArrayIndex = getQuestionIndex();
 				console.log(_qsource + "--" + needQQ);
 			}
 		},
@@ -1150,7 +1135,7 @@ function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
 		console.log("用户登录成功.");
 		_bUserLoginSuccess = true;
-		 //后台加机会，并根据后台数据处理：
+		 //后台加机会，并根据后台数据处理:
 		 hasLogin(needQQ, 1);
 	});
 }
