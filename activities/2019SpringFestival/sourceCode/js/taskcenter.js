@@ -3,7 +3,7 @@
 var _xMasNewYearActivityId = 95;   //活动id 由运营提供
 var _springActivityDivideId = 101; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
-var _urlWechatHelp = "http://beta-wx.coocaa.com/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
 var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
@@ -1168,8 +1168,10 @@ function initActivityInfo() {
 			if(data.code == "50100") { //服务器返回正常
 				getMyTasksList();
 				_blessingMarketOpen = data.isTrade;
-			}else {
+			}else if(data.code == "50003") {
 				toastWhenAcitivityEnterFrozenTime();
+			}else {
+				console.log('获取任务接口异常');
 			}
 		},
 		error: function(err) {
@@ -1218,8 +1220,10 @@ function getMyTasksList() {
 
 //					refreshTasklistWhenDayChanged(data.data.systemTime);
 				}
-			}else {
+			}else if(data.code == "50003") {
 				toastWhenAcitivityEnterFrozenTime();
+			}else {
+				console.log('获取任务接口异常');
 			}
 		},
 		error: function(err) {
