@@ -329,8 +329,8 @@ function pageInit() {
 	console.log("pageInit in...");
 }
 
-function getQuestionIndex() {
-	var d = (new Date()).getDate();
+function getQuestionIndex(now) {
+	var d = (new Date(now)).getDate(); //获取到的本机时间不一定准确，要根据后台返回时间来确认
 	var index = 0;
 	var len = _interlucationsArray.length;
 	for(var i = 0; i < len; i++) {
@@ -338,7 +338,7 @@ function getQuestionIndex() {
 			index = i;
 		}
 	}
-	console.log("current date: "+ d + ", index:"+index);
+	console.log("getQuestionIndex current date: "+ d + ", index:"+index);
 	return index;
 }
 //检查当前落焦任务是否完成
@@ -811,8 +811,8 @@ function doInterlucationTaskJumpMission(taskId) {
         console.log("getAppInfo----error" + JSON.stringify(error));
     });
     function startLowVersionAction(){
-        console.log("加机会");
-        addChanceWhenFinishTask(missionlist.subTask, taskId);
+//      console.log("加机会");
+//      addChanceWhenFinishTask(missionlist.subTask, taskId);
         
         var param1="action",param2=missionlist.action,param3="",param4="",param5="";
         var str = "[]";
@@ -959,8 +959,6 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 					_interlucationsArray = _interlucationsArrayTencent;
 					_payTaskMoreGoodsList = moreGoodsTencent;
 				}
-				//获取问答任务的index：
-				_interlucationArrayIndex = getQuestionIndex();
 				console.log(_qsource + "--" + needQQ);
 			}
 		},
@@ -976,7 +974,7 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 		}
 	});
 }
-//stage: 0 :初始化阶段,需要初始化活动信息  1:登录状态右边,用户登录成功时,获取用户信息
+//stage: 0 :初始化阶段,需要初始化活动信息  1:登录状态有变,用户登录成功时,获取用户信息
 function hasLogin(needQQ, stage) {
 	console.log("in hasLogin needQQ:"+needQQ);
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
@@ -992,10 +990,11 @@ function hasLogin(needQQ, stage) {
 			//没有登录:
 			if(stage == 0) {
 				initActivityInfo();
-			}else if(stage == 1) {
-				var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-			 	addChanceWhenFinishTask(0, taskId);
 			}
+//			else if(stage == 1) {//没登录时这里不应该加机会?
+//				var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
+//			 	addChanceWhenFinishTask(0, taskId);
+//			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -1087,7 +1086,6 @@ function hasLogin(needQQ, stage) {
 					}
 					
 					//已经登录:
-					//没有登录:
 					if(stage == 0) {
 						initActivityInfo();
 					}else if(stage == 1) {
@@ -1206,6 +1204,9 @@ function getMyTasksList() {
 			if(data.code == "50100") { //服务器返回正常
 				if(data.data!=null) { //如果有任务
 					updateTaskInfoToPage(data.data);
+					//根据日期获取问答任务的index：
+					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
+
 //					refreshTasklistWhenDayChanged(data.data.systemTime);
 				}
 			}else {
