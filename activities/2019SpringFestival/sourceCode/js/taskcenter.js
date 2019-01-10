@@ -219,7 +219,7 @@ var _payTaskMoreGoodsList = moreGoodsYinhe;
 //函数正式开始:
 var app = {
 	initialize: function() {
-		//yuanbotest PC debug start
+		//PC debug start
 //		testtest_initActivityInfo();
 		//PC debug end
 		this.bindEvents();
@@ -234,10 +234,16 @@ var app = {
 	handleBackButton: function() {
 	},
 	onResume: function() {
-		console.log("onresume");
+		console.log("onresume getDeviceInfo(true)");
+		//yuanbotest 
+		//为应对用户直接在任务中心按Home键退到系统主页，然后再从活动主页进到任务中心，因为任务中心没有被kill导致直接进onResume()函数，有些数据没有初始化导致获取任务列表失败问题：
+		//必须在这里调用一次获取本机信息的接口，只做获取本机信息和活动信息的操作：
+		getDeviceInfo(true);
+		//todo 这种情况下的数据采集：任务中心页面曝光可能会不准
+		
 		//确保有且只有一次会更新到:
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
-			if(_bUserStartLogin == true) {
+			if(_bUserStartLogin == true) {//如果用户是从任务中心登录的：
 				if(_bUserLoginSuccess == true) {
 					console.log("onresume-用户登录成功");
 					webTaskCenterClickedResultLog("登录任务页面", "登录成功");
@@ -247,14 +253,13 @@ var app = {
 				 	getMyTasksList();
 					//复位状态
 			 		_bUserLoginSuccess = false;
-			 		_bUserStartLogin = false;
 				}else {
 					console.log("onresume-用户没有登录");
-					//复位状态
-					_bUserStartLogin = false;
 					webTaskCenterClickedResultLog("登录任务页面", "登录失败");
-				}			
-			}
+				}
+				//复位状态				
+				_bUserStartLogin = false;
+			} 
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
 			webTaskCenterPageShowLog("任务中心页面");
@@ -290,6 +295,7 @@ var app = {
 			//需要刷新任务状态
 			webTaskCenterPageShowLog("任务中心页面");
 			getMyTasksList();
+			//todo 如果用户是从支付任务的商品购买页面登录，然后回到任务中心首页，因为已经获取过用户登录信息，所以直接刷新任务列表即可获取到视频任务，不许额外动作：
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
 			console.log("弹窗，是否冻结期? _bFrozenTimeHasCome: "+_bFrozenTimeHasCome);
 			if(_bFrozenTimeHasCome) {//如果是冻结期弹窗，直接返回主页面
@@ -334,7 +340,7 @@ var app = {
 		webTaskCenterPageShowLog("任务中心页面");
 		_appversion = accountVersion;
 		app.registerEventHandler();
-		getDeviceInfo();
+		getDeviceInfo(false);
 		listenUserChange();
 	}
 };
@@ -430,11 +436,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成:
 	//yuanbotest
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast(true);
-		return;
-	}
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast(true);
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
@@ -927,7 +933,7 @@ function getLocalApkVersions(el) {
 }
  
 //获取设备信息并初始化
-function getDeviceInfo() {
+function getDeviceInfo(bFromOnResume) {
 	coocaaosapi.getDeviceInfo(function(message) {
 		console.log("getDeviceInfo success:"+JSON.stringify(message));
 		_deviceInfo = message;
@@ -942,14 +948,14 @@ function getDeviceInfo() {
 		}
 
 		console.log(_macAddress+"--"+_activityId);
-		getTvSource(_macAddress, _TVchip, _TVmodel, _emmcCID, _activityId, "Default", message.version.replace(/\./g, ""), message.panel, _appversion, message.androidsdk, message.brand);		
+		getTvSource(bFromOnResume, _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId, "Default", message.version.replace(/\./g, ""), message.panel, _appversion, message.androidsdk, message.brand);		
 		
 	}, function(error) {
 		console.log("获取设备信息出现异常。");
 	});
 }
 
-function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sSize, sAppVersion, sSdk, sBrand) {
+function getTvSource(bFromOnResume, smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sSize, sAppVersion, sSdk, sBrand) {
 	console.log(smac + "--" + sudid+ "--" + sAppVersion + "--" + sSdk);
 	var ajaxTimeout = $.ajax({
 		type: "POST",
@@ -989,12 +995,12 @@ function getTvSource(smac, schip, smodel, semmcid, sudid, sFMode, sTcVersion, sS
 			if(status == 'timeout') {　　
 				ajaxTimeout.abort();　　　　
 			}
-			hasLogin(needQQ, 0);　　
+			hasLogin(needQQ, 0, bFromOnResume);　　
 		}
 	});
 }
 //stage: 0 :初始化阶段,需要初始化活动信息  1:登录状态有变,用户登录成功时,获取用户信息
-function hasLogin(needQQ, stage) {
+function hasLogin(needQQ, stage,bFromOnResume) {
 	console.log("in hasLogin needQQ:"+needQQ);
 	coocaaosapi.hasCoocaaUserLogin(function(message) {
 		_loginstatus = message.haslogin;
@@ -1008,7 +1014,7 @@ function hasLogin(needQQ, stage) {
 			
 			//没有登录:
 			if(stage == 0) {
-				initActivityInfo();
+				initActivityInfo(bFromOnResume);
 			}
 			else if(stage == 1) {//没登录时这里不应该加机会?
 				console.log("haslogin: 用户没有登录");
@@ -1106,7 +1112,7 @@ function hasLogin(needQQ, stage) {
 					
 					//已经登录:
 					if(stage == 0) {
-						initActivityInfo();
+						initActivityInfo(bFromOnResume);
 					}else if(stage == 1) {
 						console.log("haslogin: 用户登录成功");
 						_bUserLoginSuccess = true;
@@ -1152,7 +1158,7 @@ function listenUserChange() {
 	});
 }
 //活动初始化
-function initActivityInfo() {
+function initActivityInfo(bFromOnResume) {
 	console.log("initActivityInfo in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
 	var ajaxTimeoutOne = $.ajax({
 		type: "post",
@@ -1177,7 +1183,12 @@ function initActivityInfo() {
 		success: function(data) {
 			console.log(JSON.stringify(data));
 			if(data.code == "50100") { //服务器返回正常
-				getMyTasksList();
+				console.log("initActivityInfo bFromOnResume:"+bFromOnResume);
+				if(bFromOnResume == true) {
+					console.log("initActivityInfo from onResume(), 只获取本机信息和活动初始状态,不往下走");
+				}else {
+					getMyTasksList();	
+				}
 				_blessingMarketOpen = data.isTrade;
 			}else if(data.code == "50003") {
 				toastWhenAcitivityEnterFrozenTime();
