@@ -227,6 +227,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		document.addEventListener("backbutton", this.handleBackButton, false);
 		document.addEventListener("backbuttondown", this.handleBackButtonDown, false);
+		document.addEventListener("homebutton", this.homeButtonFunction, false);
 		document.addEventListener('resume', this.onResume, false);
 	},
 	handleBackButton: function() {
@@ -292,6 +293,10 @@ var app = {
 			navigator.app.exitApp();
 		}
 	},
+	homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitApp();
+    },
 	registerEventHandler: function() {
 		console.log("registerEventHandler---");
 		coocaaosapi.addCommonListener(function(message) {
@@ -1206,6 +1211,7 @@ function getMyTasksList() {
 			console.log(JSON.stringify(data));
 			if(data.code == "50100") { //服务器返回正常
 				if(data.data!=null) { //如果有任务
+					
 					updateTaskInfoToPage(data.data);
 					//根据日期获取问答任务的index：
 					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
@@ -1264,7 +1270,7 @@ function refreshTasklistWhenDayChanged(time) {
 	var timeoutS = Math.floor((timeout - timeoutH*60*60*1000 - timeoutM*60*1000)/1000);
 	console.log("timeout: "+ timeout +": "+ timeoutH +"小时"+timeoutM +"分钟"+timeoutS +"秒");
 	
-//	timeout = 20*1000; //yuanbotest 30s 倒计时刷新页面,会影响用户操作状态?? 这个要怎么处理?
+//	timeout = 20*1000; //30s 倒计时刷新页面,会影响用户操作状态?? 这个要怎么处理?
 	
 	_meterRefreshTasklistWhenDayChanged = setTimeout("getMyTasksList()", timeout);					
 }
@@ -1310,15 +1316,14 @@ function updateTaskInfoToPage(data) {
 		var param = data.jump[0].param;
 		$(".coocaa_btn_taskcenter").eq(1).attr("param", param);	
 	}
-	if(data.video != undefined) {//观看视频
-		$(".coocaa_btn_taskcenter").eq(2).attr("id", "adsTaskId");		
-		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");
-		$(".taskTipsClass").eq(2).html("观看视频<br/><span>+1</span>次抽卡机会");
-	}
 	if(data.login != undefined) {//登录任务
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "loginTaskId");	
 		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontasklogin.png)");
 		$(".taskTipsClass").eq(2).html("完成登录<br/><span>+1</span>次抽卡机会");
+	}else { //if(data.video != undefined) {//观看视频  默认配成视频任务
+		$(".coocaa_btn_taskcenter").eq(2).attr("id", "adsTaskId");		
+		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");
+		$(".taskTipsClass").eq(2).html("观看视频<br/><span>+1</span>次抽卡机会");
 	}
 	$(".coocaa_btn_taskcenter").eq(3).attr("id", "payTaskId");		
 	$(".taskIconClass").eq(3).css("background-image", "url(images/taskcenter/icontaskbuy.png)");		
