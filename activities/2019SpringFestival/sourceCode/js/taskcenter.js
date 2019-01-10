@@ -227,7 +227,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		document.addEventListener("backbutton", this.handleBackButton, false);
 		document.addEventListener("backbuttondown", this.handleBackButtonDown, false);
-		document.addEventListener("homebutton", this.homeButtonFunction, false);
+//		document.addEventListener("homebutton", this.homeButtonFunction, false);
 		document.addEventListener('resume', this.onResume, false);
 	},
 	handleBackButton: function() {
