@@ -106,6 +106,7 @@ var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的
 //
 var _Lindex = 0;//主页当前焦点
 var _bUserLoginSuccess = false; //跳出登录页面时，用户是否登录成功；
+var _bUserStartLogin = false;//用户是否在本页面执行登录
 
 var _meterRefreshTasklistWhenDayChanged = undefined; //页面定期刷新计时器 todo
 var _bFrozenTimeHasCome = false; //活动是否已经到冻结期；
@@ -236,13 +237,23 @@ var app = {
 		console.log("onresume");
 		//确保有且只有一次会更新到:
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
-			if(_bUserLoginSuccess == true) {
-				console.log("onresume-用户登录成功");
-				webTaskCenterClickedResultLog("登录任务页面", "登录成功");
-				getMyTasksList();
-			}else {
-				console.log("onresume-用户没有登录");
-				webTaskCenterClickedResultLog("登录任务页面", "登录失败");
+			if(_bUserStartLogin == true) {
+				if(_bUserLoginSuccess == true) {
+					console.log("onresume-用户登录成功");
+					webTaskCenterClickedResultLog("登录任务页面", "登录成功");
+					//加机会，刷新状态
+					var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
+					addChanceWhenFinishTask(0, taskId);
+				 	getMyTasksList();
+					//复位状态
+			 		_bUserLoginSuccess = false;
+			 		_bUserStartLogin = false;
+				}else {
+					console.log("onresume-用户没有登录");
+					//复位状态
+					_bUserStartLogin = false;
+					webTaskCenterClickedResultLog("登录任务页面", "登录失败");
+				}			
 			}
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
@@ -999,10 +1010,10 @@ function hasLogin(needQQ, stage) {
 			if(stage == 0) {
 				initActivityInfo();
 			}
-//			else if(stage == 1) {//没登录时这里不应该加机会?
-//				var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-//			 	addChanceWhenFinishTask(0, taskId);
-//			}
+			else if(stage == 1) {//没登录时这里不应该加机会?
+				console.log("haslogin: 用户没有登录");
+				_bUserLoginSuccess = false;
+			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
 				exterInfo = message.external_info;
@@ -1097,8 +1108,8 @@ function hasLogin(needQQ, stage) {
 					if(stage == 0) {
 						initActivityInfo();
 					}else if(stage == 1) {
-						var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-					 	addChanceWhenFinishTask(0, taskId);
+						console.log("haslogin: 用户登录成功");
+						_bUserLoginSuccess = true;
 					}
 				}, function(error) {})
 			}, function(error) {});
@@ -1109,6 +1120,7 @@ function hasLogin(needQQ, stage) {
 
 function startLogin(needQQ) {
     console.log("startLogin in: _tencentWay:" + _tencentWay);
+    _bUserStartLogin = true;
     if (needQQ) {
         if (accountVersion > 4030000) {
             if (_tencentWay == "qq") {
@@ -1134,10 +1146,9 @@ function startLogin(needQQ) {
 //监听账户变化
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
-		console.log("用户登录成功.");
-		_bUserLoginSuccess = true;
-		 //后台加机会，并根据后台数据处理:
-		 hasLogin(needQQ, 1);
+		console.log("用户登录状态变化.");
+		//后台加机会，并根据后台数据处理:
+ 		hasLogin(needQQ, 1);
 	});
 }
 //活动初始化
