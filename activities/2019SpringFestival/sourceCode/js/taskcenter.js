@@ -843,7 +843,7 @@ function doInterlucationTaskJumpMission(taskId) {
     if(taskType == "1"){
         taskName == "视频任务";
     }
-    console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"====_openId===="+_openId);
+    console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"====_openId===="+_openId+"askResult:"+askResult+"... ");
     $.ajax({
         type: "post",
         async: true,
@@ -861,9 +861,12 @@ function doInterlucationTaskJumpMission(taskId) {
         success: function(data) {
             console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
             if(data.code == 50100){
-            	
-            }else{
-            	
+            	//
+            }else if(data.code == 91009){
+            	console.log("任务已过期");
+            	if (askResult == 1){ //如果是问答任务，且回答正确，因为任务已过期，所以不显示加机会。
+            		$("#interlucationAnswerToastId .interlucationTitleClass").html("恭喜回答正确!");            			
+            	}
             }
         },
         error: function(error) {
