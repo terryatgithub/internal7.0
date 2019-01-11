@@ -1371,7 +1371,10 @@ function updateTaskInfoToPage(data) {
 	$(".taskIconClass").eq(4).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwechat.png)");
 
 	//获取第一个未完成焦点
-	getFirstUndoneTaskOrToast(false);
+	if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("status") == "true") {
+		getFirstUndoneTaskOrToast(false);
+	}
+	
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	$(".coocaa_btn_taskcenter").unbind("itemClick").bind("itemClick", function() {
