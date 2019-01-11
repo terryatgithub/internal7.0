@@ -294,7 +294,9 @@ var app = {
 			$(".moreGoodsPageClass").css("display", "none");
 			//需要刷新任务状态
 			webTaskCenterPageShowLog("任务中心页面");
-			getMyTasksList();
+			//todo...
+			initActivityInfo(false);
+//			getMyTasksList();
 			//todo 如果用户是从支付任务的商品购买页面登录，然后回到任务中心首页，因为已经获取过用户登录信息，所以直接刷新任务列表即可获取到视频任务，不许额外动作：
 		}  else if($("#toastWhenClickTaskHasDoneId").css("display") == "block") { //从弹窗返回
 			console.log("弹窗，是否冻结期? _bFrozenTimeHasCome: "+_bFrozenTimeHasCome);
@@ -1187,10 +1189,12 @@ function initActivityInfo(bFromOnResume) {
 				if(bFromOnResume == true) {
 					console.log("initActivityInfo from onResume(), 只获取本机信息和活动初始状态,不往下走");
 				}else {
-					getMyTasksList();	
+					getMyTasksList();
+					//todo 是否显示"加机会"弹窗:
+					toastAddChanceShow(data.data);
 				}
 				_blessingMarketOpen = data.isTrade;
-			}else if(data.code == "50003") {
+			}else if(data.code == "50046" || data.code == "50003" || data.code == "50042") {
 				toastWhenAcitivityEnterFrozenTime();
 			}else {
 				console.log('获取任务接口异常');
@@ -1239,8 +1243,6 @@ function getMyTasksList() {
 					updateTaskInfoToPage(data.data);
 					//根据日期获取问答任务的index：
 					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
-
-//					refreshTasklistWhenDayChanged(data.data.systemTime);
 				}
 			}else if(data.code == "50003") {
 				toastWhenAcitivityEnterFrozenTime();
@@ -1356,6 +1358,8 @@ function updateTaskInfoToPage(data) {
 	$(".coocaa_btn_taskcenter").eq(4).attr("id", "weixinHelpTaskId");		
 	$(".taskIconClass").eq(4).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwechat.png)");
 
+	//获取第一个未完成焦点
+	getFirstUndoneTaskOrToast(false);
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
 	$(".coocaa_btn_taskcenter").unbind("itemClick").bind("itemClick", function() {
@@ -1363,7 +1367,11 @@ function updateTaskInfoToPage(data) {
 		console.log("itemClick _Lindex = " + _Lindex);
 			getLocalApkVersions($(this));
 	});
-
+	
+	//是否显示"加机会"弹窗:
+	toastAddChanceShow(data);
+}
+function toastAddChanceShow(data) {
 	//如果需要显示"+机会"弹窗:
 	var alter = parseInt(data.alter);
 	console.log("alter:"+alter);
