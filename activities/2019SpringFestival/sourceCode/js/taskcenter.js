@@ -1324,7 +1324,7 @@ function updateTaskInfoToPage(data) {
 			task = data[taskArray[i].type][0];
 			index = taskArray[i].index;
 			if(task.remainingNumber > 0) {//做任务
-				$(".taskBtnClass").eq(index).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/btndotask.png)");
+				$(".taskBtnClass").eq(index).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/btngodotask.png)");
 				bFinished = false;
 			}else {//已完成
 				$(".taskBtnClass").eq(index).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/btndone.png)");
