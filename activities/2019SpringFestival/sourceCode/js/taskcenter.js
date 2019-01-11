@@ -438,11 +438,11 @@ function processKey(el) {
 //	6.观看广告
 	//step 1: 先判断当前任务是否已完成:
 	//yuanbotest
-	if(checkCurTaskStatus(el)) {
-		//落焦到未完成任务 或 跳toast
-		getFirstUndoneTaskOrToast(true);
-		return;
-	}
+//	if(checkCurTaskStatus(el)) {
+//		//落焦到未完成任务 或 跳toast
+//		getFirstUndoneTaskOrToast(true);
+//		return;
+//	}
 	switch(curId) {
 		case "weixinHelpTaskId":
 			webTaskCenterBtnClickLog("任务中心页面", "做任务", "好友助力");
@@ -463,13 +463,15 @@ function processKey(el) {
 			$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).text(_interlucationsArray[_interlucationArrayIndex].answerA);
 			$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).text(_interlucationsArray[_interlucationArrayIndex].answerB);
 			if(_interlucationsArray[_interlucationArrayIndex].right == "A") { //根据答案设置元素属性
-				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", true);
-				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", false);	
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", 1);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", 0);	
 			}else {
-				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", false);
-				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", true);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(0).attr("correct", 0);
+				$("#interlucationQuestionToastId .interlucationBtnClass").eq(1).attr("correct", 1);
 			}
-
+			$("#interlucationQuestionToastId .interlucationTipClass").attr("correct", 2);//表示偷看答案
+			$("#interlucationQuestionToastId .interlucationTipClass").attr("round", "firstRound");//
+			
 			$("#interlucationQuestionToastId .interlucationBtnClass").attr("round", "firstRound");//第一轮回答
 			
 			$("#interlucationQuestionToastId").css("display", "block");
@@ -651,46 +653,54 @@ function interlucationProcess(el, taskId) {
 	if(round == "firstRound") {//第一轮回答
 		var b = el.attr("correct");
 		console.log("answer right or wrong: "+b);
-		if(b == "true") {//回答正确
-			//提示
-			$("#interlucationQuestionToastId").css("display", "none");
-			$("#interlucationAnswerToastId").css("display", "block");
+		if(b == 1 || b == 0) {//如果是回答问题
+			if(b == 1) {//回答正确
+				//提示
+				$("#interlucationQuestionToastId").css("display", "none");
+				$("#interlucationAnswerToastId").css("display", "block");
+				
+				$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgRight.png)");
+				
+				$("#interlucationAnswerToastId .interlucationTitleClass").html(_interlucationsTipsArray[0].title);
+				//左键
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[0].lefturl);
+				//右键
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
+			} else if(b == 0){//回答错误
+				//提示
+				$("#interlucationQuestionToastId").css("display", "none");
+				$("#interlucationAnswerToastId").css("display", "block");
+				//错误背景图
+				$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgWrong.png)");
+				
+				$("#interlucationAnswerToastId .interlucationTitleClass").text(_interlucationsTipsArray[1].title);
+				//左键
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[1].leftKey);
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[1].lefturl);
+				//右键
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
+				$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
+			}
+			//回答完毕
+			webTaskCenterClickedResultLog("问答任务页面", "回答成功");
 			
-			$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgRight.png)");
+			var askResult = (b == "true") ? 1 : 0; //回答是否正确
+			addChanceWhenFinishTask(0, taskId, askResult);		
 			
-			$("#interlucationAnswerToastId .interlucationTitleClass").html(_interlucationsTipsArray[0].title);
-			//左键
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[0].leftKey);
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[0].lefturl);
-			//右键
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[0].rightKey);
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[0].righturl);
-		} else {//回答错误
-			//提示
-			$("#interlucationQuestionToastId").css("display", "none");
-			$("#interlucationAnswerToastId").css("display", "block");
-			//错误背景图
-			$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgWrong.png)");
-			
-			$("#interlucationAnswerToastId .interlucationTitleClass").text(_interlucationsTipsArray[1].title);
-			//左键
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).text(_interlucationsTipsArray[1].leftKey);
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(0).attr("url", _interlucationsTipsArray[1].lefturl);
-			//右键
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).text(_interlucationsTipsArray[1].rightKey);
-			$("#interlucationAnswerToastId .interlucationBtnClass").eq(1).attr("url", _interlucationsTipsArray[1].righturl);
+			//设为第二轮
+			$("#interlucationAnswerToastId .interlucationBtnClass").attr("round", "secondRound");
+			map = new coocaakeymap($(".coocaa_btn_taskcenter_answer"), $(".coocaa_btn_taskcenter_answer").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			$(".coocaa_btn_taskcenter_answer").unbind().bind("itemClick", function() {
+				interlucationProcess($(this));
+			});	
+		}else if(b == 2){//如果是偷看答案
+			//todo
+			console.log("偷看答案");
+			webTaskCenterBtnClickLog("问答任务页面", "偷看答案", "");
+			doInterlucationTaskJumpMission(taskId);
 		}
-		webTaskCenterClickedResultLog("问答任务页面", "回答成功");
-		
-		var askResult = (b == "true") ? 1 : 0; //回答是否正确
-		addChanceWhenFinishTask(0, taskId, askResult);		
-		
-		//设为第二轮
-		$("#interlucationAnswerToastId .interlucationBtnClass").attr("round", "secondRound");
-		map = new coocaakeymap($(".coocaa_btn_taskcenter_answer"), $(".coocaa_btn_taskcenter_answer").eq(0), "btn-focus", function() {}, function(val) {}, function(obj) {});
-		$(".coocaa_btn_taskcenter_answer").unbind().bind("itemClick", function() {
-			interlucationProcess($(this));
-		});
 	}else if(round == "secondRound") {
 		var url = el.attr("url");
 //		回答正确 左键:了解创维  右键:去抽卡
@@ -704,6 +714,8 @@ function interlucationProcess(el, taskId) {
 			case _interlucationsTipsArray[0].lefturl: //回答正确左键
 			case _interlucationsTipsArray[1].lefturl: //回答错误左键
 				console.log("更多答案详情");
+				//todo
+				webTaskCenterBtnClickLog("问答任务页面", "更多答案详情", "");
 				doInterlucationTaskJumpMission(taskId);
 				break;
 			case _interlucationsTipsArray[1].righturl: //回答错误右键，试试其他任务:
@@ -1510,6 +1522,9 @@ function webTaskCenterBtnClickLog(task_page_name, button_name, position_id) {
 		case "支付任务商品采购页面":
 			//对支付任务商品采购页面,值是: 1-1、1-2……（第N排-第N位）
 			_dateObj.position_id = position_id;
+			_dateObj.parent_page_name = "任务中心";
+			break;
+		case "问答任务页面":
 			_dateObj.parent_page_name = "任务中心";
 			break;
 	}

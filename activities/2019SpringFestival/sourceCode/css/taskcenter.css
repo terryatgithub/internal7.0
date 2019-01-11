@@ -201,12 +201,18 @@ body {
 .interlucationBtnClass:nth-child(3) {
 	left: 368px;
 }
-#interlucationTipId {
-	font-size: 20px;
-	top: 257px;
-	left: 280px;
+.interlucationTipClass {
+	top:241px;
+	left:215px;
+	width: 295px;
+	height: 47px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQTip.png);	
+	background-repeat: no-repeat;
+	background-size: cover;
 }
-
+.interlucationTipClass.btn-focus {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQTipFocus.png);
+}
 /*任务完成弹窗页面*/
 #taskcenterTaskHasDoneToastId{
 	width: 648px;
