@@ -5,7 +5,7 @@
 body {
 	width: 1920px;
 	height: 1080px;
-	background-image: url(../images/taskcenter/bg.jpg);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/bg.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden;
@@ -23,7 +23,7 @@ body {
 	left: 415px;
 	width: 552px;
 	height: 323px;
-	background-image: url(../images/taskcenter/divbig.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divbig.png);
 	background-repeat: no-repeat;
 	background-position: 15px,25px;
 }
@@ -31,7 +31,7 @@ body {
 	left: 960px;
 }
 .taskItemClassBig[class~='btn-focus'] {
-	background-image: url(../images/taskcenter/divbigfocus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divbigfocus.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0,0;
@@ -43,7 +43,7 @@ body {
 	left: 375px;
 	width: 393px;
 	height: 304px;
-	background-image: url(../images/taskcenter/divsmall.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmall.png);
 	background-repeat: no-repeat;
 	background-position: 14px,25px;
 }
@@ -54,7 +54,7 @@ body {
 	left: 1150px;
 }
 .taskItemClass[class~='btn-focus'] {
-	background-image: url(../images/taskcenter/divsmallfocus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmallfocus.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0,0;
@@ -186,12 +186,12 @@ body {
 	height: 100px;
 	line-height: 100px;
 	font-size: 30px;
-	background-image: url(../images/taskcenter/interlucationBtn.png);	
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtn.png);	
 	background-repeat: no-repeat;
 	background-position: 16px,27px;
 }
 .interlucationBtnClass[class~=btn-focus] {
-	background-image: url(../images/taskcenter/interlucationBtnFocus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtnFocus.png);
 	background-position-x: 0;
 	background-position-y: 23px;
 }
@@ -289,12 +289,12 @@ body {
 	width: 319px;
 	height: 30px;
 	background-repeat: no-repeat;
-	background-image: url(../images/taskcenter/moreGoodsBtn.jpg);	
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsBtn.jpg);	
 	z-index: 2;
 	display: none;
 }
 .goodsItemClass[class~=btn-focus] {
-	background-image: url(../images/taskcenter/moreGoodsFocus.png);		
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsFocus.png);		
 }
 .goodsItemClass[class~=btn-focus] .moreGoodsTipClass {
 	display: block;

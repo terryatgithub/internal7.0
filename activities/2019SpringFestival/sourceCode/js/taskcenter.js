@@ -191,28 +191,28 @@ var _tipsWhenClickTaskHasDone = [
 
 //购买任务里的商品参数:
 var moreGoodsTencent = [
-	 {type:"影视产品包-腾讯", name:"影视VIP年卡", priceOld: 468, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem1Tencent.jpg"}
-	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001",  imgUrl: "images/taskcenter/moreGoodsItem2.jpg"}
-	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem3.jpg"}
-	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem4.jpg"}
-	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem5.jpg"}
-	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem6.jpg"}
-	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem7.jpg"}
-	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem8.jpg"}
-	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem9.jpg"}
-	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem10.jpg"}
+	 {type:"影视产品包-腾讯", name:"影视VIP年卡", priceOld: 468, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "5"}, versionCode: "-1", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem1Tencent.jpg"}
+	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001",  imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem2.jpg"}
+	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem3.jpg"}
+	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem4.jpg"}
+	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem5.jpg"}
+	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem6.jpg"}
+	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem7.jpg"}
+	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem8.jpg"}
+	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem9.jpg"}
+	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem10.jpg"}
 ]
 var moreGoodsYinhe = [
-	 {type:"影视产品包-爱奇艺", name:"影视VIP年卡", priceOld: 498, priceNew: 249, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem1Iqiyi.jpg"}
-	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem2.jpg"}
-	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "images/taskcenter/moreGoodsItem3.jpg"}
-	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem4.jpg"}
-	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem5.jpg"}
-	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem6.jpg"}
-	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem7.jpg"}
-	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem8.jpg"}
-	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "images/taskcenter/moreGoodsItem9.jpg"}
-	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "images/taskcenter/moreGoodsItem10.jpg"}
+	 {type:"影视产品包-爱奇艺", name:"影视VIP年卡", priceOld: 498, priceNew: 249, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "0", "source_id": "1"}, versionCode: "-1", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem1Iqiyi.jpg"}
+	,{type:"教育产品包1", name:"少儿VIP12个月", priceOld: 339, priceNew: 169, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "57"}, versionCode: "3180001", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem2.jpg"}
+	,{type:"教育产品包2", name:"教育VIP12个月", priceOld: 458, priceNew: 199, business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.vip.center", params:{"business_type": "1", "source_id": "58"}, versionCode: "3180001", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem3.jpg"}
+	,{type:"购物商品1", name:"热道升级控温即热水龙头(1+1回馈组)", priceOld: 299, priceNew: 269, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18043"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem4.jpg"}
+	,{type:"购物商品2", name:"五粮液股份东方娇子18瓶抢购组", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18041"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem5.jpg"}
+	,{type:"购物商品3", name:"扬子多功能加热破壁机", priceOld: 798, priceNew: 769, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18040"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem6.jpg"}
+	,{type:"购物商品4", name:"优活滤净省水器组合", priceOld: 299, priceNew: 289, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "18502"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem7.jpg"}
+	,{type:"购物商品5", name:"ileven每日坚果9久回味家庭装", priceOld: 298, priceNew: 278, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17924"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem8.jpg"}
+	,{type:"购物商品6", name:"糖果AI语音翻译手机(奇幻紫)", priceOld: 1999, priceNew: 1799, business:"mall", packageName:"com.coocaa.mall", byvalue:"coocaa.intent.action.MALL_DETAIL", params:{"id": "17923"}, versionCode: "30700012", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem9.jpg"}
+	,{type:"更多", name:"更多商品",  business:"movie", packageName:"com.tianci.movieplatform", byvalue:"coocaa.intent.action.HOME_COMMON_LIST", params:{"id": "102930"}, versionCode: "-1", imgUrl: "http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsItem10.jpg"}
 ]
 var _payTaskMoreGoodsList = moreGoodsYinhe;
 //---------------------------------------------2019春节活动需要函数 start -----------------------------------------------
@@ -228,7 +228,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		document.addEventListener("backbutton", this.handleBackButton, false);
 		document.addEventListener("backbuttondown", this.handleBackButtonDown, false);
-//		document.addEventListener("homebutton", this.homeButtonFunction, false);
+		document.addEventListener("homebutton", this.homeButtonFunction, false);
 		document.addEventListener('resume', this.onResume, false);
 	},
 	handleBackButton: function() {
@@ -312,7 +312,7 @@ var app = {
 	},
 	homeButtonFunction:function () {
         console.log("-----------按了主页键------------");
-      	navigator.app.exitApp();
+      	navigator.app.exitAll();
     },
 	registerEventHandler: function() {
 		console.log("registerEventHandler---");
@@ -654,7 +654,7 @@ function interlucationProcess(el, taskId) {
 			$("#interlucationQuestionToastId").css("display", "none");
 			$("#interlucationAnswerToastId").css("display", "block");
 			
-			$("#interlucationAnswerToastId").css("background-image", "url(images/taskcenter/interlucationBgRight.png)");
+			$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgRight.png)");
 			
 			$("#interlucationAnswerToastId .interlucationTitleClass").html(_interlucationsTipsArray[0].title);
 			//左键
@@ -668,7 +668,7 @@ function interlucationProcess(el, taskId) {
 			$("#interlucationQuestionToastId").css("display", "none");
 			$("#interlucationAnswerToastId").css("display", "block");
 			//错误背景图
-			$("#interlucationAnswerToastId").css("background-image", "url(images/taskcenter/interlucationBgWrong.png)");
+			$("#interlucationAnswerToastId").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgWrong.png)");
 			
 			$("#interlucationAnswerToastId .interlucationTitleClass").text(_interlucationsTipsArray[1].title);
 			//左键
@@ -1324,10 +1324,10 @@ function updateTaskInfoToPage(data) {
 			task = data[taskArray[i].type][0];
 			index = taskArray[i].index;
 			if(task.remainingNumber > 0) {//做任务
-				$(".taskBtnClass").eq(index).css("background-image", "url(images/taskcenter/btndotask.png)");
+				$(".taskBtnClass").eq(index).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/btndotask.png)");
 				bFinished = false;
 			}else {//已完成
-				$(".taskBtnClass").eq(index).css("background-image", "url(images/taskcenter/btndone.png)");
+				$(".taskBtnClass").eq(index).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/btndone.png)");
 				bFinished = true;
 			}
 			$(".coocaa_btn_taskcenter").eq(index).attr("status", bFinished);
@@ -1335,26 +1335,26 @@ function updateTaskInfoToPage(data) {
 		}
 	}
 	$(".coocaa_btn_taskcenter").eq(0).attr("id", "interlucationTaskId");
-	$(".taskIconClass").eq(0).css("background-image", "url(images/taskcenter/icontaskinterlucation.png)");			
+	$(".taskIconClass").eq(0).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskinterlucation.png)");			
 	$(".coocaa_btn_taskcenter").eq(1).attr("id", "browserTaskId");
-	$(".taskIconClass").eq(1).css("background-image", "url(images/taskcenter/icontaskbrowser.png)");
+	$(".taskIconClass").eq(1).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbrowser.png)");
 	if(data.jump != undefined) {//跳转任务
 		var param = data.jump[0].param;
 		$(".coocaa_btn_taskcenter").eq(1).attr("param", param);	
 	}
 	if(data.login != undefined) {//登录任务
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "loginTaskId");	
-		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontasklogin.png)");
+		$(".taskIconClass").eq(2).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontasklogin.png)");
 		$(".taskTipsClass").eq(2).html("完成登录<br/><span>+1</span>次抽卡机会");
 	}else { //if(data.video != undefined) {//观看视频  默认配成视频任务
 		$(".coocaa_btn_taskcenter").eq(2).attr("id", "adsTaskId");		
-		$(".taskIconClass").eq(2).css("background-image", "url(images/taskcenter/icontaskwatch.png)");
+		$(".taskIconClass").eq(2).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwatch.png)");
 		$(".taskTipsClass").eq(2).html("观看视频<br/><span>+1</span>次抽卡机会");
 	}
 	$(".coocaa_btn_taskcenter").eq(3).attr("id", "payTaskId");		
-	$(".taskIconClass").eq(3).css("background-image", "url(images/taskcenter/icontaskbuy.png)");		
+	$(".taskIconClass").eq(3).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbuy.png)");		
 	$(".coocaa_btn_taskcenter").eq(4).attr("id", "weixinHelpTaskId");		
-	$(".taskIconClass").eq(4).css("background-image", "url(images/taskcenter/icontaskwechat.png)");
+	$(".taskIconClass").eq(4).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwechat.png)");
 
 	//触发按键
 	map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
