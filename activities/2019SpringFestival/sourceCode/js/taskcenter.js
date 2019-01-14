@@ -238,7 +238,7 @@ var app = {
 		//yuanbotest 
 		//为应对用户直接在任务中心按Home键退到系统主页，然后再从活动主页进到任务中心，因为任务中心没有被kill导致直接进onResume()函数，有些数据没有初始化导致获取任务列表失败问题：
 		//必须在这里调用一次获取本机信息的接口，只做获取本机信息和活动信息的操作：
-		getDeviceInfo(true);
+		//getDeviceInfo(true);
 		//todo 这种情况下的数据采集：任务中心页面曝光可能会不准
 		
 		//确保有且只有一次会更新到:
@@ -1201,9 +1201,9 @@ function initActivityInfo(bFromOnResume) {
 				if(bFromOnResume == true) {
 					console.log("initActivityInfo from onResume(), 只获取本机信息和活动初始状态,不往下走");
 				}else {
-					getMyTasksList();
+					getMyTasksList(data.data);
 					//todo 是否显示"加机会"弹窗:
-					toastAddChanceShow(data.data);
+					//toastAddChanceShow(data.data);
 				}
 				_blessingMarketOpen = data.isTrade;
 			}else if(data.code == "50046" || data.code == "50003" || data.code == "50042") {
@@ -1224,7 +1224,7 @@ function initActivityInfo(bFromOnResume) {
 	});	
 }
 //获取我的任务信息
-function getMyTasksList() {
+function getMyTasksList(initData) {
 	console.log("getMyTasksList in: " + _xMasNewYearActivityId+"--"+_macAddress+"--"+_TVchip+"--"+_TVmodel+"--"+_emmcCID+"--"+_activityId+"--"+_access_token+"--"+_openId+"--"+_nickName);
 	var ajaxTimeoutOne = $.ajax({
 		type: "get",
@@ -1255,6 +1255,11 @@ function getMyTasksList() {
 					updateTaskInfoToPage(data.data);
 					//根据日期获取问答任务的index：
 					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
+				}
+				console.log("gettaskList initData: "+ initData);
+				if(initData != undefined && initData!= null) {
+					//todo 采购任务返回任务中心主页时,用初始化接口返回的alter值,决定是否显示"加机会"弹窗:
+					toastAddChanceShow(initData);
 				}
 			}else if(data.code == "50003") {
 				toastWhenAcitivityEnterFrozenTime();
