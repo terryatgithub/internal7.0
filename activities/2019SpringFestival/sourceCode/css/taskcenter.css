@@ -211,7 +211,7 @@ body {
 	background-size: cover;
 }
 .interlucationTipClass.btn-focus {
-	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQTipFocus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQPeekFocus.png);
 }
 /*任务完成弹窗页面*/
 #taskcenterTaskHasDoneToastId{

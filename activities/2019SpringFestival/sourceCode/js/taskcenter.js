@@ -114,44 +114,44 @@ var _bFrozenTimeHasCome = false; //活动是否已经到冻结期；
 //互动问答题目区，由前端根据系统当前时间固定获取一个）
 var _interlucationsArrayTencent = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
-	 {businessName: "影视活动腾讯", question: "《无双》《影》等院线大片影视VIP会员<br>都可以免费看吗?", answerA:"A.VIP会员免费看", answerB:"B.仍需付费观看", right: "A", date: 29,
+	 {businessName: "影视活动腾讯", question: "《无双》《影》等院线大片影视VIP会员<br>都可以免费看吗?", answerA:"A.当然免费", answerB:"B.不，需付费", right: "A", date: 29,
 	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.list",countDownTime:10,"subTask":0,param:{"business_type":"0","id":"1", "filter":"美国~must&1~pay", "subTitle":"精彩好莱坞"}}}
-	,{businessName: "影视活动腾讯", question: "影视VIP会员可以跳过片头广告吗?", answerA:"A.可以", answerB:"B.不可以", right: "A", date: 30, 
+	,{businessName: "影视活动腾讯", question: "影视VIP会员可以跳过片头广告吗?", answerA:"A.可以", answerB:"B.不可以", right: "A", date: 3, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_tencent/index.html?part=2"}}}
-	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 31, 
+	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 5, 
 	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"z6j3ixjjcokafyc"}}}
-	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 1, 
+	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 30, 
 	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"xmw2gfef226jygj"}}}
-	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 2, 
+	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 31, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
-	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 3, 
+	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 2, 
 	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0,param:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}}
-	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 4, 
+	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 6, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"10738"}, versionCode: "3180001"}}
-	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 5, 
+	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 1, 
 	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
-	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 6, 
+	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 4, 
 	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
 ]
 var _interlucationsArrayYinhe = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
 	 {businessName: "影视活动爱奇艺", question: "奇异果VIP会员每月免费赠送几张点播券?", answerA:"A.2张", answerB:"B.4张", right: "B", date: 29, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"http://img.sky.fs.skysrt.com/movie_homepage_images/20180823/20180823202553287008_1920x1080.jpg"}}}
-	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.买多久送多久", answerB:"B.只送1个月", right: "A", date: 30, 
+	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.同开通时间", answerB:"B.只送1个月", right: "A", date: 3, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_aiqiyi/index.html?part=2"}}}
-	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 31, 
+	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 5, 
 	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"875112600"}}}
-	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 1, 
+	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 30, 
 	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"216266201"}}}
-	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 2, 
+	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 31, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
-	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 3, 
+	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 2, 
 	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0,param:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}}
-	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 4, 
+	,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 6, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"10738"}, versionCode: "3180001"}}
-	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 5, 
+	,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 1, 
 	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
-	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 6, 
+	,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 4, 
 	 	jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
 ]
 var _interlucationsArray = _interlucationsArrayYinhe;
