@@ -686,7 +686,7 @@ function interlucationProcess(el, taskId) {
 			//回答完毕
 			webTaskCenterClickedResultLog("问答任务页面", "回答成功");
 			
-			var askResult = (b == "true") ? 1 : 0; //回答是否正确
+			var askResult = (b == 1) ? 1 : 0; //回答是否正确
 			addChanceWhenFinishTask(0, taskId, askResult);		
 			
 			//设为第二轮
