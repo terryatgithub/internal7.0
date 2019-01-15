@@ -20,7 +20,9 @@ var _browserVersionLocal;	//浏览器 本地版本号
 var _activityCenterVersionLatest=103009; //活动中心 最新版本号
 var _browserVersionLatest=104037;	//浏览器 最新版本号
 var _mallVersionLatest = 31000026;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
-var _appVersionLatest = 3420014;//3410022;  //影视教育最新版本号
+var _appVersionLatest = 3420016;//3410022;  //影视教育最新版本号
+var _appVersionCoocaa70 = 7000000;//酷开7.x系统软件版本号
+
 //-----------------------------正式上线需配置参数 end---------------------------------//
 // 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
 var _adsTestMsg = {
@@ -753,15 +755,16 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
 				}
 				console.log("str:"+str);
-				var latestVersion;
+				var latestVersion, maxVersion = 99999999;
 				if(business == "movie") {//影视教育
 					latestVersion = _appVersionLatest;
+					maxVersion = _appVersionCoocaa70;
 				}else if(business == "mall"){//商城
 					latestVersion = _mallVersionLatest;
 					minVersionCode = -1;//商城总能进入，不用最低版本判断
 				}
 				//bBrowserTask: true: 浏览版面任务，需要判断本机版本号vs最新版本号，并且本地版本号<最新版本号;  false:支付任务，不需要判断版本号 
-				if(bBrowserTask && (hasversioncode < latestVersion)) {
+				if(bBrowserTask && (hasversioncode < latestVersion || hasversioncode >= maxVersion)) {
 					if(hasversioncode < minVersionCode) {
 						console.log("当前影视教育版本过低，请前往应用圈搜索进行升级（影视教育），显示弹窗");
 			        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉,你当前影视版本过低~<br>请先升级<p style="font-size:27px">方法:在<span>应用圈</span>搜索<span>"YSJY"(影视教育)</span>升级即可</p>');
