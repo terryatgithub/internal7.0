@@ -1254,7 +1254,8 @@ function getMyTasksList(initData) {
 					
 					updateTaskInfoToPage(data.data);
 					//根据日期获取问答任务的index：
-					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
+					//yuanbotest 正式上线前环境要打开这里:
+					//_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
 				}
 				console.log("gettaskList initData: "+ initData);
 				if(initData != undefined && initData!= null) {
