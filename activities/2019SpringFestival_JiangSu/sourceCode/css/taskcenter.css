@@ -94,6 +94,12 @@ body {
 	background-size: cover;
 	display: none;
 }
+.taskcenterToastClass div{
+	position: absolute;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
 /*任务完成弹窗页面*/
 #taskcenterTaskHasDoneToastId{
 	width: 648px;
@@ -120,6 +126,14 @@ body {
 #taskcenterDiscardToastId {
 	width: 517px;
 	height: 487px;
+}
+.interlucationTitleClass {
+	font-size: 32px;
+	width: 100%;
+	top: 75px;
+}
+.interlucationTitleClass span {
+	color: rgb(255,246,0);
 }
 #taskcenterDiscardToastId .interlucationTitleClass {
 	top: 275px;
