@@ -1,0 +1,307 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	width: 1920px;
+	height: 1080px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/bg.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden;
+}
+#deviceready>div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+/*任务中心首页*/
+.taskItemClassBig {
+	display: inline-block;
+	position: absolute;
+	top: 315px;
+	left: 415px;
+	width: 552px;
+	height: 323px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divbig.png);
+	background-repeat: no-repeat;
+	background-position: 15px,25px;
+}
+.taskItemClassBig:nth-child(2) {
+	left: 960px;
+}
+.taskItemClassBig[class~='btn-focus'] {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divbigfocus.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0,0;
+}
+.taskItemClass {
+	display: inline-block;
+	position: absolute;
+	top: 608px;
+	left: 375px;
+	width: 393px;
+	height: 304px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmall.png);
+	background-repeat: no-repeat;
+	background-position: 14px,25px;
+}
+.taskItemClass:nth-child(4) {
+	left: 765px;
+}
+.taskItemClass:nth-child(5) {
+	left: 1150px;
+}
+.taskItemClass[class~='btn-focus'] {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmallfocus.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0,0;
+}
+[class^=taskItemClass] div{
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+.taskIconClass {
+	top: 45px;
+	width: 126px;
+	height: 126px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.taskTipsClass {
+	top: 182px;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	font-size: 24px;
+	text-align: center;
+	color: #FFD6A9;
+}
+.taskItemClass .taskTipsClass {
+	top: 172px;
+}
+.taskTipsClass span {
+	font-size: 33px;
+	color: #FFDC39;
+}
+.taskBtnClass{
+	bottom: 6px;
+	width: 167px;
+	height: 62px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.taskItemClass .taskBtnClass {
+	bottom: 4px;
+}
+
+/*微信助力二维码页面*/
+.wechatHelpPageClass {
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;
+}
+.wechatHelpContainerClass {
+	position: absolute;
+	top: 370px;
+	left: 700px;
+	width: 500px;
+	height: 500px;
+}
+.wechatHelpContainerClass div{
+	position: relative;
+	left: 50%;
+	width: 100%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	text-align: center;
+}
+.wechatHelpTipsClass {
+	height: 48px;
+	line-height: 48px;
+	font-size: 32px;
+	font-weight: bold;
+	color: #AC1800;
+	margin-top: 15px;
+}
+.wechatHelpTipsClass span {
+	font-size: 36px;
+}
+#wechatQrCodeId {
+	width: 320px;
+	height: 320px;
+	border: 5px solid white;
+	background-color: white;
+}
+
+/*弹窗类通用*/
+.taskcenterToastPageClass {
+	background-color: rgba(0,0,0,0.8) ;
+	display: none;
+}
+.taskcenterToastClass {
+	position: relative;
+	top: 512px;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;
+}
+/*互动问答页面*/ 
+#interlucationQuestionToastId{
+	width: 716px;
+	height: 369px;
+}
+#interlucationAnswerToastId{
+	width: 716px;
+	height: 369px;
+}
+.taskcenterToastClass div{
+	position: absolute;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
+.interlucationTitleClass {
+	font-size: 32px;
+	width: 100%;
+	top: 75px;
+}
+.interlucationTitleClass span {
+	color: rgb(255,246,0);
+}
+#interlucationAnswerToastId .interlucationTitleClass {
+	top: 210px;
+}
+.interlucationBtnClass {
+	top: 153px;
+	left: 45px;
+	width: 308px;
+	height: 100px;
+	line-height: 100px;
+	font-size: 30px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtn.png);	
+	background-repeat: no-repeat;
+	background-position: 16px,27px;
+}
+.interlucationBtnClass[class~=btn-focus] {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtnFocus.png);
+	background-position-x: 0;
+	background-position-y: 23px;
+}
+#interlucationAnswerToastId .interlucationBtnClass {
+	top: 240px;
+}
+.interlucationBtnClass:nth-child(3) {
+	left: 368px;
+}
+.interlucationTipClass {
+	top:241px;
+	left:215px;
+	width: 295px;
+	height: 47px;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQTip.png);	
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.interlucationTipClass.btn-focus {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationQPeekFocus.png);
+}
+/*任务完成弹窗页面*/
+#taskcenterTaskHasDoneToastId{
+	width: 648px;
+	height: 384px;
+}
+
+#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass {
+	top: 285px;
+	left: 170px;
+	width: 308px;
+	height: 73px;
+	line-height: 59px;
+	font-size: 33px;
+	color: #FFEEC2;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#taskcenterTaskHasDoneToastId .interlucationTitleClass {
+	top: 85px;
+	font-size: 36px;
+	line-height: 70px;
+}
+/*拆卡机会弹窗*/
+#taskcenterDiscardToastId {
+	width: 517px;
+	height: 487px;
+}
+#taskcenterDiscardToastId .interlucationTitleClass {
+	top: 275px;
+	font-size: 32px;
+	line-height: 40px;
+}
+#taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnClass {
+	top: 368px;
+	left: 140px;
+	width: 241px;
+	height: 73px;
+	line-height: 44px;
+	font-size: 25px;
+	color: #FFEEC2;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+/*付费商品展示页面*/
+.moreGoodsPageClass {
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;	
+}
+#moregoodsList {
+	position: absolute;
+	top: 352px;	
+	left: 104px;
+	height: 728px;
+	overflow: hidden;
+}
+.goodsItemClass {
+	position: relative;
+	display: inline-block;
+	width: 342px;
+	height: 306px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin: 0 0px 20px 0;
+}
+.goodsItemPlaceHolderClass {
+	position: absolute;
+	top: 11px;
+	left: 11px;
+	width: 319px;
+	height: 284px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.moreGoodsTipClass {
+	position: absolute;
+	bottom: 10px;
+	left: 12px;
+	width: 319px;
+	height: 30px;
+	background-repeat: no-repeat;
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsBtn.jpg);	
+	z-index: 2;
+	display: none;
+}
+.goodsItemClass[class~=btn-focus] {
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsFocus.png);		
+}
+.goodsItemClass[class~=btn-focus] .moreGoodsTipClass {
+	display: block;
+}
