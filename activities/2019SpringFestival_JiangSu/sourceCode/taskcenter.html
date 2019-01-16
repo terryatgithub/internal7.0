@@ -31,58 +31,22 @@
 		
 	<body>
 		<div id="deviceready">
-			
 			<!--我的任务-首页-->	
 			<div class="taskContainerClass">
-				<div class="taskItemClassBig coocaa_btn_taskcenter">
+				<div class="taskItemClass coocaa_btn_taskcenter">
 					<div class="taskIconClass"></div>
-					<div class="taskTipsClass">趣味答题<br/><span>+1</span>次抽卡机会</div>
-					<div class="taskBtnClass"></div>
-				</div>
-				<div class="taskItemClassBig coocaa_btn_taskcenter">
-					<div class="taskIconClass"></div>
-					<div class="taskTipsClass">浏览指定版面<br/><span>+1</span>次抽卡机会</div>
+					<div class="taskTipsClass"><span>浏览默认</span><br/><span>+1</span>次抽卡机会</div>
 					<div class="taskBtnClass"></div>
 				</div>
 				<div class="taskItemClass coocaa_btn_taskcenter">
 					<div class="taskIconClass"></div>
-					<div class="taskTipsClass">观看视频<br/><span>+1</span>次抽卡机会</div>
+					<div class="taskTipsClass"><span>浏览默认</span><br/><span>+1</span>次抽卡机会</div>
 					<div class="taskBtnClass"></div>
 				</div>
 				<div class="taskItemClass coocaa_btn_taskcenter">
 					<div class="taskIconClass"></div>
-					<div class="taskTipsClass">购买商品<br/><span>+2</span>次/<span>+5</span>次抽卡机会</div>
+					<div class="taskTipsClass"><span>浏览默认</span><br/><span>+1</span>次抽卡机会</div>
 					<div class="taskBtnClass"></div>
-				</div>
-				<div class="taskItemClass coocaa_btn_taskcenter">
-					<div class="taskIconClass"></div>
-					<div class="taskTipsClass">好友助力<br/><span>+1</span>次抽卡机会</div>
-					<div class="taskBtnClass"></div>
-				</div>
-			</div>
-			
-			<!--二维码页面(微信助力）-->
-			<div class="wechatHelpPageClass coocaa_btn_taskcenter_wechat">
-				<div class="wechatHelpContainerClass">
-					<div id="wechatQrCodeId"></div>	
-					<div class="wechatHelpTipsClass">扫码分享完成任务<br/><span>再得1次抽卡机会!</span></div>
-				</div>
-			</div>
-			
-			<!--互动问答页面-->
-			<div id="interlucationPageId" class="taskcenterToastPageClass">
-				<!--问题弹窗-->
-				<div id="interlucationQuestionToastId" class="taskcenterToastClass">
-					<div class="interlucationTitleClass">创维电视的全球代言人是谁？</div>
-					<div class="interlucationBtnClass coocaa_btn_taskcenter_question">A.李易峰</div>
-					<div class="interlucationBtnClass coocaa_btn_taskcenter_question">B.赵又廷</div>
-					<div class="interlucationTipClass coocaa_btn_taskcenter_question"></div>
-				</div>
-				<!--回答正确或错误弹窗-->
-				<div id="interlucationAnswerToastId" class="taskcenterToastClass">
-					<div class="interlucationTitleClass">恭喜你回答正确，<span>+1</span>次抽奖机会</div>
-					<div class="interlucationBtnClass coocaa_btn_taskcenter_answer">更多答案详情</div>
-					<div class="interlucationBtnClass coocaa_btn_taskcenter_answer">去抽卡</div>
 				</div>
 			</div>
 			
@@ -100,16 +64,6 @@
 				</div>
 			</div>
 			
-			<!--付费商品展示页面-->
-			<div class="moreGoodsPageClass">
-				<div id="moregoodsList"  class="goodsListClass">
-					<div id="moreGoodsItemMovie" class="goodsItemClass coocaa_btn_taskcenter_moregoods">
-						<div class="goodsItemPlaceHolderClass"></div>
-						<div class="moreGoodsTipClass"></div>
-					</div>
-				</div>
-			</div>
-			
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
@@ -124,14 +78,10 @@
     	<script type="text/javascript">
     		setTimeout("otherPageInit()",100);
     		function otherPageInit(){
-    			$(".wechatHelpPageClass").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/wechatBg.png)");
-    			$("#interlucationQuestionToastId").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBg.png)");
-    			$("#interlucationAnswerToastId").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBgRight.png)");
     			$("#taskcenterTaskHasDoneToastId").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/toastBg.png)");
 				$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtnFocus.png)");
 				$("#taskcenterDiscardToastId").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/toastDiscardBg.png)");
 				$("#taskcenterDiscardToastId .taskcenterTaskHasDoneToastBtnClass").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/interlucationBtnFocus.png)");
-				$(".moreGoodsPageClass").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/moreGoodsBg.jpg)");
     		}
     	</script>
 	</body>

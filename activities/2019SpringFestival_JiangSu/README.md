@@ -25,7 +25,7 @@
 	
 -------------------------------------------测试地址---------------------------------------------------
 #测试配置url（主页入口配置需要）：
-logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.webapp.skysrt.com/yuanbo/test/2019SpringFestival/taskcenter.html"; logcat | grep chrom; \r
+logcat -c;  am start -a coocaa.intent.action.browser --es "url" "http://beta.webapp.skysrt.com/yuanbo/test/2019SpringFestival_JS/taskcenter.html"; logcat | grep chrom; \r
 
 
 ------------------------------测试地址发布页面----------------------------------
