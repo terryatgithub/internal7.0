@@ -19,8 +19,8 @@ var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/201
 var _activityCenterVersionLocal; //活动中心 本地版本号
 var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
-var _activityCenterVersionLatest=103009; //活动中心 最新版本号
-var _browserVersionLatest=104037;	//浏览器 最新版本号
+var _activityCenterVersionLatest=103010; //活动中心 最新版本号
+var _browserVersionLatest=104039;	//浏览器 最新版本号
 var _mallVersionLatest = 31000026;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
 var _appVersionLatest = 3420016;//3410022;  //影视教育最新版本号
 var _appVersionCoocaa70 = 7000000;//酷开7.x系统软件版本号
