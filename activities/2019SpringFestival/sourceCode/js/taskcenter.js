@@ -170,13 +170,7 @@ var app = {
 	handleBackButton: function() {
 	},
 	onResume: function() {
-		console.log("onresume getDeviceInfo(true)");
-		//yuanbotest 
-		//为应对用户直接在任务中心按Home键退到系统主页，然后再从活动主页进到任务中心，因为任务中心没有被kill导致直接进onResume()函数，有些数据没有初始化导致获取任务列表失败问题：
-		//必须在这里调用一次获取本机信息的接口，只做获取本机信息和活动信息的操作：
-		//getDeviceInfo(true);
-		//todo 这种情况下的数据采集：任务中心页面曝光可能会不准
-		
+		console.log("onresume");
 		//确保有且只有一次会更新到:
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
 			if(_bUserStartLogin == true) {//如果用户是从任务中心登录的：
@@ -776,10 +770,6 @@ function doInterlucationTaskJumpMission(taskId) {
         }else {
         	startNewVersionAction();
         }
-        //yuanbotest 为了测试可以测到每个任务
-        if(++_interlucationArrayIndex >= _interlucationsArrayTencent.length) {
-        	_interlucationArrayIndex = 0;
-        }
     }, function(error) {
         console.log("getAppInfo----error" + JSON.stringify(error));
     });
@@ -1192,8 +1182,7 @@ function getMyTasksList(initData) {
 					
 					updateTaskInfoToPage(data.data);
 					//根据日期获取问答任务的index：
-					//yuanbotest 正式上线前环境要打开这里:
-					//_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
+					_interlucationArrayIndex = getQuestionIndex(data.data.systemTime);
 				}
 				console.log("gettaskList initData: "+ initData);
 				if(initData != undefined && initData!= null) {
