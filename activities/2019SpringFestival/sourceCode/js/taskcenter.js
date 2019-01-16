@@ -8,8 +8,8 @@ var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=ma
 var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-//var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-//var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+//var _xMasNewYearActivityId = 113;   //活动id 由运营提供
+//var _springActivityDivideId = 114; //瓜分活动id 由运营提供
 //var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
 //var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 //var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
