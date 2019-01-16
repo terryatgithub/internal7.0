@@ -1,12 +1,12 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+var _xMasNewYearActivityId = 107;   //活动id 由运营提供
+var _springActivityDivideId = 108; //瓜分活动id 由运营提供
 var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-//var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-//var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+//var _xMasNewYearActivityId = 107;   //活动id 由运营提供
+//var _springActivityDivideId = 108; //瓜分活动id 由运营提供
 //var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
 
 //本机客户端各apk版本号
@@ -15,8 +15,9 @@ var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
 var _activityCenterVersionLatest=103010; //活动中心 最新版本号
 var _browserVersionLatest=104039;	//浏览器 最新版本号
-
-
+var _mallVersionLatest = 31000026;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
+var _appVersionLatest = 3420016;//3410022;  //影视教育最新版本号
+var _appVersionCoocaa70 = 7000000;//酷开7.x系统软件版本号
 
 //-----------------------------正式上线需配置参数 end---------------------------------//
 
@@ -204,23 +205,34 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 					str = '['+ JSON.stringify(params).replace(/,/g, "},{") +']';
 				}
 				console.log("str:"+str);
-				if(business == "mall"){//商城					minVersionCode = -1;//商城总能进入，不用最低版本判断
+				
+				var latestVersion, maxVersion = 99999999;
+				if(business == "movie" || business == "edu") {//影视教育
+					latestVersion = _appVersionLatest;
+					maxVersion = _appVersionCoocaa70;
+				}else if(business == "mall"){//商城
+					latestVersion = _mallVersionLatest;
+					minVersionCode = -1;//商城总能进入，不用最低版本判断
 				}
 				
-				if(hasversioncode < minVersionCode) {
-					console.log("当前影视教育版本过低，请前往应用圈搜索进行升级（影视教育），显示弹窗");
-		        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉,你当前影视版本过低~<br>请先升级<p style="font-size:27px">方法:在<span>应用圈</span>搜索<span>"YSJY"(影视教育)</span>升级即可</p>');
-					$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
-					$("#taskcenterTaskHasDoneToastId").css("display", "block");
-					$("#toastWhenClickTaskHasDoneId").css("display", "block");
-					map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
-					$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
-						$("#taskcenterTaskHasDoneToastId").css("display", "none");
-						$("#toastWhenClickTaskHasDoneId").css("display", "none");
-						map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
-					});
+				if(bBrowserTask && (hasversioncode < latestVersion || hasversioncode >= maxVersion)) {
+					if(hasversioncode < minVersionCode) {
+						console.log("当前影视教育版本过低，请前往应用圈搜索进行升级（影视教育），显示弹窗");
+			        	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('抱歉,你当前影视版本过低~<br>请先升级<p style="font-size:27px">方法:在<span>应用圈</span>搜索<span>"YSJY"(影视教育)</span>升级即可</p>');
+						$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+						$("#taskcenterTaskHasDoneToastId").css("display", "block");
+						$("#toastWhenClickTaskHasDoneId").css("display", "block");
+						map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+						$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+							$("#taskcenterTaskHasDoneToastId").css("display", "none");
+							$("#toastWhenClickTaskHasDoneId").css("display", "none");
+							map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});
+						});
+					}else {
+						startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
+					}
 				}else {
-					startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
+					startNewVersionAction(taskId,param1,param2,param3,param4,param5,str, bBrowserTask);
 				}
 			}
 		},function(error) {
@@ -233,6 +245,18 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 	    addChanceWhenFinishTask("", taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
+    function startNewVersionAction(taskId,param1,param2,param3,param4,param5,str,bBrowserTask) {
+        console.log("startNewVersionAction 客户端加机会");
+        //只有浏览指定版面任务需要客户端加机会，支付任务不需要客户端加机会，而是由支付模块根据支付结果加机会。
+        if(bBrowserTask) {
+	        str = JSON.parse(str);
+	        var external = {"taskId":taskId,"id":_xMasNewYearActivityId,"userKeyId":_activityId, "countDownTime":10, "verify_key":new Date().getTime(), "subTask":"0"};
+	        var doubleEggs_Active = {"doubleEggs_Active":external};
+	        str.push(doubleEggs_Active);
+	        str = JSON.stringify(str);
+        }
+        coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
+    }   
 }
 //完成任务时，增加机会接口:
  function addChanceWhenFinishTask(taskType, taskId, askResult, shareId) {
