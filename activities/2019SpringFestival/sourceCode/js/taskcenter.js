@@ -2,17 +2,17 @@
 //##########						        测试区域						#############//
 var _xMasNewYearActivityId = 95;   //活动id 由运营提供
 var _springActivityDivideId = 101; //瓜分活动id 由运营提供
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
+var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
 var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
+var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
 var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 95;   //活动id 由运营提供
 //var _springActivityDivideId = 101; //瓜分活动id 由运营提供
-//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com/";//主活动接口
+//var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
 //var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-//var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market";//福卡集市url
+//var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
 //var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
 
 //本机客户端各apk版本号
@@ -26,74 +26,6 @@ var _appVersionLatest = 3420016;//3410022;  //影视教育最新版本号
 var _appVersionCoocaa70 = 7000000;//酷开7.x系统软件版本号
 
 //-----------------------------正式上线需配置参数 end---------------------------------//
-// 广告测试数据，等广告后台调好，再删掉，并完善正式流程即可 
-var _adsTestMsg = {
-    "total": 1,
-    "sys_tracker": "http://tv.cctracker.com/hoisin/",
-    "schedules": [
-        {
-            "order_id": "O20181210000006",
-            "schedule_id": "S20190104000331",
-            "adspace_id": "CCADTV10001",
-            "position_x": 0,
-            "position_y": 0,
-            "width": 1920,
-            "height": 1080,
-            "media_type": "video",
-            "media_size": 11613888,
-            "content": "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts",
-            "media_md5": "92c3c2009d1f406eb348c13f25a19235",
-            "caption": "",
-            "show_time": 15,
-            "operate_model": 1,
-            "begin_time": 1546531200,
-            "end_time": 1580831999,
-            "click_event": "",
-            "subscript": {},
-            "skip_ad": false,
-            "extend_param": {},
-            "relation_info": {
-                "content": [],
-                "type": ""
-            },
-            "track_url": [
-                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010405&time=1540202820374&did=10001"
-            ],
-            "sdk_track": [],
-            "click_tracks": [],
-            "click_sdk_tracks": [],
-            "player_start_tracks": [
-                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010406&time=1540202820374&did=10001"
-            ],
-            "player_start_sdk_tracks": [],
-            "player_end_tracks": [
-                "https://data-hoisin.coocaa.com/track?mac=bcec23461b11&model=model&ip=127.0.0.1&province=51&city=518000&sid=2019010406&time=1540202820374&did=10001"
-            ],
-            "player_end_sdk_tracks": [],
-            "schedule_md5": "fb37025098df6adaf27cc0d6e0b9e4e0"
-        }
-    ],
-    "data_type": "json",
-    "db_path": "",
-    "pkg_md5": "90551afba0494ef94480fd1a1fd8767c",
-    "client_ip": "172.20.139.206",
-    "interval": 14820,
-    "next_time": 1546598781,
-    "ad_setting": {
-        "op_per_push_min_sys_ver": "-1",
-        "op_per_repair_on_boot": "true",
-        "op_per_roll_back_user_ver": "-1",
-        "op_per_de_min_sys_ver": "-1",
-        "tv_router_info_switch": "1",
-        "download_type": "1800018",
-        "client_req_timeout": "1500",
-        "tv_router_info_interval": "120",
-        "op_per_user_min_sys_ver": "500000000",
-        "op_per_ad_min_sys_ver": "-1",
-        "track_url": "http://172.20.155.60:3100/index",
-        "system_time": "1546583959"
-    }
-}
 
 //全局参数
 var _macAddress, _TVchip, _TVmodel, _emmcCID, _activityId="" ;
@@ -1211,6 +1143,7 @@ function initActivityInfo(bFromOnResume) {
 					//toastAddChanceShow(data.data);
 				}
 				_blessingMarketOpen = data.isTrade;
+				_fukaMarketUrl = _fukaMarketUrl + _blessingMarketOpen; 
 			}else if(data.code == "50046" || data.code == "50003" || data.code == "50042") {
 				toastWhenAcitivityEnterFrozenTime();
 			}else {
