@@ -55,9 +55,9 @@ var _interlucationsArrayTencent = [
 	,{businessName: "影视活动腾讯", question: "影视VIP会员可以跳过片头广告吗?", answerA:"A.可以", answerB:"B.不可以", right: "A", date: 3, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_tencent/index.html?part=2"}}}
 	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 5, 
-	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"z6j3ixjjcokafyc"}}}
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"_otx_z6j3ixjjcokafyc"}}}
 	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 30, 
-	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"xmw2gfef226jygj"}}}
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"_otx_xmw2gfef226jygj"}}}
 	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 31, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
 	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 2, 
@@ -76,9 +76,9 @@ var _interlucationsArrayYinhe = [
 	,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的<br>手机端爱奇艺会员?", answerA:"A.同开通时间", answerB:"B.只送1个月", right: "A", date: 3, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_aiqiyi/index.html?part=2"}}}
 	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 5, 
-	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"875112600"}}}
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"_oqy_875112600"}}}
 	,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 30, 
-	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"216266201"}}}
+	 	jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"_oqy_216266201"}}}
 	,{businessName: "教育", question: "教育频道下新推出的成人教育频道<br>叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 31, 
 	 	jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
 	,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 2, 
