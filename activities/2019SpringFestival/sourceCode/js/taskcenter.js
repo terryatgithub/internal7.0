@@ -510,7 +510,7 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 	             	}
              	}
 	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+url);
-				coocaaosapi.startCommonWebview("", url, "广告备用视频", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
+				coocaaosapi.startCommonWebview("", url, " ", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
 					console.log(message);
 				}, function(error) {
 					console.log("startCommonWebview-"+error);
