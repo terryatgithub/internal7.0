@@ -48,3 +48,22 @@ http://beta.webapp.skysrt.com/games/webapp/springfestival/dev/index.html
 //67EF020FE82A5BBF1D3F9E719886EB8A
 //103010
 //https://apk-sky-fs.skysrt.com/uploads/20190109/20190109191141936672.apk
+
+-------------------------------------------正式地址---------------------------------------------------
+正式地址：
+        https://webapp.skysrt.com/springfestival19/  【springfestival19为新建目录】
+附件下有  main     taskcenter   两个文件夹；请直接放置在springfestival19/下即可【另明天还有foca    address   等文件夹需要发布，同样放置于springfestival19下】
+
+@嘉玲：
+        启动的版本请配置为  104039  ；测试要求重新配置入口，目前测试的入口请保留不动。
+        活动主页面地址：
+        https://webapp.skysrt.com/springfestival19/main/index.html
+        打开的action请采用  coocaa.intent.action.browser.no_trans
+
+各个业务入口地址：
+	默认分入口-- https://webapp.skysrt.com/springfestival19/main/index.html
+        影视分入口-- https://webapp.skysrt.com/springfestival19/main/index.html?from=movie
+	教育分入口-- https://webapp.skysrt.com/springfestival19/main/index.html?from=edu
+	购物分入口-- https://webapp.skysrt.com/springfestival19/main/index.html?from=mall
+	应用分入口-- https://webapp.skysrt.com/springfestival19/main/index.html?from=apk
+启动方式： coocaa.intent.action.browser.no_trans  
