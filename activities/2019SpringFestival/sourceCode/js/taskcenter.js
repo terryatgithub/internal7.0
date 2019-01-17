@@ -5,7 +5,8 @@
 //var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
 //var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 //var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
-//var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
+//var _backupAdsVideourlTencent = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
+//var _backupAdsVideourlIqiyi = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 var _xMasNewYearActivityId = 113;   //活动id 由运营提供
@@ -13,7 +14,9 @@ var _springActivityDivideId = 114; //瓜分活动id 由运营提供
 var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
 var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
-var _backupAdsVideourl = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";//备用广告播放视频
+//备用广告播放视频(分源)
+var _backupAdsVideourlTencent = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
+var _backupAdsVideourlIqiyi = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
@@ -21,7 +24,7 @@ var _browserVersionLocal;	//浏览器 本地版本号
 //支持本次活动的客户端各apk版本号（客户端正式发布上线的版本号）
 var _activityCenterVersionLatest=103010; //活动中心 最新版本号
 var _browserVersionLatest=104039;	//浏览器 最新版本号
-var _mallVersionLatest = 31000026;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
+var _mallVersionLatest = 31000028;//31000020;	//商城最新版本号 //商城不用判断最低版本 yuanbotest
 var _appVersionLatest = 3420016;//3410022;  //影视教育最新版本号
 var _appVersionCoocaa70 = 7000000;//酷开7.x系统软件版本号
 
@@ -489,9 +492,14 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 					console.log("startCommonWebview-"+error);
 				});
 	        }else{
-	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+_backupAdsVideourl);
 	            //todo 播放备用视频
-             	var url = _backupAdsVideourl;
+             	var url;
+             	if(needQQ) {//腾讯源
+             		url = _backupAdsVideourlTencent;
+             	}else {
+             		url = _backupAdsVideourlIqiyi;
+             	}
+	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+url);
 				coocaaosapi.startCommonWebview("", url, "广告备用视频", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
 					console.log(message);
 				}, function(error) {
