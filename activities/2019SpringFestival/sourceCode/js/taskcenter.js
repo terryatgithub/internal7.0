@@ -1,27 +1,27 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-var _springActivityDivideId = 101; //瓜分活动id 由运营提供
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
-var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
-//备用广告播放视频(分源)
-var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
-var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
-var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
-var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
-
-//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-//var _xMasNewYearActivityId = 113;   //活动id 由运营提供
-//var _springActivityDivideId = 114; //瓜分活动id 由运营提供
-//var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
+//var _xMasNewYearActivityId = 95;   //活动id 由运营提供
+//var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
 //var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-//var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
-//备用广告播放视频(分源)
+//var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
+////备用广告播放视频(分源)
 //var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
 //var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
 //var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
 //var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
+
+//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
+var _xMasNewYearActivityId = 113;   //活动id 由运营提供
+var _springActivityDivideId = 114; //瓜分活动id 由运营提供
+var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
+var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
+////备用广告播放视频(分源)
+var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
+var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
+var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
+var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
