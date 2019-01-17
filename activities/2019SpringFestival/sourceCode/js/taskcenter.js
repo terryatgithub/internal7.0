@@ -1,22 +1,27 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-//var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-//var _springActivityDivideId = 101; //瓜分活动id 由运营提供
-//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
-//var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-//var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
-//var _backupAdsVideourlTencent = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
-//var _backupAdsVideourlIqiyi = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
+var _xMasNewYearActivityId = 95;   //活动id 由运营提供
+var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
+var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
+//备用广告播放视频(分源)
+var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
+var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
+var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
+var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-var _xMasNewYearActivityId = 113;   //活动id 由运营提供
-var _springActivityDivideId = 114; //瓜分活动id 由运营提供
-var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
-var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
+//var _xMasNewYearActivityId = 113;   //活动id 由运营提供
+//var _springActivityDivideId = 114; //瓜分活动id 由运营提供
+//var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
+//var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+//var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
 //备用广告播放视频(分源)
-var _backupAdsVideourlTencent = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
-var _backupAdsVideourlIqiyi = "http://beta-res.hoisin.coocaatv.com/video/20181220/20181220144028600862.ts";
+//var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
+//var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
+//var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
+//var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
@@ -288,6 +293,7 @@ function pageInit() {
 
 function getQuestionIndex(now) {
 	var d = (new Date(now)).getDate(); //获取到的本机时间不一定准确，要根据后台返回时间来确认
+	_backupAdsVideoDate = d;
 	var index = 0;
 	var len = _interlucationsArray.length;
 	for(var i = 0; i < len; i++) {
@@ -494,10 +500,14 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 	        }else{
 	            //todo 播放备用视频
              	var url;
-             	if(needQQ) {//腾讯源
-             		url = _backupAdsVideourlTencent;
-             	}else {
-             		url = _backupAdsVideourlIqiyi;
+             	if(_backupAdsVideoDate >= 29) {//前3天：1月29/30/31
+             		url = _backupAdsVideourlCommon;
+             	}else {//后几天，2月开始
+	             	if(needQQ) {//腾讯源
+	             		url = _backupAdsVideourlTencent;
+	             	}else {
+	             		url = _backupAdsVideourlIqiyi;
+	             	}
              	}
 	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+url);
 				coocaaosapi.startCommonWebview("", url, "广告备用视频", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
