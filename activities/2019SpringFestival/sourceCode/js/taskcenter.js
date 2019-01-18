@@ -257,10 +257,15 @@ var app = {
 		console.log("registerEventHandler---");
 		coocaaosapi.addCommonListener(function(message) {
 			console.log("--------------->commonListen==" + message.web_player_event);
+			if(message.web_player_event == "on_start") {
+				console.log("on_start 开始播放");
+				if(_bPlayFormalAdsVideo == true) { //正式广告，提交数据采集
+					sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString(), "true");
+				}
+			}
 			if(message.web_player_event == "on_complete") {
 				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
 				if(_bPlayFormalAdsVideo == true) {//第三方监测:播放完成
-					sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString(), "true");
 					sentThirdAdshow("videoEnd",ADMsg);
 					_bPlayFormalAdsVideo = false;//reset
 				}
