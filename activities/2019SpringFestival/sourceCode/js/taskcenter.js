@@ -1214,7 +1214,7 @@ function getMyTasksList(initData) {
 			}
 		},
 		error: function(err) {
-			console.log(err);
+			console.log(JSON.stringify(err));
 		},
 		complete: function(XMLHttpRequest, status) {　　　　
 			console.log("-------------complete------------------" + status);

@@ -45,9 +45,6 @@ var _tipsWhenClickTaskHasDone = [
 //函数正式开始:
 var app = {
 	initialize: function() {
-		//PC debug start
-//		testtest_initActivityInfo();
-		//PC debug end
 		this.bindEvents();
 	},
 	bindEvents: function() {
@@ -780,20 +777,6 @@ function initActivityInfo(bFromOnResume) {
 			}
 		}
 	});	
-}
-//PC端测试函数
-//获取我的礼物信息
-function testtest_initActivityInfo(){
-	_macAddress = "001a9a000000";
-	_TVchip = "9S52";
-	_TVmodel = "Q4A";
-	_emmcCID = "1101003030384737300017c1438f6400";
-	_activityId = "16706858";
-	_access_token = "2.378b41b74eb048f795637b0d7d0d9aa6";
-	_openId = "1266ec9cd2b811e8a09700505687790a";
-	_nickName = "原博";
-	
-	initActivityInfo();
 }
 
 
