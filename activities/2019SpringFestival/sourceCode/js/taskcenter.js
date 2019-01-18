@@ -18,9 +18,9 @@ var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
 var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
 var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
 ////备用广告播放视频(分源)
-var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
-var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
-var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
+var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1018/zhifouzhifou2.mp4";
+var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/1018/guichuideng2.mp4";
+var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/1018/haolanzhuan2.mp4";
 var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //本机客户端各apk版本号
@@ -181,22 +181,8 @@ var app = {
 		console.log("onresume");
 		//确保有且只有一次会更新到:
 		if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("id") == "loginTaskId") {
-			if(_bUserStartLogin == true) {//如果用户是从任务中心登录的：
-				if(_bUserLoginSuccess == true) {
-					console.log("onresume-用户登录成功");
-					webTaskCenterClickedResultLog("登录任务页面", "登录成功");
-					//加机会，刷新状态
-					var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-					addChanceWhenFinishTask(1, taskId);
-					//复位状态
-			 		_bUserLoginSuccess = false;
-				}else {
-					console.log("onresume-用户没有登录");
-					webTaskCenterClickedResultLog("登录任务页面", "登录失败");
-				}
-				//复位状态				
-				_bUserStartLogin = false;
-			} 
+			//后台加机会，并根据后台数据处理:
+ 			hasLogin(needQQ, 1);
 		}else if($("#interlucationPageId").css("display") == "block") { //互动问答页面存在
 			console.log("onresume-互动问答页面存在");
 			webTaskCenterPageShowLog("任务中心页面");
@@ -309,7 +295,24 @@ app.initialize();
 function pageInit() {
 	console.log("pageInit in...");
 }
-
+function updatePageAfterLogin() {
+	if(_bUserStartLogin == true) {//如果用户是从任务中心登录的：
+		if(_bUserLoginSuccess == true) {
+			console.log("onresume-用户登录成功");
+			webTaskCenterClickedResultLog("登录任务页面", "登录成功");
+			//加机会，刷新状态
+			var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
+			addChanceWhenFinishTask(1, taskId);
+			//复位状态
+	 		_bUserLoginSuccess = false;
+		}else {
+			console.log("onresume-用户没有登录");
+			webTaskCenterClickedResultLog("登录任务页面", "登录失败");
+		}
+		//复位状态				
+		_bUserStartLogin = false;
+	} 
+}
 function getQuestionIndex(now) {
 	var d = (new Date(now)).getDate(); //获取到的本机时间不一定准确，要根据后台返回时间来确认
 	_backupAdsVideoDate = d;
@@ -1002,6 +1005,7 @@ function hasLogin(needQQ, stage,bFromOnResume) {
 			else if(stage == 1) {//没登录时这里不应该加机会?
 				console.log("haslogin: 用户没有登录");
 				_bUserLoginSuccess = false;
+				updatePageAfterLogin();
 			}
 		} else {
 			coocaaosapi.getUserInfo(function(message) {
@@ -1099,6 +1103,7 @@ function hasLogin(needQQ, stage,bFromOnResume) {
 					}else if(stage == 1) {
 						console.log("haslogin: 用户登录成功");
 						_bUserLoginSuccess = true;
+						updatePageAfterLogin();
 					}
 				}, function(error) {})
 			}, function(error) {});
@@ -1136,8 +1141,6 @@ function startLogin(needQQ) {
 function listenUserChange() {
 	coocaaosapi.addUserChanggedListener(function(message) {
 		console.log("用户登录状态变化.");
-		//后台加机会，并根据后台数据处理:
- 		hasLogin(needQQ, 1);
 	});
 }
 //活动初始化
