@@ -1004,9 +1004,9 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
     /*
      *提交内部广告数据
      */
-    CoocaaOSApi.prototype.submitAdData = function(ad_base_info,game_id,game_scene,game_panel,game_position,activity_id,task_id,success,error){
-        argscheck.checkArgs('sssssssff','CoocaaOSApi.submitAdData',arguments);
-        exec(success,error,'CoocaaOSApi','callAdBusiness',[{'action':'submitCoocaaData'},{'baseinfo':ad_base_info,'eventid':'ad_show','params':{'game_id':game_id,'game_scene':game_scene,'game_panel':game_panel,'game_position':game_position,'activity_id':activity_id,'task_id':task_id}}]);
+    CoocaaOSApi.prototype.submitAdData = function(ad_base_info,game_id,game_scene,game_panel,game_position,activity_id,task_id, result, success,error){
+        argscheck.checkArgs('ssssssssff','CoocaaOSApi.submitAdData',arguments);
+        exec(success,error,'CoocaaOSApi','callAdBusiness',[{'action':'submitCoocaaData'},{'baseinfo':ad_base_info,'eventid':'ad_show','params':{'game_id':game_id,'game_scene':game_scene,'game_panel':game_panel,'game_position':game_position,'activity_id':activity_id,'task_id':task_id, 'result':result }}]);
     }
 
     /*

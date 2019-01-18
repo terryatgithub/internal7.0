@@ -187,8 +187,7 @@ var app = {
 					webTaskCenterClickedResultLog("登录任务页面", "登录成功");
 					//加机会，刷新状态
 					var taskId = $(".coocaa_btn_taskcenter").eq(_Lindex).attr("taskId");
-					addChanceWhenFinishTask(0, taskId);
-				 	getMyTasksList();
+					addChanceWhenFinishTask(1, taskId);
 					//复位状态
 			 		_bUserLoginSuccess = false;
 				}else {
@@ -204,7 +203,7 @@ var app = {
 		}else if($(".moreGoodsPageClass").css("display") == "block") {
 			console.log("onresume-更多商品页面存在");
 			webTaskCenterPageShowLog("支付任务商品采购页面");
-		} else {
+		} else if(_bPlayFormalAdsVideo == false){ //如果在播广告视频出错，需要播备用视频，不刷新页面
 			console.log("要获取其它任务的完成状态，以刷新页面");
 			webTaskCenterPageShowLog("任务中心页面");
 			getMyTasksList();
@@ -261,17 +260,32 @@ var app = {
 			if(message.web_player_event == "on_complete") {
 				console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
 				if(_bPlayFormalAdsVideo == true) {//第三方监测:播放完成
+					sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString(), "true");
 					sentThirdAdshow("videoEnd",ADMsg);
 					_bPlayFormalAdsVideo = false;//reset
 				}
 				webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 				//加机会
-				addChanceWhenFinishTask("",_adsTaskId);
-				//刷新页面状态:
-				getMyTasksList();
+				addChanceWhenFinishTask(1,_adsTaskId);
 				//数据复位
 				ADMsg = null;
 				_adsTaskId = undefined;
+			}
+			if(message.web_player_event == "on_error") {
+				console.log("on_error 播放失败");
+				//正式广告播放失败，清除flag，播备用视频
+				if(_bPlayFormalAdsVideo == true) {
+					_bPlayFormalAdsVideo = false;
+					sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString(), "false");
+					playAdsBackupVideo();
+				}
+			}
+			if(message.web_player_event == "on_interrupt") {
+				console.log("on_interrupt 播放中断");
+				//清除flag
+				if(_bPlayFormalAdsVideo == true) {
+					_bPlayFormalAdsVideo = false;
+				}
 			}
 		});		
 	},
@@ -485,7 +499,6 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
         	_adsTaskId = task_id;
 	        if(ADMsg.total > 0){
 	            //广告曝光
-				sentInnerAdshow(ADMsg,"","","","",activity_id,task_id);
 				sentThirdAdshow("video",ADMsg);
 				sentThirdAdshow("videoStart",ADMsg);
 	            var url = ADMsg.schedules[0].content;
@@ -499,29 +512,36 @@ function selectAd(appid,game_id,game_scene,game_panel,game_position,activity_id,
 				});
 	        }else{
 	            //todo 播放备用视频
-             	var url;
-             	if(_backupAdsVideoDate >= 29) {//前3天：1月29/30/31
-             		url = _backupAdsVideourlCommon;
-             	}else {//后几天，2月开始
-	             	if(needQQ) {//腾讯源
-	             		url = _backupAdsVideourlTencent;
-	             	}else {
-	             		url = _backupAdsVideourlIqiyi;
-	             	}
-             	}
-	            console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^^^^^"+url);
-				coocaaosapi.startCommonWebview("", url, " ", "1080", "1920", "", "广告备用1", "广告备用2", function(message) {
-					console.log(message);
-				}, function(error) {
-					console.log("startCommonWebview-"+error);
-				});
+			    console.log("广告total为0，没有投广告，播放备用视频^^^^^^^^^^^");	            
+             	playAdsBackupVideo();
 	        }
         }
     },function (error) {console.log("getAdData===="+error);});
 }
+//播放备用视频
+function playAdsBackupVideo(){
+    //todo 播放备用视频
+ 	var url;
+ 	if(_backupAdsVideoDate >= 29) {//前3天：1月29/30/31
+ 		url = _backupAdsVideourlCommon;
+ 	}else {//后几天，2月开始
+     	if(needQQ) {//腾讯源
+     		url = _backupAdsVideourlTencent;
+     	}else {
+     		url = _backupAdsVideourlIqiyi;
+     	}
+ 	}
+ 	console.log("播放备用视频^^^^^^^^^^^"+url);	
+	coocaaosapi.startCommonWebview("", url, " ", "1080", "1920", "", " ", " ", function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log("startCommonWebview-"+error);
+	});
+}
+
 //广告内部提交
-function sentInnerAdshow(msg,game_id,game_scene,game_panel,game_position,activity_id,task_id) {
-    coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]),game_id,game_scene,game_panel,game_position,activity_id,task_id,function (msg) {
+function sentInnerAdshow(msg,game_id,game_scene,game_panel,game_position,activity_id,task_id, result) {
+    coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]),game_id,game_scene,game_panel,game_position,activity_id,task_id, result,function (msg) {
         console.log("sentInnerAdshow success==="+msg);
     },function (err) {
         console.log("sentInnerAdshow err==="+err);
@@ -737,7 +757,7 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
 	    console.log("startLowVersionAction 前端加机会");
 	    webTaskCenterPageShowLog("跳转浏览任务页面");
-	    addChanceWhenFinishTask("", taskId);
+	    addChanceWhenFinishTask(0, taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
     function startNewVersionAction(taskId,param1,param2,param3,param4,param5,str,bBrowserTask) {
@@ -820,10 +840,6 @@ function doInterlucationTaskJumpMission(taskId) {
 //完成任务时，增加机会接口:
  function addChanceWhenFinishTask(taskType, taskId, askResult, shareId) {
  	console.log("taskType:"+taskType+",taskId:"+taskId);
-    var taskName = "跳转任务";
-    if(taskType == "1"){
-        taskName == "视频任务";
-    }
     console.log("id==="+_xMasNewYearActivityId+"======userKeyId===="+_activityId+"===taskId="+taskId+"====_openId===="+_openId+"askResult:"+askResult+"... ");
     $.ajax({
         type: "post",
@@ -842,7 +858,10 @@ function doInterlucationTaskJumpMission(taskId) {
         success: function(data) {
             console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
             if(data.code == 50100){
-            	//
+            	if(taskType == 1){
+	            	//刷新页面状态:
+			        getMyTasksList(); 
+		   		}
             }else if(data.code == 91009){
             	console.log("任务已过期");
             	if (askResult == 1){ //如果是问答任务，且回答正确，因为任务已过期，所以不显示加机会。
