@@ -59,7 +59,7 @@ var _bFrozenTimeHasCome = false; //活动是否已经到冻结期；
 var _interlucationsArrayTencent = [
 	 //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
 	 {businessName: "影视活动腾讯", question: "《无双》《影》等院线大片影视VIP会员<br>都可以免费看吗?", answerA:"A.当然免费", answerB:"B.不，需付费", right: "A", date: 29,
-	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.list",countDownTime:10,"subTask":0,param:{"business_type":"0","id":"1", "filter":"美国~must&1~pay", "subTitle":"精彩好莱坞"}}}
+	 	jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.list",countDownTime:10,"subTask":0,param:{"business_type":"0","id":"1", "filter":"1~pay", "subTitle":"VIP电影"}}}
 	,{businessName: "影视活动腾讯", question: "影视VIP会员可以跳过片头广告吗?", answerA:"A.可以", answerB:"B.不可以", right: "A", date: 3, 
 	 	jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_tencent/index.html?part=2"}}}
 	,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 5, 
@@ -268,8 +268,9 @@ var app = {
 				if(_bPlayFormalAdsVideo == true) {
 					_bPlayFormalAdsVideo = false;
 					sentInnerAdshow(ADMsg,"","","","",_xMasNewYearActivityId.toString(),_adsTaskId.toString(), "false");
-					playAdsBackupVideo();
+//					playAdsBackupVideo();
 				}
+				toastWhenPlayVideoError();
 			}
 			if(message.web_player_event == "on_interrupt") {
 				console.log("on_interrupt 播放中断");
@@ -313,6 +314,22 @@ function updatePageAfterLogin() {
 		_bUserStartLogin = false;
 	} 
 }
+//播放视频广告出错时，弹窗提示：
+function toastWhenPlayVideoError(){
+	console.log("播放视频广告出错时，弹窗提示...");
+	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('你好！你的机器不支持此类任务<br>请试试完成其它任务');
+	$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
+	$("#taskcenterTaskHasDoneToastId").css("display", "block");
+	$("#toastWhenClickTaskHasDoneId").css("display", "block");
+	map = new coocaakeymap($(".coocaa_btn_taskcenter_toast"), $(".coocaa_btn_taskcenter_toast").eq(0), 'btn-focus', function() {}, function(val) {}, function(obj) {});
+	$(".coocaa_btn_taskcenter_toast").unbind("itemClick").bind("itemClick", function() {
+		console.log("播放视频广告出错时，弹窗提示，按确认键....");
+		$("#toastWhenClickTaskHasDoneId").css("display", "none");
+		$("#taskcenterTaskHasDoneToastId").css("display", "none");
+		$("#taskcenterDiscardToastId").css("display", "none");
+		map = new coocaakeymap($(".coocaa_btn_taskcenter"), $(".coocaa_btn_taskcenter").eq(_Lindex), "btn-focus", function() {}, function(val) {}, function(obj) {});	});
+}
+
 function getQuestionIndex(now) {
 	var d = (new Date(now)).getDate(); //获取到的本机时间不一定准确，要根据后台返回时间来确认
 	_backupAdsVideoDate = d;
