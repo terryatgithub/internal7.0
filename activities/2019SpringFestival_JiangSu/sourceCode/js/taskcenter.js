@@ -7,7 +7,7 @@ var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动�
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 107;   //活动id 由运营提供
 //var _springActivityDivideId = 108; //瓜分活动id 由运营提供
-//var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
+//var _urlActivityServer = "https://restful.jscnnet.com";//主活动接口
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
@@ -421,9 +421,9 @@ function updateTaskInfoToPage(data) {
 		$(".taskTipsClass:eq("+index+") span:first-child").text(task.taskName);
 	}
 	//更新图标
-	$(".taskIconClass").eq(0).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskinterlucation.png)");			
+	$(".taskIconClass").eq(0).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbrowser.png)");			
 	$(".taskIconClass").eq(1).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbrowser.png)");
-	$(".taskIconClass").eq(2).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontasklogin.png)");
+	$(".taskIconClass").eq(2).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbrowser.png)");
 
 	//获取第一个未完成焦点
 	if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("status") == "true") {
