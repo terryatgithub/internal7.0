@@ -1,27 +1,27 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-//var _xMasNewYearActivityId = 95;   //活动id 由运营提供
-//var _springActivityDivideId = 101; //瓜分活动id 由运营提供
-//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
-//var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-//var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
-////备用广告播放视频(分源)
-//var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
-//var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
-//var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
-//var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
+var _xMasNewYearActivityId = 95;   //活动id 由运营提供
+var _springActivityDivideId = 101; //瓜分活动id 由运营提供
+var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
+var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+var _fukaMarketUrl = "http://beta.webapp.skysrt.com/zy/spring/index.html?part=market&isTrade=";//福卡集市url
+//备用广告播放视频(分源)
+var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1547710631001540.mp4";
+var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/guichuidengnuqingxiangxi.mp4";
+var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/haolanzhuan.mp4";
+var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-var _xMasNewYearActivityId = 117;//113;   //活动id 由运营提供
-var _springActivityDivideId = 116;//114; //瓜分活动id 由运营提供
-var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
-var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
-var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
-////备用广告播放视频(分源)
-var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1018/zhifouzhifou2.mp4";
-var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/1018/guichuideng2.mp4";
-var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/1018/haolanzhuan2.mp4";
-var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
+//var _xMasNewYearActivityId = 117;//113;   //活动id 由运营提供
+//var _springActivityDivideId = 116;//114; //瓜分活动id 由运营提供
+//var _urlActivityServer = "https://restful.skysrt.com";//主活动接口
+//var _urlWechatHelp = "http://wx.coocaa.com/act/wxzl/?scan=scancode&key=";//微信助力二维码生成地址
+//var _fukaMarketUrl = "https://webapp.skysrt.com/springfestival19/foca/index.html?part=market&isTrade=";//福卡集市url
+//////备用广告播放视频(分源)
+//var _backupAdsVideourlCommon = "http://v-play.coocaatv.com/chunjie/2019/1018/zhifouzhifou2.mp4";
+//var _backupAdsVideourlTencent = "http://v-play.coocaatv.com/chunjie/2019/1018/guichuideng2.mp4";
+//var _backupAdsVideourlIqiyi = "http://v-play.coocaatv.com/chunjie/2019/1018/haolanzhuan2.mp4";
+//var _backupAdsVideoDate = 0;//视频任务的备用广告是分源的，前3天都是播 知否知否， 后面几天爱奇艺/腾讯各播一条。
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
@@ -765,6 +765,7 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
 	    console.log("startLowVersionAction 前端加机会");
 	    webTaskCenterPageShowLog("跳转浏览任务页面");
+	    webTaskCenterClickedResultLog("跳转浏览任务页面", "浏览成功");
 	    addChanceWhenFinishTask(0, taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
@@ -975,6 +976,7 @@ function getTvSource(bFromOnResume, smac, schip, smodel, semmcid, sudid, sFMode,
 		},
 		error: function(err) {
 			console.log('获取视频源失败'+JSON.stringify(err));
+			needQQ = true;
 		},
 		complete: function(XMLHttpRequest, status) {
 			console.log("-------------complete------------------" + status);
@@ -1306,7 +1308,7 @@ function updateTaskInfoToPage(data) {
 		,{type: 'weChat', index: 4 }];
 	var len = taskArray.length;
 	
-	//step1.先清除旧的信息
+	//step1.先清除旧的信息,恢复初始化状态:
 	$(".coocaa_btn_taskcenter").removeAttr("id");
 	$(".coocaa_btn_taskcenter").removeAttr("status");
 	
@@ -1345,8 +1347,22 @@ function updateTaskInfoToPage(data) {
 	}
 	$(".coocaa_btn_taskcenter").eq(3).attr("id", "payTaskId");		
 	$(".taskIconClass").eq(3).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskbuy.png)");		
-	$(".coocaa_btn_taskcenter").eq(4).attr("id", "weixinHelpTaskId");		
-	$(".taskIconClass").eq(4).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwechat.png)");
+
+	//step3.新需求:微信任务临时下架时
+	//todo 如果微信突然上架,如何恢复页面初始化状态??
+	if(data.weChat != undefined) {
+		console.log("has wechat task........");
+		$(".coocaa_btn_taskcenter").eq(4).attr("id", "weixinHelpTaskId");
+		$(".taskIconClass").eq(4).css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/icontaskwechat.png)");
+	}else {
+		//微信突然下架的页面布局处理:
+		console.log("no wechat task........");
+		//修改任务中心首页样式
+		$(".coocaa_btn_taskcenter").removeClass("taskItemClass");
+		$(".coocaa_btn_taskcenter").addClass("taskItemClassBig");
+		//删掉微信任务div
+		$(".coocaa_btn_taskcenter").eq(4).remove();
+	}
 
 	//获取第一个未完成焦点
 	if($(".coocaa_btn_taskcenter").eq(_Lindex).attr("status") == "true") {

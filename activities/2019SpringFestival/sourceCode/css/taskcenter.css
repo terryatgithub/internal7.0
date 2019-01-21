@@ -27,9 +27,17 @@ body {
 	background-repeat: no-repeat;
 	background-position: 15px,25px;
 }
-.taskItemClassBig:nth-child(2) {
+.taskItemClassBig:nth-child(2){
 	left: 960px;
 }
+.taskItemClassBig:nth-child(3) {
+	top: 608px;
+}
+.taskItemClassBig:nth-child(4) {
+	top: 608px;
+	left: 960px;
+}
+
 .taskItemClassBig[class~='btn-focus'] {
 	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divbigfocus.png);
 	background-repeat: no-repeat;
@@ -59,7 +67,7 @@ body {
 	background-size: cover;
 	background-position: 0,0;
 }
-[class^=taskItemClass] div{
+[class*=taskItemClass] div{
 	position: absolute;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
