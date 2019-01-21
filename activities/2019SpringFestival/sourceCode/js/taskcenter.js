@@ -317,7 +317,7 @@ function updatePageAfterLogin() {
 //播放视频广告出错时，弹窗提示：
 function toastWhenPlayVideoError(){
 	console.log("播放视频广告出错时，弹窗提示...");
-	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('你的机器不支持此类任务<br>请试试完成其它任务~');
+	$("#taskcenterTaskHasDoneToastId .interlucationTitleClass").html('您的机器不支持此类任务<br>请试试完成其它任务~');
 	$("#taskcenterTaskHasDoneToastId .taskcenterTaskHasDoneToastBtnClass").text("好 的");
 	$("#taskcenterTaskHasDoneToastId").css("display", "block");
 	$("#toastWhenClickTaskHasDoneId").css("display", "block");
