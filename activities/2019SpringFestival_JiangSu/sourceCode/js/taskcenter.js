@@ -238,6 +238,7 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 	function startLowVersionAction(taskId,param1,param2,param3,param4,param5,str){
 	    console.log("startLowVersionAction 前端加机会");
 	    webTaskCenterPageShowLog("跳转浏览任务页面");
+	    webTaskCenterClickedResultLog("浏览视频广告任务页面", "观看完成");
 	    addChanceWhenFinishTask("", taskId);
 		coocaaosapi.startCommonNormalAction(param1,param2,param3,param4,param5,str,function(){},function(){});
 	}
@@ -504,7 +505,36 @@ function webTaskCenterBtnClickLog(task_page_name, button_name, position_id) {
 		console.log(error);
 	});
 }
-
+//数据采集-任务中心-子任务点击结果
+function webTaskCenterClickedResultLog(task_page_name, task_result) {
+	var _dateObj = {
+		"page_name":task_page_name,
+		"parent_page_name": "任务中心",
+		"activity_name": "春节集卡活动"
+	}
+	switch(task_page_name) {
+		case "登录任务页面":
+			_dateObj.login_result = task_result;
+			break;
+		case "问答任务页面":
+			_dateObj.question_result = task_result;
+			break;
+		case "跳转浏览任务页面":
+			_dateObj.browse_result = task_result;
+			break;
+		case "浏览视频广告任务页面":
+			_dateObj.ad_result = task_result;
+			break;		
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,task_result,""]);
+	coocaaosapi.notifyJSLogInfo("okr_web_clicked_result", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
 //----------------------------------------------不需要的函数----------------------------------------------
 //获取设备信息并初始化
 function getDeviceInfo(bFromOnResume) {
