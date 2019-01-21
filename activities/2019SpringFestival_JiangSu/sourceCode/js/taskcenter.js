@@ -467,7 +467,7 @@ function webTaskCenterPageShowLog(task_page_name) {
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,"页面曝光",""]);
+	_czc.push(["_trackEvent","江苏春节集卡活动","任务中心",task_page_name,"页面曝光",""]);
 	coocaaosapi.notifyJSLogInfo("okr_web_page_show", _dataString, function(message) {
 		console.log(message);
 	}, function(error) {
@@ -497,7 +497,7 @@ function webTaskCenterBtnClickLog(task_page_name, button_name, position_id) {
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
-	_czc.push(["_trackEvent","春节集卡活动","任务中心",task_page_name,button_name,position_id]);
+	_czc.push(["_trackEvent","江苏春节集卡活动","任务中心",task_page_name,button_name,position_id]);
 	coocaaosapi.notifyJSLogInfo("okr_web_button_click", _dataString, function(message) {
 		console.log(message);
 	}, function(error) {
@@ -555,14 +555,13 @@ function getTvSource(bFromOnResume, smac, schip, smodel, semmcid, sudid, sFMode,
 				_qsource = data.data.source;
 				if(_qsource == "tencent") {
 					needQQ = true;
-					_interlucationsArray = _interlucationsArrayTencent;
-					_payTaskMoreGoodsList = moreGoodsTencent;
 				}
 				console.log(_qsource + "--" + needQQ);
 			}
 		},
 		error: function(err) {
-			console.log('获取视频源失败'+JSON.stringify(err));
+			console.log('获取视频源失败,默认设置needQQ为true: '+JSON.stringify(err));
+			needQQ = true;
 		},
 		complete: function(XMLHttpRequest, status) {
 			console.log("-------------complete------------------" + status);
