@@ -1,13 +1,13 @@
 //-----------------------------正式上线需配置参数 start---------------------------------//
 //##########						        测试区域						#############//
-var _xMasNewYearActivityId = 107;   //活动id 由运营提供
-var _springActivityDivideId = 108; //瓜分活动id 由运营提供
-var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
-
-//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
 //var _xMasNewYearActivityId = 107;   //活动id 由运营提供
 //var _springActivityDivideId = 108; //瓜分活动id 由运营提供
-//var _urlActivityServer = "https://restful.jscnnet.com";//主活动接口
+//var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
+
+//@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
+var _xMasNewYearActivityId = 104;   //活动id 由运营提供
+var _springActivityDivideId = 105; //瓜分活动id 由运营提供
+var _urlActivityServer = "https://restful.jscnnet.com";//主活动接口
 
 //本机客户端各apk版本号
 var _activityCenterVersionLocal; //活动中心 本地版本号
