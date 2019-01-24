@@ -5,8 +5,8 @@
 //var _urlActivityServer = "http://beta.restful.lottery.coocaatv.com";//主活动接口
 
 //@@@@@@@@@@                           正式区域                                                                @@@@@@@@@@@@@//
-var _xMasNewYearActivityId = 104;   //活动id 由运营提供
-var _springActivityDivideId = 105; //瓜分活动id 由运营提供
+var _xMasNewYearActivityId = 107;   //活动id 由运营提供
+var _springActivityDivideId = 106; //瓜分活动id 由运营提供
 var _urlActivityServer = "https://restful.jscnnet.com";//主活动接口
 
 //本机客户端各apk版本号
@@ -228,7 +228,8 @@ function doSpecificBrowseTask(param, taskId, bBrowserTask){
 						startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
 					}
 				}else {
-					startNewVersionAction(taskId,param1,param2,param3,param4,param5,str, bBrowserTask);
+					startLowVersionAction(taskId,param1,param2,param3,param4,param5,str);
+					//startNewVersionAction(taskId,param1,param2,param3,param4,param5,str, bBrowserTask);
 				}
 			}
 		},function(error) {
