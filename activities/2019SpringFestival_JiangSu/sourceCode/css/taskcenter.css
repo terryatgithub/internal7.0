@@ -34,7 +34,7 @@ body {
 	left: 1150px;
 }
 .taskItemClass[class~='btn-focus'] {
-	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmallfocus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/taskcenter/divsmallfocusrefine.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0,0;
