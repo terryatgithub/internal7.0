@@ -1,10 +1,10 @@
-//正式配置:
-var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _relAppId = "wx5a6d3bdcd05fb501";
-
 //测试临时配置,正式发布时需要改为正式配置:
-//var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _relAppId = "wxee96df3337b09cb5";
+var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
+var _relAppId = "wxee96df3337b09cb5";
+
+//正式配置:
+//var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
+//var _relAppId = "wx5a6d3bdcd05fb501";
 
 //页面部分的逻辑
 var app = {
@@ -82,7 +82,8 @@ var app = {
 	
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
-        setTimeout("delayLoad()", 5);
+        getDeviceInfo();
+//      setTimeout("delayLoad()", 5);
 	}
     
 };
@@ -90,8 +91,7 @@ var app = {
 app.initialize();
 
 function delayLoad(){
-	$("body").css("background-image", "url(img/bg.webp)");
-    getDeviceInfo();
+//	$("body").css("background-image", "url(img/bg.jpg)");
 }
 
 function getDeviceInfo() {
@@ -252,12 +252,12 @@ function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, deviceba
 				
 				var str = data.data;
 				var qrcode = new QRCode(document.getElementById("qrDiv"), {
-					width : 336,
-					height : 336
+					width : 475,
+					height : 475
 				});
 				qrcode.makeCode(str);
 			}else{
-				console.log("获取二维码信息出错");
+				console.log("获取二维码信息出错,使用默认二维码");
 				console.log(JSON.stringify(data));
 				useDefaultQrcode();
 			}
@@ -276,7 +276,7 @@ function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, deviceba
 }
 
 function useDefaultQrcode() {
-	var qrImageUrl = app.rel_html_imgpath(__uri("../img/qrImageBak.png"));
+	var qrImageUrl = app.rel_html_imgpath(__uri("../img/qrDefault.png"));
 	console.log("something error, use default QR image:"+qrImageUrl)
 	$("#qrDiv").css("background-image", "url("+qrImageUrl+")");
 }
