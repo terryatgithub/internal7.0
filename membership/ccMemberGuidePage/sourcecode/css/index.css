@@ -1,0 +1,25 @@
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    width:1920px;
+    height: 1080px;
+    margin:0px;
+    padding:0px;
+}
+#deviceready, #deviceready div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+    height: 100%;
+}
+.picture{
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: none;
+}
+#pic1{
+	background-image: url('../img/home.jpg');
+	display: block;
+}
