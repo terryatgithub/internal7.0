@@ -416,32 +416,34 @@ function drawVipEntryZone() {
 	$(".vipEntry:last-of-type .vipEntryValidity").css("background-image", "url("+picSupOpen+")");
 	
 	//给4K花园更新内容：
-	if(_sourceFourKGarden.name != undefined && _sourceFourKGarden.name != "") {
-		$(".vipEntryTitle4KGarden").text(_sourceFourKGarden.name);
-	}
-	if(_sourceFourKGarden.des != undefined && _sourceFourKGarden.des != "") {
-		$(".vipEntryDescription4KGarden").text(_sourceFourKGarden.des);
-	}
-	if (_sourceFourKGarden.validType == 0 ){
-		console.log("用户没有开通vip(4KGarden)，显示立即开通");
-		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即开通");
-		$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "bold");
-		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picSupOpen+")");	
-	} else {
-		console.log("用户已经开通vip(4KGarden)，显示立即续费和有效期");
-		$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picRenew+")");	
-		$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
-		$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "normal");
-		if(_sourceFourKGarden.validDate != 0){
-			var d = new Date(_sourceFourKGarden.validDate * 1000);
-			var year = d.getFullYear();
-			var month = d.getMonth()+1;
-			var day = d.getDate();
-			d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
-			console.log("d:..............."+d);
-			$(".vipEntryfourKGarden .vipEntryTimeTip").css("display", "inline-block");
-			$(".vipEntryfourKGarden .vipEntryTimeTip").text(d);
+	if(_sourceFourKGarden){
+		if(_sourceFourKGarden.name != undefined && _sourceFourKGarden.name != "") {
+			$(".vipEntryTitle4KGarden").text(_sourceFourKGarden.name);
 		}
+		if(_sourceFourKGarden.des != undefined && _sourceFourKGarden.des != "") {
+			$(".vipEntryDescription4KGarden").text(_sourceFourKGarden.des);
+		}
+		if (_sourceFourKGarden.validType == 0 ){
+			console.log("用户没有开通vip(4KGarden)，显示立即开通");
+			$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即开通");
+			$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "bold");
+			$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picSupOpen+")");	
+		} else {
+			console.log("用户已经开通vip(4KGarden)，显示立即续费和有效期");
+			$(".vipEntryfourKGarden .vipEntryValidity").css("background-image", "url("+picRenew+")");	
+			$(".vipEntryfourKGarden .vipEntrySubscribe").text("立即续费");
+			$(".vipEntryfourKGarden .vipEntrySubscribe").css("font-weight", "normal");
+			if(_sourceFourKGarden.validDate != 0){
+				var d = new Date(_sourceFourKGarden.validDate * 1000);
+				var year = d.getFullYear();
+				var month = d.getMonth()+1;
+				var day = d.getDate();
+				d = year+"."+(month < 10 ? ("0"+month) : month)+"."+((day<10?("0"+day):day)+"到期");
+				console.log("d:..............."+d);
+				$(".vipEntryfourKGarden .vipEntryTimeTip").css("display", "inline-block");
+				$(".vipEntryfourKGarden .vipEntryTimeTip").text(d);
+			}
+		}	
 	}
 	
 	console.log("drawVipEntryZone out...");
