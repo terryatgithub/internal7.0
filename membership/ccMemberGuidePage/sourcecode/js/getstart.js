@@ -1,10 +1,29 @@
 //测试临时配置,正式发布时需要改为正式配置:
+//账号信息（等级、金币、成长点数等）服务器地址
+var _accountSrvUrl = 'http://172.20.155.202:7171';
+var _accountClientId = '9F072A0ABF6E2B3D';
+var _accountClientKey = '85bdfb9ef29b4776';
+var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+
+//获取酷开会员微信公众号二维码的地址
 var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
 var _relAppId = "wxee96df3337b09cb5";
 
 //正式配置:
 //var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
 //var _relAppId = "wx5a6d3bdcd05fb501";
+//账号信息（等级、金币、成长点数等）服务器地址
+//var _accountSrvUrl = 'https://member.coocaa.com';
+//var _accountClientId = '';
+//var _accountClientKey = '';
+//var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+
+//全局变量
+var cAppVersion, accountVersion;
+var _accessToken = "";
+var _openId = "";
+var _activeId = "";
+var _mac, _chip, _model, _size, _appversion = "",_tcVersion;
 
 //页面部分的逻辑
 var app = {
@@ -32,6 +51,7 @@ var app = {
 
     // Application Constructor
     initialize: function() {
+//      fake_submitTaskFinished();//yuanbotest only
         this.bindEvents();
     },
     bindEvents: function() {
@@ -140,60 +160,34 @@ function delayLoad(){
 }
 
 function getDeviceInfo() {
-		var _brand = "";
-		var _appid, _source, _model, _chip, _mac, _serviceid, _version, _type, _devicebarcode, _time, _accessToken = "";
-		var _size, _resolution, _appVersion, _fmodel, _pattern, _appID, _appversion = "";
-
-		//appId
-		_appid = _relAppId;//_testAppId;//"wx5a6d3bdcd05fb501";//正式环境下
-		//deviceBarcode
-		_devicebarcode = "";
-
-		//time
-		var timestamp = Date.parse(new Date());
-		var tmpstring = timestamp.toString();
-		var tmpnum = tmpstring.substr(0, 10);
-		_time = tmpnum;
-
-		//type
-		_type = "20";//20 新会员体系--关注绑定酷开账号
-
-		_source = "";
-		
-		_resolution = "";
-		_appVersion = 0;
-		_fmodel = "Default";
-		_pattern = "normal";
-		_appID = 0;
-		
-		console.log("_appversion="+_appversion);
-		
 		coocaaosapi.getDeviceInfo(function(message) {
 			var _message = JSON.stringify(message);
 			console.log(_message);
-			
+
 			_model = message.model;
 			_chip = message.chip;
 			_mac = message.mac;
 			_size = message.panel;
-			_serviceid = message.activeid;
-			_version = message.version.replace(/\./g, "");
-			_brand = message.brand;
-			
-			console.log("brand.."+_brand);
-        	console.log("_appid.."+_appid);
+			_activeId = message.activeid;
+			_tcVersion = message.version.replace(/\./g, "");
 
 			coocaaosapi.hasCoocaaUserLogin(function(message) {
 	            if (message.haslogin == "true") {
-	            	coocaaosapi.getUserAccessToken(function(message) {
-		        		console.log("usertoken " + message.accesstoken);
-		        		_accessToken = message.accesstoken;
-		        		getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
-		        	},function(error) { console.log(error); useDefaultQrcode();});
+            		console.log("user login...");
+            		coocaaosapi.getUserInfo(function(message) {
+						_openId = message.open_id;
+					
+	            		coocaaosapi.getUserAccessToken(function(message) {
+			        		console.log("usertoken " + message.accesstoken);
+			        		_accessToken = message.accesstoken;
+			        		submitTaskFinished()
+//			        		getTvSource();
+			        	},function(error) { console.log(error); useDefaultQrcode();});
+					}, function(error) {});
 	            }else{
 	        		console.log("user not login...");
 	            	_accessToken = "";
-					getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
+//					getTvSource();
 	            }
 			},function(error) {
 				console.log(error);
@@ -204,8 +198,7 @@ function getDeviceInfo() {
 			useDefaultQrcode();
 		});
 }
-
-function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel, spattern, sappID, sappversion, qappid, qsource, qserviceid, qtype, qdevicebarcode, qtime,qaccessToken) {
+function getTvSource() {
 	console.log("获取视频源传的参数---" + "MAC="+smac+"&cModel="+smodel+"&cChip="+schip+"&cSize="+ssize+"&cResolution="+sresolution+"&cTcVersion="+sversion+"&cFMode="+sfmodel+"&cPattern="+spattern+"&vAppID="+sappID+"&vAppVersion="+sappversion);
 	var myUrl = "";
 	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
@@ -217,16 +210,16 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 		jsonp: "callback",
 		url: myUrl,
 		data: {
-			"MAC": smac,
-			"cModel": smodel,
-			"cChip": schip,
-			"cSize": ssize,
-			"cResolution": sresolution,
-			"cTcVersion": sversion,
-			"cFMode": sfmodel,
-			"cPattern": spattern,
-			"vAppID": sappID,
-			"vAppVersion": sappversion
+			"MAC": _mac,
+			"cModel": _model,
+			"cChip": _chip,
+			"cSize": _size,
+			"cResolution": "1920*1080",
+			"cTcVersion": _tcVersion,
+			"cFMode": "Default",
+			"cPattern": "normal",
+			"vAppID": _relAppId,
+			"vAppVersion": cAppVersion
 		},
 		success: function(data) {
 			console.log("~~~data.source:"+data.source);
@@ -259,6 +252,60 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 	　　　　	}
 	　　	}
 	});
+}
+//调用后台任务事件提交接口
+function submitTaskFinished() {
+	var data = {
+		accessToken: _accessToken,
+		openId: _openId,
+//		userVipInfo: ,
+		currentTimestamp: Date.parse(new Date()),
+		taskAttr: 2 ,
+		tagName: 'itemTag',
+		itemTag: 'GRADE_LEVEL_GIFT',
+		memo: '领取会员礼包'	
+	}
+
+	data = JSON.stringify(data);
+	var encryptedData = AESEncrypt(data);
+	var ajaxTmp = $.ajax({
+		type: "POST",
+		dataType: "json",
+		url: _accountSrvUrl+_accountClientMissionSubmitUrl,
+		async: true,
+		timeout: 10000,
+		data: {
+			clientId: _accountClientId,
+			data: encryptedData
+		},
+		headers: {
+			"MAC": _mac,
+			"cChip": _chip,
+			"cModel": _model,
+			"cUDID":_activeId,
+			"cSize": _size,
+//			"cPushId": '',//这个是要一些特殊情况才要的，你应该不用,不传就好了
+			'cAppVersion': _appversion,
+			"cTcVersion": _tcVersion
+		},
+		success: function(data){
+			console.log('success..........:'+JSON.stringify(data))
+			if(data.success == true) {
+				console.log('领取成功')
+			}else {
+				console.log('领取失败')
+			}
+		},
+		fail: function(data) {
+			console.log('fail..........:'+JSON.stringify(data))
+		},
+		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　	console.log("complete------------------"+status);
+			if(status=='timeout'){
+	 　　　　　 		ajaxTmp.abort();
+	　　　　	}
+	　　	}
+	});	
 }
 
 function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, devicebarcode, time, accessToken) {
@@ -318,4 +365,103 @@ function useDefaultQrcode() {
 ////	var qrImageUrl = app.rel_html_imgpath(__uri("../img/qrDefault.png"));
 //	console.log("something error, use default QR image:"+qrImageUrl)
 //	$("#qrDiv").css("background-image", "url("+qrImageUrl+")");
+}
+
+
+
+//AES
+function AESEncrypt(clearData) {
+	var key = CryptoJS.enc.Utf8.parse(_accountClientKey);
+	var options = {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	}
+	
+	var encrypted = CryptoJS.AES.encrypt(clearData, key, options);
+	console.log('enctypedBase64Str: '+encrypted.toString())
+	
+	// 需要读取encryptedData上的ciphertext.toString()才能拿到跟Java一样的密文
+	var encryptedStr = encrypted.ciphertext.toString()
+    console.log('encryptedStr: '+ encryptedStr)
+    
+    return encryptedStr;
+    
+//  // 拿到字符串类型的密文需要先将其用Hex方法parse一下
+//  var encryptedHexStr = CryptoJS.enc.Hex.parse(encryptedStr)
+//  console.log('encryptedHexStr: '+ encryptedHexStr)
+//  // 将密文转为Base64的字符串
+//	// 只有Base64类型的字符串密文才能对其进行解密
+//  var encryptedBase64Str = CryptoJS.enc.Base64.stringify(encryptedHexStr)
+//  console.log('encryptedBase64Str: '+ encryptedBase64Str)
+}
+
+function AESDecrypt(encryptedData) {
+	var key = CryptoJS.enc.Utf8.parse(_accountClientKey);
+	var options = {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	}
+	
+	var decryptedData = CryptoJS.AES.decrypt(encryptedData, key, options)
+	// 解密后，需要按照Utf8的方式将明文转位字符串
+	var decryptedStr = decryptedData.toString(CryptoJS.enc.Utf8)
+	console.log('decryptedStr: '+decryptedStr)
+	
+	return decryptedStr;
+}
+
+
+//fake function
+function fake_submitTaskFinished() {
+	var data = {
+		accessToken: '2.ec0fdcb58a384863b8588c7ea852436b',
+		openId: 'B5A7458D62310E8CDB805F35A97D16C6',
+//		userVipInfo: ,
+		currentTimestamp: Date.parse(new Date()),
+		taskAttr: 2 ,
+		tagName: 'itemTag',
+		itemTag: 'GRADE_LEVEL_GIFT',
+		memo: '领取会员礼包'	
+	}
+
+	data = JSON.stringify(data);
+	var encryptedData = AESEncrypt(data);
+	var ajaxTmp = $.ajax({
+		type:"POST",
+		dataType: "json",
+		url:_accountSrvUrl+_accountClientMissionSubmitUrl,
+		async:true,
+		timeout:10000,
+		data: {
+			clientId: _accountClientId,
+			data: encryptedData
+		},
+		headers: {
+			"MAC": '2835452aa239',
+			"cChip": '8S47',
+			"cModel": 'E2A',
+			"cUDID":'31140974',
+			"cSize": '32',
+//			"cPushId": '',//这个是要一些特殊情况才要的，你应该不用,不传就好了
+			'cAppVersion': '4100012',
+			"cTcVersion": '700190222'
+		},
+		success: function(data){
+			console.log('success..........:'+JSON.stringify(data))
+			if(data.success == true) {
+				console.log('success: true')
+			}else {
+				console.log('success: false')
+			}
+		},
+		fail: function(data) {
+			console.log('fail..........:'+JSON.stringify(data))
+		},
+		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+	　　　　	console.log("complete------------------"+status);
+			if(status=='timeout'){
+	 　　　　　 		ajaxTmp.abort();
+	　　　　	}
+	　　	}
+	});	
 }

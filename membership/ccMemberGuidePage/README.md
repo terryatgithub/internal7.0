@@ -9,6 +9,7 @@ am start -a coocaa.intent.action.browser --es "url"  "http://beta.webapp.skysrt.
 
 2.正式环境url:
 找林心旺要之前发布的地址
+https://webapp.skysrt.com/
 测试板上输入命令：
 
 
@@ -16,5 +17,5 @@ am start -a coocaa.intent.action.browser --es "url"  "http://beta.webapp.skysrt.
 //后台 陈希光
 接口地址
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222268
-
+新会员体系
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222263  看下这个，参数是要加密的

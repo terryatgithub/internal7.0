@@ -18,3 +18,7 @@ am start -a coocaa.intent.action.browser --es "url"  "http://beta.webapp.skysrt.
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222268
 
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222263  看下这个，参数是要加密的
+
+
+//获取优惠券详细信息：（甘泉组 王雪）
+http://beta.active.tc.skysrt.com/coupon_receive/couponInfo?couponId=481
