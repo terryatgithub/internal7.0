@@ -109,6 +109,13 @@ function unbindClick(){
 	console.log('unbind.')
 	$(".coocaa_btn").unbind("itemClick");
 }
+function showFailToast(){
+	console.log('showFailToast.')
+	$('.fail').css("display", 'block');
+	setTimeout(function(){
+		$('.fail').css("display", 'none');
+	}, 1500);
+}
 
 var i = 0;//页面显示index
 function processKey() {
@@ -175,18 +182,21 @@ function getDeviceInfo() {
 			        		console.log("usertoken " + message.accesstoken);
 			        		_accessToken = message.accesstoken;
 			        		submitTaskFinished();//提交任务完成信息
-			        	},function(error) { console.log(error); bindClick(); });
-					}, function(error) { console.log(error); bindClick(); });
+			        	},function(error) { console.log(error); bindClick(); showFailToast();});
+					}, function(error) { console.log(error); bindClick(); showFailToast();});
 	            }else{
 	        		console.log("user not login...");
+	        		showFailToast();
 	        		bindClick();
 	            }
 			},function(error) {
 				console.log(error);
+				showFailToast();
 				bindClick();
 			});
 		}, function(error) {
 			console.log(error);
+			showFailToast();
 			bindClick();
 		});
 }
@@ -234,11 +244,13 @@ function submitTaskFinished() {
 				i = 1;
 				processKey();
 			}else {
-				console.log('领取失败')
+				console.log('领取失败');
+				showFailToast();
 			}
 		},
 		fail: function(data) {
-			console.log('fail..........:'+JSON.stringify(data))
+			console.log('fail..........:'+JSON.stringify(data));
+			showFailToast();
 		},
 		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
 	　　　　	console.log("complete------------------"+status);
