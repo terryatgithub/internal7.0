@@ -5,13 +5,6 @@ var _accountClientId = '9F072A0ABF6E2B3D';
 var _accountClientKey = '85bdfb9ef29b4776';
 var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
-//获取酷开会员微信公众号二维码的地址
-var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _relAppId = "wxee96df3337b09cb5";
-
-//正式配置:
-//var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _relAppId = "wx5a6d3bdcd05fb501";
 //账号信息（等级、金币、成长点数等）服务器地址
 //var _accountSrvUrl = 'https://member.coocaa.com';
 //var _accountClientId = '';
@@ -19,11 +12,11 @@ var _relAppId = "wxee96df3337b09cb5";
 //var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
 //全局变量
-var cAppVersion, accountVersion;
+var cAppVersion;
 var _accessToken = "";
 var _openId = "";
 var _activeId = "";
-var _mac, _chip, _model, _size, _appversion = "",_tcVersion;
+var _mac, _chip, _model, _size, _tcVersion;
 
 //页面部分的逻辑
 var app = {
@@ -75,15 +68,7 @@ var app = {
 		app.triggleButton();
 		
 		//初始落焦
-        var initPhoneMap = function(obj) {
-			map = new coocaakeymap($(".coocaa_btn"), obj, "btn-focus", function() {}, function(val) {}, function(obj) {});
-			console.log("----------initPhoneMap End---------");
-		}
-		var firstFocus = $("#virtualKey1"); 
-		initPhoneMap(firstFocus);
-		
-		//注册事件监听
-		app.registerEventHandler();
+		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
 		//注册按键监听
 		app.registerKeyHandler();
     },
@@ -98,53 +83,62 @@ var app = {
 	receivedEvent: function(id) {
 		console.log('Received Event: ' + id);
 	},
-	
-	registerEventHandler: function() {
-		console.log("registerEventHandler---");
-	},
-	
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
-		$(".coocaa_btn").bind("itemClick", function() {
-			_Lindex = $(".coocaa_btn").index($(this));
-			console.log("-click-----"+_Lindex);
-			processKey();
-		});
+		bindClick();
 	},
 	
     triggleButton: function() {
-        cordova.require("com.coocaaosapi");
         setTimeout("delayLoad()", 100);
-        getDeviceInfo();
+        cordova.require("com.coocaaosapi");
 	}
-    
 };
 
 app.initialize();
 
-var i = 0;
+function bindClick(){
+	console.log('bind.')
+	$(".coocaa_btn").bind("itemClick", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("-click-----"+_Lindex);
+			processKey();
+		});
+}
+function unbindClick(){
+	console.log('unbind.')
+	$(".coocaa_btn").unbind("itemClick");
+}
+
+var i = 0;//页面显示index
 function processKey() {
-	++i;
 	console.log('processKey i:'+i);
 	switch(i) {
+		case 0:
+			unbindClick();	
+			getDeviceInfo();
+			break;
 		case 1: 
+			//点击领取
 			$("#pic1").css("display", "none");
 			$("#pic2").css("display", "block");
 			$("#pic3").css("display", "none");
 			$("#pic4").css("display", "none");
+			i=2;
 			break;
 		case 2: 
 			$("#pic1").css("display", "none");
 			$("#pic2").css("display", "none");
 			$("#pic3").css("display", "block");
 			$("#pic4").css("display", "none");
+			i=3;
 			break;
 		case 3: 
 			$("#pic1").css("display", "none");
 			$("#pic2").css("display", "none");
 			$("#pic3").css("display", "none");
 			$("#pic4").css("display", "block");
+			i=4;
 			break;
 		case 4:
 			console.log('return app home')
@@ -172,88 +166,32 @@ function getDeviceInfo() {
 			_tcVersion = message.version.replace(/\./g, "");
 
 			coocaaosapi.hasCoocaaUserLogin(function(message) {
+				console.log(JSON.stringify(message));
 	            if (message.haslogin == "true") {
             		console.log("user login...");
             		coocaaosapi.getUserInfo(function(message) {
 						_openId = message.open_id;
-					
 	            		coocaaosapi.getUserAccessToken(function(message) {
 			        		console.log("usertoken " + message.accesstoken);
 			        		_accessToken = message.accesstoken;
-			        		submitTaskFinished()
-//			        		getTvSource();
-			        	},function(error) { console.log(error); useDefaultQrcode();});
-					}, function(error) {});
+			        		submitTaskFinished();//提交任务完成信息
+			        	},function(error) { console.log(error); bindClick(); });
+					}, function(error) { console.log(error); bindClick(); });
 	            }else{
 	        		console.log("user not login...");
-	            	_accessToken = "";
-//					getTvSource();
+	        		bindClick();
 	            }
 			},function(error) {
 				console.log(error);
-				useDefaultQrcode();
+				bindClick();
 			});
 		}, function(error) {
 			console.log(error);
-			useDefaultQrcode();
+			bindClick();
 		});
 }
-function getTvSource() {
-	console.log("获取视频源传的参数---" + "MAC="+smac+"&cModel="+smodel+"&cChip="+schip+"&cSize="+ssize+"&cResolution="+sresolution+"&cTcVersion="+sversion+"&cFMode="+sfmodel+"&cPattern="+spattern+"&vAppID="+sappID+"&vAppVersion="+sappversion);
-	var myUrl = "";
-	myUrl = "http://movie.tc.skysrt.com/v2/getPolicyByDeviceInfoTypeJsonp";
-	var ajaxTimeoutOne = $.ajax({
-		type: "GET", // get post 方法都是一样的
-		async: true,
-		timeout : 5000, 
-		dataType: 'jsonp',
-		jsonp: "callback",
-		url: myUrl,
-		data: {
-			"MAC": _mac,
-			"cModel": _model,
-			"cChip": _chip,
-			"cSize": _size,
-			"cResolution": "1920*1080",
-			"cTcVersion": _tcVersion,
-			"cFMode": "Default",
-			"cPattern": "normal",
-			"vAppID": _relAppId,
-			"vAppVersion": cAppVersion
-		},
-		success: function(data) {
-			console.log("~~~data.source:"+data.source);
-			qsource = data.source;
-			if(qsource == "yinhe") {
-				console.log("视频源：" + qsource);
-				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
-				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			} else if(qsource == "tencent") {
-				console.log("视频源：" + qsource);
-				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
-				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			} else {//todo: 还需要处理视频源是优朋的情况:
-				console.log("视频源既不是爱奇艺又不是腾讯--" + qsource);
-				useDefaultQrcode();
-//				qsource == "yinhe";
-//				document.getElementById("bgImga").style.display = "block";
-//				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
-//				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			}
-		},
-		error: function() {
-			console.log('获取视频源失败');
-			useDefaultQrcode();
-		},
-		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　	console.log("-------------complete------------------"+status);
-			if(status=='timeout'){
-	 　　　　　 	ajaxTimeoutOne.abort();
-	　　　　	}
-	　　	}
-	});
-}
-//调用后台任务事件提交接口
+ 
+//调用任务提交事件接口
 function submitTaskFinished() {
 	var data = {
 		accessToken: _accessToken,
@@ -285,13 +223,16 @@ function submitTaskFinished() {
 			"cUDID":_activeId,
 			"cSize": _size,
 //			"cPushId": '',//这个是要一些特殊情况才要的，你应该不用,不传就好了
-			'cAppVersion': _appversion,
+			'cAppVersion': cAppVersion,
 			"cTcVersion": _tcVersion
 		},
 		success: function(data){
-			console.log('success..........:'+JSON.stringify(data))
+			console.log('submitTaskFinished success..:'+JSON.stringify(data))
 			if(data.success == true) {
 				console.log('领取成功')
+				//todo:
+				i = 1;
+				processKey();
 			}else {
 				console.log('领取失败')
 			}
@@ -304,70 +245,10 @@ function submitTaskFinished() {
 			if(status=='timeout'){
 	 　　　　　 		ajaxTmp.abort();
 	　　　　	}
+			bindClick();
 	　　	}
 	});	
 }
-
-function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, devicebarcode, time, accessToken) {
-	console.log("appid=" + appid + ",source=" + source + ",model=" + model + ",chip=" + chip + ",mac=" + mac + ",serviceid=" + serviceid + ",type=" + type + ",devicebarcode=" + devicebarcode + ",time=" + time);
-	console.log("accessToken="+accessToken);
-	var needDataObj = {
-		"appId": appid,
-		"source": source,
-		"deviceModel": model,
-		"deviceChip": chip,
-		"deviceMac": mac,
-		"serviceId": serviceid,
-		"type": type,
-		"token": accessToken,
-		"deviceBarcode": devicebarcode,
-		"time": time
-	};
-	var needDataString = JSON.stringify(needDataObj);
-	console.log(needDataString);
-	
-	var myUrl2 = _relServerUrl; //"";_testServerUrl; //
-	var ajaxTimeoutTwo = $.ajax({
-		type: "GET", // get post 方法都是一样的
-		async: true,
-		timeout : 5000, 
-		url: myUrl2,
-		data: {
-			"param": needDataString
-		},
-		success: function(data) {
-			console.log(JSON.stringify(data));
-			console.log(typeof(data));
-			console.log(data.result);
-			if(data.result){
-				console.log("绘制二维码;url="+ data.data);
-				
-			}else{
-				console.log("获取二维码信息出错,使用默认二维码");
-				console.log(JSON.stringify(data));
-				useDefaultQrcode();
-			}
-		},
-		error: function() {
-			console.log('fail');
-			useDefaultQrcode();
-		},
-		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
-	　　　　	console.log("-------------complete------------------"+status);
-			if(status=='timeout'){
-	 　　　　　 	ajaxTimeoutTwo.abort();
-	　　　　	}
-	　　	}
-	});
-}
-
-function useDefaultQrcode() {
-////	var qrImageUrl = app.rel_html_imgpath(__uri("../img/qrDefault.png"));
-//	console.log("something error, use default QR image:"+qrImageUrl)
-//	$("#qrDiv").css("background-image", "url("+qrImageUrl+")");
-}
-
-
 
 //AES
 function AESEncrypt(clearData) {

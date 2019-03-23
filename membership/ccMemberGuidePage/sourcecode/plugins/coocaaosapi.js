@@ -23,21 +23,10 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
     // console.log(JSON.stringify(config));
     function CoocaaOSApi() {
         console.log("------------>CoocaaOSApi()");
-        startapp.check("com.tianci.user", function(message) { /* success */
-		    console.log("账户应用版本：" + JSON.stringify(message));
-		    accountVersion = message.versionCode;
-		}, function(message) {});
 		startapp.check("com.tianci.movieplatform", function(message) { /* success */
 		    console.log("影视应用版本：" + JSON.stringify(message));
 		    cAppVersion = message.versionCode;
 		}, function(message) {});
-        startapp.check("com.coocaa.app_browser", function(message) { /* success */
-            console.log("新版浏览器存在：" + JSON.stringify(message));
-            hasNewBrowers = true;
-        }, function(message) {
-            console.log("新版浏览器不存在：" + JSON.stringify(message));
-            hasNewBrowers = false;
-        });
         var thiz = this;
         channel.onCordovaReady.subscribe(function() {
             console.log("------------>CoocaaOSApi() channel.onCordovaReady.subscribe");
