@@ -19,6 +19,10 @@ http://wiki.skyoss.com/pages/viewpage.action?pageId=20222268
 
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222263  看下这个，参数是要加密的
 
+//url后跟的参数：
+couponId 优惠券id  逗号分隔的
+points  奖励的金币数
+gradeLevel  奖励的等级，数字，1表示1级
 
 //获取优惠券详细信息：（甘泉组 王雪）
 http://beta.active.tc.skysrt.com/coupon_receive/couponInfo?couponId=481
