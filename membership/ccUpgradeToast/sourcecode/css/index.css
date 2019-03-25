@@ -96,15 +96,17 @@ body {
 }
 #prizeZone {
 	top: 186px;
+	width: 840px;
 	display: none;
 }
-
 .prizeItem {
 	position: relative;
 	width: 394px;
 	height: 100px;
 	background-size: 100%;
 	background-repeat: no-repeat;
+	float: left;
+	margin: 0 0 20px 20px;
 }
 .coinitem{
 	background-image: url(../img/icon_coin.png);

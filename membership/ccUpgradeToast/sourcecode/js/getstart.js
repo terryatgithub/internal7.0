@@ -146,8 +146,10 @@ function getGiftDetails(){//获取礼物详细信息
 		_resultQuery[index] = getQueryString(item);
 		console.log(item + ', result: '+_resultQuery[index]);
 	})
-	_resultQuery[0]=_resultQuery[0].split(',');
-	_couponNum = _resultQuery[0].length;
+	if(_resultQuery[0]) {
+		_resultQuery[0]=_resultQuery[0].split(',');	
+		_couponNum = _resultQuery[0].length;
+	}
 	console.log('coupon num:'+_couponNum+', coupon id: '+_resultQuery[0]);
 }
 
@@ -170,3 +172,40 @@ function getCouponDetails(id){ //获取优惠券详细
     });	
 }
  
+function updateGiftDetailsOnPage() {//更新页面奖品信息
+	console.log('updateGiftDetailsOnPage..');
+	//todo: 暂时策略：	//最多展示6个,多余不展示，不方便实现
+	var MAXNUM = 6;
+	
+	var itemNum = _couponNum;//总展示奖品个数
+	if(_resultQuery[1] > 0) {//金币数大于0
+		itemNum++;
+	}
+	if(itemNum > MAXNUM) {
+		itemNum = MAXNUM;
+	}
+	console.log('itemNum: '+itemNum);
+	if(itemNum == 1) {
+		$('#prizeZone').css('width', '400px');
+	}
+	
+	for(var i = 0; i<itemNum-1; i++) {
+		console.log('append: '+i)
+		var e = $('.prizeItem:first').clone();
+		$('#prizeZone').append(e);
+	}
+	//金币
+	$('.prizeItem:first').addClass('coinitem')
+	$('.prizeitem_num:first').text('200');
+	$('.prizeitem_title:first').text('金币');
+	$('.prizeitem_expire:first').text('有效期：2019年10月20日');	
+	//优惠券
+	for(var i = 0; i<itemNum-1; i++) {
+		console.log('update: '+i)
+		$('.prizeItem').eq(i+1).addClass('couponitem')
+		$('.prizeitem_num').eq(i+1).html('20<span>元</span>');
+		$('.prizeitem_title').eq(i+1).text('优惠券');
+		$('.prizeitem_expire').eq(i+1).text('有效期：2019年10月20日');	
+	}
+	
+}
