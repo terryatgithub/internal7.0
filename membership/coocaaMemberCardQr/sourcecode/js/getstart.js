@@ -144,7 +144,7 @@ function getDeviceInfo() {
 		        		console.log("usertoken " + message.accesstoken);
 		        		_accessToken = message.accesstoken;
 		        		getTvSource(_mac, _model, _chip, _size, _resolution, _version, _fmodel, _pattern, _appID, _appversion, _appid, _source, _serviceid, _type, _devicebarcode, _time,_accessToken);
-		        	},function(error) { console.log(error); useDefaultQrcode();});
+		        	},function(error) { console.log(error); showFailToast();});
 	            }else{
 	        		console.log("user not login...");
 	            	_accessToken = "";
@@ -152,11 +152,11 @@ function getDeviceInfo() {
 	            }
 			},function(error) {
 				console.log(error);
-				useDefaultQrcode();
+				showFailToast();
 			});
 		}, function(error) {
 			console.log(error);
-			useDefaultQrcode();
+			showFailToast();
 		});
 }
 
@@ -196,7 +196,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
 			} else {//todo: 还需要处理视频源是优朋的情况:
 				console.log("视频源既不是爱奇艺又不是腾讯--" + qsource);
-				useDefaultQrcode();
+				showFailToast();
 //				qsource == "yinhe";
 //				document.getElementById("bgImga").style.display = "block";
 //				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
@@ -205,7 +205,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 		},
 		error: function() {
 			console.log('获取视频源失败');
-			useDefaultQrcode();
+			showFailToast();
 		},
 		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
 	　　　　	console.log("-------------complete------------------"+status);
@@ -257,26 +257,42 @@ function getQrcodeUrl(appid, source, model, chip, mac, serviceid, type, deviceba
 				});
 				qrcode.makeCode(str);
 			}else{
-				console.log("获取二维码信息出错,使用默认二维码");
+				console.log("获取二维码信息出错,提示用户按确认重新获取");
 				console.log(JSON.stringify(data));
-				useDefaultQrcode();
+				showFailToast();
 			}
 		},
 		error: function() {
 			console.log('fail');
-			useDefaultQrcode();
+			showFailToast();
 		},
 		complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
 	　　　　	console.log("-------------complete------------------"+status);
 			if(status=='timeout'){
-	 　　　　　 	ajaxTimeoutTwo.abort();
+	 　　　　　 		ajaxTimeoutTwo.abort();
 	　　　　	}
 	　　	}
 	});
 }
-
-function useDefaultQrcode() {
-	var qrImageUrl = app.rel_html_imgpath(__uri("../img/qrDefault.png"));
-	console.log("something error, use default QR image:"+qrImageUrl)
-	$("#qrDiv").css("background-image", "url("+qrImageUrl+")");
+function showFailToast(){
+	console.log('showFailToast.')
+	bindClick();
+	$('.fail').css("display", 'block');
+}
+function bindClick(){
+	console.log('bind.')
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+	$(".coocaa_btn").bind("itemClick", function() {
+			_Lindex = $(".coocaa_btn").index($(this));
+			console.log("-click-----"+_Lindex);
+			if($('.fail').css("display") == 'block') {
+				$('.fail').css("display", 'none');
+			}
+			unbindClick();//reset status
+			getDeviceInfo();
+		});
+}
+function unbindClick(){
+	console.log('unbind.')
+	$(".coocaa_btn").unbind("itemClick");
 }

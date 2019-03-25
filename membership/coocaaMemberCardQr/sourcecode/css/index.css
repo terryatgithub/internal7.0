@@ -27,4 +27,22 @@ body {
 	height: 137px;
 }
 
+.fail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    width: 636px;
+    height: 160px;
+    line-height: 160px;
+    background: rgba(0,0,0,0.8);
+    text-align: center;
+    font-size: 44px;
+    color: white;
+    border-radius: 100px;
+	display: none; 
+}
+
+
 
