@@ -118,12 +118,12 @@ body {
 
 #prizeIconOpen {
 	position: absolute;
-	background-size: 100%;
-	background-repeat: no-repeat;	
 	top: 135px;
 	left: 150px;
 	width: 736px;
 	height: 486px;
+	background-size: 100%;
+	background-repeat: no-repeat;	
 	background-image: url(../img/kaijiang.png);
 	animation: fadein 2s linear;
 	-webkit-animation: fadein 2s linear;

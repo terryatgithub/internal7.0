@@ -24,7 +24,7 @@ fis.match('**', {
 	relative: true 
 });
 
-fis.match('*.{js,css,png}', {
+fis.match('*.{js,css}', {
   useHash: true
 });
 

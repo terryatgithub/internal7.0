@@ -5,7 +5,7 @@
 //测试临时配置,正式发布时需要改为正式配置:
 var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
 var _relAppId = "wxee96df3337b09cb5";
-var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfo?couponId=';
+var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
 
 //全局变量
 var _paramsQuery = ['couponId', 'points', 'gradeLevel'];
@@ -110,15 +110,12 @@ function initFirstPage() {
 	var img = _resultQuery[2];
 	if(img<1) {img = 1};
 	if(img>7) {img = 7};
-	img = '../img/'+img+'.png';
-	img = app.rel_html_imgpath(__uri(img));
+	img = 'img/'+img+'.png';
 	$('#title').css('background-image', 'url('+img+')');
-	
-	$('#prizeIcon').css('background-image', )
 	
 	var tips = '您可获得: ';
 	if(_resultQuery[1] > 0){
-		tips += _resultQuery[1] + '金币 / ';
+		tips += '<span>'+_resultQuery[1] + '</span>金币 / ';
 	}
 	if(_couponShopNum > 0){
 		tips += '<span>'+_couponShopNum+'张</span>购物优惠券 / ';
@@ -141,10 +138,9 @@ function openGiftBox(){//开奖动画
 }
 
 function showGiftDetails() {//显示奖品明细页
-	var img = app.rel_html_imgpath(__uri("../img/titleOK.png"));
-	$('#title').css('background-image', 'url('+img+')');
+	$('#title').css('background-image', 'url(img/titleOK.png)');
 	$('#prizelist').css('display','none');
-	$('#prizeIcon').css('display','none');
+	$('#prizeIconOpen').css('display','none');
 	$('#button').text('查看更多');
 	
 	$('#prizeZone').css('display', 'block');
@@ -243,11 +239,11 @@ function parseCouponInfos(info) {//解析优惠券需要显示的内容
 function getCouponDetails(id){ //获取优惠券详细
 	console.log('getCouponDetails id:'+id);
     $.ajax({
-        type: "post",
+        type: "get",
         async: true,
         timeout: 5000,
         url: _couponCheckUrl+id,
-        dataType: "json",
+        dataType: "jsonp",
         success: function(data) {
             console.log("-getCouponDetails success--"+JSON.stringify(data));
             
@@ -297,7 +293,7 @@ function updateGiftDetailsOnPage() {//更新页面奖品信息
 	for(var i = 0; i<itemNum-1; i++) {
 		console.log('update: '+i)
 		$('.prizeItem').eq(i+1).addClass('couponitem')
-		$('.prizeitem_num').eq(i+1).html(_couponInfos[i].value+'<span>元</span>');
+		$('.prizeitem_num').eq(i+1).html(_couponInfos[i].value);
 		$('.prizeitem_title').eq(i+1).text(_couponInfos[i].name);
 		$('.prizeitem_expire').eq(i+1).text(_couponInfos[i].expire);	
 	}
