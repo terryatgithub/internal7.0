@@ -115,19 +115,21 @@ function initFirstPage() {
 	
 	var tips = '您可获得: ';
 	if(_resultQuery[1] > 0){
-		tips += '<span>'+_resultQuery[1] + '</span>金币 / ';
+		tips += '<span>'+_resultQuery[1] + '</span>金币';
 	}
 	if(_couponShopNum > 0){
-		tips += '<span>'+_couponShopNum+'张</span>购物优惠券 / ';
+		tips += '/ <span>'+_couponShopNum+'张</span>购物优惠券';
 	}
 	if(_couponMovieNum > 0){
-		tips += '<span>'+_couponMovieNum+'张</span>影视优惠券/ ';
+		tips += ' / <span>'+_couponMovieNum+'张</span>影视优惠券';
 	}
 	if(_couponEduNum > 0){
-		tips += '<span>'+_couponEduNum+'张</span>教育优惠券';
+		tips += ' / <span>'+_couponEduNum+'张</span>教育优惠券';
 	}
 	console.log('tips: '+tips);
 	$('#prizelist').html(tips);
+	
+	updateGiftDetailsOnPage();
 }
 
 function openGiftBox(){//开奖动画
@@ -185,6 +187,8 @@ function getGiftDetails(){//获取礼物详细信息
 		_resultQuery[0]=_resultQuery[0].split(',');	
 		_couponNumTmp = _couponNum = _resultQuery[0].length;
 		_resultQuery[0].forEach(getCouponDetails)
+	}else {//如果没有优惠券
+		initFirstPage();
 	}
 	console.log('coupon num:'+_couponNum+', coupon id: '+_resultQuery[0]);
 }
@@ -227,14 +231,12 @@ function parseCouponInfos(info) {//解析优惠券需要显示的内容
 	_couponInfos.push(o);	
 	
 	//全部优惠券信息获取完毕后：
-	console.log('_couponNumTmp: '+_couponNumTmp)
 	if(--_couponNumTmp == 0) {
 		console.log('all has been done. finally')
 		console.log(_couponInfos)
-		
 		initFirstPage();
-		updateGiftDetailsOnPage();
 	}
+	console.log('_couponNumTmp: '+_couponNumTmp)
 }
 function getCouponDetails(id){ //获取优惠券详细
 	console.log('getCouponDetails id:'+id);
@@ -246,17 +248,12 @@ function getCouponDetails(id){ //获取优惠券详细
         dataType: "jsonp",
         success: function(data) {
             console.log("-getCouponDetails success--"+JSON.stringify(data));
-            
             if(data && data.code == 0 && data.data) {
             	parseCouponInfos(data.data)
             }
         },
         error: function(error) {
             console.log("-getCouponDetails fail--" + JSON.stringify(error));
-        },
-        complete: function(res) {
-            console.log("-getCouponDetails complete--" + JSON.stringify(res));
-            
         }
     });	
 }
