@@ -145,7 +145,7 @@ function showGiftDetails() {//显示奖品明细页
 	$('#title').css('background-image', 'url('+img+')');
 	$('#prizelist').css('display','none');
 	$('#prizeIcon').css('display','none');
-	$('#button').text('立即查看');
+	$('#button').text('查看更多');
 	
 	$('#prizeZone').css('display', 'block');
 	_clickIndex = 2;
