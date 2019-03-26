@@ -744,7 +744,16 @@ cordova.define("com.coocaaosapi", function(require, exports, module) {
             ["action", "coocaa.intent.action.MALL_HOME"]
         ], success, error);
     }
-
+	//启动我的-个人信息页
+	//	包名：com.tianci.movieplatform
+	//	action：coocaa.intent.action.HOME_MEMBER_CENTER
+	//	startActivity
+	CoocaaOSApi.prototype.startUserInfoPage = function(success, error) {
+        argscheck.checkArgs('ff', 'CoocaaOSApi.startUserInfoPage', arguments);
+        startapp.start([
+            ["action", "coocaa.intent.action.HOME_MEMBER_CENTER"]
+        ], success, error);
+    }
     //启动酷开商城列表页
     CoocaaOSApi.prototype.startAppShopList = function(id, title, success, error) {
         argscheck.checkArgs('ssff', 'CoocaaOSApi.startAppShopList', arguments);

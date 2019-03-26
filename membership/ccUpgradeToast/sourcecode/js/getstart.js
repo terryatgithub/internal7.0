@@ -11,6 +11,11 @@ var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInf
 var _paramsQuery = ['couponId', 'points', 'gradeLevel'];
 var _resultQuery = [];
 var _couponNum = 0;//优惠券数量
+var _couponNumTmp = 0;//计数用的优惠券数量
+var _couponShopNum = 0;//购物优惠券数量
+var _couponMovieNum = 0;//影视优惠券数量
+var _couponEduNum = 0;//教育优惠券数量
+var _couponInfos = [];//优惠券详情
 
 //页面部分的逻辑
 var app = {
@@ -95,11 +100,29 @@ var app = {
 	},
 	
     triggleButton: function() {
+    	getGiftDetails();
 	}
     
 };
 
 app.initialize();
+function initFirstPage() {
+	var tips = '您可获得: ';
+	if(_resultQuery[1] > 0){
+		tips += _resultQuery[1] + '金币 / ';
+	}
+	if(_couponShopNum > 0){
+		tips += '<span>'+_couponShopNum+'张</span>购物优惠券 / ';
+	}
+	if(_couponMovieNum > 0){
+		tips += '<span>'+_couponMovieNum+'张</span>影视优惠券/ ';
+	}
+	if(_couponEduNum > 0){
+		tips += '<span>'+_couponEduNum+'张</span>教育优惠券';
+	}
+	console.log('tips: '+tips);
+	$('#prizelist').html(tips);
+}
 
 function openGiftBox(){//开奖动画
 	console.log('openGiftBox..')
@@ -127,10 +150,16 @@ function processKey() {
 			openGiftBox();
 			break;
 		case 2: 
-			console.log('go check page..')
-			navigator.app.exitApp();
+			console.log('go userinfo page..')
+			goUserInfoPage();
 			break;
 	}
+}
+function goUserInfoPage() {//进入个人信息页
+	coocaaosapi.startUserInfoPage(function(message){
+									console.log("个人信息页 success: " + JSON.stringify(message));
+									navigator.app.exitApp();
+								}, function(error){console.log("个人信息页 error: " + error);});
 }
 
 function getQueryString(name) {//获取url中的参数
@@ -148,11 +177,59 @@ function getGiftDetails(){//获取礼物详细信息
 	})
 	if(_resultQuery[0]) {
 		_resultQuery[0]=_resultQuery[0].split(',');	
-		_couponNum = _resultQuery[0].length;
+		_couponNumTmp = _couponNum = _resultQuery[0].length;
+		_resultQuery[0].forEach(getCouponDetails)
 	}
 	console.log('coupon num:'+_couponNum+', coupon id: '+_resultQuery[0]);
 }
-
+function parseCouponInfos(info) {//解析优惠券需要显示的内容
+	var name;
+	if(info.businessLine == 'education') {
+		_couponEduNum++;
+		name = '教育优惠券';
+	}else if(info.businessLine == 'movie') {
+		_couponMovieNum++;
+		name = '影视优惠券';
+	}else{ // if(info.businessLine == 'tvmall') 
+		_couponShopNum++;
+		name = '购物优惠券';
+	}
+	var value;
+	//如果是折扣优惠券，显示x折； 如果是现金优惠券，显示xx元
+	if(info.preferentialType == 'discount') {
+		value = info.preferentialDiscount;
+		if(value < 10) {
+			value = '0.'+value+'折';
+		}else if(value <= 100) {
+			value = value/10+'折';
+		}
+	}else if(info.preferentialType == 'price') {
+		value = info.preferentialPrice/100 + '<span>元</span>';
+	}
+	//有效期
+	if(info.effectiveEndTime) {
+		var d = new Date(info.effectiveEndTime);
+		var expire = '有效期: '+d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+	}else if(info.effectiveDays) {
+		var expire = '有效期: 领取后'+info.effectiveDays+'天内有效'
+	}
+	var o = {
+		'name': name,
+		'value': value,
+		'expire': expire
+	}
+	_couponInfos.push(o);	
+	
+	//全部优惠券信息获取完毕后：
+	console.log('_couponNumTmp: '+_couponNumTmp)
+	if(--_couponNumTmp == 0) {
+		console.log('all has been done. finally')
+		console.log(_couponInfos)
+		
+		initFirstPage();
+		updateGiftDetailsOnPage();
+	}
+}
 function getCouponDetails(id){ //获取优惠券详细
 	console.log('getCouponDetails id:'+id);
     $.ajax({
@@ -163,11 +240,17 @@ function getCouponDetails(id){ //获取优惠券详细
         dataType: "json",
         success: function(data) {
             console.log("-getCouponDetails success--"+JSON.stringify(data));
-            if(data.code == 50100){
+            
+            if(data && data.code == 0 && data.data) {
+            	parseCouponInfos(data.data)
             }
         },
         error: function(error) {
             console.log("-getCouponDetails fail--" + JSON.stringify(error));
+        },
+        complete: function(res) {
+            console.log("-getCouponDetails complete--" + JSON.stringify(res));
+            
         }
     });	
 }
@@ -195,17 +278,17 @@ function updateGiftDetailsOnPage() {//更新页面奖品信息
 		$('#prizeZone').append(e);
 	}
 	//金币
-	$('.prizeItem:first').addClass('coinitem')
-	$('.prizeitem_num:first').text('200');
-	$('.prizeitem_title:first').text('金币');
-	$('.prizeitem_expire:first').text('有效期：2019年10月20日');	
+	if(_resultQuery[1] > 0) {
+		$('.prizeItem:first').addClass('coinitem')
+		$('.prizeitem_num:first').text(_resultQuery[1]);
+		$('.prizeitem_title:first').text('金币');
+	}
 	//优惠券
 	for(var i = 0; i<itemNum-1; i++) {
 		console.log('update: '+i)
 		$('.prizeItem').eq(i+1).addClass('couponitem')
-		$('.prizeitem_num').eq(i+1).html('20<span>元</span>');
-		$('.prizeitem_title').eq(i+1).text('优惠券');
-		$('.prizeitem_expire').eq(i+1).text('有效期：2019年10月20日');	
+		$('.prizeitem_num').eq(i+1).html(_couponInfos[i].value+'<span>元</span>');
+		$('.prizeitem_title').eq(i+1).text(_couponInfos[i].name);
+		$('.prizeitem_expire').eq(i+1).text(_couponInfos[i].expire);	
 	}
-	
 }
