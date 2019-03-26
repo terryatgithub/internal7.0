@@ -107,6 +107,15 @@ var app = {
 
 app.initialize();
 function initFirstPage() {
+	var img = _resultQuery[2];
+	if(img<1) {img = 1};
+	if(img>7) {img = 7};
+	img = '../img/'+img+'.png';
+	img = app.rel_html_imgpath(__uri(img));
+	$('#title').css('background-image', 'url('+img+')');
+	
+	$('#prizeIcon').css('background-image', )
+	
 	var tips = '您可获得: ';
 	if(_resultQuery[1] > 0){
 		tips += _resultQuery[1] + '金币 / ';
@@ -126,8 +135,8 @@ function initFirstPage() {
 
 function openGiftBox(){//开奖动画
 	console.log('openGiftBox..')
-	$('#prizeIcon').removeClass('giftshow');
-	$('#prizeIcon').addClass('giftOpen');
+	$('#prizeIconShow').css('display', 'none');
+	$('#prizeIconOpen').css('display', 'block');
 	setTimeout(showGiftDetails, 2500);
 }
 
@@ -163,6 +172,7 @@ function goUserInfoPage() {//进入个人信息页
 }
 
 function getQueryString(name) {//获取url中的参数
+	console.log('window.location:'+window.location)
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 	var r = window.location.search.substr(1).match(reg);
 	if(r != null) return unescape(r[2]);

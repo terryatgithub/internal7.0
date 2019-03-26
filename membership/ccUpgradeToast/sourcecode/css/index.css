@@ -29,7 +29,6 @@ body {
 	top: 60px;
 	width: 760px;
 	height: 86px;
-	background-image: url(../img/1.png);
 	background-size: 100%;
 	background-repeat: no-repeat;
 }
@@ -45,20 +44,82 @@ body {
 #prizelist span{
 	color: #FA6400;
 }
-#prizeIcon{
+#prizeIconShow, #prizeIconShow div{
 	position: absolute;
+}
+#light {
+	top: 220px;
+	left: 152px;
+	width: 694px;
+	height: 382px;
 	background-size: 100%;
 	background-repeat: no-repeat;
-	opacity: 0.5;
+	background-image: url(../img/light.png);
+	animation: lightblink 4s linear infinite;
+	-webkit-animation: lightblink 4s linear infinite;
 }
-.giftshow {
-	top: 100px;
-	left: 100px;
-	width: 800px;
-	height: 560px;
-	background-image: url(../img/bggiftbox.webp);
+@keyframes lightblink {
+	0%  {opacity: 0.1; transform: rotate(0deg); -webkit-transform: rotate(0deg);}
+	50% {opacity: 0.22; transform: rotate(180deg); -webkit-transform: rotate(180deg);}
+	75% {opacity: 0.1; transform: rotate(360deg); -webkit-transform: rotate(360deg);}
+	100% {opacity: 0.1; transform: rotate(360deg); -webkit-transform: rotate(360deg);}
 }
-.giftOpen {
+@-webkit-keyframes lightblink {
+	0%  {opacity: 0.1; transform: rotate(0deg); -webkit-transform: rotate(0deg);}
+	50% {opacity: 0.22; transform: rotate(180deg); -webkit-transform: rotate(180deg);}
+	75% {opacity: 0.1; transform: rotate(360deg); -webkit-transform: rotate(360deg);}
+	100% {opacity: 0.1; transform: rotate(360deg); -webkit-transform: rotate(360deg);}
+}
+#box {
+	top: 222px;
+	left: 314px;
+	width: 376px;
+	height: 376px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-image: url(../img/box.png);
+	animation: boxblink 4s linear infinite;
+	-webkit-animation: boxblink 4s linear infinite;
+}
+@keyframes boxblink {
+	0%  {transform: scale(1); -webkit-transform: scale(1);}
+	50% {transform: scale(1.1); -webkit-transform: scale(1.1);}
+	75% {transform: scale(0.9); -webkit-transform: scale(0.9);}
+	100% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+}
+@-webkit-keyframes boxblink {
+	0%  {transform: scale(1); -webkit-transform: scale(1);}
+	50% {transform: scale(1.1); -webkit-transform: scale(1.1);}
+	75% {transform: scale(0.9); -webkit-transform: scale(0.9);}
+	100% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+}
+#star {
+	top: 237px;
+	left: 160px;
+	width: 550px;
+	height: 236px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	animation: starblink 4s linear infinite;
+	-webkit-animation: starblink 4s linear infinite;
+}
+@keyframes starblink {
+	0%  {background-image: url(../img/star1.png);}
+	33% {background-image: url(../img/star2.png);}
+	66% {background-image: url(../img/star3.png);}
+	100% {background-image: url(../img/star4.png);}
+}
+@-webkit-keyframes starblink {
+	0%  {background-image: url(../img/star1.png);}
+	33% {background-image: url(../img/star2.png);}
+	66% {background-image: url(../img/star3.png);}
+	100% {background-image: url(../img/star4.png);}
+}
+
+#prizeIconOpen {
+	position: absolute;
+	background-size: 100%;
+	background-repeat: no-repeat;	
 	top: 135px;
 	left: 150px;
 	width: 736px;
@@ -66,6 +127,7 @@ body {
 	background-image: url(../img/kaijiang.png);
 	animation: fadein 2s linear;
 	-webkit-animation: fadein 2s linear;
+	display: none;
 }
 @keyframes fadein{
 	0%   {transform: scale(0.1); -webkit-transform: scale(0.1); opacity: 0.1;}
