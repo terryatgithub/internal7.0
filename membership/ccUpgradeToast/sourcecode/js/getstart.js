@@ -209,9 +209,9 @@ function parseCouponInfos(info) {//解析优惠券需要显示的内容
 	if(info.preferentialType == 'discount') {
 		value = info.preferentialDiscount;
 		if(value < 10) {
-			value = '0.'+value+'折';
+			value = '0.'+value+'<span>折</span>';
 		}else if(value <= 100) {
-			value = value/10+'折';
+			value = value/10+'<span>折</span>';
 		}
 	}else if(info.preferentialType == 'price') {
 		value = info.preferentialPrice/100 + '<span>元</span>';
