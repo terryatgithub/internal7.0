@@ -39,3 +39,50 @@ body {
     border-radius: 100px;
 	display: none; 
 }
+
+.btn {
+	position: absolute;
+	top: 359px;
+    left: 800px;
+    width: 308px;
+    height: 72px;
+    border: 6px solid white;
+    border-radius: 43px;
+	animation: blink 3s infinite;
+	-webkit-animation: blink 1.5s linear infinite;
+}
+
+#pic2 .btn {
+    top: 749px;
+    left: 800px;
+}
+#pic3 .btn {
+    top: 326px;
+}
+#pic4 .btn {
+    top: 418px;
+}
+
+@keyframes blink{
+	0% {opacity: 0.3; }
+	50%  {opacity: 1;	 }
+	100%  {opacity: 0.3; }
+}
+@-webkit-keyframes blink{
+	0% {opacity: 0.3; }
+	50%  {opacity: 1;	 }
+	100%  {opacity: 0.3; }
+}
+
+
+/*@keyframes blink{
+	0% {opacity: 0.5; transform: scale(1.1); -webkit-transform: scale(1.1);}
+	50%  {opacity: 1;	transform: scale(1); -webkit-transform: scale(1);}
+	100%  {opacity: 0.5;	transform: scale(1.1); -webkit-transform: scale(1.1);}
+}
+@-webkit-keyframes blink{
+	0% {opacity: 0.5; transform: scale(1.1); -webkit-transform: scale(1.1);}
+	50%  {opacity: 1;	transform: scale(1); -webkit-transform: scale(1);}
+	100%  {opacity: 0.5;	transform: scale(1.1); -webkit-transform: scale(1.1);}
+}
+*/
