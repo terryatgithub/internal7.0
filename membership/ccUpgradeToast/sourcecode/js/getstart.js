@@ -1,11 +1,8 @@
-//正式配置:
-//var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _relAppId = "wx5a6d3bdcd05fb501";
-
 //测试临时配置,正式发布时需要改为正式配置:
-var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _relAppId = "wxee96df3337b09cb5";
-var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
+//var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
+
+//正式配置:
+var _couponCheckUrl = 'http://active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
 
 //全局变量
 var _paramsQuery = ['couponId', 'points', 'gradeLevel'];

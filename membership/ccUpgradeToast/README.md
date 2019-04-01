@@ -13,7 +13,7 @@ am start -a coocaa.intent.action.browser --es "url"  "http://beta.webapp.skysrt.
 
 
 ###后台服务器调用接口信息：
-//后台 陈希光
+//后台 王雪
 接口地址
 http://wiki.skyoss.com/pages/viewpage.action?pageId=20222268
 
