@@ -1,8 +1,8 @@
 //测试临时配置,正式发布时需要改为正式配置:
-//var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
+var _couponCheckUrl = 'http://beta.active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
 
 //正式配置:
-var _couponCheckUrl = 'http://active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
+//var _couponCheckUrl = 'http://active.tc.skysrt.com/coupon_receive/couponInfoTo?couponId=';
 
 //全局变量
 var _paramsQuery = ['couponId', 'points', 'gradeLevel'];
@@ -48,6 +48,7 @@ var app = {
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
         document.addEventListener('resume', this.onResume, false);
         document.addEventListener('pause', this.onPause, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
     },
     onBackButton: function() {
         console.log("in onBackButton");
@@ -77,7 +78,10 @@ var app = {
     onPause: function() {
         console.log("in onPause");
     },
-	
+	homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
+    },
 	receivedEvent: function(id) {
 		console.log('Received Event: ' + id);
 	},
