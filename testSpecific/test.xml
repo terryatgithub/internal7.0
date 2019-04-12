@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<note date="12/11/2012">
+	<to>Tove</to>
+	<from>Jani</from>
+	<heading>Reminder</heading>
+	<body>Don't forget me this weekend.</body>
+</note>
+<CATALOG>
+	<CD>
+		<TITLE>Empire Burlesque</TITLE>
+		<ARTIST>Bob Dylan</ARTIST>
+		<COUNTRY>USA</COUNTRY>
+		<PRICE>10.90</PRICE>
+		<YEAR>1985</YEAR>
+	</CD>
+	<PLANT>
+		<COMMON>Bloodroot</COMMON>
+		<BOTANICAL>Sanguinaria</BOTANICAL>
+	</PLANT>
+	
+</CATALOG>
+
+<!-- 实体引用 < > & ' " -->
+<!--<message> if salary < 1000 then</message>-->
+<!-- <: &lt; > &gt; & &amp; ' &apos; " &quot; -->
+<message> if salary &lt; 1000 then</message>
+<entity>  &lt; &gt; &amp; &apos; &quot;</entity>
+
+<!-- 在此我们极力向您传递的理念是：元数据（有关数据的数据）应当存储为属性，而数据本身应当存储为元素 -->
+<!-- DTD 文档类型定义 -->
+
+<!-- XML DTD -->
+<!--根据DTD验证XML -->
+<!DOCTYPE note SYSTEM "Note.dtd">
+
+<!-- XML Schema -->
+
+</root>

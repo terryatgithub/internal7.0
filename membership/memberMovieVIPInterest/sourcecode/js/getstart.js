@@ -31,7 +31,7 @@ var cPkg = "com.tianci.movieplatform";
 var _TVSource = "";//视频源
 
 //后台接口： 获取用户会员信息（金币数、点数、等级信息），需要的参数：
-//var _testurl = "http://172.20.132.206:7070/"; //test
+//var _testurl = "http://172.20.155.202:7171"; //test
 //var _clientId = "9F072A0ABF6E2B3D";//test ;
 //var _clientKey = "85bdfb9ef29b4776";//test
 

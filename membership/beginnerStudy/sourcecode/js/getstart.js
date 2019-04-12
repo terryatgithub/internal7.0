@@ -156,6 +156,8 @@ var app = {
 		var i = 0;
 		var tmpId;
 		
+		//yuanbotodo 数据采集 页面曝光
+		
 		//插入图像
 		for(i=0; i<len; i++) {
 			tmpId = "videoDivId"+i;
@@ -265,6 +267,8 @@ function playVideo() {
 		var _cName = _videoInfos[_Index1].des;
 		var _cUrl = _videoInfos[_Index1].url;
 		console.log("playing:"+_cName+"--"+_cUrl);
+		
+		//yuanbotodo 数据采集 开始播放（播放名称 url等参考 _videoInfos数组)
 
 		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
 			console.log(message);

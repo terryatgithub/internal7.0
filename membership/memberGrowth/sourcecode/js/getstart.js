@@ -7,7 +7,7 @@ var _memberLevelPrivilegeLineNums = 7;//页面会员等级权益的行数
 var _memberLevelPrivilegeColNums = 7; //页面会员等级权益的列数
 
 //获取用户会员信息（金币数、成长点数、会员等级）
-//var _testurl = "http://172.20.132.206:7070/"; //测试地址
+//var _testurl = "http://172.20.155.202:7171"; //测试地址
 //var _clientId = "9F072A0ABF6E2B3D";//test ; 
 //var _clientKey = "85bdfb9ef29b4776";//test
 
