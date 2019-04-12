@@ -15,6 +15,8 @@ var _videoInfos = [
 	,{ des: "还能用电视做什么", name: "9-education", duration: "03:19", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/c90e7f4a5285890783426425034/v.f640.m3u8?t=61ac68ce&exper=0&sign=f72c3faaadced9264576725b755d839e"}
 	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "02:08", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/c955444e5285890783426462208/v.f640.m3u8?t=61ac68ce&exper=0&sign=018120b35d7910fcf37030fbaf165f06"}
 ];
+var _cName = "";//当前播放视频名称（为数据采集)
+var _chip, _model, _openId = "";
 
 //页面部分的逻辑
 var app = {
@@ -46,7 +48,6 @@ var app = {
     },
     bindEvents: function() {
     	setBgColorTransparent();
-    	app.showStudyVideos();
     	
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbutton', this.onBackButton, false);
@@ -107,6 +108,8 @@ var app = {
 				$("#homeTitleDivId").css("display", "none");
 				$("#homtContentDivId").css("display", "none");
 			}else if(message.web_player_event == "on_complete") {
+				webVideoPlayEnd(_cName);
+				_cName="";
 				$("#playbackPage").css("display","block");
 				map = new coocaakeymap($(".coocaa_btn2"), $(".coocaa_btn2")[_Index1], null, function() {}, function(val) {}, function(obj) {});
 			}else if(message.web_player_event == "on_interrupt") {
@@ -148,35 +151,34 @@ var app = {
 			startConnectNet();
 		});
 	},
-	
-    showStudyVideos: function() {
-    	console.log("in showStudyVideos.");
-		var len = _videoInfos.length;
-		console.log("server data len:"+len);
-		var i = 0;
-		var tmpId;
-		
-		//yuanbotodo 数据采集 页面曝光
-		
-		//插入图像
-		for(i=0; i<len; i++) {
-			tmpId = "videoDivId"+i;
-			console.log("now i:"+tmpId);
-			$("#"+tmpId+" .pTitleClass").text(_videoInfos[i].des);
-			$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
-		}
-		delayLoad();
-		console.log("out showStudyVideos.");
-	},
-    
+
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
+        getDeviceInfo();
+        showStudyVideos();
 	}
     
 };
 
 app.initialize();
 
+function showStudyVideos() {
+	console.log("in showStudyVideos.");
+	var len = _videoInfos.length;
+	console.log("server data len:"+len);
+	var i = 0;
+	var tmpId;
+	
+	//插入图像
+	for(i=0; i<len; i++) {
+		tmpId = "videoDivId"+i;
+		console.log("now i:"+tmpId);
+		$("#"+tmpId+" .pTitleClass").text(_videoInfos[i].des);
+		$("#"+tmpId+" .pDurationClass").text(_videoInfos[i].duration);					
+	}
+	delayLoad();
+	console.log("out showStudyVideos.");
+}
 
 //计算焦点移动时,父Div的滚动条滚动距离
 function focusShift(pos) {
@@ -264,12 +266,12 @@ function playVideo() {
 		//开始播放时,设置flag; 只有正常播完才会被设为false
 //		_bPlayDisrupted = true;
 		
-		var _cName = _videoInfos[_Index1].des;
+		_cName = _videoInfos[_Index1].des;
 		var _cUrl = _videoInfos[_Index1].url;
 		console.log("playing:"+_cName+"--"+_cUrl);
 		
 		//yuanbotodo 数据采集 开始播放（播放名称 url等参考 _videoInfos数组)
-
+		webBtnClick(_cName);
 		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
 			console.log(message);
 		}, function(error) {
@@ -318,4 +320,83 @@ function getQueryString(name) {
 	var r = window.location.search.substr(1).match(reg);
 	if(r != null) return unescape(r[2]);
 	return null;
+}
+
+//获取本机信息
+function getDeviceInfo() {
+		coocaaosapi.getDeviceInfo(function(message) {
+			var _message = JSON.stringify(message);
+			console.log(_message);
+
+			_model = message.model;
+			_chip = message.chip;
+			
+			_openId= _model + '_' + _chip; //如果获取用户信息失败,传机芯+机型
+			console.log('_openId:' + _openId);
+			
+			coocaaosapi.hasCoocaaUserLogin(function(message) {
+				console.log(JSON.stringify(message));
+	            if (message.haslogin == "true") {
+            		console.log("user login...");
+            		coocaaosapi.getUserInfo(function(message) {
+						_openId = message.open_id;
+						webPageShow();
+					}, function(error) { console.log(error); webPageShow();});
+	            }else{
+	        		console.log("user not login...");
+	        		webPageShow();
+	            }
+			},function(error) {
+				console.log(error);
+				webPageShow();
+			});
+		}, function(error) {
+			console.log(error);
+			webPageShow();
+		});
+}
+
+//数据采集:
+//页面曝光
+function webPageShow() {
+	var _dateObj = {
+		"page_name": "新手学习页面",
+		"user_openid": _openId,
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("learn_web_page_show", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//视频点击时
+function webBtnClick(video_name) {
+	var _dateObj = {
+		"page_name": "新手学习页面",
+		"button_name": video_name,
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("learn_web_button_click", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
+}
+//视频播放完成时
+function webVideoPlayEnd(video_name) {
+	var _dateObj = {
+		"page_name": "新手学习页面",
+		"video_name": video_name,
+		"user_openid": _openId
+	}
+	var _dataString = JSON.stringify(_dateObj);
+	console.log(_dataString);
+	coocaaosapi.notifyJSLogInfo("learn_video_play_result", _dataString, function(message) {
+		console.log(message);
+	}, function(error) {
+		console.log(error);
+	});
 }
