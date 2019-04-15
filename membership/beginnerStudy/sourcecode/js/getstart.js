@@ -16,7 +16,7 @@ var _videoInfos = [
 	,{ des: "有问题或想了解更多功能怎么办", name: "10-help", duration: "02:08", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/c955444e5285890783426462208/v.f640.m3u8?t=61ac68ce&exper=0&sign=018120b35d7910fcf37030fbaf165f06"}
 ];
 var _cName = "";//当前播放视频名称（为数据采集)
-var _chip, _model, _openId = "";
+var _activeid = "";
 
 //页面部分的逻辑
 var app = {
@@ -328,28 +328,9 @@ function getDeviceInfo() {
 			var _message = JSON.stringify(message);
 			console.log(_message);
 
-			_model = message.model;
-			_chip = message.chip;
+			_activeid = message.activeid;
+			webPageShow();
 			
-			_openId= _model + '_' + _chip; //如果获取用户信息失败,传机芯+机型
-			console.log('_openId:' + _openId);
-			
-			coocaaosapi.hasCoocaaUserLogin(function(message) {
-				console.log(JSON.stringify(message));
-	            if (message.haslogin == "true") {
-            		console.log("user login...");
-            		coocaaosapi.getUserInfo(function(message) {
-						_openId = message.open_id;
-						webPageShow();
-					}, function(error) { console.log(error); webPageShow();});
-	            }else{
-	        		console.log("user not login...");
-	        		webPageShow();
-	            }
-			},function(error) {
-				console.log(error);
-				webPageShow();
-			});
 		}, function(error) {
 			console.log(error);
 			webPageShow();
@@ -361,7 +342,7 @@ function getDeviceInfo() {
 function webPageShow() {
 	var _dateObj = {
 		"page_name": "新手学习页面",
-		"user_openid": _openId,
+		"user_openid": _activeid,
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
@@ -390,7 +371,7 @@ function webVideoPlayEnd(video_name) {
 	var _dateObj = {
 		"page_name": "新手学习页面",
 		"video_name": video_name,
-		"user_openid": _openId
+		"user_openid": _activeid
 	}
 	var _dataString = JSON.stringify(_dateObj);
 	console.log(_dataString);
