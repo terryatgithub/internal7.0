@@ -41,6 +41,14 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        //todo..
+		//初始落焦
+		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+		//注册事件监听
+		app.registerEventHandler();
+		//注册按键监听
+		app.registerKeyHandler();
+        getGiftDetails();
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -62,21 +70,14 @@ var app = {
         console.log("in onDeviceReady");
 		app.receivedEvent('deviceready');
 		app.triggleButton();
-		
-		//初始落焦
-		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
-		
-		//注册事件监听
-		app.registerEventHandler();
-		//注册按键监听
-		app.registerKeyHandler();
     },
     onResume: function() {
         console.log("in onResume");
     },
     
     onPause: function() {
-        console.log("in onPause");
+        console.log("in onPause, exitApp");
+        navigator.app.exitApp();
     },
 	homeButtonFunction:function () {
         console.log("-----------按了主页键------------");
@@ -101,7 +102,6 @@ var app = {
 	},
 	
     triggleButton: function() {
-    	getGiftDetails();
 	}
     
 };
