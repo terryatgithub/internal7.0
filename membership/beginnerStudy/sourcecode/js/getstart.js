@@ -259,7 +259,7 @@ function startConnectNet() {
 	}, function(error){console.log("startNetSetting error:"+JSON.stringify(error));});
 }
 
-//启动播放,不能控制快进快退 暂停继续;
+//启动播放 
 function playVideo() {
 		console.log("playVideo -start--_startPlaying:true-_Index1:"+_Index1);
 //		_czc.push(["_trackEvent",category,action,label,value,nodeid]);
@@ -270,7 +270,6 @@ function playVideo() {
 		var _cUrl = _videoInfos[_Index1].url;
 		console.log("playing:"+_cName+"--"+_cUrl);
 		
-		//yuanbotodo 数据采集 开始播放（播放名称 url等参考 _videoInfos数组)
 		webBtnClick(_cName);
 		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
 			console.log(message);
