@@ -48,7 +48,7 @@ body {
     height: 72px;
     border: 6px solid white;
     border-radius: 43px;
-	animation: blink 3s infinite;
+	animation: blink 1.5s infinite;
 	-webkit-animation: blink 1.5s linear infinite;
 }
 
