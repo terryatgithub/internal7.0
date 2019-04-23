@@ -16,81 +16,13 @@ var _couponInfos = [];//优惠券详情
 
 //页面部分的逻辑
 var app = {
-    canonical_uri: function(src, base_path) {
-        var root_page = /^[^?#]*\//.exec(location.href)[0],
-            root_domain = /^\w+\:\/\/\/?[^\/]+/.exec(root_page)[0],
-            absolute_regex = /^\w+\:\/\//;
-        // is `src` is protocol-relative (begins with // or ///), prepend protocol  
-        if (/^\/\/\/?/.test(src)) {
-            src = location.protocol + src;
-        }
-        // is `src` page-relative? (not an absolute URL, and not a domain-relative path, beginning with /)  
-        else if (!absolute_regex.test(src) && src.charAt(0) != "/") {
-            // prepend `base_path`, if any  
-            src = (base_path || "") + src;
-        }
-        // make sure to return `src` as absolute  
-        return absolute_regex.test(src) ? src : ((src.charAt(0) == "/" ? root_domain : root_page) + src);
-    },
-
-    rel_html_imgpath: function(iconurl) {
-        // console.log(app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+)$/, '$1')));
-        return app.canonical_uri(iconurl.replace(/.*\/([^\/]+\/[^\/]+)$/, '$1'));
-    },
-
     // Application Constructor
     initialize: function() {
-        this.bindEvents();
-        //todo..
 		//初始落焦
 		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
-		//注册事件监听
-		app.registerEventHandler();
-		//注册按键监听
-		app.registerKeyHandler();
         getGiftDetails();
+        app.triggleButton();
     },
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('backbutton', this.onBackButton, false);
-        document.addEventListener('backbuttondown', this.onBackButtonDown, false);
-        document.addEventListener('resume', this.onResume, false);
-        document.addEventListener('pause', this.onPause, false);
-        document.addEventListener("homebutton", this.homeButtonFunction, false);
-    },
-    onBackButton: function() {
-        console.log("in onBackButton");
-        //navigator.app.exitApp();
-    },
-    onBackButtonDown: function() {
-        console.log("in handleBackButtonDown");
-        navigator.app.exitApp();
-    },
-    onDeviceReady: function() {
-        console.log("in onDeviceReady");
-		app.receivedEvent('deviceready');
-		app.triggleButton();
-    },
-    onResume: function() {
-        console.log("in onResume");
-    },
-    
-    onPause: function() {
-        console.log("in onPause, exitApp");
-        navigator.app.exitApp();
-    },
-	homeButtonFunction:function () {
-        console.log("-----------按了主页键------------");
-      	navigator.app.exitAll();
-    },
-	receivedEvent: function(id) {
-		console.log('Received Event: ' + id);
-	},
-	
-	registerEventHandler: function() {
-		console.log("registerEventHandler---");
-	},
-	
 	//注册按键
 	registerKeyHandler: function()	{
 		console.log("---in registerKeyHandler-----");
@@ -102,11 +34,24 @@ var app = {
 	},
 	
     triggleButton: function() {
+		//注册按键监听
+		app.registerKeyHandler();
 	}
     
 };
 
 app.initialize();
+
+function messageFromLiteNative(msg) {
+	console.log("messageFromLiteNative===>msg: " + msg);
+	if(msg == 3){
+		console.log('home button..')
+		window._liteNativeApi.exitAll();	
+	}else if(msg == 4){
+		console.log('back button..')
+		window._liteNativeApi.exit();	
+	}
+}
 function initFirstPage() {
 	var img = _resultQuery[2];
 	if(img<1) {img = 1};
@@ -164,10 +109,18 @@ function processKey() {
 	}
 }
 function goUserInfoPage() {//进入个人信息页
-	coocaaosapi.startUserInfoPage(function(message){
-									console.log("个人信息页 success: " + JSON.stringify(message));
-									navigator.app.exitApp();
-								}, function(error){console.log("个人信息页 error: " + error);});
+	console.log('_liteNativeApi, go user page...')
+	var startParams = {
+		packageName: "com.tianci.movieplatform",
+		actionName: "coocaa.intent.action.HOME_MEMBER_CENTER"
+	};
+	var startParamsStr = JSON.stringify(startParams);
+	console.log(startParamsStr);
+	window._liteNativeApi.start(startParamsStr);
+//	coocaaosapi.startUserInfoPage(function(message){
+//									console.log("个人信息页 success: " + JSON.stringify(message));
+//									navigator.app.exitApp();
+//								}, function(error){console.log("个人信息页 error: " + error);});
 }
 
 function getQueryString(name) {//获取url中的参数

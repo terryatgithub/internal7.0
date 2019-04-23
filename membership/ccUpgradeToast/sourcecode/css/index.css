@@ -78,20 +78,22 @@ body {
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-image: url(../img/box.png);
-	animation: boxblink 4s linear infinite;
-	-webkit-animation: boxblink 4s linear infinite;
+	animation: boxblink 5s linear infinite;
+	-webkit-animation: boxblink 5s linear infinite;
 }
 @keyframes boxblink {
 	0%  {transform: scale(1); -webkit-transform: scale(1);}
-	50% {transform: scale(1.1); -webkit-transform: scale(1.1);}
-	75% {transform: scale(0.9); -webkit-transform: scale(0.9);}
-	100% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+	25% {transform: scale(1.1); -webkit-transform: scale(1.1);}
+	50% {transform: scale(0.9); -webkit-transform: scale(0.9);}
+	75% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+	100%  {transform: scale(1); -webkit-transform: scale(1);}
 }
 @-webkit-keyframes boxblink {
 	0%  {transform: scale(1); -webkit-transform: scale(1);}
-	50% {transform: scale(1.1); -webkit-transform: scale(1.1);}
-	75% {transform: scale(0.9); -webkit-transform: scale(0.9);}
-	100% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+	25% {transform: scale(1.1); -webkit-transform: scale(1.1);}
+	50% {transform: scale(0.9); -webkit-transform: scale(0.9);}
+	75% {transform: scale(1.2); -webkit-transform: scale(1.2);}
+	100%  {transform: scale(1); -webkit-transform: scale(1);}
 }
 #star {
 	top: 237px;
