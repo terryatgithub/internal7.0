@@ -8,7 +8,7 @@ var _videoInfos = [
 	,{ des: "如何挑选想看的节目", name: "2-pick", duration: "03:49", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778a4d515285890783126963325/v.f240.m3u8?t=6198a5c6&exper=0&sign=5af7a79476f1227f258cce8d4e9243d1"}
 	,{ des: "在播放中会用到", name: "3-play", duration: "02:34", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/771f67d15285890783126906517/v.f240.m3u8?t=6198a5c6&exper=0&sign=46f4eb610324d989ad0854cfeaa9a242"}
 	,{ des: "看过的节目去哪里找", name: "4-history", duration: "01:57",url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/771febd05285890783126907326/v.f240.m3u8?t=6198a5c6&exper=0&sign=08725d427cccb9d2d3214b085fa025e5"}
-	,{ des: "开通VIP权限和登录", name: "5-vip", duration: "03:16", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778b66785285890783126965357/v.f240.m3u8?t=6198a5c6&exper=0&sign=8a3d63fc2c50f79fc77ec331f904357e"}
+	,{ des: "开通VIP权限和登录", name: "5-vip", duration: "03:16", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/3baeb82b5285890788553988956/v.f240.m3u8?t=5fee03cd&sign=508e5cbe5734b626572fe73d82002801"}
 	,{ des: "怎么看电视台", name: "6-cctv", duration: "01:25", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/778b7b7a5285890783126965836/v.f240.m3u8?t=6198a5c6&exper=0&sign=778fb6067aadde097efd7cbf1287af0e"}
 	,{ des: "试试和电视说话", name: "7-AI", duration: "03:08", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/77208d955285890783126908834/v.f240.m3u8?t=6198a5c6&exper=0&sign=159768f0094b7d39fcfebd17a85624e6"}
 	,{ des: "如何在电视上看手机上的视频和照片", duration: "02:51", name: "8-cast", url: "http://gm-vd.coocaa.com/edb2878fvodtransgzp1253922718/7558d2bb5285890783126882596/v.f240.m3u8?t=6198a5c6&exper=0&sign=02348bfab3db952c2d25bf14a5657ef7"}
