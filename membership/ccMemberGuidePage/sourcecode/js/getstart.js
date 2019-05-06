@@ -51,6 +51,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbutton', this.onBackButton, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener('resume', this.onResume, false);
         document.addEventListener('pause', this.onPause, false);
     },
@@ -62,22 +63,21 @@ var app = {
         console.log("in handleBackButtonDown");
         navigator.app.exitApp();
     },
+  	homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
+    },
     onDeviceReady: function() {
-        console.log("in onDeviceReady");
+        console.log("in onDeviceReady...");
 		app.receivedEvent('deviceready');
 		app.triggleButton();
-		
-		//初始落焦
-		map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
-		//注册按键监听
-		app.registerKeyHandler();
     },
     onResume: function() {
-        console.log("in onResume");
+    	console.log('in onResume.');
     },
     
     onPause: function() {
-        console.log("in onPause");
+    	console.log('in onPause.');
     },
 	
 	receivedEvent: function(id) {
@@ -90,13 +90,53 @@ var app = {
 	},
 	
     triggleButton: function() {
-        setTimeout("delayLoad()", 100);
         cordova.require("com.coocaaosapi");
+       	coocaaosapi.addGlobalBroadcastListener("com.coocaa.appx.broadcasr.action.appx_launched", function(message) {
+	            console.log('AppX cb OK..'+JSON.stringify(message));
+	            webExit();
+	    });
+    	showWebPage();
+    	launchAppX();
 	}
 };
 
 app.initialize();
+/*test zone start --need delete */
+//获取url中的参数
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return unescape(r[2]);
+	return null;
+}
+/*test zone end --need delete */
+function launchAppX() {
+	//test start yuanbotestonly
+	var crash = getQueryString('crash');
+	var url = 'appx://com.coocaa.appx.member.guide';
+	if(crash == 'false') {
+		url = 'appx://com.coocaa.appx.x418';
+	}
+	console.log('launchAppX start, crash:'+crash+', url: '+url);
+	//test end.
 
+	coocaaosapi.startAppX2(url,"false",function(){
+		console.log('startAppX2 success....');
+	},function(){
+		console.log('startAppX2 fail....');
+	});
+}
+function webExit() {
+	navigator.app.exitApp();
+}
+function showWebPage(){
+	console.log('showwebpage start...')
+    setTimeout("delayLoad()", 0);
+	//初始落焦
+	map = new coocaakeymap($(".coocaa_btn"), $(".coocaa_btn")[0], "btn-focus", function() {}, function(val) {}, function(obj) {});
+	//注册按键监听
+	app.registerKeyHandler();
+}
 function bindClick(){
 	console.log('bind.')
 	$(".coocaa_btn").bind("itemClick", function() {
@@ -155,6 +195,8 @@ function processKey() {
 }
 
 function delayLoad(){
+	$("#pic1").css("background-image", "url(img/home.jpg)");
+	$("#pic1").css("display", "block");
 	$("#pic2").css("background-image", "url(img/toast.jpg)");
 	$("#pic3").css("background-image", "url(img/store.jpg)");
 	$("#pic4").css("background-image", "url(img/task.jpg)");
