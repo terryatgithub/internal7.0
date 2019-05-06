@@ -1,10 +1,10 @@
 //测试临时配置,正式发布时需要改为正式配置:
-//var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _relAppId = "wxee96df3337b09cb5";
+var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
+var _relAppId = "wxee96df3337b09cb5";
 
 //正式配置:
-var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _relAppId = "wx5a6d3bdcd05fb501";
+//var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
+//var _relAppId = "wx5a6d3bdcd05fb501";
 
 //页面部分的逻辑
 var app = {
@@ -38,6 +38,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbutton', this.onBackButton, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener('resume', this.onResume, false);
         document.addEventListener('pause', this.onPause, false);
     },
@@ -48,6 +49,10 @@ var app = {
     onBackButtonDown: function() {
         console.log("in handleBackButtonDown");
         navigator.app.exitApp();
+    },
+    homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
     },
     onDeviceReady: function() {
         console.log("in onDeviceReady");

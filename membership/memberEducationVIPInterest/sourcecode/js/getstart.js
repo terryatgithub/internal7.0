@@ -30,12 +30,12 @@ var cPkg = "com.tianci.movieplatform";
 var _TVSource = "";//视频源
 
 //后台接口： 获取用户会员信息（金币数、点数、等级信息），需要的参数：
-//var _testurl = "http://172.20.155.202:7171";//测试地址 
-//var _clientId = "9F072A0ABF6E2B3D";//test ; 
+var _testurl = "http://172.20.155.202:7171";//测试地址 
+var _clientId = "9F072A0ABF6E2B3D";//test ; 
 //var _clientKey = "85bdfb9ef29b4776";//test
 
-var _testurl = "https://member.coocaa.com/";//正式地址
-var _clientId = "c7ea82d00b5a4aa3";//正式的
+//var _testurl = "https://member.coocaa.com/";//正式地址
+//var _clientId = "c7ea82d00b5a4aa3";//正式的
 //var _clientKey = "fa1c9df1106c46fb";//正式的
 
 //从后台获取产品源，需要的参数：
@@ -93,6 +93,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbutton', this.onBackButton, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener('resume', this.onResume, false);
         document.addEventListener('pause', this.onPause, false);
     },
@@ -103,6 +104,10 @@ var app = {
     onBackButtonDown: function() {
         console.log("in handleBackButtonDown");
         navigator.app.exitApp();
+    },
+    homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
     },
     onDeviceReady: function() {
         console.log("in onDeviceReady");

@@ -110,6 +110,7 @@ function processKey() {
 }
 function goUserInfoPage() {//进入个人信息页
 	console.log('_liteNativeApi, go user page...')
+	window._liteNativeApi.exitAll();	//进入个人信息页时，退出所有web页面，避免后续bug：在个人信息页再进入web页面（影视vip页面等）时还会显示升级奖励弹窗的bug）
 	var startParams = {
 		packageName: "com.tianci.movieplatform",
 		actionName: "coocaa.intent.action.HOME_MEMBER_CENTER"
@@ -117,10 +118,6 @@ function goUserInfoPage() {//进入个人信息页
 	var startParamsStr = JSON.stringify(startParams);
 	console.log(startParamsStr);
 	window._liteNativeApi.start(startParamsStr);
-//	coocaaosapi.startUserInfoPage(function(message){
-//									console.log("个人信息页 success: " + JSON.stringify(message));
-//									navigator.app.exitApp();
-//								}, function(error){console.log("个人信息页 error: " + error);});
 }
 
 function getQueryString(name) {//获取url中的参数

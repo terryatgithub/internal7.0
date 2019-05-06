@@ -52,6 +52,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbutton', this.onBackButton, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener('resume', this.onResume, false);
         document.addEventListener('pause', this.onPause, false);
     },
@@ -69,6 +70,10 @@ var app = {
         }else {
 	        navigator.app.exitApp();
         }
+    },
+    homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
     },
     onDeviceReady: function() {
         console.log("in onDeviceReady");
