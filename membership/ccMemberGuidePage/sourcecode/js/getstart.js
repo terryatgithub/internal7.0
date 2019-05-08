@@ -18,7 +18,9 @@ var _openId = "";
 var _activeId = "";
 var _mac, _chip, _model, _size, _tcVersion;
 
-var _bFirstIn = false;
+var _bAppxFirstIn = false;
+var _browserVerSupportAppX = '200036';
+
 //页面部分的逻辑
 var app = {
     canonical_uri: function(src, base_path) {
@@ -74,9 +76,9 @@ var app = {
 		app.triggleButton();
     },
     onResume: function() {
-    	console.log('in onResume. _bFirstIn:'+_bFirstIn);
-    	if(_bFirstIn){
-    		_bFirstIn = false;
+    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
+    	if(_bAppxFirstIn){
+    		_bAppxFirstIn = false;
     		showWebPage();
     	}
     },
@@ -96,15 +98,37 @@ var app = {
 	
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
-       	coocaaosapi.addGlobalBroadcastListener("com.coocaa.appx.broadcasr.action.appx_launched", function(message) {
-	            console.log('AppX cb OK..'+JSON.stringify(message));
-	            webExit();
-	    });
-    	launchAppX();
+        startpage();
 	}
 };
 
 app.initialize();
+//根据浏览器版本是否支持插件，判断是起web页还是小程序插件
+function startpage() {
+	var pkgname = "com.coocaa.app_browser";
+	var a = '{"pkgList":["' + pkgname + '"]}';
+	coocaaosapi.getAppInfo(a, function(message){
+			console.log("getAppInfo ok====" + message);
+			var msg = JSON.parse(message);
+			if(msg[pkgname].status == -1) {//此apk不存在
+				coocaaosapi.startAppStoreDetail(pkgname, function(){},function(){});
+			}else {
+				hasversioncode = msg[pkgname].versionCode;
+				console.log('com.coocaa.app_browser version: '+hasversioncode+', appx_browser ver:'+_browserVerSupportAppX)
+				if(hasversioncode < _browserVerSupportAppX) {
+					console.log('not appx')
+					showWebPage();
+					$('#pic1 span').html('WEB浏览器版本不支持插件-仅测试时显示');//yuanbotestonly
+				}else {
+					console.log('appx go...')
+					launchAppX();
+				}
+			}
+		},function(error) {
+            console.log("getAppInfo----error" + JSON.stringify(error));
+            coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
+   });
+}
 /*test zone start --need delete */
 //获取url中的参数
 function getQueryString(name) {
@@ -121,19 +145,23 @@ function getQueryString(name) {
  
  * */
 function launchAppX() {
+	coocaaosapi.addGlobalBroadcastListener("com.coocaa.appx.broadcasr.action.appx_launched", function(message) {
+	    console.log('AppX cb OK..'+JSON.stringify(message));
+        webExit();
+	});
 	//test start yuanbotestonly
 	var crash = getQueryString('crash');
 	if(crash=="web") {
 		console.log('launch web page ...')
 		showWebPage()
 	}else {
-		var url = 'appx://com.coocaa.appx.member.guide?crash='+(crash == 'true'?crash:'false');
+		var url = 'appx://com.coocaa.appx.member.guide';
+		url += ('?crash='+(crash == 'true' ? 'true' : 'false'));//yuanbotestonly
 		url += '&env=debug';//yuanbotestonly
 		console.log('launchAppX start,url: '+url);
-		//test end.
 		coocaaosapi.startAppX2(url,"false",function(){
 			console.log('startAppX2 success....');
-			_bFirstIn = true;
+			_bAppxFirstIn = true;
 		},function(){
 			console.log('startAppX2 fail....');
 			showWebPage();
