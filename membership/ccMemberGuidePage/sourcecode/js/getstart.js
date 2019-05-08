@@ -118,7 +118,7 @@ function startpage() {
 				if(hasversioncode < _browserVerSupportAppX) {
 					console.log('not appx')
 					showWebPage();
-					$('#pic1 span').html('WEB浏览器版本不支持插件-仅测试时显示');//yuanbotestonly
+					$('#pic1 span').html('');//yuanbotestonly
 				}else {
 					console.log('appx go...')
 					launchAppX();
