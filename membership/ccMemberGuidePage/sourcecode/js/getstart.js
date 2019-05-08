@@ -1,15 +1,15 @@
 //测试临时配置,正式发布时需要改为正式配置:
 //账号信息（等级、金币、成长点数等）服务器地址
-//var _accountSrvUrl = 'http://172.20.155.202:7171';
-//var _accountClientId = '9F072A0ABF6E2B3D';
-//var _accountClientKey = '85bdfb9ef29b4776';
-//var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+var _accountSrvUrl = 'http://172.20.155.202:7171'; //yuanbotestonly
+var _accountClientId = '9F072A0ABF6E2B3D';
+var _accountClientKey = '85bdfb9ef29b4776';
+var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
 //账号信息（等级、金币、成长点数等）服务器地址
-var _accountSrvUrl = 'https://member.coocaa.com';
-var _accountClientId = 'c7ea82d00b5a4aa3';
-var _accountClientKey = 'fa1c9df1106c46fb';
-var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+//var _accountSrvUrl = 'https://member.coocaa.com';
+//var _accountClientId = 'c7ea82d00b5a4aa3';
+//var _accountClientKey = 'fa1c9df1106c46fb';
+//var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
 //全局变量
 var cAppVersion;
@@ -128,7 +128,8 @@ function launchAppX() {
 		showWebPage()
 	}else {
 		var url = 'appx://com.coocaa.appx.member.guide?crash='+(crash == 'true'?crash:'false');
-		console.log('launchAppX start, crash:'+crash+', url: '+url);
+		url += '&env=debug';//yuanbotestonly
+		console.log('launchAppX start,url: '+url);
 		//test end.
 		coocaaosapi.startAppX2(url,"false",function(){
 			console.log('startAppX2 success....');
