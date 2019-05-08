@@ -18,6 +18,7 @@ var _openId = "";
 var _activeId = "";
 var _mac, _chip, _model, _size, _tcVersion;
 
+var _bFirstIn = false;
 //页面部分的逻辑
 var app = {
     canonical_uri: function(src, base_path) {
@@ -73,7 +74,11 @@ var app = {
 		app.triggleButton();
     },
     onResume: function() {
-    	console.log('in onResume.');
+    	console.log('in onResume. _bFirstIn:'+_bFirstIn);
+    	if(_bFirstIn){
+    		_bFirstIn = false;
+    		showWebPage();
+    	}
     },
     
     onPause: function() {
@@ -95,7 +100,6 @@ var app = {
 	            console.log('AppX cb OK..'+JSON.stringify(message));
 	            webExit();
 	    });
-    	showWebPage();
     	launchAppX();
 	}
 };
@@ -110,21 +114,30 @@ function getQueryString(name) {
 	return null;
 }
 /*test zone end --need delete */
+/*
+ testcase:
+ 1. 低版本调用startAppX2时,web会onpause/resume吗？
+ 2. startAppX2 fail时,会onpause/resume？
+ 
+ * */
 function launchAppX() {
 	//test start yuanbotestonly
 	var crash = getQueryString('crash');
-	var url = 'appx://com.coocaa.appx.member.guide';
-	if(crash == 'false') {
-		url = 'appx://com.coocaa.appx.x418';
+	if(crash=="web") {
+		console.log('launch web page ...')
+		showWebPage()
+	}else {
+		var url = 'appx://com.coocaa.appx.member.guide?crash='+(crash == 'true'?crash:'false');
+		console.log('launchAppX start, crash:'+crash+', url: '+url);
+		//test end.
+		coocaaosapi.startAppX2(url,"false",function(){
+			console.log('startAppX2 success....');
+			_bFirstIn = true;
+		},function(){
+			console.log('startAppX2 fail....');
+			showWebPage();
+		});
 	}
-	console.log('launchAppX start, crash:'+crash+', url: '+url);
-	//test end.
-
-	coocaaosapi.startAppX2(url,"false",function(){
-		console.log('startAppX2 success....');
-	},function(){
-		console.log('startAppX2 fail....');
-	});
 }
 function webExit() {
 	navigator.app.exitApp();
