@@ -1,10 +1,10 @@
 //测试临时配置,正式发布时需要改为正式配置:
-var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
-var _relAppId = "wxee96df3337b09cb5";
+//var _relServerUrl = "https://beta-wx.coocaa.com/cors/qrcode/getTmpQrcode";
+//var _relAppId = "wxee96df3337b09cb5";
 
 //正式配置:
-//var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
-//var _relAppId = "wx5a6d3bdcd05fb501";
+var _relServerUrl = "https://wx.coocaa.com/cors/qrcode/getTmpQrcode";
+var _relAppId = "wx5a6d3bdcd05fb501";
 
 //页面部分的逻辑
 var app = {
