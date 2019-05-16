@@ -191,22 +191,24 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 		success: function(data) {
 			console.log("~~~data.source:"+data.source);
 			qsource = data.source;
-			if(qsource == "yinhe") {
-				console.log("视频源：" + qsource);
-				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
-				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			} else if(qsource == "tencent") {
-				console.log("视频源：" + qsource);
-				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
-				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			} else {//todo: 还需要处理视频源是优朋的情况:
-				console.log("视频源既不是爱奇艺又不是腾讯--" + qsource);
-				showFailToast();
-//				qsource == "yinhe";
-//				document.getElementById("bgImga").style.display = "block";
+			console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
+			getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
+//			if(qsource == "yinhe") {
+//				console.log("视频源：" + qsource);
 //				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
 //				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
-			}
+//			} else if(qsource == "tencent") {
+//				console.log("视频源：" + qsource);
+//				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
+//				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
+//			} else {//todo: 还需要处理视频源是优朋的情况:
+//				console.log("视频源既不是爱奇艺又不是腾讯--" + qsource);
+//				showFailToast();
+////				qsource == "yinhe";
+////				document.getElementById("bgImga").style.display = "block";
+////				console.log("获取二维码传的参数" + "qappid=" + qappid + ";qsource=" + qsource + ";smodel=" + smodel + ";schip=" + schip + ";smac=" + smac + ";qserviceid=" + qserviceid + ";qtype=" + qtype + ";qdevicebarcode=" + qdevicebarcode + ";qtime=" + qtime);
+////				getQrcodeUrl(qappid, qsource, smodel, schip, smac, qserviceid, qtype, qdevicebarcode, qtime, qaccessToken);
+//			}
 		},
 		error: function() {
 			console.log('获取视频源失败');
