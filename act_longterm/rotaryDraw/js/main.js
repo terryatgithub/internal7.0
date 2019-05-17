@@ -242,7 +242,7 @@ function launchAppX() {
 		console.log('launch web page ...')
 		showWebPage()
 	}else {
-		var url = 'appx://com.coocaa.appx.lite_browser?url=https://beta.webapp.skysrt.com/yuanbo/rotaryDraw/index.html?id=20_appx'
+		var url = 'appx://com.coocaa.appx.lite_browser?url=https://beta.webapp.skysrt.com/yuanbo/rotaryDraw/index.html?id='+activeId+'_appx';
 		url += ('&crash='+(crash == 'true' ? 'true' : 'false'));
 		var env = getQueryString('env');
 		url += ('&env='+(env == 'debug' ? 'debug' : 'release'));
