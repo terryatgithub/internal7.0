@@ -8,16 +8,19 @@ var prize_null = false;
 var _login_type = "";
 var _vuserid = "";
 
+
 //正式环境服务器：
 var _testurl = "https://restful.skysrt.com";
 var adressIp = 'https://restful.skysrt.com/platform';
 var addressUrl = "https://webapp.skysrt.com/zy/turntable/address/";
 var priceUrl = "https://api-business.skysrt.com";
+//var _curWebUrl = 'https://beta.webapp.skysrt.com/yuanbo/rotaryDraw/index.html';//当前web页面url，正式发布时需要修改为正式服务器url
 
 //测试环境服务器：
 //var adressIp = "http://172.20.155.51:4000/platform";
 //var addressUrl = "http://beta.webapp.skysrt.com/zy/activity_1/address/";
 //var priceUrl = "http://dev.business.video.tc.skysrt.com";//支付
+var _curWebUrl = 'https://beta.webapp.skysrt.com/yuanbo/rotaryDraw/index.html';//当前web页面url，正式发布时需要修改为正式服务器url
 
 var userKeyId = '';
 var remainingTimes;
@@ -58,7 +61,7 @@ var activeId;
 var _bAppxFirstIn = false;
 var _browserVerSupportAppX = '200036';
 
-
+var activeId = getUrlParam("id");
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -68,6 +71,7 @@ var app = {
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
         document.addEventListener("backbutton", this.handleBackButton, false);
         document.addEventListener("resume", this.onresumeButton, false);
+        document.addEventListener("pause", this.onPause, false);
     },
     onBackButtonDown: function() {
         closeWindow();
@@ -122,6 +126,9 @@ var app = {
         }
 
     },
+    onPause: function() {
+    	console.log('pause');
+    },
     onresumeButton: function() {
     	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
     	if(_bAppxFirstIn){
@@ -175,24 +182,14 @@ var app = {
 app.initialize();
 
 //********************小程序 start **************************
-/*test zone start --need delete */
-//获取url中的参数
-function getQueryString(name) {
-	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-	var r = window.location.search.substr(1).match(reg);
-	if(r != null) return unescape(r[2]);
-	return null;
-}
-/*test zone end --need delete */
 //如果是小程序调起的web页面，不再在web页面里起小程序，避免递归
 function judgeLaunchSource() {
 	console.log('window.url: '+window.location.href)
-	activeId = getQueryString("id");
-	console.log('judgeLaunchSource activeId:'+activeId+'typeof :'+typeof activeId);
+	var from = getUrlParam("from");
+	console.log('judgeLaunchSource from:'+from);
 	
-	if(activeId.indexOf('appx') != -1) {
+	if(from == 'appx') {
 		console.log('from appx....')
-		activeId = activeId.slice(0, activeId.indexOf('_')); 
 		showWebPage();
 	}else {
 		console.log('not from appx....')
@@ -236,25 +233,16 @@ function launchAppX() {
 	    console.log('AppX cb OK..'+JSON.stringify(message));
         webExit();
 	});
-	//test start yuanbotestonly
-	var crash = getQueryString('crash');
-	if(crash=="web") {
-		console.log('launch web page ...')
-		showWebPage()
-	}else {
-		var url = 'appx://com.coocaa.appx.lite_browser?url=https://beta.webapp.skysrt.com/yuanbo/rotaryDraw/index.html?id='+activeId+'_appx';
-		url += ('&crash='+(crash == 'true' ? 'true' : 'false'));
-		var env = getQueryString('env');
-		url += ('&env='+(env == 'debug' ? 'debug' : 'release'));
-		console.log('launchAppX start,url: '+url);
-		coocaaosapi.startAppX2(url,"false",function(){
-			console.log('startAppX2 success....');
-			_bAppxFirstIn = true;
-		},function(){
-			console.log('startAppX2 fail....');
-			showWebPage();
-		});
-	}
+	var param= _curWebUrl+'?id='+activeId+'&from=appx';
+	var url = 'appx://com.coocaa.appx.lite_browser?url='+encodeURIComponent(param);
+	console.log('launchAppX start,url: '+url);
+	coocaaosapi.startAppX2(url,"false",function(){
+		console.log('startAppX2 success....');
+		_bAppxFirstIn = true;
+	},function(){
+		console.log('startAppX2 fail....');
+		showWebPage();
+	});
 }
 function webExit() {
 	navigator.app.exitApp();
@@ -268,9 +256,6 @@ function showWebPage(){
     listenUserChange();
 }
 //******************************小程序 end ************************************
-
-
-
 
 function buttonEvent() {
     //点击返回按钮返回主页面
