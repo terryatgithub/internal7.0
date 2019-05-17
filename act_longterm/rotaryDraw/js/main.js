@@ -56,6 +56,7 @@ var _notGotAwardId = "";//存储当前奖品点击时的id
 var needSentUserLog = false;//判断是否点了登录
 var needSentUserLog2 = false;//判断是否登录成功
 var activeId;
+var encrypt;
 
 //小程序变量：
 var _bAppxFirstIn = false;
@@ -289,7 +290,7 @@ function buttonEvent() {
     });
     clickIndex = false;
     $("#startdDraw").bind('itemClick', function(event) {
-        console.log(encrypt+"是否可点击"+clickIndex);
+        console.log("是否可点击"+clickIndex);
         if(clickIndex == false){
             clickIndex = true;
             var _dateObj = {
@@ -310,12 +311,14 @@ function buttonEvent() {
             pageShowLog("web_button_clicked",dateObj);
     
             if(prize_null == true){
+                clickIndex = false;
                 popUp("over"); 
                 _dateObj.page_state="奖品抽完时";
                 page_state = "奖品抽完时";
                 pageShowLog("web_page_show_new",_dateObj);
             }else{
                 if(_loginstatus == "false") {
+                    clickIndex = false;
                     startLogin(needQQ);
                     needSentUserLog = true;
                     _dateObj.page_state="不符合抽奖条件";
