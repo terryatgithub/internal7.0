@@ -59,7 +59,7 @@ var encrypt;
 
 //小程序变量：
 var _bAppxFirstIn = false;
-var _browserVerSupportAppX = '200036';
+var _browserVerSupportAppX = '200043';
 
 var activeId = getUrlParam("id");
 var app = {

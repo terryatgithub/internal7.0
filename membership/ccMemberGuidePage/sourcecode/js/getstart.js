@@ -19,7 +19,7 @@ var _activeId = "";
 var _mac, _chip, _model, _size, _tcVersion;
 
 var _bAppxFirstIn = false;
-var _browserVerSupportAppX = '200036';
+var _browserVerSupportAppX = '200043';
 
 //页面部分的逻辑
 var app = {
