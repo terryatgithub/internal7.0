@@ -182,6 +182,26 @@ var app = {
 app.initialize();
 
 //********************小程序 start **************************
+//特定机型不支持小程序
+function isDeviceSupportAppx(){
+	var list = ["9S61Z ZQ20S","9S60Z ZQ20S","9S62Z ZQ20S","9S61Z ZQ21S","9S60Z ZQ21S","9S62Z ZQ21S","9S62Z ZQ21S"];
+	coocaaosapi.getDeviceInfo(function(res){
+		console.log("getDeviceInfo success, res:"+res);
+		var model = (res.chip + " "+res.model).toUpperCase();
+		console.log("model:"+model);
+		if(list.indexOf(model) != -1) {
+			console.log("device not support Appx.");
+			showWebPage();
+		}else {
+			console.log("device support Appx.");
+			startpage();
+		}
+	}, function(err){
+		console.log("getDeviceInfo err :"+err);
+		showWebPage();
+	})
+}
+
 //如果是小程序调起的web页面，不再在web页面里起小程序，避免递归
 function judgeLaunchSource() {
 	console.log('window.url: '+window.location.href)
@@ -189,11 +209,11 @@ function judgeLaunchSource() {
 	console.log('judgeLaunchSource from:'+from);
 	
 	if(from == 'appx') {
-		console.log('from appx....')
+		console.log('web start by appx....')
 		showWebPage();
 	}else {
-		console.log('not from appx....')
-		startpage();
+		console.log('web start not by appx....')
+		isDeviceSupportAppx();
 	}
 }
 
@@ -210,10 +230,10 @@ function startpage() {
 				hasversioncode = msg[pkgname].versionCode;
 				console.log('com.coocaa.app_browser version: '+hasversioncode+', appx_browser ver:'+_browserVerSupportAppX)
 				if(hasversioncode < _browserVerSupportAppX) {
-					console.log('not appx')
+					console.log('browser not support appx')
 					showWebPage();
 				}else {
-					console.log('appx go...')
+					console.log('browser support appx...')
 					launchAppX();
 				}
 			}
