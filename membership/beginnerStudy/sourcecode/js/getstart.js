@@ -279,7 +279,7 @@ function playVideo() {
 		coocaaosapi.startCommonWebview("qxhd", _cUrl, _cName, "1080", "1920", "", "新手学习", "", function(message) {
 			console.log(message);
 		}, function(error) {
-			console.log("commonTask----error");
+			console.log("commonTask----error:"+error);
 		});
 
 		console.log("playVideo -end---");
