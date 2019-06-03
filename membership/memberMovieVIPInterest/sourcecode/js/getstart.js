@@ -31,12 +31,12 @@ var cPkg = "com.tianci.movieplatform";
 var _TVSource = "";//视频源
 
 //后台接口： 获取用户会员信息（金币数、点数、等级信息），需要的参数：
-var _testurl = "http://172.20.155.202:7171"; //test
-var _clientId = "9F072A0ABF6E2B3D";//test ;
+//var _testurl = "http://172.20.155.202:7171"; //test
+//var _clientId = "9F072A0ABF6E2B3D";//test ;
 //var _clientKey = "85bdfb9ef29b4776";//test
 
-//var _testurl = "https://member.coocaa.com/";//正式地址
-//var _clientId = "c7ea82d00b5a4aa3";//正式的
+var _testurl = "https://member.coocaa.com/";//正式地址
+var _clientId = "c7ea82d00b5a4aa3";//正式的
 //var _clientKey = "fa1c9df1106c46fb";//正式的
 
 //从后台获取产品源，需要的参数：
@@ -300,7 +300,12 @@ function updateMemberVIPStates(data) {
 	var sourceLen = videoArray.length;
 	console.log("source length: "+sourceLen);
 	
+	_sourceDetailsArray = new Array();					// 新建数组，可以清空之前的残余
+	
 	function getSourceDetails(item,index,arr) {
+		
+		console.log("item" + index + ": " + JSON.stringify(item));
+		
 		var id = item.source_id;
 		var name = item.source_name;
 		var sign = item.source_sign;
@@ -315,7 +320,8 @@ function updateMemberVIPStates(data) {
 			}
 		}
 		console.log("source i:"+index+", id:"+id+", name:"+name+",des:"+des+",sign:"+sign+
-				",validway:"+validway+"validtype:"+validtype+"validDate:"+validDate+"typeof validDate:"+typeof validDate);
+				",validway:"+validway+",validtype:"+validtype+",validDate:"+validDate+",typeof validDate:"+typeof validDate);
+		
 		var sourceItem = {
 			"id":id,
 			"name":name,
@@ -323,16 +329,21 @@ function updateMemberVIPStates(data) {
 //			"validway":validway,
 			"validType":validtype,
 			"validDate":validDate
-		}
+		};
 		//如果是4K花园，单独处理，不保存在动态处理的数组里；
 		if(sign == "4k" || sign == "4K") {
 			console.log("4KGarden found...,special deal.");
 			_sourceFourKGarden = sourceItem;
 			return;
 		}
-		_sourceDetailsArray[index] = sourceItem;
+		
+		var detailIndex = _sourceDetailsArray.length;	// 这里不能直接用index做索引，因为有可能4K花园排在第0个
+		_sourceDetailsArray[detailIndex] = sourceItem;
 	}
+	
+	//console.log("before foreach, _sourceDetailsArray length = " + _sourceDetailsArray.length);
 	videoArray.forEach(getSourceDetails);
+	//console.log("after foreach, _sourceDetailsArray length = " + _sourceDetailsArray.length);
 	
 	//debug：
 //	function printInfo(item,index,arr) {
@@ -351,6 +362,8 @@ function updateMemberVIPStates(data) {
 function drawVipEntryZone() {
 	console.log("drawVipEntryZone in..._bFirstTimeAddVipEntry:"+_bFirstTimeAddVipEntry);
 	var barNum = _sourceDetailsArray.length + 1;//vip图标个数,要加上聚体育（聚体育是第三方，不是从后台获取的）
+	
+	console.log("barNum = " + barNum);
 	
 	//只有初次进入时才增加页面元素，其它时候不增加，只更新状态
 	if(_bFirstTimeAddVipEntry) {
@@ -372,7 +385,11 @@ function drawVipEntryZone() {
 		//更新vip入口背景图：
 		if(_TVSource == "tencent") {
 			$(".vipEntry").css("background-image", "url(img/entrybgTencent.webp)");
-		}else {
+		}
+		else if (_TVSource == "youku") {
+			$(".vipEntry").css("background-image", "url(img/entrybgYouku.webp)");
+		}
+		else {
 			$(".vipEntry").css("background-image", "url(img/entrybgIqiyi.webp)");
 		}
 		
@@ -392,6 +409,7 @@ function drawVipEntryZone() {
 	var picRenew = app.rel_html_imgpath(__uri("../img/supRenewMovie.png"));
 	
 	for(i = 0; i<barNum-1; i++) {
+		console.log("i = " + i + ", _sourceDetailsArray[i] = " + JSON.stringify(_sourceDetailsArray[i]));
 		var cur = $(".vipEntry").eq(i);
 		$(".vipEntry:nth-child("+(i+1)+")>.vipEntryTitle").text(_sourceDetailsArray[i].name);
 		$(".vipEntry:nth-child("+(i+1)+")>.vipEntryDescription").text(_sourceDetailsArray[i].des);
@@ -469,9 +487,9 @@ function getProductPackLists() {
 	}
 
 	//从后台获取产品源列表的测试接口
-//	var myUrl = "http://172.20.132.182:8090/v3/source/getSourceList.html";
-//	var myUrl = "http://172.20.132.182:8090/ABtest/v3/source/getSourceList.html";
-	var myUrl = "http://business.video.tc.skysrt.com/v3/source/getSourceList.html";//正式接口
+
+//	var myUrl = "http://dev.business.video.tc.skysrt.com/v3/source/getSourceList.html";	//测试接口
+	var myUrl = "http://business.video.tc.skysrt.com/v3/source/getSourceList.html";			//正式接口
 	var data = {
 			"user_flag": _userFlag,
 			"user_id": _userId,
@@ -747,7 +765,12 @@ function updateInfoBySource(src) {
 			$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPTencentWithout4k.webp)");
 			$(".vipPrivilegeDetails").css("height", "1340px");
 		}
-	}else { //if(src == "yinhe") //对不是腾讯的,默认用yinhe
+	}
+	else if (src == "youku") {
+		$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPYouku.webp)");
+		$(".vipPrivilegeDetails").css("height", "950px");
+	}
+	else { //if(src == "yinhe") //对不是腾讯的,默认用yinhe
 		$(".vipPrivilegeDetails").css("background-image", "url(img/movieVIPIqiyi.webp)");
 		$(".vipPrivilegeDetails").css("height", "950px");
 	}
@@ -851,7 +874,7 @@ function getTvSource(smac, smodel, schip, ssize, sresolution, sversion, sfmodel,
 				hasLogin(true);
 			}else{ //if(_TVSource == "yinhe") 
 				console.log("默认视频源：" + _TVSource);
-				//检测用户是否登录,爱奇艺源不需要验证qq/wechat
+				//检测用户是否登录,爱奇艺/优酷源不需要验证qq/wechat
 				hasLogin(false);
 			} 
 		},
