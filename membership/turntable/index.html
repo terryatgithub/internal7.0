@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/base.css?id=4">
+    <script>
+    //声明_czc对象:
+    var _czc = _czc || [];
+    //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+    //          _czc.push(["_setAccount", "1260740539"]);
+    _czc.push(["_setAccount", "1274214392"]);
+    </script>
+</head>
+
+<body>
+    <div id="deviceready" class="content">
+        <div class="bg-mask" id="bgMask" style="display:none">
+            <span class="loading_img"><img src="images/loading.gif"/></span>
+        </div>
+        <!--活动规则-->
+        <div id="rule" class="coocaabtn" style="display:none">
+            <img src="" style="display: inherit;" width="1920" />
+        </div>
+        <!--未开始-->
+        <div id="notBegin" style="display:none">
+            <img id="notbegin_bg" class="bg" src="">
+            <div id="_rule_btn" leftTarget="#_rule_btn"  class="notbegin_rule coocaabtn border_color">
+                详细活动规则>>
+            </div>
+        </div>
+        <div id="indexhtml" style="display:none" title="活动主页">
+            <div id="userInfo">
+                <span id="userFace" style="display:none"><img src=""/></span>
+                <span id="userName"></span>
+            </div>
+            <!--开始抽奖-->
+            <div class="wheel" id="begin">
+                <div class="remainingTimes" title="剩余抽奖次数">
+                    <p class="chanceInfo" style="font-size:32px" id="displayChance" style="display:none">你还有<span class="chanceLeft" id="chanceNum"></span>次抽奖机会</p>
+                    <div class="chanceInfo" style="font-size:32px" id="displayCoin" style="display:none">
+                        <p class="chanceInfo">你还有<span class="chanceLeft" id="coinNum"></span>个金币</p>
+                        <p class="chanceInfo">可抽奖<span class="chanceLeft" id="_chanceNum"></span>次</p>
+                    </div>
+                   
+                </div>
+                <img id="index_bg" class="bg" src="">
+                <div class="startbtn">
+                    <div class="rotate">
+                        <img id="rotate" class="rotate_img" src="" />
+                    </div>
+                    <div id="startdDraw" class="pointer coocaabtn" leftTarget="#bevip_btn">
+                        <img id="begin_img" src="" />
+                    </div>
+                    <!--已结束-->
+                    <div id="drawend" style="display:none" class="pointer">
+                        <img id="end_img" src="" />
+                    </div>
+                </div>
+
+
+
+                <div class="rule_btn">
+                    <div id="rule_btn"  leftTarget="#rule_btn" class="rule coocaabtn border_color">
+                        详细活动规则>>
+                    </div>
+                </div>
+                <div class="btnWrapper">
+                    <!--获取机会-->
+                    <div id="bevip_btn" rightTarget="#startdDraw" leftTarget="#bevip_btn" class="bevip sub_btn coocaabtn">
+                        <img id="buttonAddVipImg" src="">
+                    </div>
+                    <!--我的奖品-->
+                    <div id="prize_btn" leftTarget="#prize_btn" class="prize sub_btn coocaabtn">
+                        <img src="">
+                    </div>
+                </div>
+                <div id="awardList" style="display:none">
+                    <div id="awardListTwo">
+                        <ul id="awardul">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--抽中奖品 -->
+        <div class="jiangPinResult mould_color" id="confirmInfo" style="display:none;">
+            <img id="dialogbg" src=""/>
+            <p style="height:120px"></p>
+            <p class="font36"><span id="prosit">恭喜您获得</span><span class="matter"></span></p>
+            <div>
+                <ul id="type1" title="平台会员权益" style="display:none;">
+                    <div class="clearfix" style=" width:65%; margin:20px auto;">
+                        <div style="width:210px; float:left; text-align:center;">
+                            <img id="type1_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="qrcode-box cards" style="float:left">
+                            <p class="mould_color" style="line-height:190px; text-align: right; font-size: 32px">该权益已发放至您的帐户</p>
+                        </div>
+                    </div>
+                </ul>
+                <ul id="type2" style="display:none;">
+                    <div class="clearfix" style="text-align:center; width:65%; margin:0px auto">
+                        <div style="width:50%; float:left; margin-top:15px;">
+                            <img id="type2_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="qrcode-box" style="width:50%; float:right; margin-top:15px;">
+                            <div class="qrcode"><span class="coocaabtn" id="qrcode2" leftTarget="#qrcode2" rightTarget="#qrcode2" upTarget="#qrcode2" downTarget="#qrcode2"></span></div>
+                        </div>
+                    </div>
+                </ul>
+                <ul id="type3" title="卡密" class="coocaabtn" leftTarget="#type3" rightTarget="#type3" upTarget="#type3" downTarget="#type3" style="display:none">
+                    <div class="clearfix" style="text-align:center; width:80%; margin:0 auto">
+                        <div style="width:200px; float:left; text-align: center; margin-top:15px;">
+                            <img id="type3_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="qrcode-box cards mould_color" style="float:right; width: 480px;font-size: 32px">
+                            <p><span class="zw">兑换码1：</span><span id="car_password" style="word-break: break-all;"></span></p>
+                            <p id="password1" style="display:none"><span class="zw">兑换码2：</span><span id="car_password1" style="word-break: break-all;"></span></p>
+                        </div>
+                    </div>
+                    <div style="width:80%; text-align:left; margin: 0 auto">
+                        <ul class="mould_color" style="font-size:30px">使用方式：<span id="awardParams"></span></ul>                        
+                    </div>
+                </ul>
+                <ul id="type4" title="第三方优惠券" style="display:none">
+                    <div class="qrcode-box" style="margin-top:10px">
+                        <div class="qrcode"><img id="type4_img" class="type_img" width="180" height="180" src="" /></div>
+                        <p><span class="mould_color font28" id="sponsor4_2"></span></p>
+                    </div>
+                </ul>
+                <ul id="type5" title="优惠券" style="display:none;">
+                    <div class="cards_img">
+                        <img id="type5_img" class="type_img" src="" width="508" height="158" />
+                    </div>
+                </ul>
+                <ul id="type6" title="特价购买资格" style="display:none;">
+                    <div class="cards_img">
+                        <img id="type6_img" class="type_img" src="" width="508" height="158" />
+                    </div>
+                </ul>
+                <ul id="type7" title="现金红包" style="display:none;">
+                    <span id="awardTime" style="display:none"></span>
+                    <div class="qrcode-box">
+                        <div class="qrcode"><span class="coocaabtn" id="qrcode7" leftTarget="#qrcode7" rightTarget="#qrcode7" upTarget="#qrcode7" downTarget="#qrcode7"></span><img id="qrcode_error" class="coocaabtn" src="" style="display:none"></div>
+                        <p class="font28" id="wx_txt">请用微信[扫一扫]关注微信公众号领取</p>
+                    </div>
+                </ul>
+                <ul id="type8" title="话费流量" style="display:none">
+                    <div class="clearfix" style="text-align:center; width:65%; margin:0 auto">
+                        <div style="width:30%; float:left; margin:15px 0 15px 0;">
+                            <div class="qrcode"><span class="coocaabtn" id="qrcode8" leftTarget="#qrcode8" rightTarget="#qrcode8" upTarget="#qrcode8" downTarget="#qrcode8"></span></div>
+                        </div>
+                        <div class="qrcode-box cards" style="width:70%; float:right">
+                            <p class="mould_color" style="font-size:32px; text-align:right; line-height: 190px">请用微信扫码填写信息</p>
+                            <p id="telphone" class="mould_color" style="font-size:24px; margin-top:30px"></p>
+                        </div>
+                    </div>
+                </ul>
+                <ul id="type9" title="酷币" style="display:none;">
+                    <div class="clearfix" style=" width:80%; margin:0 auto">
+                        <div style="width:50%; float:left; text-align:center; margin-top:15px;">
+                            <img id="type9_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="qrcode-box cards" style="width:50%; float:right; font-size:32px">
+                            <p class="mould_color" style="margin-top:50px">您获得的金币</p>
+                            <p class="mould_color" style="margin-top:30px">已发放至您的帐户</p>
+                        </div>
+                    </div>
+                </ul>
+                <ul id="type10" title="虚拟奖" style="display:none;">
+                    <div class="clearfix cards_img">
+                        <img id="type10_img" class="type_img" src="" width="508" height="158" />
+                    </div>
+                    <p id="thanks" class="mould_color font28"></p>
+                </ul>
+                <ul id="type11" style="display:none;">
+                    <div class="clearfix" style="text-align:center; width:65%; margin:0px auto">
+                        <div style="width:50%; float:left; margin-top:8px;">
+                            <img id="type11_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="qrcode-box" style="width:50%; float:right; margin-top:8px;">
+                            <div class="qrcode"><span class="coocaabtn" id="qrcode11" leftTarget="#qrcode11" rightTarget="#qrcode11" upTarget="#qrcode11" downTarget="#qrcode11"></span></div>
+                        </div>
+                    </div>  
+                    <p id="baoming" class="mould_color font28"></p>                 
+                </ul>
+            </div>
+            <div class="btn_Get" id="confirmInfo_btn">
+                <div class="coocaabtn submit btnFocus" id="submit" leftTarget="#submit" upTarget="#submit" rightTarget="#submit" downTarget="#submit" style="display:none">
+                    <img title="知道啦" src="">
+                </div>
+                <div class="coocaabtn submit" id="use_submit" leftTarget="#submit" rightTarget="#use_submit" upTarget="#use_submit" downTarget="#use_submit" style="display:none;">
+                    <img title="立即使用" src="">
+                </div>
+                <p id="window_point" class="point mould_color" >温馨提示：可在[我的奖品]中查看您已获得的奖品</p>
+            </div>
+        </div>
+        <!--异常弹窗-->
+        <div class="jiangPinResult mould_color" id="popUp" title="" style="display:none">
+            <img id="dialogbg1" src=""/>
+            <h1 class="head"></h1>
+            <p id="text1" style="text-align:center; line-height:50px"></p>
+            <p id="text2"></p>
+            <p id="text3"></p>
+            <p id="error_img" style="display:none"><img src="images/error.png"></p>
+            <div class="btn_Get error_btn" style="margin-top:10px;">
+                <div class="coocaabtn submit" id="error_submit" leftTarget="#error_submit"  upTarget="#error_submit" downTarget="#error_submit" style="display:none">
+                    <img src="images/error_btn.png">
+                </div>
+                <div class="coocaabtn submit" id="error_submit_again" rightTarget="#error_submit_again"  upTarget="#error_submit_again" downTarget="#error_submit_again" style="display:none">
+                    <img src="images/error_again.png">
+                </div>
+                <div class="coocaabtn submit" id="addchance_btn" leftTarget="#addchance_btn" upTarget="#addchance_btn" downTarget="#addchance_btn" style="display:none">
+                    <img src="">
+                </div>
+                <div class="coocaabtn submit" id="ok_btn"style="display:none" rightTarget="#ok_btn" upTarget="#ok_btn" downTarget="#ok_btn">
+                    <img class="sure_img" src="">
+                </div>
+            </div>
+            <p class="point error_point mould_color" style="display:none">温馨提示：可在[我的奖品]中查看奖品或补领奖品</br>如有疑问请关注[酷开会员]公众号咨询</p>
+        </div>
+
+        <!--我的奖品页-->
+        <div id="prize" style="display:none">
+            <!-- <p class="title">我的奖品</p> -->
+            <div class="prize_list overhidden" id="prize_list" style="display:none">
+                <ul id="prize_box" class="clearfix">
+                    <!-- <div class="ccoocaabtn prize_box overdue prize_state">
+                        <img src="images/22.png" />
+                        <ul>
+                            <li class="li1">购物50元优惠券</li>
+                            <li class="li2">未领取</li>
+                            <li class="li3">2018/08/02 12：55</li>
+                        </ul>
+                    </div>
+                    <div class="coocaabtn prize_box grant btnFocus">
+                        <img src="images/22.png" />
+                        <ul>
+                            <li class="li1">购物50元优惠券</li>
+                            <li class="li2">已过期</li>
+                            <li class="li3">2018/08/02 12：55</li>
+                        </ul>
+                    </div> -->
+                </ul>
+            </div>
+            <div id="prize_null" style="display:none">
+                <p>还没有奖品哦！</p>
+                <div class="coocaabtn" id="i_konw"><img src="images/prize_null.png"></div>
+            </div>
+        </div>
+        <div id="prize_window_box" style="display:none">
+            <img id="dialogbg2" src=""/>
+            <p style="height:120px"></p>
+            <ul class="title">
+                <li class="mould_color">获奖名称：<span class="prize_name"></span></li>
+                <li class="mould_color">获奖时间：<span class="prize_time"></span></li>
+            </ul>
+            <ul>
+                <div class="prize_window" id="prize_window_apply" style="display:none">
+                    <ul class="qrcode_box  clearfix" style="width:72%">
+                        <div class="prize_qrcode"><span id="qrcode24"></span></div>
+                        <div class="prize_qrcode_info mould_color">[扫一扫]填写联系人信息</div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn11" leftTarget="#sure_btn11" rightTarget="#sure_btn11" upTarget="#sure_btn11" downTarget="#sure_btn11">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prize_window" id="prize_window_qrcode" style="display:none">
+                    <ul class="qrcode_box  clearfix" style="width:72%">
+                        <div class="prize_qrcode"><span id="qrcode22"></span></div>
+                        <div class="prize_qrcode_info mould_color">[扫一扫]填写收货人信息</div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn" leftTarget="#sure_btn" rightTarget="#sure_btn" upTarget="#sure_btn" downTarget="#sure_btn">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_window_address" style="display:none">
+                    <ul class="user_info_box">
+                        <li class="mould_color">收货人：<span class="user_name"></span></li>
+                        <li class="mould_color">联系电话：<span class="user_phone"></span></li>
+                        <li class="mould_color intwoline" style="height: 80px; width: 656px;">收货地址：<span class="user_address"></span></li>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn1" leftTarget="#sure_btn1" rightTarget="#sure_btn1" upTarget="#sure_btn1" downTarget="#sure_btn1">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_apply_address" style="display:none">
+                    <ul class="user_info_box">
+                        <li class="mould_color">联系人：<span class="user_name"></span></li>
+                        <li class="mould_color">联系电话：<span class="user_phone"></span></li>
+                        <li class="mould_color intwoline" style="height: 80px; width: 656px;">联系地址：<span class="user_address"></span></li>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn12" leftTarget="#sure_btn12" rightTarget="#sure_btn12" upTarget="#sure_btn12" downTarget="#sure_btn12">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_wechat_qrcode" style="display:none">
+                    <ul class="qrcode_box  clearfix" style="width:65%">
+                        <div class="prize_qrcode"><span id="qrcode25"></span></div>
+                        <div class="prize_qrcode_info mould_color">请用微信扫码领取</div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn6" leftTarget="#sure_btn6" rightTarget="#sure_btn6" upTarget="#sure_btn6" downTarget="#sure_btn6">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>                   
+                </div>
+                <div class="prize_window" id="prize_phone_qrcode" style="display:none">
+                    <ul class="qrcode_box  clearfix" style="width:70%">
+                        <div class="prize_qrcode"><span id="qrcode23"></span></div>
+                        <div class="prize_qrcode_info mould_color font28">请用微信扫码填写信息</div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:10px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn5" leftTarget="#sure_btn5" rightTarget="#sure_btn5" upTarget="#sure_btn5" downTarget="#sure_btn5">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prize_window" id="prize_window_phone" style="display:none">
+                    <ul class="user_info_box">
+                        <li class="mould_color">领取人电话：<span class="user_phone1"></span></li>                       
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:20px; margin-bottom:20px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn4" leftTarget="#sure_btn4" rightTarget="#sure_btn4" upTarget="#sure_btn4" downTarget="#sure_btn4">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_wechat_window" style="display:none">
+                    <ul class="user_info_box" style="margin-top: 20px">
+                        <li class="mould_color">亲，该红包已发放至您扫二维码的微信帐户！</li>                       
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn" style="margin-top:20px; margin-bottom:20px;">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn8" leftTarget="#sure_btn8" rightTarget="#sure_btn8" upTarget="#sure_btn8" downTarget="#sure_btn8">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_window_ticket" style="display:none;">
+                    <ul class="user_info_box clearfix" style="margin:10px auto; height:140px;">
+                        <li class="mould_color"><span class="zw">兑换码：</span></li>
+                        <li class="mould_color"><span id="car_password_prize"></span></li>
+                        <li class="mould_color"><span id="car_password1_prize"></span></li>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn_ticket" leftTarget="#sure_btn_ticket" rightTarget="#sure_btn_ticket" upTarget="#sure_btn_ticket" downTarget="#sure_btn_ticket">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                    <div class="mould_color" id="awardParams_1" style="margin-top:15px;"></div>
+                </div>
+                <div class="prize_window" id="prize_window_virtual" style="display:none;">
+                    <ul class="user_info_box">
+                        <div class="clearfix" style=" width:100%; margin:0 auto;">
+                            <div style="width:210px; float:left; text-align:center;">
+                                <img id="virtual_img" class="type_img" src="" width="190" height="190" />
+                            </div>
+                            <div class="qrcode-box cards" style="float:left">
+                                <p class="mould_color" style="line-height:190px; text-align: center">该权益已发放至您的帐户</p>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn2" leftTarget="#sure_btn2" rightTarget="#sure_btn2" upTarget="#sure_btn2" downTarget="#sure_btn2">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="prize_window_coin" style="display:none;">
+                    <ul class="user_info_box">
+                        <div class="clearfix" style=" width:100%; margin:0 auto;">
+                            <div style="width:210px; float:left; text-align:center;">
+                                <img id="coin_img" class="type_img" src="" width="190" height="190" />
+                            </div>
+                            <div class="qrcode-box cards" style="float:left">
+                                <p class="mould_color" style="padding:40px 0 0 30px; text-align: left;white-space: pre-wrap;">您获得的金币<br/>已发放至您的账户</p>
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn3" leftTarget="#sure_btn3" rightTarget="#sure_btn3" upTarget="#sure_btn3" downTarget="#sure_btn3">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="prize_window" id="prize_window_dummy" style="display:none;">
+                    <ul class="user_info_box">
+                        <div class="clearfix" style=" width:100%; margin:0 auto;">
+                            <div class="clearfix cards_img" style="margin-bottom:20px">
+                                <img id="dummy_img" class="type_img" src="" width="508" height="158" />
+                            </div>
+                            <p class="mould_color font28" style="text-align: center">感谢您对本品牌的信赖！</p>
+                        </div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn7" leftTarget="#sure_btn7" rightTarget="#sure_btn7" upTarget="#sure_btn7" downTarget="#sure_btn7">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div> -->
+                <div class="prize_window" id="prize_window" style="display:none;">
+                    <ul class="user_info_box">
+                        <div class="clearfix" style=" width:100%; margin:0 auto;">
+                            <div class="clearfix cards_img" style="margin:0 auto">
+                                <img id="price_img" class="type_img" src="" width="476" height="148" />
+                            </div>
+                            <p class="mould_color font28" style="text-align: center">若您已购买，请勿重复购买</p>
+                        </div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit" id="priceBtn" leftTarget="#priceBtn" rightTarget="#priceBtn" upTarget="#priceBtn" downTarget="#priceBtn">
+                            <img class="sure_img price_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="coupon_window" style="display:none;">
+                    <ul class="user_info_box">
+                        <div class="clearfix" style=" width:100%; margin:0 auto;">
+                            <div class="clearfix cards_img">
+                                <img id="coupon_img" class="type_img" src="" width="508" height="158" />
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit" id="couponBtn" leftTarget="#couponBtn" rightTarget="#couponBtn" upTarget="#couponBtn" downTarget="#couponBtn">
+                            <img class="sure_img price_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <div class="prize_window" id="thirdCoupon_window" style="display:none">
+                    <ul class="qrcode_box  clearfix">
+                        <div style="width:210px; float:left; text-align:center;">
+                            <img id="third_img" class="type_img" src="" width="190" height="190" />
+                        </div>
+                        <div class="mould_color font28" id="thirdCoupon_txt" style="padding-top:60px"></div>
+                        <div class="mould_color font28">若您已领取，请勿重复扫码</div>
+                    </ul>
+                    <div class="btn_Get" id="confirmInfo_btn">
+                        <div class="coocaabtn submit prize_sure" id="sure_btn9" leftTarget="#sure_btn9" rightTarget="#sure_btn9" upTarget="#sure_btn9" downTarget="#sure_btn9">
+                            <img class="sure_img" src="">
+                        </div>
+                    </div>
+                </div>
+                <!-- <p class="point mould_color">如有疑问，可关注[酷开会员]公众号咨询<br/>或拨打客服热线：4001688880</p> -->
+            </ul>
+
+        </div>
+    </div>
+   <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/adjust.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/qrcode.js"></script>
+    <script type="text/javascript" src="js/coocaamap.js"></script>
+    <script type="text/javascript" src="js/turntable.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <script type="text/javascript">
+        //开始抽奖
+        // function startDraw() {
+        //     //转盘转动的代码
+        //     console.log("click start draw");
+        //     var rotateTimeOut = function() {
+        //         $('#rotate').rotate({
+        //             angle: 0,
+        //             animateTo: 2160,
+        //             duration: 8000,
+        //             callback: function() {
+        //                 alert('网络超时，请检查您的网络设置！');
+        //             }
+        //         });
+        //     };
+        //     var bRotate = false;
+        //     var rotateFn = function(awards, angles, txt) { //awards:奖项，angle:奖项对应的角度
+        //         bRotate = !bRotate;
+        //         $('#rotate').stopRotate();
+        //         $('#rotate').rotate({
+        //             angle: 0,
+        //             animateTo: angles + 1800,
+        //             duration: 3000,
+        //             callback: function() {
+        //                // getGold(txt);
+        //                console.log(awards, angles, txt);
+        //                 bRotate = !bRotate;
+        //             }
+        //         })
+        //     };
+
+        //     if (bRotate) return;
+        //     var item = 6;
+        //     var degree = 360/8;
+        //     var awardName = "玛瑙五件套";
+        //     for (var i = 0; i < 8; i++) {
+        //         if(i == item){
+        //             degree = degree*i;
+        //             rotateFn(i, degree, awardName);
+        //         }
+        //     }
+        // }
+
+    </script>
+</body>
+
+</html>

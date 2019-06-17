@@ -1,15 +1,15 @@
 //测试临时配置,正式发布时需要改为正式配置:
 //账号信息（等级、金币、成长点数等）服务器地址
-var _accountSrvUrl = 'http://172.20.155.202:7171'; //yuanbotestonly
-var _accountClientId = '9F072A0ABF6E2B3D';
-var _accountClientKey = '85bdfb9ef29b4776';
-var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+//var _accountSrvUrl = 'http://172.20.155.202:7171'; //yuanbotestonly
+//var _accountClientId = '9F072A0ABF6E2B3D';
+//var _accountClientKey = '85bdfb9ef29b4776';
+//var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
 //账号信息（等级、金币、成长点数等）服务器地址
-//var _accountSrvUrl = 'https://member.coocaa.com';
-//var _accountClientId = 'c7ea82d00b5a4aa3';
-//var _accountClientKey = 'fa1c9df1106c46fb';
-//var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
+var _accountSrvUrl = 'https://member.coocaa.com';
+var _accountClientId = 'c7ea82d00b5a4aa3';
+var _accountClientKey = 'fa1c9df1106c46fb';
+var _accountClientMissionSubmitUrl = '/v4/public/submit-missionEvent';
 
 //全局变量
 var cAppVersion;
@@ -18,6 +18,8 @@ var _openId = "";
 var _activeId = "";
 var _mac, _chip, _model, _size, _tcVersion;
 
+//小程序变量
+var _bAppxEnable = false;//是否打开小程序功能
 var _bAppxFirstIn = false;
 var _browserVerSupportAppX = '200043';
 
@@ -76,11 +78,14 @@ var app = {
 		app.triggleButton();
     },
     onResume: function() {
-    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
-    	if(_bAppxFirstIn){
-    		_bAppxFirstIn = false;
-    		showWebPage();
+    	if(_bAppxEnable == true) {
+	    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
+	    	if(_bAppxFirstIn){
+	    		_bAppxFirstIn = false;
+	    		showWebPage();
+	    	}
     	}
+    	console.log('in onResume.');
     },
     
     onPause: function() {
@@ -98,8 +103,13 @@ var app = {
 	
     triggleButton: function() {
         cordova.require("com.coocaaosapi");
-        startpage();
-	}
+        console.log("turntable _bAppxEnable:"+_bAppxEnable);
+        if(_bAppxEnable == true) {
+	        startpage();
+        }else {
+        	showWebPage();
+        }
+ 	}
 };
 
 app.initialize();
@@ -340,7 +350,9 @@ function submitTaskFinished() {
 	　　　　	console.log("complete------------------"+status);
 			if(status=='timeout'){
 	 　　　　　 		ajaxTmp.abort();
-	　　　　	}
+	　　　　	}else if (status == "error"){
+				showFailToast();
+			}
 			bindClick();
 	　　	}
 	});	
