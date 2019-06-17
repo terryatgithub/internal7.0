@@ -58,6 +58,7 @@ var activeId;
 var encrypt;
 
 //小程序变量：
+var _bAppxEnable = false;//是否打开小程序功能
 var _bAppxFirstIn = false;
 var _browserVerSupportAppX = '200043';
 
@@ -70,6 +71,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
         document.addEventListener("backbutton", this.handleBackButton, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener("resume", this.onresumeButton, false);
         document.addEventListener("pause", this.onPause, false);
     },
@@ -126,16 +128,23 @@ var app = {
         }
 
     },
+    homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
+    },
     onPause: function() {
     	console.log('pause');
     },
     onresumeButton: function() {
-    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
-    	if(_bAppxFirstIn){
-    		_bAppxFirstIn = false;
-    		showWebPage();
-    		return;
-    	} 
+    	if(_bAppxEnable == true){
+	    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
+	    	if(_bAppxFirstIn){
+	    		_bAppxFirstIn = false;
+	    		showWebPage();
+	    		return;
+	    	} 
+    	}
+    	console.log('in onResume.');
     	
         downloadReturn = true;
         console.log(Ticket+"======其他页面返回============");
@@ -175,7 +184,12 @@ var app = {
     handleBackButton: function() {},
     onDeviceReady: function() {
         cordova.require("com.coocaaosapi");
-        judgeLaunchSource();
+        console.log("turntable _bAppxEnable:"+_bAppxEnable);
+        if(_bAppxEnable == true) {
+        	judgeLaunchSource();	
+        }else {
+        	showWebPage();
+        }
     }
 
 };

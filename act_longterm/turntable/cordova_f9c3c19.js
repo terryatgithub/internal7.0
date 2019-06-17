@@ -1801,6 +1801,13 @@
              */
             exitApp: function() {
                 return exec(null, null, APP_PLUGIN_NAME, "exitApp", []);
+            },
+                        
+            /**
+             * Exit and terminate the application.
+             */
+            exitAll: function() {
+                return exec(null, null, APP_PLUGIN_NAME, "exitAll", []);
             }
         };
 
