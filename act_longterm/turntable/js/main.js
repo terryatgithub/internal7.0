@@ -54,14 +54,7 @@ var _notGotAwardId = "";//存储当前奖品点击时的id
 
 var needSentUserLog = false;//判断是否点了登录
 var needSentUserLog2 = false;//判断是否登录成功
-var activeId;
 var encrypt;
-
-//小程序变量：
-var _bAppxEnable = false;//是否打开小程序功能
-var _bAppxFirstIn = false;
-var _browserVerSupportAppX = '200043';
-
 var activeId = getUrlParam("id");
 var app = {
     initialize: function() {
@@ -136,16 +129,7 @@ var app = {
     	console.log('pause');
     },
     onresumeButton: function() {
-    	if(_bAppxEnable == true){
-	    	console.log('in onResume. _bAppxFirstIn:'+_bAppxFirstIn);
-	    	if(_bAppxFirstIn){
-	    		_bAppxFirstIn = false;
-	    		showWebPage();
-	    		return;
-	    	} 
-    	}
     	console.log('in onResume.');
-    	
         downloadReturn = true;
         console.log(Ticket+"======其他页面返回============");
         closeWindow();
@@ -183,113 +167,19 @@ var app = {
     },
     handleBackButton: function() {},
     onDeviceReady: function() {
+        sessionStorage.setItem("userTrack", "1");
+        buttonEvent(); //按钮事件
         cordova.require("com.coocaaosapi");
-        console.log("turntable _bAppxEnable:"+_bAppxEnable);
-        if(_bAppxEnable == true) {
-        	judgeLaunchSource();	
-        }else {
-        	showWebPage();
-        }
+        _appversion = accountVersion;
+        getDeviceInfo();
+        listenUserChange();
     }
 
 };
 app.initialize();
 
-//********************小程序 start **************************
-//特定机型不支持小程序
-function isDeviceSupportAppx(){
-	var list = ["9S61Z ZQ20S","9S60Z ZQ20S","9S62Z ZQ20S","9S61Z ZQ21S","9S60Z ZQ21S","9S62Z ZQ21S","9S62Z ZQ21S"];
-	coocaaosapi.getDeviceInfo(function(res){
-		console.log("getDeviceInfo success, res:"+res);
-		var model = (res.chip + " "+res.model).toUpperCase();
-		console.log("model:"+model);
-		if(list.indexOf(model) != -1) {
-			console.log("device not support Appx.");
-			showWebPage();
-		}else {
-			console.log("device support Appx.");
-			startpage();
-		}
-	}, function(err){
-		console.log("getDeviceInfo err :"+err);
-		showWebPage();
-	})
-}
 
-//如果是小程序调起的web页面，不再在web页面里起小程序，避免递归
-function judgeLaunchSource() {
-	console.log('window.url: '+window.location.href)
-	var from = getUrlParam("from");
-	console.log('judgeLaunchSource from:'+from);
-	
-	if(from == 'appx') {
-		console.log('web start by appx....')
-		showWebPage();
-	}else {
-		console.log('web start not by appx....')
-		isDeviceSupportAppx();
-	}
-}
 
-//根据浏览器版本是否支持插件，判断是起web页还是小程序插件
-function startpage() {
-	var pkgname = "com.coocaa.app_browser";
-	var a = '{"pkgList":["' + pkgname + '"]}';
-	coocaaosapi.getAppInfo(a, function(message){
-			console.log("getAppInfo ok====" + message);
-			var msg = JSON.parse(message);
-			if(msg[pkgname].status == -1) {//此apk不存在
-				coocaaosapi.startAppStoreDetail(pkgname, function(){},function(){});
-			}else {
-				hasversioncode = msg[pkgname].versionCode;
-				console.log('com.coocaa.app_browser version: '+hasversioncode+', appx_browser ver:'+_browserVerSupportAppX)
-				if(hasversioncode < _browserVerSupportAppX) {
-					console.log('browser not support appx')
-					showWebPage();
-				}else {
-					console.log('browser support appx...')
-					launchAppX();
-				}
-			}
-		},function(error) {
-            console.log("getAppInfo----error" + JSON.stringify(error));
-            coocaaosapi.startAppStoreDetail(pkgname,function(){},function(){});
-   });
-}
-/*
- testcase:
- 1. 低版本调用startAppX2时,web会onpause/resume吗？
- 2. startAppX2 fail时,会onpause/resume？
- 
- * */
-function launchAppX() {
-	coocaaosapi.addGlobalBroadcastListener("com.coocaa.appx.broadcasr.action.appx_launched", function(message) {
-	    console.log('AppX cb OK..'+JSON.stringify(message));
-        webExit();
-	});
-	var param= window.location.href +'&from=appx';
-	var url = 'appx://com.coocaa.appx.lite_browser?url='+encodeURIComponent(param);
-	console.log('launchAppX start,url: '+url);
-	coocaaosapi.startAppX2(url,"false",function(){
-		console.log('startAppX2 success....');
-		_bAppxFirstIn = true;
-	},function(){
-		console.log('startAppX2 fail....');
-		showWebPage();
-	});
-}
-function webExit() {
-	navigator.app.exitApp();
-}
-function showWebPage(){
-	console.log('showwebpage start...')
-	sessionStorage.setItem("userTrack", "1");
-    buttonEvent(); //按钮事件
-    _appversion = accountVersion;
-    getDeviceInfo();
-    listenUserChange();
-}
-//******************************小程序 end ************************************
 
 function buttonEvent() {
     //点击返回按钮返回主页面
