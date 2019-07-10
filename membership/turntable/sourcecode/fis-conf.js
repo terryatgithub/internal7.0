@@ -56,7 +56,10 @@ fis.match('*.png', {
 
 fis.match('donothashme.js', {
   useHash: false
-})
+});
+fis.match('jquery-1.8.3.min.js', {
+  useHash: false
+});
 
 fis.match('*.{js,css,png}',  {
 	optimizer: null

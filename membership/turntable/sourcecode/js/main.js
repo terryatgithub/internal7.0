@@ -10,10 +10,12 @@ var _vuserid = "";
 
 var _testurl = "https://restful.skysrt.com";
 
+//正式环境服务器：
 var adressIp = 'https://restful.skysrt.com/platform';
 var addressUrl = "https://webapp.skysrt.com/zy/turntable/address/";
 var priceUrl = "https://api-business.skysrt.com";
 
+//测试环境服务器：
 // var adressIp = "http://172.20.155.51:4000/platform";
 // var addressUrl = "http://beta.webapp.skysrt.com/zy/activity_1/address/";
 // var priceUrl = "http://dev.business.video.tc.skysrt.com";//支付
@@ -51,7 +53,8 @@ var _notGotAwardId = "";//存储当前奖品点击时的id
 
 var needSentUserLog = false;//判断是否点了登录
 var needSentUserLog2 = false;//判断是否登录成功
-activeId = getUrlParam("id");
+var encrypt;
+var activeId = getUrlParam("id");
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -60,7 +63,9 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('backbuttondown', this.onBackButtonDown, false);
         document.addEventListener("backbutton", this.handleBackButton, false);
+        document.addEventListener("homebutton", this.homeButtonFunction, false);
         document.addEventListener("resume", this.onresumeButton, false);
+        document.addEventListener("pause", this.onPause, false);
     },
     onBackButtonDown: function() {
         closeWindow();
@@ -115,7 +120,15 @@ var app = {
         }
 
     },
+    homeButtonFunction:function () {
+        console.log("-----------按了主页键------------");
+      	navigator.app.exitAll();
+    },
+    onPause: function() {
+    	console.log('pause');
+    },
     onresumeButton: function() {
+    	console.log('in onResume.');
         downloadReturn = true;
         console.log(Ticket+"======其他页面返回============");
         closeWindow();
@@ -220,6 +233,7 @@ function buttonEvent() {
             pageShowLog("web_button_clicked",dateObj);
     
             if(prize_null == true){
+                clickIndex = false;
                 popUp("over"); 
                 _dateObj.page_state="奖品抽完时";
                 page_state = "奖品抽完时";
