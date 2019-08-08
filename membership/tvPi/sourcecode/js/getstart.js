@@ -2,9 +2,13 @@ var _Index1= "";
 var _Lindex=0;
 var　firstFocus="";
 var _bPlayDisrupted = false;
-var _tvPaiUrl = "http://tvpi.coocaa.com/?from=tvpitv";
-var _udid = "";
+var _tvPaiUrl = "https://tvpi.coocaa.com/?from=tvpitv";
+var _accountClientKey="yzpmQHSfK2xnRE1o";
+var _udid = "",_mac,_model,_version,_tvName="";
 var _accessToken = "";
+var _showInTaskCenter = true;//因为电视派ios端app bug,需要次变量;
+							//true: 此页面默认显示在'任务中心',这种情况下只能扫描下载并加积分,不支持电视派App扫码连接;
+							//false:此页面显示在其它地方,此时支持下载+电视派App扫码连接,但下载不会加积分.
 
 //页面部分的逻辑
 var app = {
@@ -104,28 +108,46 @@ var app = {
 };
 
 app.initialize();
- 
+
+function getEncodedParams(){ //生成url后拼接的加密参数
+	var param = "activeId="+_udid+
+				"&mac="+_mac+
+				"&model="+_model+
+				"&ver="+_version+
+				(!!_tvName ? ("&name="+_tvName) : "");
+				
+	console.log("param before:"+param);
+	param = AESEncrypt(param);
+	return param;
+}
 //生成电视派二维码
 function getTVPaiQrcode() {
 	console.log("accesstoken:"+_accessToken+",cUid="+_udid);
+	var str = _tvPaiUrl;
 	
-//	var str = _tvPaiUrl;
-//	if(_accessToken != null && _accessToken !="") {
-//		str = _tvPaiUrl + "&accessToken="+_accessToken+"&cUid="+_udid;	
-//	}
-//	else if(_udid != null && _udid !="") {
-//		str = _tvPaiUrl + "&accessToken=&cUid="+_udid;
-//	}else {
-//		str =_tvPaiUrl + "&accessToken=&cUid=";
-//	}
-	var str = _tvPaiUrl + "&accessToken="+_accessToken+"&cUid="+_udid;
+	if(getQueryString("inmytask") == "false"){
+		console.log("not in task center....")
+		_showInTaskCenter = false;
+	}
 	
-	console.log("~~complete url:"+str);
-
-	var qrcode = new QRCode(document.getElementById("qrImageId"), {
-		width: 186,
-		height: 186
-	});
+	if(_showInTaskCenter){//页面被配置在任务中心
+		str = str + "&accessToken="+_accessToken+"&cUid="+_udid; //用户完成任务发送奖励需要的参数		
+		console.log("~~complete url:"+str);
+		var qrcode = new QRCode(document.getElementById("qrImageId"), {
+			width: 186,
+			height: 186,
+		});
+	}else{//页面被配置在其它地方
+		$(".qrTip").html("微信等扫码下载电视派<br>电视派扫码连接此电视");
+		var encodeParam = getEncodedParams();
+		str = str + "&" + encodeParam; //电视派App扫描连接需要的参数
+		console.log("~~complete url:"+str);
+		var qrcode = new QRCode(document.getElementById("qrImageId"), {
+			width: 186,
+			height: 186,
+			correctLevel : QRCode.CorrectLevel.M //bugfix: qrcode.js report url code length overflow.
+		});
+	}
 	
 	qrcode.makeCode(str);
 	$("#qrIcon").css("display", "block");
@@ -136,6 +158,10 @@ function getDeviceInfo() {
 	coocaaosapi.getDeviceInfo(function(message) {
 		console.log(JSON.stringify(message));
 		_udid = message.activeid;
+		_mac = message.mac;
+		_model = message.model;
+		_version = message.version;
+		_tvName = !!message.tvName ? message.tvName : "";
 		
 		coocaaosapi.getUserAccessToken(function(message) {
 			console.log(JSON.stringify(message));
@@ -177,4 +203,41 @@ function otherPageInit() {
 	$("#section3").css("background-image", "url("+pic4+")");
 	
 	$("body").css("background-image", "url(img/bg.webp)");
+}
+//AES
+function AESEncrypt(clearData) {
+	var key = CryptoJS.enc.Utf8.parse(_accountClientKey);
+	var options = {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	}
+	
+	var encrypted = CryptoJS.AES.encrypt(clearData, key, options);
+	console.log('enctypedBase64Str: '+encrypted.toString())
+	
+	return encrypted;
+	
+	//电视派后台接口不需要以下部分,直接用base64格式.
+	//之前陈希光的会员引导页需要下面这段.
+	// 需要读取encryptedData上的ciphertext.toString()才能拿到跟Java一样的密文
+//	var encryptedStr = encrypted.ciphertext.toString()
+//  console.log('encryptedStr: '+ encryptedStr)
+    
+//  return encryptedStr;
+    
+//  // 拿到字符串类型的密文需要先将其用Hex方法parse一下
+//  var encryptedHexStr = CryptoJS.enc.Hex.parse(encryptedStr)
+//  console.log('encryptedHexStr: '+ encryptedHexStr)
+//  // 将密文转为Base64的字符串
+//	// 只有Base64类型的字符串密文才能对其进行解密
+//  var encryptedBase64Str = CryptoJS.enc.Base64.stringify(encryptedHexStr)
+//  console.log('encryptedBase64Str: '+ encryptedBase64Str)
+}
+
+//获取url中的参数
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return unescape(r[2]);
+	return null;
 }
