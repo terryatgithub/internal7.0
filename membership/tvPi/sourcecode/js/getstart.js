@@ -2,7 +2,6 @@ var _Index1= "";
 var _Lindex=0;
 var　firstFocus="";
 var _bPlayDisrupted = false;
-var _tvPaiUrl = "https://tvpi.coocaa.com/?from=tvpitv";
 var _accountClientKey="yzpmQHSfK2xnRE1o";
 var _udid = "",_mac,_model,_version,_tvName="";
 var _accessToken = "";
@@ -123,7 +122,7 @@ function getEncodedParams(){ //生成url后拼接的加密参数
 //生成电视派二维码
 function getTVPaiQrcode() {
 	console.log("accesstoken:"+_accessToken+",cUid="+_udid);
-	var str = _tvPaiUrl;
+	var str;
 	
 	if(getQueryString("inmytask") == "false"){
 		console.log("not in task center....")
@@ -131,6 +130,7 @@ function getTVPaiQrcode() {
 	}
 	
 	if(_showInTaskCenter){//页面被配置在任务中心
+		str = "http://tvpi.coocaa.com/?from=tvpitv";//http
 		str = str + "&accessToken="+_accessToken+"&cUid="+_udid; //用户完成任务发送奖励需要的参数		
 		console.log("~~complete url:"+str);
 		var qrcode = new QRCode(document.getElementById("qrImageId"), {
@@ -140,6 +140,7 @@ function getTVPaiQrcode() {
 	}else{//页面被配置在其它地方
 		$(".qrTip").html("微信等扫码下载电视派<br>电视派扫码连接此电视");
 		var encodeParam = getEncodedParams();
+		str = "https://tvpi.coocaa.com/?from=tvpitv"; //https
 		str = str + "&" + encodeParam; //电视派App扫描连接需要的参数
 		console.log("~~complete url:"+str);
 		var qrcode = new QRCode(document.getElementById("qrImageId"), {
